@@ -1,7 +1,7 @@
 # RISC-V
 
 ## Name convention
-All variables must follow this name convention in order to keep the project cleen and structured
+All variables must follow this name convention in order to keep the project clean and structured
 
 |Regex|Description |
 |--|--|
