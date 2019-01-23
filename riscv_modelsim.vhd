@@ -1,0 +1,45 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use work.ARCH32.all;
+
+entity riscv_modelsim is
+end riscv_modelsim;
+
+architecture Structure of riscv_modelsim is
+	component memory is
+		port (
+			i_clk          : in std_logic;
+   		   	i_addr         : in std_logic_vector(15 downto 0);
+   		   	i_wr_data      : in std_logic_vector(R_XLEN);
+   		   	o_rd_data      : out std_logic_vector(R_XLEN);
+   		   	i_we           : in std_logic;
+   		   	i_byte_m       : in std_logic;
+			i_half_m	   : in std_logic;
+			i_boot         : in std_logic
+   		);
+	end component;
+	component proc is	
+		port (
+			i_boot : in std_logic;
+			i_clk_proc : in std_logic;
+			i_data_mem : in std_logic_vector(R_XLEN);
+			o_addr_mem : out std_logic_vector(R_XLEN)
+		);
+	end component;
+
+	signal s_boot_proc : std_logic := '1';
+	signal s_clk_proc : std_logic := '0';
+	signal s_data_mem : std_logic_vector(R_XLEN);
+	signal s_addr_mem : std_logic_vector(R_XLEN);
+begin
+	c_proc: proc
+		port map (
+			i_boot => s_boot_proc,
+			i_clk_proc => s_clk_proc,
+			i_data_mem => s_data_mem,
+			o_addr_mem => s_addr_mem
+		);
+	
+	s_boot_proc <= '1' after 25 ns, '0' after 35 ns;
+	s_clk_proc <= not s_clk_proc after 10 ns;
+end Structure;

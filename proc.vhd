@@ -8,7 +8,7 @@ entity proc is
 	port (
 		i_boot : in std_logic;
 		i_clk_proc : in std_logic;
-		i_data_mem : in std_logic;
+		i_data_mem : in std_logic_vector(R_XLEN);
 		o_addr_mem : out std_logic_vector(R_XLEN)
 	);
 end proc;

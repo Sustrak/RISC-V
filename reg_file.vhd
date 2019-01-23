@@ -15,13 +15,13 @@ end reg_file;
 
 architecture Structure of reg_file is
 	type reg_bank is array (R_NUM_REGS) of std_logic_vector (R_XLEN);
-	signal regs : reg_bank;
+	signal s_regs : reg_bank;
 begin
 	process(i_clk_proc)
 	begin
 		if (rising_edge(i_clk_proc)) then
 			if (i_wr = '1') then
-				regs(to_integer(unsigned(i_addr_d))) <= i_data;
+				s_regs(to_integer(unsigned(i_addr_d))) <= i_data;
 			end if;
 		end if;
 	end process;
