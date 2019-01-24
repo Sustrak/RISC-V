@@ -58,6 +58,6 @@ begin
 		o_overflow => open	
 	);
 
-	s_bdata <= std_logic_vector(resize(unsigned(i_immed), R_XLEN'high)) when i_alu_opcode = ALU_LUI else
-			   x"0";
+	s_bdata <= std_logic_vector(resize(signed(i_immed), R_XLEN'high+1)) when i_alu_opcode = ALU_LUI else
+			   (others => '0');
 end Structure;

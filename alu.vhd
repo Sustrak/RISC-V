@@ -1,5 +1,4 @@
 library ieee;
-library ARCH32;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.ARCH32.all;
@@ -17,5 +16,5 @@ end alu;
 architecture Structure of alu is
 begin
 	o_wdata <= i_bdata when i_opcode = ALU_LUI
-			   else x"0";
+			   else (others => '0');
 end Structure;

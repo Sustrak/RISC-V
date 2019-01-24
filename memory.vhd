@@ -1,7 +1,6 @@
 library ieee;
 
 use ieee.std_logic_1164.all;
---use ieee.std_logic_unsigned.all;
 use ieee.std_logic_textio.all;
 use std.textio.all;
 use ieee.numeric_std.all;
@@ -36,17 +35,20 @@ architecture comportament of memory is
     -- Instructions to read a text file into RAM --
     procedure Load_FitxerDadesMemoria (signal data_word :inout BLOQUE_RAM) is
         -- Open File in Read Mode
-        file romfile   :text open read_mode is "contingut.memoria.bin.rom";
+        file romfile   :text open read_mode is "memory.hex";
         variable lbuf  :line;
         variable i     :integer := 4096;  -- X"1000" ==> 4096 adreca inicial S.O.
-        variable fdata :std_logic_vector (7 downto 0);
+        variable fdata :std_logic_vector (31 downto 0);
     begin
         while not endfile(romfile) loop
             -- read data from input file
             readline(romfile, lbuf);
-            read(lbuf, fdata);
-            data_word(i) <= fdata;
-            i := i+1;
+            hread(lbuf, fdata);
+            data_word(i) <= fdata(7 downto 0);
+            data_word(i+1) <= fdata(15 downto 8);
+            data_word(i+2) <= fdata(23 downto 16);
+            data_word(i+3) <= fdata(31 downto 24);
+            i := i+4;
         end loop;
     end procedure;
 	

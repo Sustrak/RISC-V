@@ -6,8 +6,8 @@ package ARCH32 is
 	subtype R_XLEN is natural range 31 downto 0;
 	subtype R_INS is natural range 31 downto 0;
 	subtype R_OP_CODE is natural range 5 downto 0;
-	subtype R_REGS is natural range 5 downto 0;
-	subtype R_IMMED is natural range 20 downto 0;
+	subtype R_REGS is natural range 4 downto 0;
+	subtype R_IMMED is natural range 19 downto 0;
 	subtype R_NUM_REGS is natural range 31 downto 0;
 	-- LOCATION OF THE INFORMATION IN THE DIFFERENT TYPES OF INSTRUCTIONS
 	subtype R_INS_OPCODE is natural range 6 downto 0;
@@ -47,7 +47,7 @@ package ARCH32 is
 	subtype R_INSJ_RD is natural range 11 downto 7;
 
 	-- ALU OP CODES
-	constant ALU_LUI : std_logic_vector := "00001";
+	constant ALU_LUI : std_logic_vector := "000001";
 	-- INS OP CODE
 	constant LUI : std_logic_vector := "0110111";
 end ARCH32;

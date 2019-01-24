@@ -22,24 +22,44 @@ architecture Structure of riscv_modelsim is
 		port (
 			i_boot : in std_logic;
 			i_clk_proc : in std_logic;
-			i_data_mem : in std_logic_vector(R_XLEN);
+			o_wdata_mem : out std_logic_vector(R_XLEN);
+			i_rdata_mem : in std_logic_vector(R_XLEN);
 			o_addr_mem : out std_logic_vector(R_XLEN)
 		);
 	end component;
 
 	signal s_boot_proc : std_logic := '1';
 	signal s_clk_proc : std_logic := '0';
-	signal s_data_mem : std_logic_vector(R_XLEN);
+	signal s_rst_ram  : std_logic := '0';
+	signal s_wdata_mem : std_logic_vector(R_XLEN);
+	signal s_rdata_mem : std_logic_vector(R_XLEN);
 	signal s_addr_mem : std_logic_vector(R_XLEN);
+	signal s_we : std_logic := '0';
+	signal s_byte_m : std_logic := '0';
+	signal s_half_m : std_logic := '0';
 begin
 	c_proc: proc
 		port map (
 			i_boot => s_boot_proc,
 			i_clk_proc => s_clk_proc,
-			i_data_mem => s_data_mem,
+			o_wdata_mem => s_wdata_mem,
+			i_rdata_mem => s_rdata_mem,
 			o_addr_mem => s_addr_mem
 		);
-	
+	c_mem: memory
+		port map (
+			i_clk => s_clk_proc,
+			i_addr => s_addr_mem(15 downto 0),
+			i_wr_data => s_wdata_mem,
+			o_rd_data => s_rdata_mem,
+			i_we => s_we,
+			i_byte_m => s_byte_m,
+			i_half_m => s_half_m,
+			i_boot => s_rst_ram
+		);
+
 	s_boot_proc <= '1' after 25 ns, '0' after 35 ns;
 	s_clk_proc <= not s_clk_proc after 10 ns;
+	s_rst_ram <= '1' after 5 ns, '0' after 15 ns;
+
 end Structure;
