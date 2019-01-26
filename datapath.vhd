@@ -57,7 +57,8 @@ begin
 		o_wdata => s_wdata,
 		o_overflow => open	
 	);
+	--std_logic_vector(resize(signed(i_immed), R_XLEN'high+1))
 
-	s_bdata <= std_logic_vector(resize(signed(i_immed), R_XLEN'high+1)) when i_alu_opcode = ALU_LUI else
+	s_bdata <=  i_immed & x"000" when i_alu_opcode = ALU_LUI else
 			   (others => '0');
 end Structure;
