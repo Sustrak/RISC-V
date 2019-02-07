@@ -27,7 +27,8 @@ entity datapath is
 		i_ld_st : in std_logic;
 		i_bhw   : in std_logic_vector(R_MEM_ACCS);
 		o_ld_st : out std_logic;
-		o_bhw   : out std_logic_vector(R_MEM_ACCS)
+		o_bhw   : out std_logic_vector(R_MEM_ACCS);
+		i_mem_unsigned : in std_logic
 	);
 end datapath;
 
@@ -79,7 +80,9 @@ architecture Structure of datapath is
 			i_ld_st : in std_logic;
 			i_bhw : in std_logic_vector(R_MEM_ACCS);
 			o_ld_st : out std_logic;
-			o_bhw : out std_logic_vector(R_MEM_ACCS)	
+			o_bhw : out std_logic_vector(R_MEM_ACCS);
+			i_mem_unsigned : in std_logic;
+			o_mem_unsigned : out std_logic
 		);
 	end component;
 	component reg_ex_mem is
@@ -99,7 +102,9 @@ architecture Structure of datapath is
 			i_ld_st : in std_logic;
 			i_bhw : in std_logic_vector(R_MEM_ACCS);
 			o_ld_st : out std_logic;
-			o_bhw : out std_logic_vector(R_MEM_ACCS)	
+			o_bhw : out std_logic_vector(R_MEM_ACCS);
+			i_mem_unsigned : in std_logic;
+			o_mem_unsigned : out std_logic
 		);
 	end component;
 	component reg_mem_wb is
@@ -113,14 +118,22 @@ architecture Structure of datapath is
 			o_wdata : out std_logic_vector(R_XLEN)
 		);
 	end component;
+	component sign_extensor is
+		port (
+			i_data : in std_logic_vector(R_XLEN);
+			i_bhw : in std_logic_vector(R_MEM_ACCS);
+			i_unsigned : in std_logic;
+			o_data : out std_logic_vector(R_XLEN)
+		);
+	end component;
 	-- SIGNALS
 	signal s_wdata : std_logic_vector(R_XLEN);
 	signal s_port_a : std_logic_vector(R_XLEN);
 	signal s_port_b : std_logic_vector(R_XLEN);
 	signal s_bdata : std_logic_vector(R_XLEN);
 	signal s_overflow : std_logic;
-	signal s_ld_st : std_logic;
 	signal s_wdata_mem_alu : std_logic_vector(R_XLEN);
+	signal s_rdata_mem_ws : std_logic_vector(R_XLEN);
 	-- id/ex
 	signal s_wr_reg_idex : std_logic;
 	signal s_alu_mem_idex : std_logic;
@@ -135,12 +148,15 @@ architecture Structure of datapath is
 	signal s_pc_idex : std_logic_vector(R_XLEN);
 	signal s_ld_st_idex : std_logic;
 	signal s_bhw_idex : std_logic_vector(R_MEM_ACCS);
+	signal s_mem_unsigned_idex : std_logic;
 	-- ex/mem
 	signal s_wdata_exmem : std_logic_vector(R_XLEN);
 	signal s_addr_d_reg_exmem : std_logic_vector(R_REGS);
 	signal s_port_b_reg_exmem : std_logic_vector(R_XLEN);
 	signal s_wr_reg_exmem : std_logic;
 	signal s_alu_mem_exmem : std_logic;
+	signal s_mem_unsigned_exmem : std_logic;
+	signal s_bhw_exmem : std_logic_vector(R_MEM_ACCS);
 	-- mem/wb
 	signal s_wr_reg_memwb : std_logic; 
 	signal s_addr_d_reg_memwb : std_logic_vector(R_REGS);	
@@ -193,6 +209,8 @@ begin
 		i_bhw => i_bhw,
 		o_ld_st => s_ld_st_idex,
 		o_bhw => s_bhw_idex
+		i_mem_unsigned => i_mem_unsigned,
+		o_mem_unsigned => s_mem_unsigned_idex
 	);
 	c_reg_ex_mem : reg_ex_mem
 	port map (
@@ -210,8 +228,10 @@ begin
 		-- MEMORY
 		i_ld_st => s_ld_st_idex,
 		i_bhw => s_bhw_idex,
-		o_ld_st => s_ld_st,
-		o_bhw => o_bhw
+		o_ld_st => o_ld_st,
+		o_bhw => s_bhw_exmem
+		i_mem_unsigned => i_mem_unsigned,
+		o_mem_unsigned => s_mem_unsigned_exmem
 	);
 	c_reg_mem_wb : reg_mem_wb
 	port map (
@@ -224,14 +244,22 @@ begin
 		o_wdata => s_wdata_memwb
 	);
 
+	c_sign_extensor : sign_extensor
+	port map (
+		i_data => i_rdata_mem,
+		i_bhw => s_bhw_exmem,
+		i_unsigned => s_unsigned_exmem,
+		o_data => s_rdata_mem_ws
+	);
+
 	s_bdata <= x"FFF" & s_immed_idex when s_rb_imm_idex = ALU_IMM and s_immed_idex(19) = '1' else
 			   x"000" & s_immed_idex when s_rb_imm_idex = ALU_IMM and s_immed_idex(19) = '0' else
 			   s_port_b_reg_idex;
 
 	o_addr_mem <= s_wdata_exmem;
 	o_wdata_mem <= s_port_b_reg_exmem;
-	o_ld_st <= s_ld_st;
+	o_bhw <= s_bhw_exmem;
 
-	s_wdata_mem_alu <= i_rdata_mem when s_alu_mem_exmem = MEM_DATA else
+	s_wdata_mem_alu <= s_rdata_mem_ws when s_alu_mem_exmem = MEM_DATA else
 					   s_wdata_exmem;
 end Structure;

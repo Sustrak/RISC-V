@@ -30,7 +30,8 @@ entity control_unit is
 		o_ld_st : out std_logic;
 		o_bhw : out std_logic_vector(R_MEM_ACCS);
 		o_ld_st_to_mc : out std_logic;
-		o_bhw_to_mc : out std_logic_vector(R_MEM_ACCS)
+		o_bhw_to_mc : out std_logic_vector(R_MEM_ACCS);
+		o_mem_unsigned : out std_logic
 	);
 end control_unit;
 
@@ -51,7 +52,8 @@ architecture Structure of control_unit is
 			o_alu_mem : out std_logic;
 			-- MEMORY
 			o_ld_st : out std_logic;
-			o_bhw : out std_logic_vector(R_MEM_ACCS)
+			o_bhw : out std_logic_vector(R_MEM_ACCS);
+			o_mem_unsigned : out std_logic
 		);
 	end component;
 	
@@ -98,7 +100,8 @@ begin
 			o_alu_mem => o_alu_mem,
 			-- MEMORY
 			o_ld_st => o_ld_st,
-			o_bhw => o_bhw
+			o_bhw => o_bhw,
+			o_mem_unsigned => o_mem_unsigned
 		);
 	c_reg_if_id: reg_if_id
 		port map (

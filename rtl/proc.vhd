@@ -41,7 +41,8 @@ architecture Structure of proc is
 			i_ld_st : in std_logic;
 			i_bhw   : in std_logic_vector(R_MEM_ACCS);
 			o_ld_st : out std_logic;
-			o_bhw : out std_logic_vector(R_MEM_ACCS)
+			o_bhw : out std_logic_vector(R_MEM_ACCS);
+			i_mem_unsigned : in std_logic
 		);
 	end component;
 	component control_unit is
@@ -69,6 +70,7 @@ architecture Structure of proc is
 			i_bhw   : in std_logic_vector(R_MEM_ACCS);
 			o_ld_st : out std_logic;
 			o_bhw : out std_logic_vector(R_MEM_ACCS);
+			o_mem_unsigned : out std_logic;
 			o_ld_st_to_mc : out std_logic;
 			o_bhw_to_mc : out std_logic_vector(R_MEM_ACCS)
 		);
@@ -88,6 +90,7 @@ architecture Structure of proc is
 	signal s_bhw_dp : std_logic_vector(R_MEM_ACCS);
 	signal s_addr_a_reg : std_logic_vector(R_REGS);
 	signal s_addr_b_reg : std_logic_vector(R_REGS);
+	signal s_mem_unsigned : std_logic;
 begin
 	c_datapath: datapath
 		port map (
@@ -108,7 +111,8 @@ begin
 			i_ld_st => s_ld_st_cu,
 			i_bhw => s_bhw_cu,
 			o_ld_st => s_ld_st_dp,
-			o_bhw => s_bhw_dp
+			o_bhw => s_bhw_dp,
+			i_mem_unsigned => s_mem_unsigned
 		);
 	c_cu : control_unit
 		port map (
@@ -132,6 +136,7 @@ begin
 			o_bhw => s_bhw_cu,
 			o_ld_st_to_mc => o_ld_st,
 			o_bhw_to_mc => o_bhw,
-			o_addr_mem => o_addr_mem
+			o_addr_mem => o_addr_mem,
+			o_mem_unsigned => s_mem_unsigned
 		);
 end Structure;

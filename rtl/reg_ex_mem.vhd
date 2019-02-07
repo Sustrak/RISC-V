@@ -21,7 +21,9 @@ entity reg_ex_mem is
 		i_ld_st : in std_logic;
 		i_bhw : in std_logic_vector(R_MEM_ACCS);
 		o_ld_st : out std_logic;
-		o_bhw : out std_logic_vector(R_MEM_ACCS)	
+		o_bhw : out std_logic_vector(R_MEM_ACCS);
+		i_mem_unsigned : in std_logic;
+		o_mem_unsigned : out std_logic
 	);
 end reg_ex_mem;
 
@@ -34,6 +36,7 @@ architecture Structure of reg_ex_mem is
 	signal s_alu_mem : std_logic;
 	signal s_ld_st : std_logic;
 	signal s_bhw : std_logic_vector(R_MEM_ACCS);
+	signal s_mem_unsigned : std_logic
 begin
 	process (i_clk_proc)
 	begin
@@ -45,6 +48,7 @@ begin
 			s_alu_mem <= i_alu_mem;
 			s_ld_st <= i_ld_st;
 			s_bhw <= i_bhw;
+			s_mem_unsigned <= i_mem_unsigned;
 		end if;
 	end process;
 	o_wdata <= s_wdata;
@@ -54,4 +58,5 @@ begin
 	o_alu_mem <= s_alu_mem;
 	o_ld_st <= s_ld_st;
 	o_bhw <= s_bhw;
+	o_mem_unsigned <= s_mem_unsigned;
 end Structure;

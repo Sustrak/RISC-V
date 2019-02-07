@@ -63,4 +63,7 @@ package ARCH32 is
 	-- SELECT ALU DATA OR MEM DATA TO WRITE IN REGISTER
 	constant ALU_DATA : std_logic := '0';
 	constant MEM_DATA : std_logic := '1';
+	-- DATA FROM MEM IS SIGNED OR UNSIGNED
+	constant M_UNSIGNED : std_logic := '1';
+	constant M_SIGNED : std_logic := '0';
 end ARCH32;

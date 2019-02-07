@@ -30,7 +30,9 @@ entity reg_id_ex is
 		i_ld_st : in std_logic;
 		i_bhw : in std_logic_vector(R_MEM_ACCS);
 		o_ld_st : out std_logic;
-		o_bhw : out std_logic_vector(R_MEM_ACCS)	
+		o_bhw : out std_logic_vector(R_MEM_ACCS);
+		i_mem_unsigned : in std_logic;
+		o_mem_unsigned : out std_logic
 	);
 end reg_id_ex;
 
@@ -46,6 +48,7 @@ architecture Structure of reg_id_ex is
 	signal s_bhw : std_logic_vector(R_MEM_ACCS);
 	signal s_port_a_reg : std_logic_vector(R_XLEN);
 	signal s_port_b_reg : std_logic_vector(R_XLEN);
+	signal s_mem_unsigned : std_logic;
 begin
 	process (i_clk_proc)
 	begin
@@ -61,6 +64,7 @@ begin
 			s_bhw <= i_bhw;
 			s_port_a_reg <= i_port_a_reg;
 			s_port_b_reg <= i_port_b_reg;
+			s_mem_unsigned <= i_mem_unsigned;
 		end if;
 	end process;
 	
@@ -75,4 +79,5 @@ begin
 	o_bhw <= s_bhw;
 	o_port_a_reg <= s_port_a_reg;
 	o_port_b_reg <= s_port_b_reg;
+	o_mem_unsigned <= s_mem_unsigned;
 end Structure;

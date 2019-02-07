@@ -20,7 +20,8 @@ entity ins_decoder is
 		o_alu_mem : out std_logic;
 		-- MEMORY
 		o_ld_st : out std_logic;
-		o_bhw : out std_logic_vector(R_MEM_ACCS)
+		o_bhw : out std_logic_vector(R_MEM_ACCS);
+		o_mem_unsigned : out std_logic
 	);
 end ins_decoder;
 
@@ -61,4 +62,7 @@ begin
 	o_bhw <= B_ACCESS when (s_op = STORE or s_op = LOAD) and (s_funct3 = F3_BYTE or s_funct3 = F3_BYTEU) else
 			 H_ACCESS when (s_op = STORE or s_op = LOAD) and (s_funct3 = F3_HALF or s_funct3 = F3_HALFU) else
 			 W_ACCESS;
+
+	o_mem_unsigned <= M_UNSIGNED when s_op = LOAD and (s_funct3 = F3_BYTEU or s_funct3 = F3_HALFU) else
+					  M_SIGNED;
 end Structure;
