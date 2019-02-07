@@ -1,0 +1,49 @@
+Info: Starting: Create block symbol file (.bsf)
+Info: qsys-generate C:\Users\Panoramix\Documents\RISCV\SDRAMController.qsys --block-symbol-file --output-directory=C:\Users\Panoramix\Documents\RISCV\SDRAMController --family="Cyclone V" --part=5CSEMA5F31C6
+Progress: Loading RISCV/SDRAMController.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 18.1]
+Progress: Parameterizing module clk_0
+Progress: Adding pll_0 [altera_pll 18.1]
+Progress: Parameterizing module pll_0
+Progress: Adding sdram_controller [altera_avalon_new_sdram_controller 18.1]
+Progress: Parameterizing module sdram_controller
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: SDRAMController.pll_0: The legal reference clock frequency is 5.0 MHz..800.0 MHz
+Warning: SDRAMController.pll_0: Able to implement PLL - Actual settings differ from Requested settings
+Info: SDRAMController.sdram_controller: SDRAM Controller will only be supported in Quartus Prime Standard Edition in the future release.
+Warning: SDRAMController.: You have exported the interface sdram_controller.s1 but not its associated clock interface.  Export the driver of sdram_controller.clk
+Info: qsys-generate succeeded.
+Info: Finished: Create block symbol file (.bsf)
+Info: 
+Info: Starting: Create HDL design files for synthesis
+Info: qsys-generate C:\Users\Panoramix\Documents\RISCV\SDRAMController.qsys --synthesis=VHDL --output-directory=C:\Users\Panoramix\Documents\RISCV\SDRAMController\synthesis --family="Cyclone V" --part=5CSEMA5F31C6
+Progress: Loading RISCV/SDRAMController.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 18.1]
+Progress: Parameterizing module clk_0
+Progress: Adding pll_0 [altera_pll 18.1]
+Progress: Parameterizing module pll_0
+Progress: Adding sdram_controller [altera_avalon_new_sdram_controller 18.1]
+Progress: Parameterizing module sdram_controller
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: SDRAMController.pll_0: The legal reference clock frequency is 5.0 MHz..800.0 MHz
+Warning: SDRAMController.pll_0: Able to implement PLL - Actual settings differ from Requested settings
+Info: SDRAMController.sdram_controller: SDRAM Controller will only be supported in Quartus Prime Standard Edition in the future release.
+Warning: SDRAMController.: You have exported the interface sdram_controller.s1 but not its associated clock interface.  Export the driver of sdram_controller.clk
+Info: SDRAMController: Generating SDRAMController "SDRAMController" for QUARTUS_SYNTH
+Info: pll_0: "SDRAMController" instantiated altera_pll "pll_0"
+Info: sdram_controller: Starting RTL generation for module 'SDRAMController_sdram_controller'
+Info: sdram_controller:   Generation command is [exec D:/intelfpga/18.1/quartus/bin64/perl/bin/perl.exe -I D:/intelfpga/18.1/quartus/bin64/perl/lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin/europa -I D:/intelfpga/18.1/quartus/sopc_builder/bin/perl_lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/common -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_new_sdram_controller -- D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_new_sdram_controller/generate_rtl.pl --name=SDRAMController_sdram_controller --dir=C:/Users/PANORA~1/AppData/Local/Temp/alt7927_557425650483675673.dir/0003_sdram_controller_gen/ --quartus_dir=D:/intelfpga/18.1/quartus --verilog --config=C:/Users/PANORA~1/AppData/Local/Temp/alt7927_557425650483675673.dir/0003_sdram_controller_gen//SDRAMController_sdram_controller_component_configuration.pl  --do_build_sim=0  ]
+Info: sdram_controller: Done RTL generation for module 'SDRAMController_sdram_controller'
+Info: sdram_controller: "SDRAMController" instantiated altera_avalon_new_sdram_controller "sdram_controller"
+Info: rst_controller: "SDRAMController" instantiated altera_reset_controller "rst_controller"
+Info: SDRAMController: Done "SDRAMController" with 4 modules, 7 files
+Info: qsys-generate succeeded.
+Info: Finished: Create HDL design files for synthesis

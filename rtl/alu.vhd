@@ -16,6 +16,7 @@ end alu;
 
 architecture Structure of alu is
 begin
-	o_wdata <= i_bdata when i_opcode = ALU_LUI
-			   else (others => '0');
+	o_wdata <= i_bdata(19 downto 0) & x"000" when i_opcode = ALU_LUI else
+			   std_logic_vector(signed(i_adata) + signed(i_bdata)) when i_opcode = ALU_ADD else
+			   (others => '0');
 end Structure;

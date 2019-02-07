@@ -24,7 +24,9 @@ architecture Structure of riscv_modelsim is
 			i_clk_proc : in std_logic;
 			o_wdata_mem : out std_logic_vector(R_XLEN);
 			i_rdata_mem : in std_logic_vector(R_XLEN);
-			o_addr_mem : out std_logic_vector(R_XLEN)
+			o_addr_mem : out std_logic_vector(R_XLEN);
+			o_bhw : out std_logic_vector(R_MEM_ACCS);
+			o_ld_st : out std_logic
 		);
 	end component;
 
@@ -37,6 +39,7 @@ architecture Structure of riscv_modelsim is
 	signal s_we : std_logic := '0';
 	signal s_byte_m : std_logic := '0';
 	signal s_half_m : std_logic := '0';
+	signal s_bhw : std_logic_vector(R_MEM_ACCS);
 begin
 	c_proc: proc
 		port map (
@@ -44,7 +47,9 @@ begin
 			i_clk_proc => s_clk_proc,
 			o_wdata_mem => s_wdata_mem,
 			i_rdata_mem => s_rdata_mem,
-			o_addr_mem => s_addr_mem
+			o_addr_mem => s_addr_mem,
+			o_ld_st => s_we,
+			o_bhw => s_bhw
 		);
 	c_mem: memory
 		port map (
@@ -61,5 +66,10 @@ begin
 	s_boot_proc <= '1' after 25 ns, '0' after 35 ns;
 	s_clk_proc <= not s_clk_proc after 10 ns;
 	s_rst_ram <= '1' after 5 ns, '0' after 15 ns;
+
+	s_byte_m <= '1' when s_bhw = B_ACCESS else
+				'0';
+	s_half_m <= '1' when s_bhw = H_ACCESS else
+				'0';
 
 end Structure;
