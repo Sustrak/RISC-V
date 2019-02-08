@@ -15,7 +15,7 @@ package ARCH32 is
 	subtype R_INS_FUNCT3 is natural range 14 downto 12;
 	subtype R_INS_RS1 is natural range 19 downto 15;
 	subtype R_INS_RS2 is natural range 24 downto 20;
-	subtype R_INS_RD  is natural range 11 downto 7;
+	subtype R_INS_RD is natural range 11 downto 7;
 	subtype R_INS_FUNCT7 is natural range 31 downto 25;
 	-- R-type
 	-- I-type
@@ -37,33 +37,35 @@ package ARCH32 is
 	subtype R_INSJ_IMM2 is natural range 19 downto 12;
 
 	-- ALU OP CODES
-	constant ALU_LUI : std_logic_vector := "000001";
-	constant ALU_ADD : std_logic_vector := "000010";
+	constant ALU_LUI  : std_logic_vector := "000001";
+	constant ALU_ADD  : std_logic_vector := "000010";
 	-- INS OP CODE
-	constant LUI  : std_logic_vector := "0110111";
-	constant LOAD  : std_logic_vector := "0000011";
-	constant STORE   : std_logic_vector := "0100011";
+	constant LUI      : std_logic_vector := "0110111";
+	constant LOAD     : std_logic_vector := "0000011";
+	constant STORE    : std_logic_vector := "0100011";
+	constant ARITHI   : std_logic_vector := "0010011";
 	-- FUNCT3 CODES
-	constant F3_BYTE : std_logic_vector := "000";
-	constant F3_HALF : std_logic_vector := "001";
-	constant F3_WORD : std_logic_vector := "010";
+	constant F3_BYTE  : std_logic_vector := "000";
+	constant F3_HALF  : std_logic_vector := "001";
+	constant F3_WORD  : std_logic_vector := "010";
 	constant F3_BYTEU : std_logic_vector := "100";
 	constant F3_HALFU : std_logic_vector := "101";
+	constant F3_ADDI  : std_logic_vector := "000";
 	-- MEMORY ACCESS
-	subtype  R_MEM_ACCS is natural range 1 downto 0;
-	constant B_ACCESS : std_logic_vector := "10";
-	constant H_ACCESS : std_logic_vector := "01";
-	constant W_ACCESS : std_logic_vector := "00";
+	subtype R_MEM_ACCS is natural range 1 downto 0;
+	constant B_ACCESS   : std_logic_vector := "10";
+	constant H_ACCESS   : std_logic_vector := "01";
+	constant W_ACCESS   : std_logic_vector := "00";
 	-- MEMORY LOAD/STORE
-	constant LD_MEM : std_logic := '0';
-	constant ST_MEM : std_logic := '1';
+	constant LD_MEM     : std_logic        := '0';
+	constant ST_MEM     : std_logic        := '1';
 	-- SELECT IMMEDIATE OR RB
-	constant ALU_IMM : std_logic := '1';
-	constant ALU_RB  : std_logic := '0';
+	constant ALU_IMM    : std_logic        := '1';
+	constant ALU_RB     : std_logic        := '0';
 	-- SELECT ALU DATA OR MEM DATA TO WRITE IN REGISTER
-	constant ALU_DATA : std_logic := '0';
-	constant MEM_DATA : std_logic := '1';
+	constant ALU_DATA   : std_logic        := '0';
+	constant MEM_DATA   : std_logic        := '1';
 	-- DATA FROM MEM IS SIGNED OR UNSIGNED
-	constant M_UNSIGNED : std_logic := '1';
-	constant M_SIGNED : std_logic := '0';
+	constant M_UNSIGNED : std_logic        := '1';
+	constant M_SIGNED   : std_logic        := '0';
 end ARCH32;

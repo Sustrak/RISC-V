@@ -6,10 +6,10 @@ use work.ARCH32.all;
 
 entity alu is
 	port (
-		i_adata: in std_logic_vector(R_XLEN);
-		i_bdata: in std_logic_vector(R_XLEN);
-		i_opcode: in std_logic_vector(R_OP_CODE);
-		o_wdata: out std_logic_vector(R_XLEN);
+		i_adata    : in std_logic_vector(R_XLEN);
+		i_bdata    : in std_logic_vector(R_XLEN);
+		i_opcode   : in std_logic_vector(R_OP_CODE);
+		o_wdata    : out std_logic_vector(R_XLEN);
 		o_overflow : out std_logic
 	);
 end alu;
@@ -17,6 +17,6 @@ end alu;
 architecture Structure of alu is
 begin
 	o_wdata <= i_bdata(19 downto 0) & x"000" when i_opcode = ALU_LUI else
-			   std_logic_vector(signed(i_adata) + signed(i_bdata)) when i_opcode = ALU_ADD else
-			   (others => '0');
+		std_logic_vector(signed(i_adata) + signed(i_bdata)) when i_opcode = ALU_ADD else
+		(others => '0');
 end Structure;

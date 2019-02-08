@@ -6,17 +6,17 @@ use work.ARCH32.all;
 
 entity multi is
 	port (
-		i_boot : in std_logic;
-		i_clk_proc : in std_logic;
-		o_inc_pc : out std_logic;
+		i_boot        : in std_logic;
+		i_clk_proc    : in std_logic;
+		o_inc_pc      : out std_logic;
 		-- MEMORY
-		i_pc : in std_logic_vector(R_XLEN);
-		i_addr_mem : in std_logic_vector(R_XLEN);
-		o_addr_mem : out std_logic_vector(R_XLEN);
-		i_ld_st : in std_logic;
-		i_bhw : in std_logic_vector(R_MEM_ACCS);
+		i_pc          : in std_logic_vector(R_XLEN);
+		i_addr_mem    : in std_logic_vector(R_XLEN);
+		o_addr_mem    : out std_logic_vector(R_XLEN);
+		i_ld_st       : in std_logic;
+		i_bhw         : in std_logic_vector(R_MEM_ACCS);
 		o_ld_st_to_mc : out std_logic;
-		o_bhw_to_mc : out std_logic_vector(R_MEM_ACCS)
+		o_bhw_to_mc   : out std_logic_vector(R_MEM_ACCS)
 	);
 end entity;
 
@@ -44,12 +44,12 @@ begin
 	end process;
 
 	o_inc_pc <= '1' when state = WB else
-				'0';
+		'0';
 	o_ld_st_to_mc <= LD_MEM when state = FETCH else
-					 i_ld_st;
+		i_ld_st;
 	o_bhw_to_mc <= W_ACCESS when state = FETCH else
-				   i_bhw;		   
+		i_bhw;
 
 	o_addr_mem <= i_pc when state = FETCH else
-				  i_addr_mem;
+		i_addr_mem;
 end Structure;
