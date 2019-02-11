@@ -24,7 +24,7 @@ begin
 	process (i_clk_proc)
 	begin
 		if (rising_edge(i_clk_proc)) then
-			if (i_wr = '1' and (unsigned(i_addr_d) /= 0)) then
+			if (i_wr = '1') then
 				s_regs(to_integer(unsigned(i_addr_d))) <= i_data;
 			end if;
 		end if;

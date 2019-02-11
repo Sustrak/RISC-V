@@ -35,7 +35,7 @@ begin
 	s_funct7     <= i_ins(R_INS_FUNCT7);
 
 	o_alu_opcode <= ALU_LUI when s_op = LUI else
-		ALU_ADD when s_op = LOAD or s_op = STORE else
+		ALU_ADD when s_op = LOAD or s_op = STORE or (s_op = ARITHI and s_funct3 = F3_ADDI) else
 		(others => '0');
 
 	o_wr_reg <= '1' when s_op = LUI or s_op = LOAD or s_op = ARITHI else
