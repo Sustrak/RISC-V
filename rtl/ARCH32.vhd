@@ -81,11 +81,11 @@ package ARCH32 is
 	subtype R_DPB_DATAW is natural range 42 downto 11;
 	constant R_DPB_LDST : integer := 10;
 	subtype R_DPB_BHW is natural range 9 downto 8;
-	constant R_DPB_ALUMEM : integer := 7;
+	constant R_DPB_ALUMEM   : integer := 7;
 	constant R_DPB_MEMUNSIG : integer := 6;
 	subtype R_DPB_ADDRD is natural range 5 downto 1;
 	constant R_DPB_WRREG : integer := 0;
-	subtype R_DPB_EXMEM	is natural range 10 downto 0;
+	subtype R_DPB_EXMEM is natural range 10 downto 0;
 	subtype R_DPB_MEMWB is natural range 5 downto 0;
 
 end ARCH32;

@@ -63,21 +63,21 @@ architecture Structure of datapath is
 		);
 	end component;
 	-- SIGNALS
-	signal s_wdata              : std_logic_vector(R_XLEN);
-	signal s_port_a             : std_logic_vector(R_XLEN);
-	signal s_port_b             : std_logic_vector(R_XLEN);
-	signal s_bdata              : std_logic_vector(R_XLEN);
-	signal s_overflow           : std_logic;
-	signal s_wdata_mem_alu      : std_logic_vector(R_XLEN);
-	signal s_rdata_mem_ws       : std_logic_vector(R_XLEN);
-	signal s_wdata_to_reg 		: std_logic_vector(R_XLEN);
+	signal s_wdata         : std_logic_vector(R_XLEN);
+	signal s_port_a        : std_logic_vector(R_XLEN);
+	signal s_port_b        : std_logic_vector(R_XLEN);
+	signal s_bdata         : std_logic_vector(R_XLEN);
+	signal s_overflow      : std_logic;
+	signal s_wdata_mem_alu : std_logic_vector(R_XLEN);
+	signal s_rdata_mem_ws  : std_logic_vector(R_XLEN);
+	signal s_wdata_to_reg  : std_logic_vector(R_XLEN);
 	-- REGISTERS
-	signal r_id_ex : std_logic_vector(R_DATAPATH_BUS);
-	signal or_id_ex : std_logic_vector(R_DATAPATH_BUS);
-	signal r_ex_mem : std_logic_vector(R_DATAPATH_BUS);
-	signal or_ex_mem : std_logic_vector(R_DATAPATH_BUS);
-	signal r_mem_wb : std_logic_vector(R_DATAPATH_BUS);
-	signal or_mem_wb : std_logic_vector(R_DATAPATH_BUS);
+	signal r_id_ex         : std_logic_vector(R_DATAPATH_BUS);
+	signal or_id_ex        : std_logic_vector(R_DATAPATH_BUS);
+	signal r_ex_mem        : std_logic_vector(R_DATAPATH_BUS);
+	signal or_ex_mem       : std_logic_vector(R_DATAPATH_BUS);
+	signal r_mem_wb        : std_logic_vector(R_DATAPATH_BUS);
+	signal or_mem_wb       : std_logic_vector(R_DATAPATH_BUS);
 begin
 	c_reg_file : reg_file
 	port map(
@@ -105,38 +105,36 @@ begin
 		i_unsigned => r_ex_mem(R_DPB_MEMUNSIG),
 		o_data     => s_rdata_mem_ws
 	);
-
-
 	s_bdata <= x"FFF" & r_id_ex(R_DPB_IMMED) when r_id_ex(R_DPB_RBIMM) = ALU_IMM and r_id_ex(R_DPB_IMMED)(69) = '1' else
 		x"000" & r_id_ex(R_DPB_IMMED) when r_id_ex(R_DPB_RBIMM) = ALU_IMM and r_id_ex(R_DPB_IMMED)(69) = '0' else
 		r_id_ex(R_DPB_DATAB);
 
-	o_addr_mem      <= r_ex_mem(R_DPB_DATAW);
-	o_wdata_mem     <= r_ex_mem(R_DPB_DATAB);
-	o_bhw           <= r_ex_mem(R_DPB_BHW);
-	o_ld_st         <= r_ex_mem(R_DPB_LDST);
+	o_addr_mem     <= r_ex_mem(R_DPB_DATAW);
+	o_wdata_mem    <= r_ex_mem(R_DPB_DATAB);
+	o_bhw          <= r_ex_mem(R_DPB_BHW);
+	o_ld_st        <= r_ex_mem(R_DPB_LDST);
 
 	s_wdata_to_reg <= r_ex_mem(R_DPB_DATAW) when r_ex_mem(R_DPB_ALUMEM) = ALU_DATA else
-					  s_rdata_mem_ws;
+		s_rdata_mem_ws;
 
 	process (i_clk_proc)
 	begin
 		if rising_edge(i_clk_proc) then
 			-- ID/EX REGISTER IN SIGNALS
-			r_id_ex(R_DPB_IMMED) <= i_immed;
-			r_id_ex(R_DPB_OPCODE) <= i_alu_opcode;
-			r_id_ex(R_DPB_RBIMM) <= i_rb_imm;
-			r_id_ex(R_DPB_LDST) <= i_ld_st;
-			r_id_ex(R_DPB_BHW) <= i_bhw;
-			r_id_ex(R_DPB_ALUMEM) <= i_alu_mem;
+			r_id_ex(R_DPB_IMMED)    <= i_immed;
+			r_id_ex(R_DPB_OPCODE)   <= i_alu_opcode;
+			r_id_ex(R_DPB_RBIMM)    <= i_rb_imm;
+			r_id_ex(R_DPB_LDST)     <= i_ld_st;
+			r_id_ex(R_DPB_BHW)      <= i_bhw;
+			r_id_ex(R_DPB_ALUMEM)   <= i_alu_mem;
 			r_id_ex(R_DPB_MEMUNSIG) <= i_mem_unsigned;
-			r_id_ex(R_DPB_ADDRD) <= i_addr_d_reg;
-			r_id_ex(R_DPB_WRREG) <= i_wr_reg;
-			r_id_ex(R_DPB_DATAA) <= s_port_a;
-			r_id_ex(R_DPB_DATAB) <= s_port_b;
+			r_id_ex(R_DPB_ADDRD)    <= i_addr_d_reg;
+			r_id_ex(R_DPB_WRREG)    <= i_wr_reg;
+			r_id_ex(R_DPB_DATAA)    <= s_port_a;
+			r_id_ex(R_DPB_DATAB)    <= s_port_b;
 			-- PASS THE SIGNAL TO THE OTHER REGISTERS
-			r_mem_wb <= r_ex_mem(133 downto 43) & s_wdata_to_reg & r_ex_mem(10 downto 0);
-			r_ex_mem <= r_id_ex(133 downto 43) & s_wdata & r_id_ex(10 downto 0);
-		end if;		
+			r_mem_wb                <= r_ex_mem(133 downto 43) & s_wdata_to_reg & r_ex_mem(10 downto 0);
+			r_ex_mem                <= r_id_ex(133 downto 43) & s_wdata & r_id_ex(10 downto 0);
+		end if;
 	end process;
 end Structure;
