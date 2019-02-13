@@ -2,6 +2,6 @@
 
 .globl main
 main:
-	lui t0, 0x1234
-	lui t1, 0x5678
-	lui t2, 0x9ABC
+	lui t0, 0x12341
+	lui t1, 0x7FFFF
+	lui t2, 0xABC
