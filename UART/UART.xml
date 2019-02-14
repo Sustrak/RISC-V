@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy
+ date="2019.02.13.17:33:01"
+ outputDirectory="C:/Users/Panoramix/Documents/RISCV/UART/">
+ <perimeter>
+  <parameter
+     name="AUTO_GENERATION_ID"
+     type="Integer"
+     defaultValue="0"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_UNIQUE_ID"
+     type="String"
+     defaultValue=""
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE_FAMILY"
+     type="String"
+     defaultValue="Cyclone V"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE"
+     type="String"
+     defaultValue="5CSEMA5F31C6"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE_SPEEDGRADE"
+     type="String"
+     defaultValue="6"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_CLK_CLOCK_RATE"
+     type="Long"
+     defaultValue="-1"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_CLK_CLOCK_DOMAIN"
+     type="Integer"
+     defaultValue="-1"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_CLK_RESET_DOMAIN"
+     type="Integer"
+     defaultValue="-1"
+     onHdl="0"
+     affectsHdl="1" />
+  <interface name="clk" kind="clock" start="0">
+   <property name="clockRate" value="50000000" />
+   <property name="externallyDriven" value="false" />
+   <property name="ptfSchematicName" value="" />
+   <port name="clk_clk" direction="input" role="clk" width="1" />
+  </interface>
+  <interface name="int" kind="interrupt" start="0">
+   <property name="associatedAddressablePoint" value="UART.wire" />
+   <property name="associatedClock" value="clk" />
+   <property name="associatedReset" value="reset" />
+   <property name="bridgedReceiverOffset" value="0" />
+   <property name="bridgesToReceiver" value="" />
+   <property name="irqScheme" value="NONE" />
+   <port name="int_irq" direction="output" role="irq" width="1" />
+  </interface>
+  <interface name="reset" kind="reset" start="0">
+   <property name="associatedClock" value="" />
+   <property name="synchronousEdges" value="NONE" />
+   <port name="reset_reset_n" direction="input" role="reset_n" width="1" />
+  </interface>
+  <interface name="uart" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <port name="uart_rxd" direction="input" role="rxd" width="1" />
+   <port name="uart_txd" direction="output" role="txd" width="1" />
+  </interface>
+  <interface name="wire" kind="avalon" start="0">
+   <property name="addressAlignment" value="NATIVE" />
+   <property name="addressGroup" value="0" />
+   <property name="addressSpan" value="8" />
+   <property name="addressUnits" value="WORDS" />
+   <property name="alwaysBurstMaxBurst" value="false" />
+   <property name="associatedClock" value="clk" />
+   <property name="associatedReset" value="reset" />
+   <property name="bitsPerSymbol" value="8" />
+   <property name="bridgedAddressOffset" value="0" />
+   <property name="bridgesToMaster" value="" />
+   <property name="burstOnBurstBoundariesOnly" value="false" />
+   <property name="burstcountUnits" value="WORDS" />
+   <property name="constantBurstBehavior" value="false" />
+   <property name="explicitAddressSpan" value="0" />
+   <property name="holdTime" value="0" />
+   <property name="interleaveBursts" value="false" />
+   <property name="isBigEndian" value="false" />
+   <property name="isFlash" value="false" />
+   <property name="isMemoryDevice" value="false" />
+   <property name="isNonVolatileStorage" value="false" />
+   <property name="linewrapBursts" value="false" />
+   <property name="maximumPendingReadTransactions" value="0" />
+   <property name="maximumPendingWriteTransactions" value="0" />
+   <property name="minimumUninterruptedRunLength" value="1" />
+   <property name="printableDevice" value="true" />
+   <property name="readLatency" value="0" />
+   <property name="readWaitStates" value="1" />
+   <property name="readWaitTime" value="1" />
+   <property name="registerIncomingSignals" value="false" />
+   <property name="registerOutgoingSignals" value="false" />
+   <property name="setupTime" value="0" />
+   <property name="timingUnits" value="Cycles" />
+   <property name="transparentBridge" value="false" />
+   <property name="wellBehavedWaitrequest" value="false" />
+   <property name="writeLatency" value="0" />
+   <property name="writeWaitStates" value="1" />
+   <property name="writeWaitTime" value="1" />
+   <port name="wire_address" direction="input" role="address" width="3" />
+   <port
+       name="wire_begintransfer"
+       direction="input"
+       role="begintransfer"
+       width="1" />
+   <port name="wire_chipselect" direction="input" role="chipselect" width="1" />
+   <port name="wire_read_n" direction="input" role="read_n" width="1" />
+   <port name="wire_write_n" direction="input" role="write_n" width="1" />
+   <port name="wire_writedata" direction="input" role="writedata" width="16" />
+   <port name="wire_readdata" direction="output" role="readdata" width="16" />
+   <port
+       name="wire_endofpacket"
+       direction="output"
+       role="endofpacket"
+       width="1" />
+  </interface>
+ </perimeter>
+ <entity
+   path=""
+   parameterizationKey="UART:1.0:AUTO_CLK_CLOCK_DOMAIN=-1,AUTO_CLK_CLOCK_RATE=-1,AUTO_CLK_RESET_DOMAIN=-1,AUTO_DEVICE=5CSEMA5F31C6,AUTO_DEVICE_FAMILY=Cyclone V,AUTO_DEVICE_SPEEDGRADE=6,AUTO_GENERATION_ID=1550075578,AUTO_UNIQUE_ID=(altera_avalon_uart:18.1:baud=115200,baudError=0.01,clockRate=50000000,dataBits=8,fixedBaud=true,parity=EVEN,parityFisrtChar=E,simCharStream=,simInteractiveInputEnable=false,simInteractiveOutputEnable=false,simTrueBaud=false,stopBits=1,syncRegDepth=2,useCtsRts=false,useEopRegister=true,useRelativePathForSimFile=false)(clock_source:18.1:clockFrequency=50000000,clockFrequencyKnown=true,inputClockFrequency=0,resetSynchronousEdges=NONE)(clock:18.1:)(reset:18.1:)"
+   instancePathKey="UART"
+   kind="UART"
+   version="1.0"
+   name="UART">
+  <parameter name="AUTO_CLK_CLOCK_RATE" value="-1" />
+  <parameter name="AUTO_GENERATION_ID" value="1550075578" />
+  <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="-1" />
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="-1" />
+  <parameter name="AUTO_UNIQUE_ID" value="" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
+  <generatedFiles>
+   <file
+       path="C:/Users/Panoramix/Documents/RISCV/UART/synthesis/UART.vhd"
+       type="VHDL" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="C:/Users/Panoramix/Documents/RISCV/UART/synthesis/submodules/UART_UART.v"
+       type="VERILOG"
+       attributes="" />
+   <file
+       path="C:/Users/Panoramix/Documents/RISCV/UART/synthesis/submodules/altera_reset_controller.v"
+       type="VERILOG"
+       attributes="" />
+   <file
+       path="C:/Users/Panoramix/Documents/RISCV/UART/synthesis/submodules/altera_reset_synchronizer.v"
+       type="VERILOG"
+       attributes="" />
+   <file
+       path="C:/Users/Panoramix/Documents/RISCV/UART/synthesis/submodules/altera_reset_controller.sdc"
+       type="SDC"
+       attributes="" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file path="C:/Users/Panoramix/Documents/RISCV/UART.qsys" />
+  </sourceFiles>
+  <childSourceFiles>
+   <file
+       path="D:/intelfpga/18.1/ip/altera/sopc_builder_ip/altera_avalon_uart/altera_avalon_uart_hw.tcl" />
+   <file
+       path="D:/intelfpga/18.1/ip/altera/merlin/altera_reset_controller/altera_reset_controller_hw.tcl" />
+  </childSourceFiles>
+  <messages>
+   <message level="Debug" culprit="UART">queue size: 0 starting:UART "UART"</message>
+   <message level="Progress" culprit="min"></message>
+   <message level="Progress" culprit="max"></message>
+   <message level="Progress" culprit="current"></message>
+   <message level="Debug">Transform: CustomInstructionTransform</message>
+   <message level="Debug">No custom instruction connections, skipping transform </message>
+   <message level="Debug" culprit="merlin_custom_instruction_transform"><![CDATA[After transform: <b>2</b> modules, <b>2</b> connections]]></message>
+   <message level="Debug">Transform: MMTransform</message>
+   <message level="Debug">Transform: InterruptMapperTransform</message>
+   <message level="Debug">Transform: InterruptSyncTransform</message>
+   <message level="Debug">Transform: InterruptFanoutTransform</message>
+   <message level="Debug">Transform: AvalonStreamingTransform</message>
+   <message level="Debug">Transform: ResetAdaptation</message>
+   <message level="Progress" culprit="min"></message>
+   <message level="Progress" culprit="max"></message>
+   <message level="Progress" culprit="current"></message>
+   <message level="Debug" culprit="reset_adaptation_transform"><![CDATA[After transform: <b>3</b> modules, <b>4</b> connections]]></message>
+   <message level="Debug" culprit="UART"><![CDATA["<b>UART</b>" reuses <b>altera_avalon_uart</b> "<b>submodules/UART_UART</b>"]]></message>
+   <message level="Debug" culprit="UART"><![CDATA["<b>UART</b>" reuses <b>altera_reset_controller</b> "<b>submodules/altera_reset_controller</b>"]]></message>
+   <message level="Debug" culprit="UART">queue size: 1 starting:altera_avalon_uart "submodules/UART_UART"</message>
+   <message level="Info" culprit="UART">Starting RTL generation for module 'UART_UART'</message>
+   <message level="Info" culprit="UART">  Generation command is [exec D:/intelfpga/18.1/quartus/bin64/perl/bin/perl.exe -I D:/intelfpga/18.1/quartus/bin64/perl/lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin/europa -I D:/intelfpga/18.1/quartus/sopc_builder/bin/perl_lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/common -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart -- D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart/generate_rtl.pl --name=UART_UART --dir=C:/Users/PANORA~1/AppData/Local/Temp/alt7940_4174741382360041464.dir/0002_UART_gen/ --quartus_dir=D:/intelfpga/18.1/quartus --verilog --config=C:/Users/PANORA~1/AppData/Local/Temp/alt7940_4174741382360041464.dir/0002_UART_gen//UART_UART_component_configuration.pl  --do_build_sim=0  ]</message>
+   <message level="Info" culprit="UART">Done RTL generation for module 'UART_UART'</message>
+   <message level="Info" culprit="UART"><![CDATA["<b>UART</b>" instantiated <b>altera_avalon_uart</b> "<b>UART</b>"]]></message>
+   <message level="Debug" culprit="UART">queue size: 0 starting:altera_reset_controller "submodules/altera_reset_controller"</message>
+   <message level="Info" culprit="rst_controller"><![CDATA["<b>UART</b>" instantiated <b>altera_reset_controller</b> "<b>rst_controller</b>"]]></message>
+  </messages>
+ </entity>
+ <entity
+   path="submodules/"
+   parameterizationKey="altera_avalon_uart:18.1:baud=115200,baudError=0.01,clockRate=50000000,dataBits=8,fixedBaud=true,parity=EVEN,parityFisrtChar=E,simCharStream=,simInteractiveInputEnable=false,simInteractiveOutputEnable=false,simTrueBaud=false,stopBits=1,syncRegDepth=2,useCtsRts=false,useEopRegister=true,useRelativePathForSimFile=false"
+   instancePathKey="UART:.:UART"
+   kind="altera_avalon_uart"
+   version="18.1"
+   name="UART_UART">
+  <parameter name="baud" value="115200" />
+  <parameter name="simInteractiveInputEnable" value="false" />
+  <parameter name="useRelativePathForSimFile" value="false" />
+  <parameter name="stopBits" value="1" />
+  <parameter name="parityFisrtChar" value="E" />
+  <parameter name="parity" value="EVEN" />
+  <parameter name="useCtsRts" value="false" />
+  <parameter name="fixedBaud" value="true" />
+  <parameter name="dataBits" value="8" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="simTrueBaud" value="false" />
+  <parameter name="useEopRegister" value="true" />
+  <parameter name="simInteractiveOutputEnable" value="false" />
+  <parameter name="syncRegDepth" value="2" />
+  <parameter name="simCharStream" value="" />
+  <parameter name="baudError" value="0.01" />
+  <generatedFiles>
+   <file
+       path="C:/Users/Panoramix/Documents/RISCV/UART/synthesis/submodules/UART_UART.v"
+       type="VERILOG"
+       attributes="" />
+  </generatedFiles>
+  <childGeneratedFiles/>
+  <sourceFiles>
+   <file
+       path="D:/intelfpga/18.1/ip/altera/sopc_builder_ip/altera_avalon_uart/altera_avalon_uart_hw.tcl" />
+  </sourceFiles>
+  <childSourceFiles/>
+  <instantiator instantiator="UART" as="UART" />
+  <messages>
+   <message level="Debug" culprit="UART">queue size: 1 starting:altera_avalon_uart "submodules/UART_UART"</message>
+   <message level="Info" culprit="UART">Starting RTL generation for module 'UART_UART'</message>
+   <message level="Info" culprit="UART">  Generation command is [exec D:/intelfpga/18.1/quartus/bin64/perl/bin/perl.exe -I D:/intelfpga/18.1/quartus/bin64/perl/lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin/europa -I D:/intelfpga/18.1/quartus/sopc_builder/bin/perl_lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/common -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart -- D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart/generate_rtl.pl --name=UART_UART --dir=C:/Users/PANORA~1/AppData/Local/Temp/alt7940_4174741382360041464.dir/0002_UART_gen/ --quartus_dir=D:/intelfpga/18.1/quartus --verilog --config=C:/Users/PANORA~1/AppData/Local/Temp/alt7940_4174741382360041464.dir/0002_UART_gen//UART_UART_component_configuration.pl  --do_build_sim=0  ]</message>
+   <message level="Info" culprit="UART">Done RTL generation for module 'UART_UART'</message>
+   <message level="Info" culprit="UART"><![CDATA["<b>UART</b>" instantiated <b>altera_avalon_uart</b> "<b>UART</b>"]]></message>
+  </messages>
+ </entity>
+ <entity
+   path="submodules/"
+   parameterizationKey="altera_reset_controller:18.1:ADAPT_RESET_REQUEST=0,MIN_RST_ASSERTION_TIME=3,NUM_RESET_INPUTS=1,OUTPUT_RESET_SYNC_EDGES=deassert,RESET_REQUEST_PRESENT=0,RESET_REQ_EARLY_DSRT_TIME=1,RESET_REQ_WAIT_TIME=1,SYNC_DEPTH=2,USE_RESET_REQUEST_IN0=0,USE_RESET_REQUEST_IN1=0,USE_RESET_REQUEST_IN10=0,USE_RESET_REQUEST_IN11=0,USE_RESET_REQUEST_IN12=0,USE_RESET_REQUEST_IN13=0,USE_RESET_REQUEST_IN14=0,USE_RESET_REQUEST_IN15=0,USE_RESET_REQUEST_IN2=0,USE_RESET_REQUEST_IN3=0,USE_RESET_REQUEST_IN4=0,USE_RESET_REQUEST_IN5=0,USE_RESET_REQUEST_IN6=0,USE_RESET_REQUEST_IN7=0,USE_RESET_REQUEST_IN8=0,USE_RESET_REQUEST_IN9=0,USE_RESET_REQUEST_INPUT=0"
+   instancePathKey="UART:.:rst_controller"
+   kind="altera_reset_controller"
+   version="18.1"
+   name="altera_reset_controller">
+  <generatedFiles>
+   <file
+       path="C:/Users/Panoramix/Documents/RISCV/UART/synthesis/submodules/altera_reset_controller.v"
+       type="VERILOG"
+       attributes="" />
+   <file
+       path="C:/Users/Panoramix/Documents/RISCV/UART/synthesis/submodules/altera_reset_synchronizer.v"
+       type="VERILOG"
+       attributes="" />
+   <file
+       path="C:/Users/Panoramix/Documents/RISCV/UART/synthesis/submodules/altera_reset_controller.sdc"
+       type="SDC"
+       attributes="" />
+  </generatedFiles>
+  <childGeneratedFiles/>
+  <sourceFiles>
+   <file
+       path="D:/intelfpga/18.1/ip/altera/merlin/altera_reset_controller/altera_reset_controller_hw.tcl" />
+  </sourceFiles>
+  <childSourceFiles/>
+  <instantiator instantiator="UART" as="rst_controller" />
+  <messages>
+   <message level="Debug" culprit="UART">queue size: 0 starting:altera_reset_controller "submodules/altera_reset_controller"</message>
+   <message level="Info" culprit="rst_controller"><![CDATA["<b>UART</b>" instantiated <b>altera_reset_controller</b> "<b>rst_controller</b>"]]></message>
+  </messages>
+ </entity>
+</deploy>

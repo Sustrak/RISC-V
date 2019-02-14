@@ -1,0 +1,36 @@
+Info: Starting: Create block symbol file (.bsf)
+Info: qsys-generate C:\Users\Panoramix\Documents\RISCV\UART.qsys --block-symbol-file --output-directory=C:\Users\Panoramix\Documents\RISCV\UART --family="Cyclone V" --part=5CSEMA5F31C6
+Progress: Loading RISCV/UART.qsys
+Progress: Reading input file
+Progress: Adding UART [altera_avalon_uart 18.1]
+Progress: Parameterizing module UART
+Progress: Adding clk_0 [clock_source 18.1]
+Progress: Parameterizing module clk_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: qsys-generate succeeded.
+Info: Finished: Create block symbol file (.bsf)
+Info: 
+Info: Starting: Create HDL design files for synthesis
+Info: qsys-generate C:\Users\Panoramix\Documents\RISCV\UART.qsys --synthesis=VHDL --output-directory=C:\Users\Panoramix\Documents\RISCV\UART\synthesis --family="Cyclone V" --part=5CSEMA5F31C6
+Progress: Loading RISCV/UART.qsys
+Progress: Reading input file
+Progress: Adding UART [altera_avalon_uart 18.1]
+Progress: Parameterizing module UART
+Progress: Adding clk_0 [clock_source 18.1]
+Progress: Parameterizing module clk_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: UART: Generating UART "UART" for QUARTUS_SYNTH
+Info: UART: Starting RTL generation for module 'UART_UART'
+Info: UART:   Generation command is [exec D:/intelfpga/18.1/quartus/bin64/perl/bin/perl.exe -I D:/intelfpga/18.1/quartus/bin64/perl/lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin/europa -I D:/intelfpga/18.1/quartus/sopc_builder/bin/perl_lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/common -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart -- D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart/generate_rtl.pl --name=UART_UART --dir=C:/Users/PANORA~1/AppData/Local/Temp/alt7940_4174741382360041464.dir/0002_UART_gen/ --quartus_dir=D:/intelfpga/18.1/quartus --verilog --config=C:/Users/PANORA~1/AppData/Local/Temp/alt7940_4174741382360041464.dir/0002_UART_gen//UART_UART_component_configuration.pl  --do_build_sim=0  ]
+Info: UART: Done RTL generation for module 'UART_UART'
+Info: UART: "UART" instantiated altera_avalon_uart "UART"
+Info: rst_controller: "UART" instantiated altera_reset_controller "rst_controller"
+Info: UART: Done "UART" with 3 modules, 5 files
+Info: qsys-generate succeeded.
+Info: Finished: Create HDL design files for synthesis
