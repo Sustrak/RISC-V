@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <deploy
- date="2019.02.13.17:33:01"
+ date="2019.02.15.12:42:21"
  outputDirectory="C:/Users/Panoramix/Documents/RISCV/UART/">
  <perimeter>
   <parameter
@@ -135,13 +135,13 @@
  </perimeter>
  <entity
    path=""
-   parameterizationKey="UART:1.0:AUTO_CLK_CLOCK_DOMAIN=-1,AUTO_CLK_CLOCK_RATE=-1,AUTO_CLK_RESET_DOMAIN=-1,AUTO_DEVICE=5CSEMA5F31C6,AUTO_DEVICE_FAMILY=Cyclone V,AUTO_DEVICE_SPEEDGRADE=6,AUTO_GENERATION_ID=1550075578,AUTO_UNIQUE_ID=(altera_avalon_uart:18.1:baud=115200,baudError=0.01,clockRate=50000000,dataBits=8,fixedBaud=true,parity=EVEN,parityFisrtChar=E,simCharStream=,simInteractiveInputEnable=false,simInteractiveOutputEnable=false,simTrueBaud=false,stopBits=1,syncRegDepth=2,useCtsRts=false,useEopRegister=true,useRelativePathForSimFile=false)(clock_source:18.1:clockFrequency=50000000,clockFrequencyKnown=true,inputClockFrequency=0,resetSynchronousEdges=NONE)(clock:18.1:)(reset:18.1:)"
+   parameterizationKey="UART:1.0:AUTO_CLK_CLOCK_DOMAIN=-1,AUTO_CLK_CLOCK_RATE=-1,AUTO_CLK_RESET_DOMAIN=-1,AUTO_DEVICE=5CSEMA5F31C6,AUTO_DEVICE_FAMILY=Cyclone V,AUTO_DEVICE_SPEEDGRADE=6,AUTO_GENERATION_ID=1550230940,AUTO_UNIQUE_ID=(altera_avalon_uart:18.1:baud=9600,baudError=0.01,clockRate=50000000,dataBits=8,fixedBaud=true,parity=EVEN,parityFisrtChar=E,simCharStream=,simInteractiveInputEnable=false,simInteractiveOutputEnable=false,simTrueBaud=false,stopBits=1,syncRegDepth=2,useCtsRts=false,useEopRegister=true,useRelativePathForSimFile=false)(clock_source:18.1:clockFrequency=50000000,clockFrequencyKnown=true,inputClockFrequency=0,resetSynchronousEdges=NONE)(clock:18.1:)(reset:18.1:)"
    instancePathKey="UART"
    kind="UART"
    version="1.0"
    name="UART">
   <parameter name="AUTO_CLK_CLOCK_RATE" value="-1" />
-  <parameter name="AUTO_GENERATION_ID" value="1550075578" />
+  <parameter name="AUTO_GENERATION_ID" value="1550230940" />
   <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="AUTO_CLK_RESET_DOMAIN" value="-1" />
@@ -202,7 +202,7 @@
    <message level="Debug" culprit="UART"><![CDATA["<b>UART</b>" reuses <b>altera_reset_controller</b> "<b>submodules/altera_reset_controller</b>"]]></message>
    <message level="Debug" culprit="UART">queue size: 1 starting:altera_avalon_uart "submodules/UART_UART"</message>
    <message level="Info" culprit="UART">Starting RTL generation for module 'UART_UART'</message>
-   <message level="Info" culprit="UART">  Generation command is [exec D:/intelfpga/18.1/quartus/bin64/perl/bin/perl.exe -I D:/intelfpga/18.1/quartus/bin64/perl/lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin/europa -I D:/intelfpga/18.1/quartus/sopc_builder/bin/perl_lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/common -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart -- D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart/generate_rtl.pl --name=UART_UART --dir=C:/Users/PANORA~1/AppData/Local/Temp/alt7940_4174741382360041464.dir/0002_UART_gen/ --quartus_dir=D:/intelfpga/18.1/quartus --verilog --config=C:/Users/PANORA~1/AppData/Local/Temp/alt7940_4174741382360041464.dir/0002_UART_gen//UART_UART_component_configuration.pl  --do_build_sim=0  ]</message>
+   <message level="Info" culprit="UART">  Generation command is [exec D:/intelfpga/18.1/quartus/bin64/perl/bin/perl.exe -I D:/intelfpga/18.1/quartus/bin64/perl/lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin/europa -I D:/intelfpga/18.1/quartus/sopc_builder/bin/perl_lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/common -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart -- D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart/generate_rtl.pl --name=UART_UART --dir=C:/Users/PANORA~1/AppData/Local/Temp/alt7942_3437425455329429389.dir/0002_UART_gen/ --quartus_dir=D:/intelfpga/18.1/quartus --verilog --config=C:/Users/PANORA~1/AppData/Local/Temp/alt7942_3437425455329429389.dir/0002_UART_gen//UART_UART_component_configuration.pl  --do_build_sim=0  ]</message>
    <message level="Info" culprit="UART">Done RTL generation for module 'UART_UART'</message>
    <message level="Info" culprit="UART"><![CDATA["<b>UART</b>" instantiated <b>altera_avalon_uart</b> "<b>UART</b>"]]></message>
    <message level="Debug" culprit="UART">queue size: 0 starting:altera_reset_controller "submodules/altera_reset_controller"</message>
@@ -211,12 +211,12 @@
  </entity>
  <entity
    path="submodules/"
-   parameterizationKey="altera_avalon_uart:18.1:baud=115200,baudError=0.01,clockRate=50000000,dataBits=8,fixedBaud=true,parity=EVEN,parityFisrtChar=E,simCharStream=,simInteractiveInputEnable=false,simInteractiveOutputEnable=false,simTrueBaud=false,stopBits=1,syncRegDepth=2,useCtsRts=false,useEopRegister=true,useRelativePathForSimFile=false"
+   parameterizationKey="altera_avalon_uart:18.1:baud=9600,baudError=0.01,clockRate=50000000,dataBits=8,fixedBaud=true,parity=EVEN,parityFisrtChar=E,simCharStream=,simInteractiveInputEnable=false,simInteractiveOutputEnable=false,simTrueBaud=false,stopBits=1,syncRegDepth=2,useCtsRts=false,useEopRegister=true,useRelativePathForSimFile=false"
    instancePathKey="UART:.:UART"
    kind="altera_avalon_uart"
    version="18.1"
    name="UART_UART">
-  <parameter name="baud" value="115200" />
+  <parameter name="baud" value="9600" />
   <parameter name="simInteractiveInputEnable" value="false" />
   <parameter name="useRelativePathForSimFile" value="false" />
   <parameter name="stopBits" value="1" />
@@ -248,7 +248,7 @@
   <messages>
    <message level="Debug" culprit="UART">queue size: 1 starting:altera_avalon_uart "submodules/UART_UART"</message>
    <message level="Info" culprit="UART">Starting RTL generation for module 'UART_UART'</message>
-   <message level="Info" culprit="UART">  Generation command is [exec D:/intelfpga/18.1/quartus/bin64/perl/bin/perl.exe -I D:/intelfpga/18.1/quartus/bin64/perl/lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin/europa -I D:/intelfpga/18.1/quartus/sopc_builder/bin/perl_lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/common -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart -- D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart/generate_rtl.pl --name=UART_UART --dir=C:/Users/PANORA~1/AppData/Local/Temp/alt7940_4174741382360041464.dir/0002_UART_gen/ --quartus_dir=D:/intelfpga/18.1/quartus --verilog --config=C:/Users/PANORA~1/AppData/Local/Temp/alt7940_4174741382360041464.dir/0002_UART_gen//UART_UART_component_configuration.pl  --do_build_sim=0  ]</message>
+   <message level="Info" culprit="UART">  Generation command is [exec D:/intelfpga/18.1/quartus/bin64/perl/bin/perl.exe -I D:/intelfpga/18.1/quartus/bin64/perl/lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin/europa -I D:/intelfpga/18.1/quartus/sopc_builder/bin/perl_lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/common -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart -- D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart/generate_rtl.pl --name=UART_UART --dir=C:/Users/PANORA~1/AppData/Local/Temp/alt7942_3437425455329429389.dir/0002_UART_gen/ --quartus_dir=D:/intelfpga/18.1/quartus --verilog --config=C:/Users/PANORA~1/AppData/Local/Temp/alt7942_3437425455329429389.dir/0002_UART_gen//UART_UART_component_configuration.pl  --do_build_sim=0  ]</message>
    <message level="Info" culprit="UART">Done RTL generation for module 'UART_UART'</message>
    <message level="Info" culprit="UART"><![CDATA["<b>UART</b>" instantiated <b>altera_avalon_uart</b> "<b>UART</b>"]]></message>
   </messages>

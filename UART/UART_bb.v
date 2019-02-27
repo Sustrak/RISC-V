@@ -1,10 +1,10 @@
 
 module UART (
 	clk_clk,
+	int_irq,
 	reset_reset_n,
 	uart_rxd,
 	uart_txd,
-	int_irq,
 	wire_address,
 	wire_begintransfer,
 	wire_chipselect,
@@ -15,10 +15,10 @@ module UART (
 	wire_endofpacket);	
 
 	input		clk_clk;
+	output		int_irq;
 	input		reset_reset_n;
 	input		uart_rxd;
 	output		uart_txd;
-	output		int_irq;
 	input	[2:0]	wire_address;
 	input		wire_begintransfer;
 	input		wire_chipselect;

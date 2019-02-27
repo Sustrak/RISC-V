@@ -56,7 +56,7 @@
    dir="end" />
  <interface name="wire" internal="UART.s1" type="avalon" dir="end" />
  <module name="UART" kind="altera_avalon_uart" version="18.1" enabled="1">
-  <parameter name="baud" value="115200" />
+  <parameter name="baud" value="9600" />
   <parameter name="clockRate" value="50000000" />
   <parameter name="dataBits" value="8" />
   <parameter name="fixedBaud" value="true" />

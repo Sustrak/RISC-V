@@ -1,0 +1,22 @@
+{
+	"system" : {
+		"platform" : "windows64",
+		"os_name" : "Windows 10",
+		"os_version" : "10.0"
+	},
+	"error" : {
+		"executable" : "quartus",
+		"comment" : "not_applicable",
+		"error_message" : "\nQuartus Prime requested that Windows modify job info, but Windows could not do so.\nPlease report the full text of this message to Intel so we can investigate its causes.\nIn the meantime, may wish to take the following steps to work around the problem:\n   * Disabled parallel compilation if it is enabled\n   * Ensure you have sufficient memory to run Quartus.\n   * Ensure all service packs and patches from Microsoft are installed\n\nTechnical details:\n   * API: result\n   * OS code: 6 (The handle is invalid.)\n",
+		"source_file" : "/quartus/ccl/thr/thr_process.cpp",
+		"line" : "478",
+		"stack_trace" : "\t0x7fff7b2524c8: ccl_thr + 0x24c8 (thr_os_error + 0xb8)\n\t0x7fff7b252f1d: ccl_thr + 0x2f1d (thr_windows_error + 0xad)\n\t0x7fff7b251cce: ccl_thr + 0x1cce (thr_process_create_and_save_job + 0x6fe)\n\t0x7fff7b2515c5: ccl_thr + 0x15c5 (thr_process_create + 0x25)\n\t0x7fff7af65ca8: CCL_MSG + 0x35ca8 (?search_and_send_crash_report@MSG_CRASH_REPORT_MANAGER@@QEAAXXZ + 0x178)\n\t0x7fff5aafea04: GCL_AFCQ + 0xea04 (?init_instance@AFCQ_APP@@UEAA_NHPEAPEBDPEAVQUI_CMDLINE@@@Z + 0x74)\n\t0x7fff631b0346: SYS_QUI + 0x10346 (?init_instance@QUI_APP@@UEAA_NHPEAPEBDPEAVQUI_CMDLINE@@@Z + 0x196)\n\t0x7fff806b1ef6: SYS_QGQ + 0x1ef6 (?init_instance@QGQ_APP@@UEAA_NHPEAPEBDPEAVQUI_CMDLINE@@@Z + 0xd6)\n\t0x7ff679e31971: quartus + 0x1971 (?qgq_main@@YAHHPEAPEBD@Z + 0x71)\n\t0x7fff7af42e98: CCL_MSG + 0x12e98 (?msg_main_thread@@YAPEAXPEAX@Z + 0x18)\n\t0x7fff7af4467e: CCL_MSG + 0x1467e (?msg_thread_wrapper@@YAPEAXP6APEAXPEAX@Z0@Z + 0x6e)\n\t0x7fff7b2e6660: ccl_mem + 0x16660 (?mem_thread_wrapper@@YAPEAXP6APEAXPEAX@Z0@Z + 0x70)\n\t0x7fff7af42761: CCL_MSG + 0x12761 (?msg_exe_main@@YAHHPEAPEBDP6AHH0@Z@Z + 0xa1)\n\t0x7ff679e324e7: quartus + 0x24e7 (WinMain + 0x127)\n\t0x7ff679e31e58: quartus + 0x1e58 (__tmainCRTStartup + 0x148)\n\t0x7fff8e413dc3: KERNEL32 + 0x13dc3 (BaseThreadInitThunk + 0x13)\n\t0x7fff8e7c3690: ntdll + 0x73690 (RtlUserThreadStart + 0x20)\n",
+		"subsystem" : "THR"
+	},
+	"quartus" : {
+		"quartus_bits" : "64",
+		"version" : "18.1.0",
+		"build" : "625",
+		"edition" : "Lite Edition"
+	}
+}

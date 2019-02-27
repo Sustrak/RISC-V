@@ -46,7 +46,10 @@ entity riscv is
 		VGA_HS      : out std_logic;
 		VGA_R       : out std_logic_vector(7 downto 0);
 		VGA_SYNC_N  : out std_logic;
-		VGA_VS      : out std_logic
+		VGA_VS      : out std_logic;
+		-- UART
+		UART_RX		: in std_logic;
+		UART_TX		: out std_logic
 	);
 end riscv;
 
@@ -85,6 +88,14 @@ architecture Structure of riscv is
 			i_wr_data    : in std_logic_vector(R_XLEN);
 			i_ld_st      : in std_logic;
 			o_rd_data    : out std_logic_vector(R_XLEN)
+		);
+	end component;
+	component bootloader is
+		port (
+			i_rxd : in std_logic;
+			o_txd : out std_logic;
+			i_clk_50 : in std_logic;
+			i_reset : in std_logic
 		);
 	end component;
 	signal s_clk_p     : std_logic := '0';
@@ -130,7 +141,14 @@ begin
 		i_ld_st      => s_ld_st,
 		o_rd_data    => s_rdata_mem
 	);
-
+	
+	c_bootloader : bootloader
+		port map (
+			i_rxd => UART_RX,
+			o_txd => UART_TX,
+			i_clk_50 => CLOCK_50,
+			i_reset => SW(8)
+		);
 	-- Base clock for the processor 
 	process (CLOCK_50)
 	begin
@@ -141,4 +159,6 @@ begin
 			end if;
 		end if;
 	end process;
+
+	LEDR(0) <= SW(0);
 end Structure;
