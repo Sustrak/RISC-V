@@ -8,52 +8,42 @@ use IEEE.numeric_std.all;
 
 entity SDRAMController is
 	port (
-		clk_clk             : in    std_logic                     := '0';             --      clk.clk
-		dram_clk_clk        : out   std_logic;                                        -- dram_clk.clk
-		reset_reset_n       : in    std_logic                     := '0';             --    reset.reset_n
-		sdram_address       : in    std_logic_vector(24 downto 0) := (others => '0'); --    sdram.address
-		sdram_byteenable_n  : in    std_logic_vector(1 downto 0)  := (others => '0'); --         .byteenable_n
-		sdram_chipselect    : in    std_logic                     := '0';             --         .chipselect
-		sdram_writedata     : in    std_logic_vector(15 downto 0) := (others => '0'); --         .writedata
-		sdram_read_n        : in    std_logic                     := '0';             --         .read_n
-		sdram_write_n       : in    std_logic                     := '0';             --         .write_n
-		sdram_readdata      : out   std_logic_vector(15 downto 0);                    --         .readdata
-		sdram_readdatavalid : out   std_logic;                                        --         .readdatavalid
-		sdram_waitrequest   : out   std_logic;                                        --         .waitrequest
-		wire_addr           : out   std_logic_vector(12 downto 0);                    --     wire.addr
-		wire_ba             : out   std_logic_vector(1 downto 0);                     --         .ba
-		wire_cas_n          : out   std_logic;                                        --         .cas_n
-		wire_cke            : out   std_logic;                                        --         .cke
-		wire_cs_n           : out   std_logic;                                        --         .cs_n
-		wire_dq             : inout std_logic_vector(15 downto 0) := (others => '0'); --         .dq
-		wire_dqm            : out   std_logic_vector(1 downto 0);                     --         .dqm
-		wire_ras_n          : out   std_logic;                                        --         .ras_n
-		wire_we_n           : out   std_logic                                         --         .we_n
+		clk_clk                  : in    std_logic                     := '0';             --        clk.clk
+		controller_address       : in    std_logic_vector(24 downto 0) := (others => '0'); -- controller.address
+		controller_byteenable_n  : in    std_logic_vector(3 downto 0)  := (others => '0'); --           .byteenable_n
+		controller_chipselect    : in    std_logic                     := '0';             --           .chipselect
+		controller_writedata     : in    std_logic_vector(31 downto 0) := (others => '0'); --           .writedata
+		controller_read_n        : in    std_logic                     := '0';             --           .read_n
+		controller_write_n       : in    std_logic                     := '0';             --           .write_n
+		controller_readdata      : out   std_logic_vector(31 downto 0);                    --           .readdata
+		controller_readdatavalid : out   std_logic;                                        --           .readdatavalid
+		controller_waitrequest   : out   std_logic;                                        --           .waitrequest
+		reset_reset_n            : in    std_logic                     := '0';             --      reset.reset_n
+		sdram_addr               : out   std_logic_vector(12 downto 0);                    --      sdram.addr
+		sdram_ba                 : out   std_logic_vector(1 downto 0);                     --           .ba
+		sdram_cas_n              : out   std_logic;                                        --           .cas_n
+		sdram_cke                : out   std_logic;                                        --           .cke
+		sdram_cs_n               : out   std_logic;                                        --           .cs_n
+		sdram_dq                 : inout std_logic_vector(31 downto 0) := (others => '0'); --           .dq
+		sdram_dqm                : out   std_logic_vector(3 downto 0);                     --           .dqm
+		sdram_ras_n              : out   std_logic;                                        --           .ras_n
+		sdram_we_n               : out   std_logic;                                        --           .we_n
+		sdram_clk_clk            : out   std_logic                                         --  sdram_clk.clk
 	);
 end entity SDRAMController;
 
 architecture rtl of SDRAMController is
-	component SDRAMController_pll_0 is
-		port (
-			refclk   : in  std_logic := 'X'; -- clk
-			rst      : in  std_logic := 'X'; -- reset
-			outclk_0 : out std_logic;        -- clk
-			outclk_1 : out std_logic;        -- clk
-			locked   : out std_logic         -- export
-		);
-	end component SDRAMController_pll_0;
-
 	component SDRAMController_sdram_controller is
 		port (
 			clk            : in    std_logic                     := 'X';             -- clk
 			reset_n        : in    std_logic                     := 'X';             -- reset_n
 			az_addr        : in    std_logic_vector(24 downto 0) := (others => 'X'); -- address
-			az_be_n        : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- byteenable_n
+			az_be_n        : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- byteenable_n
 			az_cs          : in    std_logic                     := 'X';             -- chipselect
-			az_data        : in    std_logic_vector(15 downto 0) := (others => 'X'); -- writedata
+			az_data        : in    std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
 			az_rd_n        : in    std_logic                     := 'X';             -- read_n
 			az_wr_n        : in    std_logic                     := 'X';             -- write_n
-			za_data        : out   std_logic_vector(15 downto 0);                    -- readdata
+			za_data        : out   std_logic_vector(31 downto 0);                    -- readdata
 			za_valid       : out   std_logic;                                        -- readdatavalid
 			za_waitrequest : out   std_logic;                                        -- waitrequest
 			zs_addr        : out   std_logic_vector(12 downto 0);                    -- export
@@ -61,12 +51,22 @@ architecture rtl of SDRAMController is
 			zs_cas_n       : out   std_logic;                                        -- export
 			zs_cke         : out   std_logic;                                        -- export
 			zs_cs_n        : out   std_logic;                                        -- export
-			zs_dq          : inout std_logic_vector(15 downto 0) := (others => 'X'); -- export
-			zs_dqm         : out   std_logic_vector(1 downto 0);                     -- export
+			zs_dq          : inout std_logic_vector(31 downto 0) := (others => 'X'); -- export
+			zs_dqm         : out   std_logic_vector(3 downto 0);                     -- export
 			zs_ras_n       : out   std_logic;                                        -- export
 			zs_we_n        : out   std_logic                                         -- export
 		);
 	end component SDRAMController_sdram_controller;
+
+	component SDRAMController_sdram_pll is
+		port (
+			ref_clk_clk        : in  std_logic := 'X'; -- clk
+			ref_reset_reset    : in  std_logic := 'X'; -- reset
+			sys_clk_clk        : out std_logic;        -- clk
+			sdram_clk_clk      : out std_logic;        -- clk
+			reset_source_reset : out std_logic         -- reset
+		);
+	end component SDRAMController_sdram_pll;
 
 	component altera_reset_controller is
 		generic (
@@ -134,44 +134,45 @@ architecture rtl of SDRAMController is
 		);
 	end component altera_reset_controller;
 
-	signal pll_0_outclk0_clk                        : std_logic; -- pll_0:outclk_0 -> [rst_controller:clk, sdram_controller:clk]
+	signal sdram_pll_sys_clk_clk                    : std_logic; -- sdram_pll:sys_clk_clk -> [rst_controller:clk, sdram_controller:clk]
 	signal rst_controller_reset_out_reset           : std_logic; -- rst_controller:reset_out -> rst_controller_reset_out_reset:in
-	signal reset_reset_n_ports_inv                  : std_logic; -- reset_reset_n:inv -> [pll_0:rst, rst_controller:reset_in0]
+	signal rst_controller_001_reset_out_reset       : std_logic; -- rst_controller_001:reset_out -> sdram_pll:ref_reset_reset
+	signal reset_reset_n_ports_inv                  : std_logic; -- reset_reset_n:inv -> [rst_controller:reset_in0, rst_controller_001:reset_in0]
 	signal rst_controller_reset_out_reset_ports_inv : std_logic; -- rst_controller_reset_out_reset:inv -> sdram_controller:reset_n
 
 begin
 
-	pll_0 : component SDRAMController_pll_0
-		port map (
-			refclk   => clk_clk,                 --  refclk.clk
-			rst      => reset_reset_n_ports_inv, --   reset.reset
-			outclk_0 => pll_0_outclk0_clk,       -- outclk0.clk
-			outclk_1 => dram_clk_clk,            -- outclk1.clk
-			locked   => open                     -- (terminated)
-		);
-
 	sdram_controller : component SDRAMController_sdram_controller
 		port map (
-			clk            => pll_0_outclk0_clk,                        --   clk.clk
+			clk            => sdram_pll_sys_clk_clk,                    --   clk.clk
 			reset_n        => rst_controller_reset_out_reset_ports_inv, -- reset.reset_n
-			az_addr        => sdram_address,                            --    s1.address
-			az_be_n        => sdram_byteenable_n,                       --      .byteenable_n
-			az_cs          => sdram_chipselect,                         --      .chipselect
-			az_data        => sdram_writedata,                          --      .writedata
-			az_rd_n        => sdram_read_n,                             --      .read_n
-			az_wr_n        => sdram_write_n,                            --      .write_n
-			za_data        => sdram_readdata,                           --      .readdata
-			za_valid       => sdram_readdatavalid,                      --      .readdatavalid
-			za_waitrequest => sdram_waitrequest,                        --      .waitrequest
-			zs_addr        => wire_addr,                                --  wire.export
-			zs_ba          => wire_ba,                                  --      .export
-			zs_cas_n       => wire_cas_n,                               --      .export
-			zs_cke         => wire_cke,                                 --      .export
-			zs_cs_n        => wire_cs_n,                                --      .export
-			zs_dq          => wire_dq,                                  --      .export
-			zs_dqm         => wire_dqm,                                 --      .export
-			zs_ras_n       => wire_ras_n,                               --      .export
-			zs_we_n        => wire_we_n                                 --      .export
+			az_addr        => controller_address,                       --    s1.address
+			az_be_n        => controller_byteenable_n,                  --      .byteenable_n
+			az_cs          => controller_chipselect,                    --      .chipselect
+			az_data        => controller_writedata,                     --      .writedata
+			az_rd_n        => controller_read_n,                        --      .read_n
+			az_wr_n        => controller_write_n,                       --      .write_n
+			za_data        => controller_readdata,                      --      .readdata
+			za_valid       => controller_readdatavalid,                 --      .readdatavalid
+			za_waitrequest => controller_waitrequest,                   --      .waitrequest
+			zs_addr        => sdram_addr,                               --  wire.export
+			zs_ba          => sdram_ba,                                 --      .export
+			zs_cas_n       => sdram_cas_n,                              --      .export
+			zs_cke         => sdram_cke,                                --      .export
+			zs_cs_n        => sdram_cs_n,                               --      .export
+			zs_dq          => sdram_dq,                                 --      .export
+			zs_dqm         => sdram_dqm,                                --      .export
+			zs_ras_n       => sdram_ras_n,                              --      .export
+			zs_we_n        => sdram_we_n                                --      .export
+		);
+
+	sdram_pll : component SDRAMController_sdram_pll
+		port map (
+			ref_clk_clk        => clk_clk,                            --      ref_clk.clk
+			ref_reset_reset    => rst_controller_001_reset_out_reset, --    ref_reset.reset
+			sys_clk_clk        => sdram_pll_sys_clk_clk,              --      sys_clk.clk
+			sdram_clk_clk      => sdram_clk_clk,                      --    sdram_clk.clk
+			reset_source_reset => open                                -- reset_source.reset
 		);
 
 	rst_controller : component altera_reset_controller
@@ -203,7 +204,7 @@ begin
 		)
 		port map (
 			reset_in0      => reset_reset_n_ports_inv,        -- reset_in0.reset
-			clk            => pll_0_outclk0_clk,              --       clk.clk
+			clk            => sdram_pll_sys_clk_clk,          --       clk.clk
 			reset_out      => rst_controller_reset_out_reset, -- reset_out.reset
 			reset_req      => open,                           -- (terminated)
 			reset_req_in0  => '0',                            -- (terminated)
@@ -237,6 +238,71 @@ begin
 			reset_req_in14 => '0',                            -- (terminated)
 			reset_in15     => '0',                            -- (terminated)
 			reset_req_in15 => '0'                             -- (terminated)
+		);
+
+	rst_controller_001 : component altera_reset_controller
+		generic map (
+			NUM_RESET_INPUTS          => 1,
+			OUTPUT_RESET_SYNC_EDGES   => "deassert",
+			SYNC_DEPTH                => 2,
+			RESET_REQUEST_PRESENT     => 0,
+			RESET_REQ_WAIT_TIME       => 1,
+			MIN_RST_ASSERTION_TIME    => 3,
+			RESET_REQ_EARLY_DSRT_TIME => 1,
+			USE_RESET_REQUEST_IN0     => 0,
+			USE_RESET_REQUEST_IN1     => 0,
+			USE_RESET_REQUEST_IN2     => 0,
+			USE_RESET_REQUEST_IN3     => 0,
+			USE_RESET_REQUEST_IN4     => 0,
+			USE_RESET_REQUEST_IN5     => 0,
+			USE_RESET_REQUEST_IN6     => 0,
+			USE_RESET_REQUEST_IN7     => 0,
+			USE_RESET_REQUEST_IN8     => 0,
+			USE_RESET_REQUEST_IN9     => 0,
+			USE_RESET_REQUEST_IN10    => 0,
+			USE_RESET_REQUEST_IN11    => 0,
+			USE_RESET_REQUEST_IN12    => 0,
+			USE_RESET_REQUEST_IN13    => 0,
+			USE_RESET_REQUEST_IN14    => 0,
+			USE_RESET_REQUEST_IN15    => 0,
+			ADAPT_RESET_REQUEST       => 0
+		)
+		port map (
+			reset_in0      => reset_reset_n_ports_inv,            -- reset_in0.reset
+			clk            => clk_clk,                            --       clk.clk
+			reset_out      => rst_controller_001_reset_out_reset, -- reset_out.reset
+			reset_req      => open,                               -- (terminated)
+			reset_req_in0  => '0',                                -- (terminated)
+			reset_in1      => '0',                                -- (terminated)
+			reset_req_in1  => '0',                                -- (terminated)
+			reset_in2      => '0',                                -- (terminated)
+			reset_req_in2  => '0',                                -- (terminated)
+			reset_in3      => '0',                                -- (terminated)
+			reset_req_in3  => '0',                                -- (terminated)
+			reset_in4      => '0',                                -- (terminated)
+			reset_req_in4  => '0',                                -- (terminated)
+			reset_in5      => '0',                                -- (terminated)
+			reset_req_in5  => '0',                                -- (terminated)
+			reset_in6      => '0',                                -- (terminated)
+			reset_req_in6  => '0',                                -- (terminated)
+			reset_in7      => '0',                                -- (terminated)
+			reset_req_in7  => '0',                                -- (terminated)
+			reset_in8      => '0',                                -- (terminated)
+			reset_req_in8  => '0',                                -- (terminated)
+			reset_in9      => '0',                                -- (terminated)
+			reset_req_in9  => '0',                                -- (terminated)
+			reset_in10     => '0',                                -- (terminated)
+			reset_req_in10 => '0',                                -- (terminated)
+			reset_in11     => '0',                                -- (terminated)
+			reset_req_in11 => '0',                                -- (terminated)
+			reset_in12     => '0',                                -- (terminated)
+			reset_req_in12 => '0',                                -- (terminated)
+			reset_in13     => '0',                                -- (terminated)
+			reset_req_in13 => '0',                                -- (terminated)
+			reset_in14     => '0',                                -- (terminated)
+			reset_req_in14 => '0',                                -- (terminated)
+			reset_in15     => '0',                                -- (terminated)
+			reset_req_in15 => '0'                                 -- (terminated)
 		);
 
 	reset_reset_n_ports_inv <= not reset_reset_n;

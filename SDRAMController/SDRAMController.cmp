@@ -1,26 +1,26 @@
 	component SDRAMController is
 		port (
-			clk_clk             : in    std_logic                     := 'X';             -- clk
-			dram_clk_clk        : out   std_logic;                                        -- clk
-			reset_reset_n       : in    std_logic                     := 'X';             -- reset_n
-			sdram_address       : in    std_logic_vector(24 downto 0) := (others => 'X'); -- address
-			sdram_byteenable_n  : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- byteenable_n
-			sdram_chipselect    : in    std_logic                     := 'X';             -- chipselect
-			sdram_writedata     : in    std_logic_vector(15 downto 0) := (others => 'X'); -- writedata
-			sdram_read_n        : in    std_logic                     := 'X';             -- read_n
-			sdram_write_n       : in    std_logic                     := 'X';             -- write_n
-			sdram_readdata      : out   std_logic_vector(15 downto 0);                    -- readdata
-			sdram_readdatavalid : out   std_logic;                                        -- readdatavalid
-			sdram_waitrequest   : out   std_logic;                                        -- waitrequest
-			wire_addr           : out   std_logic_vector(12 downto 0);                    -- addr
-			wire_ba             : out   std_logic_vector(1 downto 0);                     -- ba
-			wire_cas_n          : out   std_logic;                                        -- cas_n
-			wire_cke            : out   std_logic;                                        -- cke
-			wire_cs_n           : out   std_logic;                                        -- cs_n
-			wire_dq             : inout std_logic_vector(15 downto 0) := (others => 'X'); -- dq
-			wire_dqm            : out   std_logic_vector(1 downto 0);                     -- dqm
-			wire_ras_n          : out   std_logic;                                        -- ras_n
-			wire_we_n           : out   std_logic                                         -- we_n
+			clk_clk                  : in    std_logic                     := 'X';             -- clk
+			controller_address       : in    std_logic_vector(24 downto 0) := (others => 'X'); -- address
+			controller_byteenable_n  : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- byteenable_n
+			controller_chipselect    : in    std_logic                     := 'X';             -- chipselect
+			controller_writedata     : in    std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
+			controller_read_n        : in    std_logic                     := 'X';             -- read_n
+			controller_write_n       : in    std_logic                     := 'X';             -- write_n
+			controller_readdata      : out   std_logic_vector(31 downto 0);                    -- readdata
+			controller_readdatavalid : out   std_logic;                                        -- readdatavalid
+			controller_waitrequest   : out   std_logic;                                        -- waitrequest
+			reset_reset_n            : in    std_logic                     := 'X';             -- reset_n
+			sdram_addr               : out   std_logic_vector(12 downto 0);                    -- addr
+			sdram_ba                 : out   std_logic_vector(1 downto 0);                     -- ba
+			sdram_cas_n              : out   std_logic;                                        -- cas_n
+			sdram_cke                : out   std_logic;                                        -- cke
+			sdram_cs_n               : out   std_logic;                                        -- cs_n
+			sdram_dq                 : inout std_logic_vector(31 downto 0) := (others => 'X'); -- dq
+			sdram_dqm                : out   std_logic_vector(3 downto 0);                     -- dqm
+			sdram_ras_n              : out   std_logic;                                        -- ras_n
+			sdram_we_n               : out   std_logic;                                        -- we_n
+			sdram_clk_clk            : out   std_logic                                         -- clk
 		);
 	end component SDRAMController;
 
