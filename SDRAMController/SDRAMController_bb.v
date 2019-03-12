@@ -2,7 +2,6 @@
 module SDRAMController (
 	clk_clk,
 	reset_reset_n,
-	sdram_clk_clk,
 	sdram_addr,
 	sdram_ba,
 	sdram_cas_n,
@@ -12,19 +11,20 @@ module SDRAMController (
 	sdram_dqm,
 	sdram_ras_n,
 	sdram_we_n,
-	controller_address,
-	controller_byteenable_n,
-	controller_chipselect,
-	controller_writedata,
-	controller_read_n,
-	controller_write_n,
-	controller_readdata,
-	controller_readdatavalid,
-	controller_waitrequest);	
+	sdram_clk_clk,
+	mm_bridge_s_waitrequest,
+	mm_bridge_s_readdata,
+	mm_bridge_s_readdatavalid,
+	mm_bridge_s_burstcount,
+	mm_bridge_s_writedata,
+	mm_bridge_s_address,
+	mm_bridge_s_write,
+	mm_bridge_s_read,
+	mm_bridge_s_byteenable,
+	mm_bridge_s_debugaccess);	
 
 	input		clk_clk;
 	input		reset_reset_n;
-	output		sdram_clk_clk;
 	output	[12:0]	sdram_addr;
 	output	[1:0]	sdram_ba;
 	output		sdram_cas_n;
@@ -34,13 +34,15 @@ module SDRAMController (
 	output	[3:0]	sdram_dqm;
 	output		sdram_ras_n;
 	output		sdram_we_n;
-	input	[24:0]	controller_address;
-	input	[3:0]	controller_byteenable_n;
-	input		controller_chipselect;
-	input	[31:0]	controller_writedata;
-	input		controller_read_n;
-	input		controller_write_n;
-	output	[31:0]	controller_readdata;
-	output		controller_readdatavalid;
-	output		controller_waitrequest;
+	output		sdram_clk_clk;
+	output		mm_bridge_s_waitrequest;
+	output	[31:0]	mm_bridge_s_readdata;
+	output		mm_bridge_s_readdatavalid;
+	input	[0:0]	mm_bridge_s_burstcount;
+	input	[31:0]	mm_bridge_s_writedata;
+	input	[26:0]	mm_bridge_s_address;
+	input		mm_bridge_s_write;
+	input		mm_bridge_s_read;
+	input	[3:0]	mm_bridge_s_byteenable;
+	input		mm_bridge_s_debugaccess;
 endmodule
