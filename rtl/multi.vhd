@@ -16,21 +16,26 @@ entity multi is
 		i_ld_st       : in std_logic_vector(R_MEM_LDST);
 		i_bhw         : in std_logic_vector(R_MEM_ACCS);
 		o_ld_st_to_mc : out std_logic_vector(R_MEM_LDST);
-		o_bhw_to_mc   : out std_logic_vector(R_MEM_ACCS)
+		o_bhw_to_mc   : out std_logic_vector(R_MEM_ACCS);
+		i_sdram_readvalid : in std_logic
 	);
 end entity;
 
 architecture Structure of multi is
-	type proc_state is (FETCH, ID, EX, MEM, WB);
+	type proc_state is (INI, FETCH, ID, EX, MEM, WB);
 	signal state : proc_state := FETCH;
 begin
-	process (i_clk_proc, i_boot)
+	process (i_clk_proc, i_boot, i_sdram_readvalid)
 	begin
 		if i_boot = '1' then
-			state <= FETCH;
+			state <= INI;
 		elsif rising_edge(i_clk_proc) then
-			if state = FETCH then
-				state <= ID;
+			if state = INI then
+				state <= FETCH;
+			elsif state = FETCH then
+				if i_sdram_readvalid = '1' then
+					state <= ID;
+				end if;
 			elsif state = ID then
 				state <= EX;
 			elsif state = EX then

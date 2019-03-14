@@ -32,7 +32,8 @@ entity memory_controller is
 		i_bhw        : in std_logic_vector(R_MEM_ACCS);
 		i_wr_data    : in std_logic_vector(R_XLEN);
 		i_ld_st      : in std_logic_vector(R_MEM_LDST);
-		o_rd_data    : out std_logic_vector(R_XLEN)
+		o_rd_data    : out std_logic_vector(R_XLEN);
+		o_sdram_readvalid : out std_logic
 	);
 end memory_controller;
 
@@ -169,10 +170,10 @@ begin
 	s_mm_read0   <= '1' and not s_mm_waitrequest when i_ld_st = LD_SDRAM else
 				   '0';      
 
-			s_mm_byteenable0 <= "1111" when i_bhw = W_ACCESS else
-							   "0011" when i_bhw = H_ACCESS else
-							   "0001" when i_bhw = B_ACCESS else
-							   "0000";
+	s_mm_byteenable0 <= "1111" when i_bhw = W_ACCESS else
+					   "0011" when i_bhw = H_ACCESS else
+					   "0001" when i_bhw = B_ACCESS else
+					   "0000";
 	-- AVALON MM
 	process(i_clk_50)
 	begin
@@ -196,6 +197,8 @@ begin
 			-- 0100  -> Writes byte 2
 			-- 1000  -> Writes byte 3
 			s_mm_byteenable <= s_mm_byteenable0;
+
+			o_sdram_readvalid <= s_mm_readdatavalid;
 		end if;
 	end process;
 -- SRAM

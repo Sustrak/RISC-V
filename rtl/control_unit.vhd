@@ -31,7 +31,8 @@ entity control_unit is
 		o_bhw          : out std_logic_vector(R_MEM_ACCS);
 		o_ld_st_to_mc  : out std_logic_vector(R_MEM_LDST);
 		o_bhw_to_mc    : out std_logic_vector(R_MEM_ACCS);
-		o_mem_unsigned : out std_logic
+		o_mem_unsigned : out std_logic;
+		i_sdram_readvalid : in std_logic
 	);
 end control_unit;
 
@@ -78,7 +79,8 @@ architecture Structure of control_unit is
 			i_ld_st       : in std_logic_vector(R_MEM_LDST);
 			i_bhw         : in std_logic_vector(R_MEM_ACCS);
 			o_ld_st_to_mc : out std_logic_vector(R_MEM_LDST);
-			o_bhw_to_mc   : out std_logic_vector(R_MEM_ACCS)
+			o_bhw_to_mc   : out std_logic_vector(R_MEM_ACCS);
+			i_sdram_readvalid : in std_logic
 		);
 	end component;
 
@@ -123,7 +125,8 @@ begin
 		i_ld_st       => i_ld_st,
 		i_bhw         => i_bhw,
 		o_ld_st_to_mc => o_ld_st_to_mc,
-		o_bhw_to_mc   => o_bhw_to_mc
+		o_bhw_to_mc   => o_bhw_to_mc,
+		i_sdram_readvalid => i_sdram_readvalid
 	);
 
 	-- PROGRAM COUNTER

@@ -117,7 +117,8 @@ architecture Structure of riscv is
 			o_wdata_mem : out std_logic_vector(R_XLEN);
 			o_addr_mem  : out std_logic_vector(R_XLEN);
 			o_bhw       : out std_logic_vector(R_MEM_ACCS);
-			o_ld_st     : out std_logic_vector(R_MEM_LDST)
+			o_ld_st     : out std_logic_vector(R_MEM_LDST);
+			i_sdram_readvalid : in std_logic
 		);
 	end component;
 	component memory_controller is
@@ -148,7 +149,8 @@ architecture Structure of riscv is
 			i_bhw        : in std_logic_vector(R_MEM_ACCS);
 			i_wr_data    : in std_logic_vector(R_XLEN);
 			i_ld_st      : in std_logic_vector(R_MEM_LDST);
-			o_rd_data    : out std_logic_vector(R_XLEN)
+			o_rd_data    : out std_logic_vector(R_XLEN);
+			o_sdram_readvalid : out std_logic
 		);
 	end component;
 	signal s_clk_p     : std_logic := '0';
@@ -158,6 +160,7 @@ architecture Structure of riscv is
 	signal s_addr_mem  : std_logic_vector(R_XLEN);
 	signal s_ld_st     : std_logic_vector(R_MEM_LDST);
 	signal s_bhw       : std_logic_vector(R_MEM_ACCS);
+	signal s_sdram_readvalid : std_logic;
 begin
 	c_proc : proc
 	port map(
@@ -168,7 +171,8 @@ begin
 		o_wdata_mem => s_wdata_mem,
 		o_addr_mem  => s_addr_mem,
 		o_bhw       => s_bhw,
-		o_ld_st     => s_ld_st
+		o_ld_st     => s_ld_st,
+		i_sdram_readvalid => s_sdram_readvalid
 	);
 
 	c_mem_ctrl : memory_controller
@@ -199,7 +203,8 @@ begin
 		i_bhw        => s_bhw,
 		i_wr_data    => s_wdata_mem,
 		i_ld_st      => s_ld_st,
-		o_rd_data    => s_rdata_mem
+		o_rd_data    => s_rdata_mem,
+		o_sdram_readvalid => s_sdram_readvalid
 	);
 
 	-- Base clock for the processor 

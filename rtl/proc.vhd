@@ -13,7 +13,8 @@ entity proc is
 		o_wdata_mem : out std_logic_vector(R_XLEN);
 		o_addr_mem  : out std_logic_vector(R_XLEN);
 		o_bhw       : out std_logic_vector(R_MEM_ACCS);
-		o_ld_st     : out std_logic_vector(R_MEM_LDST)
+		o_ld_st     : out std_logic_vector(R_MEM_LDST);
+		i_sdram_readvalid : in std_logic
 	);
 end proc;
 
@@ -72,7 +73,8 @@ architecture Structure of proc is
 			o_bhw          : out std_logic_vector(R_MEM_ACCS);
 			o_mem_unsigned : out std_logic;
 			o_ld_st_to_mc  : out std_logic_vector(R_MEM_LDST);
-			o_bhw_to_mc    : out std_logic_vector(R_MEM_ACCS)
+			o_bhw_to_mc    : out std_logic_vector(R_MEM_ACCS);
+			i_sdram_readvalid : in std_logic
 		);
 	end component;
 
@@ -137,6 +139,7 @@ begin
 		o_ld_st_to_mc  => o_ld_st,
 		o_bhw_to_mc    => o_bhw,
 		o_addr_mem     => o_addr_mem,
-		o_mem_unsigned => s_mem_unsigned
+		o_mem_unsigned => s_mem_unsigned,
+		i_sdram_readvalid => i_sdram_readvalid
 	);
 end Structure;
