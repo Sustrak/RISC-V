@@ -13,9 +13,9 @@ entity multi is
 		i_pc          : in std_logic_vector(R_XLEN);
 		i_addr_mem    : in std_logic_vector(R_XLEN);
 		o_addr_mem    : out std_logic_vector(R_XLEN);
-		i_ld_st       : in std_logic;
+		i_ld_st       : in std_logic_vector(R_MEM_LDST);
 		i_bhw         : in std_logic_vector(R_MEM_ACCS);
-		o_ld_st_to_mc : out std_logic;
+		o_ld_st_to_mc : out std_logic_vector(R_MEM_LDST);
 		o_bhw_to_mc   : out std_logic_vector(R_MEM_ACCS)
 	);
 end entity;
@@ -45,8 +45,10 @@ begin
 
 	o_inc_pc <= '1' when state = WB else
 		'0';
-	o_ld_st_to_mc <= LD_MEM when state = FETCH else
-		i_ld_st;
+
+	o_ld_st_to_mc <= LD_SDRAM when state = FETCH else
+					 i_ld_st when state = MEM else
+					 IDLE_SDRAM;
 	o_bhw_to_mc <= W_ACCESS when state = FETCH else
 		i_bhw;
 

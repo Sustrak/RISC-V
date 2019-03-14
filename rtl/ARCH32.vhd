@@ -57,8 +57,12 @@ package ARCH32 is
 	constant H_ACCESS   : std_logic_vector := "01";
 	constant W_ACCESS   : std_logic_vector := "00";
 	-- MEMORY LOAD/STORE
+	subtype R_MEM_LDST is natural range 1 downto 0;
 	constant LD_MEM     : std_logic        := '0';
 	constant ST_MEM     : std_logic        := '1';
+	constant LD_SDRAM	: std_logic_vector := "00";
+	constant ST_SDRAM   : std_logic_vector := "01";
+	constant IDLE_SDRAM : std_logic_vector := "10";
 	-- SELECT IMMEDIATE OR RB
 	constant ALU_IMM    : std_logic        := '1';
 	constant ALU_RB     : std_logic        := '0';
@@ -72,14 +76,14 @@ package ARCH32 is
 	-- -----------------------------------------------------------------------------------------
 	-- |DATA A|DATA B|IMM|ALU_OPCODE|RB_IMM|DATA W|LD_ST|BHW|ALU_MEM|MEM_UNSIGNED|ADDR D|WR_REG|
 	-- -----------------------------------------------------------------------------------------
-	subtype R_DATAPATH_BUS is natural range 133 downto 0;
-	subtype R_DPB_DATAA is natural range 133 downto 102;
-	subtype R_DPB_DATAB is natural range 101 downto 70;
-	subtype R_DPB_IMMED is natural range 69 downto 50;
-	subtype R_DPB_OPCODE is natural range 49 downto 44;
-	constant R_DPB_RBIMM : integer := 43;
-	subtype R_DPB_DATAW is natural range 42 downto 11;
-	constant R_DPB_LDST : integer := 10;
+	subtype R_DATAPATH_BUS is natural range 134 downto 0;
+	subtype R_DPB_DATAA is natural range 134 downto 103;
+	subtype R_DPB_DATAB is natural range 102 downto 71;
+	subtype R_DPB_IMMED is natural range 70 downto 51;
+	subtype R_DPB_OPCODE is natural range 50 downto 45;
+	constant R_DPB_RBIMM : integer := 44;
+	subtype R_DPB_DATAW is natural range 43 downto 12;
+	subtype R_DPB_LDST is natural range 11 downto 10;
 	subtype R_DPB_BHW is natural range 9 downto 8;
 	constant R_DPB_ALUMEM   : integer := 7;
 	constant R_DPB_MEMUNSIG : integer := 6;

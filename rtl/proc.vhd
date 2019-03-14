@@ -13,7 +13,7 @@ entity proc is
 		o_wdata_mem : out std_logic_vector(R_XLEN);
 		o_addr_mem  : out std_logic_vector(R_XLEN);
 		o_bhw       : out std_logic_vector(R_MEM_ACCS);
-		o_ld_st     : out std_logic
+		o_ld_st     : out std_logic_vector(R_MEM_LDST)
 	);
 end proc;
 
@@ -38,9 +38,9 @@ architecture Structure of proc is
 			i_rdata_mem    : in std_logic_vector(R_XLEN);
 			o_wdata_mem    : out std_logic_vector(R_XLEN);
 			o_addr_mem     : out std_logic_vector(R_XLEN);
-			i_ld_st        : in std_logic;
+			i_ld_st        : in std_logic_vector(R_MEM_LDST);
 			i_bhw          : in std_logic_vector(R_MEM_ACCS);
-			o_ld_st        : out std_logic;
+			o_ld_st        : out std_logic_vector(R_MEM_LDST);
 			o_bhw          : out std_logic_vector(R_MEM_ACCS);
 			i_mem_unsigned : in std_logic
 		);
@@ -66,12 +66,12 @@ architecture Structure of proc is
 			-- MEMORY
 			i_addr_mem     : in std_logic_vector(R_XLEN);
 			o_addr_mem     : out std_logic_vector(R_XLEN);
-			i_ld_st        : in std_logic;
+			i_ld_st        : in std_logic_vector(R_MEM_LDST);
 			i_bhw          : in std_logic_vector(R_MEM_ACCS);
-			o_ld_st        : out std_logic;
+			o_ld_st        : out std_logic_vector(R_MEM_LDST);
 			o_bhw          : out std_logic_vector(R_MEM_ACCS);
 			o_mem_unsigned : out std_logic;
-			o_ld_st_to_mc  : out std_logic;
+			o_ld_st_to_mc  : out std_logic_vector(R_MEM_LDST);
 			o_bhw_to_mc    : out std_logic_vector(R_MEM_ACCS)
 		);
 	end component;
@@ -84,8 +84,8 @@ architecture Structure of proc is
 	signal s_alu_mem      : std_logic;
 	signal s_addr_mem     : std_logic_vector(R_XLEN);
 	signal s_pc_br        : std_logic_vector(R_XLEN);
-	signal s_ld_st_cu     : std_logic;
-	signal s_ld_st_dp     : std_logic;
+	signal s_ld_st_cu     : std_logic_vector(R_MEM_LDST);
+	signal s_ld_st_dp     : std_logic_vector(R_MEM_LDST);
 	signal s_bhw_cu       : std_logic_vector(R_MEM_ACCS);
 	signal s_bhw_dp       : std_logic_vector(R_MEM_ACCS);
 	signal s_addr_a_reg   : std_logic_vector(R_REGS);

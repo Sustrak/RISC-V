@@ -25,11 +25,11 @@ entity control_unit is
 		-- MEMORY
 		i_addr_mem     : in std_logic_vector(R_XLEN);
 		o_addr_mem     : out std_logic_vector(R_XLEN);
-		i_ld_st        : in std_logic;
+		i_ld_st        : in std_logic_vector(R_MEM_LDST);
 		i_bhw          : in std_logic_vector(R_MEM_ACCS);
-		o_ld_st        : out std_logic;
+		o_ld_st        : out std_logic_vector(R_MEM_LDST);
 		o_bhw          : out std_logic_vector(R_MEM_ACCS);
-		o_ld_st_to_mc  : out std_logic;
+		o_ld_st_to_mc  : out std_logic_vector(R_MEM_LDST);
 		o_bhw_to_mc    : out std_logic_vector(R_MEM_ACCS);
 		o_mem_unsigned : out std_logic
 	);
@@ -51,7 +51,7 @@ architecture Structure of control_unit is
 			o_rb_imm       : out std_logic;
 			o_alu_mem      : out std_logic;
 			-- MEMORY
-			o_ld_st        : out std_logic;
+			o_ld_st        : out std_logic_vector(R_MEM_LDST);
 			o_bhw          : out std_logic_vector(R_MEM_ACCS);
 			o_mem_unsigned : out std_logic
 		);
@@ -75,9 +75,9 @@ architecture Structure of control_unit is
 			i_pc          : in std_logic_vector(R_XLEN);
 			i_addr_mem    : in std_logic_vector(R_XLEN);
 			o_addr_mem    : out std_logic_vector(R_XLEN);
-			i_ld_st       : in std_logic;
+			i_ld_st       : in std_logic_vector(R_MEM_LDST);
 			i_bhw         : in std_logic_vector(R_MEM_ACCS);
-			o_ld_st_to_mc : out std_logic;
+			o_ld_st_to_mc : out std_logic_vector(R_MEM_LDST);
 			o_bhw_to_mc   : out std_logic_vector(R_MEM_ACCS)
 		);
 	end component;
@@ -131,7 +131,7 @@ begin
 	begin
 		if (rising_edge(i_clk_proc)) then
 			if (i_boot = '1') then
-				s_pc <= x"00001000";
+				s_pc <= x"00400000";
 			elsif s_inc_pc = '1' then
 				s_pc <= std_logic_vector(unsigned(s_pc) + 4);
 			end if;

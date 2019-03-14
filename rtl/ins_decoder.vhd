@@ -19,7 +19,7 @@ entity ins_decoder is
 		o_rb_imm       : out std_logic;
 		o_alu_mem      : out std_logic;
 		-- MEMORY
-		o_ld_st        : out std_logic;
+		o_ld_st        : out std_logic_vector(R_MEM_LDST);
 		o_bhw          : out std_logic_vector(R_MEM_ACCS);
 		o_mem_unsigned : out std_logic
 	);
@@ -57,8 +57,9 @@ begin
 	o_rb_imm     <= ALU_IMM when s_op = LUI or s_op = LOAD or s_op = STORE or s_op = ARITHI else
 		ALU_RB;
 
-	o_ld_st <= ST_MEM when s_op = STORE else
-		LD_MEM;
+	o_ld_st <= ST_SDRAM when s_op = STORE else
+			LD_SDRAM when s_op = LOAD else
+			IDLE_SDRAM;
 
 	o_alu_mem <= MEM_DATA when s_op = LOAD else
 		ALU_DATA;

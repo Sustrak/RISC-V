@@ -24,9 +24,9 @@ entity datapath is
 		i_rdata_mem    : in std_logic_vector(R_XLEN);
 		o_wdata_mem    : out std_logic_vector(R_XLEN);
 		o_addr_mem     : out std_logic_vector(R_XLEN);
-		i_ld_st        : in std_logic;
+		i_ld_st        : in std_logic_vector(R_MEM_LDST);
 		i_bhw          : in std_logic_vector(R_MEM_ACCS);
-		o_ld_st        : out std_logic;
+		o_ld_st        : out std_logic_vector(R_MEM_LDST);
 		o_bhw          : out std_logic_vector(R_MEM_ACCS);
 		i_mem_unsigned : in std_logic
 	);
@@ -73,11 +73,8 @@ architecture Structure of datapath is
 	signal s_wdata_to_reg  : std_logic_vector(R_XLEN);
 	-- REGISTERS
 	signal r_id_ex         : std_logic_vector(R_DATAPATH_BUS);
-	signal or_id_ex        : std_logic_vector(R_DATAPATH_BUS);
 	signal r_ex_mem        : std_logic_vector(R_DATAPATH_BUS);
-	signal or_ex_mem       : std_logic_vector(R_DATAPATH_BUS);
 	signal r_mem_wb        : std_logic_vector(R_DATAPATH_BUS);
-	signal or_mem_wb       : std_logic_vector(R_DATAPATH_BUS);
 begin
 	c_reg_file : reg_file
 	port map(
@@ -133,8 +130,8 @@ begin
 			r_id_ex(R_DPB_DATAA)    <= s_port_a;
 			r_id_ex(R_DPB_DATAB)    <= s_port_b;
 			-- PASS THE SIGNAL TO THE OTHER REGISTERS
-			r_mem_wb                <= r_ex_mem(133 downto 43) & s_wdata_to_reg & r_ex_mem(10 downto 0);
-			r_ex_mem                <= r_id_ex(133 downto 43) & s_wdata & r_id_ex(10 downto 0);
+			r_mem_wb                <= r_ex_mem(134 downto 44) & s_wdata_to_reg & r_ex_mem(11 downto 0);
+			r_ex_mem                <= r_id_ex(134 downto 44) & s_wdata & r_id_ex(11 downto 0);
 		end if;
 	end process;
 end Structure;
