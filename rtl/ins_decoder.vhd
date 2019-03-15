@@ -18,6 +18,7 @@ entity ins_decoder is
 		-- CONTROL
 		o_rb_imm       : out std_logic;
 		o_alu_mem      : out std_logic;
+		o_ld_pc        : out std_logic;
 		-- MEMORY
 		o_ld_st        : out std_logic_vector(R_MEM_LDST);
 		o_bhw          : out std_logic_vector(R_MEM_ACCS);
@@ -58,8 +59,8 @@ begin
 		ALU_RB;
 
 	o_ld_st <= ST_SDRAM when s_op = STORE else
-			LD_SDRAM when s_op = LOAD else
-			IDLE_SDRAM;
+		LD_SDRAM when s_op = LOAD else
+		IDLE_SDRAM;
 
 	o_alu_mem <= MEM_DATA when s_op = LOAD else
 		ALU_DATA;
@@ -70,4 +71,7 @@ begin
 
 	o_mem_unsigned <= M_UNSIGNED when s_op = LOAD and (s_funct3 = F3_BYTEU or s_funct3 = F3_HALFU) else
 		M_SIGNED;
+
+	o_ld_pc <= '0' when i_ins = x"FFFFFFFF" else
+			   '1';
 end Structure;

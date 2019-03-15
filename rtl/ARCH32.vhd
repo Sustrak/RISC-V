@@ -53,14 +53,12 @@ package ARCH32 is
 	constant F3_ADDI  : std_logic_vector := "000";
 	-- MEMORY ACCESS
 	subtype R_MEM_ACCS is natural range 1 downto 0;
-	constant B_ACCESS   : std_logic_vector := "10";
-	constant H_ACCESS   : std_logic_vector := "01";
-	constant W_ACCESS   : std_logic_vector := "00";
+	constant B_ACCESS : std_logic_vector := "10";
+	constant H_ACCESS : std_logic_vector := "01";
+	constant W_ACCESS : std_logic_vector := "00";
 	-- MEMORY LOAD/STORE
 	subtype R_MEM_LDST is natural range 1 downto 0;
-	constant LD_MEM     : std_logic        := '0';
-	constant ST_MEM     : std_logic        := '1';
-	constant LD_SDRAM	: std_logic_vector := "00";
+	constant LD_SDRAM   : std_logic_vector := "00";
 	constant ST_SDRAM   : std_logic_vector := "01";
 	constant IDLE_SDRAM : std_logic_vector := "10";
 	-- SELECT IMMEDIATE OR RB
