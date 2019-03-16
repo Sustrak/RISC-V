@@ -39,11 +39,21 @@ package ARCH32 is
 	-- ALU OP CODES
 	constant ALU_LUI  : std_logic_vector := "000001";
 	constant ALU_ADD  : std_logic_vector := "000010";
+	constant ALU_SUB  : std_logic_vector := "000011";
+	constant ALU_SLL  : std_logic_vector := "000100";
+	constant ALU_XOR  : std_logic_vector := "000101";
+	constant ALU_SRL  : std_logic_vector := "000110";
+	constant ALU_SRA  : std_logic_vector := "000111";
+	constant ALU_OR   : std_logic_vector := "001000";
+	constant ALU_AND  : std_logic_vector := "001001";
+	constant ALU_SLT  : std_logic_vector := "001010";
+	constant ALU_SLTU : std_logic_vector := "001011";
 	-- INS OP CODE
 	constant LUI      : std_logic_vector := "0110111";
 	constant LOAD     : std_logic_vector := "0000011";
 	constant STORE    : std_logic_vector := "0100011";
 	constant ARITHI   : std_logic_vector := "0010011";
+	constant ARITH	  : std_logic_vector := "0110011";
 	-- FUNCT3 CODES
 	constant F3_BYTE  : std_logic_vector := "000";
 	constant F3_HALF  : std_logic_vector := "001";
@@ -51,6 +61,38 @@ package ARCH32 is
 	constant F3_BYTEU : std_logic_vector := "100";
 	constant F3_HALFU : std_logic_vector := "101";
 	constant F3_ADDI  : std_logic_vector := "000";
+	constant F3_ADD	  : std_logic_vector := "000";
+	constant F3_SUB	  : std_logic_vector := "000";
+	constant F3_SLL   : std_logic_vector := "001";
+	constant F3_SLT   : std_logic_vector := "010";
+	constant F3_SLTU  : std_logic_vector := "011";
+	constant F3_XOR   : std_logic_vector := "100";
+	constant F3_SRL   : std_logic_vector := "101";
+	constant F3_SRA   : std_logic_vector := "101";
+	constant F3_OR    : std_logic_vector := "110";
+	constant F3_AND   : std_logic_vector := "111";
+	constant F3_SLTI  : std_logic_vector := "010";
+	constant F3_SLTIU : std_logic_vector := "011";
+	constant F3_XORI  : std_logic_vector := "100";
+	constant F3_ORI   : std_logic_vector := "110";
+	constant F3_ANDI  : std_logic_vector := "111";
+	constant F3_SLLI  : std_logic_vector := "001";
+	constant F3_SRLI  : std_logic_vector := "101";
+	constant F3_SRAI  : std_logic_vector := "101";
+	-- FUNCT7 CODES
+	constant F7_SLLI  : std_logic_vector := "0000000";
+	constant F7_SRLI  : std_logic_vector := "0000000";
+	constant F7_SRAI  : std_logic_vector := "0100000";
+	constant F7_ADD   : std_logic_vector := "0000000";
+	constant F7_SUB   : std_logic_vector := "0100000";
+	constant F7_SLL   : std_logic_vector := "0000000";
+	constant F7_SLT   : std_logic_vector := "0000000";
+	constant F7_SLTU  : std_logic_vector := "0000000";
+	constant F7_XOR   : std_logic_vector := "0000000";
+	constant F7_SRL   : std_logic_vector := "0000000";
+	constant F7_SRA   : std_logic_vector := "0100000";
+	constant F7_OR    : std_logic_vector := "0000000";
+	constant F7_AND   : std_logic_vector := "0000000";
 	-- MEMORY ACCESS
 	subtype R_MEM_ACCS is natural range 1 downto 0;
 	constant B_ACCESS : std_logic_vector := "10";

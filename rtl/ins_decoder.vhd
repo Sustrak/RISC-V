@@ -36,10 +36,19 @@ begin
 	s_funct7     <= i_ins(R_INS_FUNCT7);
 
 	o_alu_opcode <= ALU_LUI when s_op = LUI else
-		ALU_ADD when s_op = LOAD or s_op = STORE or (s_op = ARITHI and s_funct3 = F3_ADDI) else
+		ALU_ADD when s_op = LOAD or s_op = STORE or (s_op = ARITHI and s_funct3 = F3_ADDI) or (s_op = ARITH and s_funct3 = F3_ADD) else
+		ALU_SUB when (s_op = ARITH and s_funct3 = F3_SUB) else
+		ALU_SLL when (s_op = ARITH and s_funct3 = F3_SLL) else
+		ALU_SLT when (s_op = ARITH and s_funct3 = F3_SLT) else
+		ALU_SLTU when (s_op = ARITH and s_funct3 = F3_SLTU) else
+		ALU_XOR when (s_op = ARITH and s_funct3 = F3_XOR) else
+		ALU_SRL when (s_op = ARITH and s_funct3 = F3_SRL) else
+		ALU_SRA when (s_op = ARITH and s_funct3 = F3_SRA) else
+		ALU_OR  when (s_op = ARITH and s_funct3 = F3_OR)  else
+		ALU_AND when (s_op = ARITH and s_funct3 = F3_AND) else	
 		(others => '0');
 
-	o_wr_reg <= '1' when s_op = LUI or s_op = LOAD or s_op = ARITHI else
+	o_wr_reg <= '1' when s_op = LUI or s_op = LOAD or s_op = ARITHI or s_op = ARITH else
 		'0';
 
 	o_immed <= i_ins(R_INSU_IMM) when s_op = LUI else
