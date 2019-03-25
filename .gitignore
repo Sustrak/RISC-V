@@ -8,3 +8,5 @@ modelsim/*
 greybox_tmp/*
 *.swp
 scripts/
+*.tcl
+.*bin
