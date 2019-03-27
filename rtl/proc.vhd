@@ -24,6 +24,7 @@ architecture Structure of proc is
 			-- REGFILE
 			i_clk_proc     : in std_logic;
 			i_wr_reg       : in std_logic;
+			i_wr_reg_multi : in std_logic;
 			i_addr_d_reg   : in std_logic_vector(R_REGS);
 			i_addr_a_reg   : in std_logic_vector(R_REGS);
 			i_addr_b_reg   : in std_logic_vector(R_REGS);
@@ -59,6 +60,7 @@ architecture Structure of proc is
 			o_addr_a_reg      : out std_logic_vector(R_REGS);
 			o_addr_b_reg      : out std_logic_vector(R_REGS);
 			o_wr_reg          : out std_logic;
+			o_wr_reg_multi    : out std_logic;
 			--CONTROL
 			o_rb_imm          : out std_logic;
 			o_alu_mem         : out std_logic;
@@ -79,6 +81,7 @@ architecture Structure of proc is
 	end component;
 
 	signal s_wr_reg       : std_logic;
+	signal s_wr_reg_multi : std_logic;
 	signal s_addr_d_reg   : std_logic_vector(R_REGS);
 	signal s_immed        : std_logic_vector(R_IMMED);
 	signal s_alu_opcode   : std_logic_vector(R_OP_CODE);
@@ -98,6 +101,7 @@ begin
 	port map(
 		i_clk_proc     => i_clk_proc,
 		i_wr_reg       => s_wr_reg,
+		i_wr_reg_multi => s_wr_reg_multi,
 		i_addr_d_reg   => s_addr_d_reg,
 		i_addr_a_reg   => s_addr_a_reg,
 		i_addr_b_reg   => s_addr_b_reg,
@@ -127,6 +131,7 @@ begin
 		o_addr_a_reg      => s_addr_a_reg,
 		o_addr_b_reg      => s_addr_b_reg,
 		o_wr_reg          => s_wr_reg,
+		o_wr_reg_multi    => s_wr_reg_multi,
 		o_rb_imm          => s_rb_imm,
 		o_alu_mem         => s_alu_mem,
 		o_pc_br           => s_pc_br,

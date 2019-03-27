@@ -9,6 +9,7 @@ entity datapath is
 		-- REGFILE
 		i_clk_proc     : in std_logic;
 		i_wr_reg       : in std_logic;
+		i_wr_reg_multi : in std_logic;
 		i_addr_d_reg   : in std_logic_vector(R_REGS);
 		i_addr_a_reg   : in std_logic_vector(R_REGS);
 		i_addr_b_reg   : in std_logic_vector(R_REGS);
@@ -79,7 +80,7 @@ begin
 	c_reg_file : reg_file
 	port map(
 		i_clk_proc => i_clk_proc,
-		i_wr       => r_mem_wb(R_DPB_WRREG),
+		i_wr       => r_mem_wb(R_DPB_WRREG) and i_wr_reg_multi,
 		i_data     => r_mem_wb(R_DPB_DATAW),
 		i_addr_d   => r_mem_wb(R_DPB_ADDRD),
 		i_addr_a   => i_addr_a_reg,

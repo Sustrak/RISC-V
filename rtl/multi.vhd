@@ -17,7 +17,9 @@ entity multi is
 		i_bhw             : in std_logic_vector(R_MEM_ACCS);
 		o_ld_st_to_mc     : out std_logic_vector(R_MEM_LDST);
 		o_bhw_to_mc       : out std_logic_vector(R_MEM_ACCS);
-		i_sdram_readvalid : in std_logic
+		i_sdram_readvalid : in std_logic;
+		-- REGISTERS
+		o_wr_reg		  : out std_logic
 	);
 end entity;
 
@@ -71,4 +73,7 @@ begin
 
 	o_addr_mem <= i_pc when state = FETCH else
 		i_addr_mem;
+
+	o_wr_reg <= '1' when state = WB else
+				'0';
 end Structure;

@@ -17,6 +17,7 @@ entity control_unit is
 		o_addr_a_reg      : out std_logic_vector(R_REGS);
 		o_addr_b_reg      : out std_logic_vector(R_REGS);
 		o_wr_reg          : out std_logic;
+		o_wr_reg_multi    : out std_logic;
 		-- CONTROL
 		o_rb_imm          : out std_logic;
 		o_alu_mem         : out std_logic;
@@ -81,7 +82,9 @@ architecture Structure of control_unit is
 			i_bhw             : in std_logic_vector(R_MEM_ACCS);
 			o_ld_st_to_mc     : out std_logic_vector(R_MEM_LDST);
 			o_bhw_to_mc       : out std_logic_vector(R_MEM_ACCS);
-			i_sdram_readvalid : in std_logic
+			i_sdram_readvalid : in std_logic;
+			-- REGISTER
+			o_wr_reg		  : out std_logic
 		);
 	end component;
 
@@ -129,7 +132,9 @@ begin
 		i_bhw             => i_bhw,
 		o_ld_st_to_mc     => o_ld_st_to_mc,
 		o_bhw_to_mc       => o_bhw_to_mc,
-		i_sdram_readvalid => i_sdram_readvalid
+		i_sdram_readvalid => i_sdram_readvalid,
+		-- REGISTER
+		o_wr_reg		  => o_wr_reg_multi
 	);
 
 	-- PROGRAM COUNTER
