@@ -33,7 +33,8 @@ architecture Structure of proc is
 			i_alu_opcode   : in std_logic_vector(R_OP_CODE);
 			-- CONTROL
 			i_rb_imm       : in std_logic;
-			i_alu_mem      : in std_logic;
+			i_ra_pc        : in std_logic;
+			i_alu_mem_pc      : in std_logic_vector(R_REG_DATA);
 			-- BRANCH
 			i_pc_br        : in std_logic_vector(R_XLEN);
 			-- MEMORY
@@ -63,7 +64,8 @@ architecture Structure of proc is
 			o_wr_reg_multi    : out std_logic;
 			--CONTROL
 			o_rb_imm          : out std_logic;
-			o_alu_mem         : out std_logic;
+			o_ra_pc           : out std_logic;
+			o_alu_mem_pc         : out std_logic_vector(R_REG_DATA);
 			-- BRANCH
 			o_pc_br           : out std_logic_vector(R_XLEN);
 			-- MEMORY
@@ -86,7 +88,8 @@ architecture Structure of proc is
 	signal s_immed        : std_logic_vector(R_IMMED);
 	signal s_alu_opcode   : std_logic_vector(R_OP_CODE);
 	signal s_rb_imm       : std_logic;
-	signal s_alu_mem      : std_logic;
+	signal s_ra_pc        : std_logic;
+	signal s_alu_mem_pc      : std_logic_vector(R_REG_DATA);
 	signal s_addr_mem     : std_logic_vector(R_XLEN);
 	signal s_pc_br        : std_logic_vector(R_XLEN);
 	signal s_ld_st_cu     : std_logic_vector(R_MEM_LDST);
@@ -108,7 +111,8 @@ begin
 		i_immed        => s_immed,
 		i_alu_opcode   => s_alu_opcode,
 		i_rb_imm       => s_rb_imm,
-		i_alu_mem      => s_alu_mem,
+		i_ra_pc        => s_ra_pc,
+		i_alu_mem_pc      => s_alu_mem_pc,
 		i_pc_br        => s_pc_br,
 		-- MEMORY
 		i_rdata_mem    => i_rdata_mem,
@@ -133,7 +137,8 @@ begin
 		o_wr_reg          => s_wr_reg,
 		o_wr_reg_multi    => s_wr_reg_multi,
 		o_rb_imm          => s_rb_imm,
-		o_alu_mem         => s_alu_mem,
+		o_ra_pc           => s_ra_pc,
+		o_alu_mem_pc         => s_alu_mem_pc,
 		o_pc_br           => s_pc_br,
 		-- MEMORY
 		i_addr_mem        => s_addr_mem,

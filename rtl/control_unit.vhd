@@ -20,7 +20,8 @@ entity control_unit is
 		o_wr_reg_multi    : out std_logic;
 		-- CONTROL
 		o_rb_imm          : out std_logic;
-		o_alu_mem         : out std_logic;
+		o_ra_pc           : out std_logic;
+		o_alu_mem_pc      : out std_logic_vector(R_REG_DATA);
 		-- BRANCH
 		o_pc_br           : out std_logic_vector(R_XLEN);
 		-- MEMORY
@@ -51,7 +52,8 @@ architecture Structure of control_unit is
 			o_wr_reg       : out std_logic;
 			-- CONTROL
 			o_rb_imm       : out std_logic;
-			o_alu_mem      : out std_logic;
+			o_ra_pc        : out std_logic;
+			o_alu_mem_pc   : out std_logic_vector(R_REG_DATA);
 			o_ld_pc        : out std_logic;
 			-- MEMORY
 			o_ld_st        : out std_logic_vector(R_MEM_LDST);
@@ -107,7 +109,8 @@ begin
 		o_addr_b_reg   => o_addr_b_reg,
 		o_wr_reg       => o_wr_reg,
 		o_rb_imm       => o_rb_imm,
-		o_alu_mem      => o_alu_mem,
+		o_ra_pc        => o_ra_pc,
+		o_alu_mem_pc   => o_alu_mem_pc,
 		o_ld_pc		   => s_ld_pc,
 		-- MEMORY
 		o_ld_st        => o_ld_st,

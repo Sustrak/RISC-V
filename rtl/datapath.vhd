@@ -18,9 +18,11 @@ entity datapath is
 		i_alu_opcode   : in std_logic_vector(R_OP_CODE);
 		-- CONTROL
 		i_rb_imm       : in std_logic;
-		i_alu_mem      : in std_logic;
+		i_ra_pc        : in std_logic;
+		i_alu_mem_pc      : in std_logic_vector(R_REG_DATA);
 		-- BRANCH
 		i_pc_br        : in std_logic_vector(R_XLEN);
+        o_new_pc       : in std_logic_vector(R_XLEN);
 		-- MEMORY
 		i_rdata_mem    : in std_logic_vector(R_XLEN);
 		o_wdata_mem    : out std_logic_vector(R_XLEN);
@@ -69,6 +71,7 @@ architecture Structure of datapath is
 	signal s_port_a        : std_logic_vector(R_XLEN);
 	signal s_port_b        : std_logic_vector(R_XLEN);
 	signal s_bdata         : std_logic_vector(R_XLEN);
+	signal s_adata         : std_logic_vector(R_XLEN);
 	signal s_overflow      : std_logic;
 	signal s_wdata_mem_alu : std_logic_vector(R_XLEN);
 	signal s_rdata_mem_ws  : std_logic_vector(R_XLEN);
@@ -91,7 +94,7 @@ begin
 	);
 	c_alu : alu
 	port map(
-		i_adata    => r_id_ex(R_DPB_DATAA),
+		i_adata    => s_adata,
 		i_bdata    => s_bdata,
 		i_opcode   => r_id_ex(R_DPB_OPCODE),
 		o_wdata    => s_wdata,
@@ -104,9 +107,12 @@ begin
 		i_unsigned => r_ex_mem(R_DPB_MEMUNSIG),
 		o_data     => s_rdata_mem_ws
 	);
-	s_bdata <= x"FFF" & r_id_ex(R_DPB_IMMED) when r_id_ex(R_DPB_RBIMM) = ALU_IMM and r_id_ex(R_DPB_IMMED)(69) = '1' else
-		x"000" & r_id_ex(R_DPB_IMMED) when r_id_ex(R_DPB_RBIMM) = ALU_IMM and r_id_ex(R_DPB_IMMED)(69) = '0' else
+	s_bdata <= x"FFF" & r_id_ex(R_DPB_IMMED) when r_id_ex(R_DPB_RBIMM) = ALU_IMM and r_id_ex(R_DPB_IMMED)(R_DPB_IMMED'high) = '1' else
+		x"000" & r_id_ex(R_DPB_IMMED) when r_id_ex(R_DPB_RBIMM) = ALU_IMM and r_id_ex(R_DPB_IMMED)(R_DPB_IMMED'high) = '0' else
 		r_id_ex(R_DPB_DATAB);
+
+    s_adata <= r_id_ex(R_DPB_PC) when r_id_ex(R_DPB_RAPC) = ALU_PC else
+               r_id_ex(R_DPB_DATAA);
 
 	o_addr_mem     <= r_ex_mem(R_DPB_DATAW);
 	o_wdata_mem    <= r_ex_mem(R_DPB_DATAB);
@@ -114,7 +120,10 @@ begin
 	o_ld_st        <= r_ex_mem(R_DPB_LDST);
 
 	s_wdata_to_reg <= r_ex_mem(R_DPB_DATAW) when r_ex_mem(R_DPB_ALUMEM) = ALU_DATA else
+        r_ex_mem(R_DPB_PC) when r_ex_mem(R_DPB_ALUMEM) = PC_DATA else
 		s_rdata_mem_ws;
+
+    o_new_pc <= r_mem_wb(R_DPB_DATAW)
 
 	s_wr <= r_mem_wb(R_DPB_WRREG) and i_wr_reg_multi;
 
@@ -125,17 +134,19 @@ begin
 			r_id_ex(R_DPB_IMMED)    <= i_immed;
 			r_id_ex(R_DPB_OPCODE)   <= i_alu_opcode;
 			r_id_ex(R_DPB_RBIMM)    <= i_rb_imm;
+            r_id_ex(R_DPB_RAPC)     <= i_ra_pc;
 			r_id_ex(R_DPB_LDST)     <= i_ld_st;
 			r_id_ex(R_DPB_BHW)      <= i_bhw;
-			r_id_ex(R_DPB_ALUMEM)   <= i_alu_mem;
+			r_id_ex(R_DPB_ALUMEM)   <= i_alu_mem_pc;
 			r_id_ex(R_DPB_MEMUNSIG) <= i_mem_unsigned;
 			r_id_ex(R_DPB_ADDRD)    <= i_addr_d_reg;
 			r_id_ex(R_DPB_WRREG)    <= i_wr_reg;
 			r_id_ex(R_DPB_DATAA)    <= s_port_a;
 			r_id_ex(R_DPB_DATAB)    <= s_port_b;
+            r_id_ex(R_DPB_PC)       <= i_pc_br;
 			-- PASS THE SIGNAL TO THE OTHER REGISTERS
-			r_mem_wb                <= r_ex_mem(134 downto 44) & s_wdata_to_reg & r_ex_mem(11 downto 0);
-			r_ex_mem                <= r_id_ex(134 downto 44) & s_wdata & r_id_ex(11 downto 0);
+			r_mem_wb                <= r_ex_mem(R_DATAPATH_BUS'high downto 44) & s_wdata_to_reg & r_ex_mem(11 downto 0);
+			r_ex_mem                <= r_id_ex(R_DATAPATH_BUS'high downto 44) & s_wdata & r_id_ex(11 downto 0);
 		end if;
 	end process;
 end Structure;

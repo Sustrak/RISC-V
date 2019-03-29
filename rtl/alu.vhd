@@ -37,6 +37,7 @@ begin
 		x"00000001" when i_opcode = ALU_SLT and signed(i_adata) < signed(i_bdata) else
 		-- SLTU
 		x"00000001" when i_opcode = ALU_SLTU and unsigned(i_adata) < unsigned(i_bdata) else
-
+        -- AUIPC
+        std_logic_vector(signed(i_bdata(19 downto 0) & x"000") + signed(i_adata)) when i_opcode = ALU_AUIPC else
 		(others => '0');
 end Structure;

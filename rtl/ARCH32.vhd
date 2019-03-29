@@ -37,19 +37,22 @@ package ARCH32 is
 	subtype R_INSJ_IMM2 is natural range 19 downto 12;
 
 	-- ALU OP CODES
-	constant ALU_LUI  : std_logic_vector := "000001";
-	constant ALU_ADD  : std_logic_vector := "000010";
-	constant ALU_SUB  : std_logic_vector := "000011";
-	constant ALU_SLL  : std_logic_vector := "000100";
-	constant ALU_XOR  : std_logic_vector := "000101";
-	constant ALU_SRL  : std_logic_vector := "000110";
-	constant ALU_SRA  : std_logic_vector := "000111";
-	constant ALU_OR   : std_logic_vector := "001000";
-	constant ALU_AND  : std_logic_vector := "001001";
-	constant ALU_SLT  : std_logic_vector := "001010";
-	constant ALU_SLTU : std_logic_vector := "001011";
+	constant ALU_LUI   : std_logic_vector := "000001";
+	constant ALU_ADD   : std_logic_vector := "000010";
+	constant ALU_SUB   : std_logic_vector := "000011";
+	constant ALU_SLL   : std_logic_vector := "000100";
+	constant ALU_XOR   : std_logic_vector := "000101";
+	constant ALU_SRL   : std_logic_vector := "000110";
+	constant ALU_SRA   : std_logic_vector := "000111";
+	constant ALU_OR    : std_logic_vector := "001000";
+	constant ALU_AND   : std_logic_vector := "001001";
+	constant ALU_SLT   : std_logic_vector := "001010";
+	constant ALU_SLTU  : std_logic_vector := "001011";
+    constant ALU_AUIPC : std_logic_vector := "001100";
 	-- INS OP CODE
 	constant LUI      : std_logic_vector := "0110111";
+    constant AUIPC    : std_logic_vector := "0010111";
+    constant JAL      : std_logic_vector := "1101111";
 	constant LOAD     : std_logic_vector := "0000011";
 	constant STORE    : std_logic_vector := "0100011";
 	constant ARITHI   : std_logic_vector := "0010011";
@@ -106,29 +109,36 @@ package ARCH32 is
 	-- SELECT IMMEDIATE OR RB
 	constant ALU_IMM    : std_logic        := '1';
 	constant ALU_RB     : std_logic        := '0';
-	-- SELECT ALU DATA OR MEM DATA TO WRITE IN REGISTER
-	constant ALU_DATA   : std_logic        := '0';
-	constant MEM_DATA   : std_logic        := '1';
+    -- SELECT RA OR PC
+    constant ALU_PC     : std_logic        := '1';
+    constant ALU_RA     : std_logic        := '0';
+	-- SELECT ALU DATA OR MEM DATA OR PC TO BE WRITTEN IN REGISTER
+    subtype R_REG_DATA is natural range 1 downto 0;
+	constant ALU_DATA   : std_logic_vector := "00";
+	constant MEM_DATA   : std_logic_vector := "01";
+	constant PC_DATA    : std_logic_vector := "10";
 	-- DATA FROM MEM IS SIGNED OR UNSIGNED
 	constant M_UNSIGNED : std_logic        := '1';
 	constant M_SIGNED   : std_logic        := '0';
 	-- DATAPATH BUS
 	-- -----------------------------------------------------------------------------------------
-	-- |DATA A|DATA B|IMM|ALU_OPCODE|RB_IMM|DATA W|LD_ST|BHW|ALU_MEM|MEM_UNSIGNED|ADDR D|WR_REG|
+	-- PC|RA_PC|DATA A|DATA B|IMM|ALU_OPCODE|RB_IMM|DATA W|LD_ST|BHW|ALU_MEM|MEM_UNSIGNED|ADDR D|WR_REG|
 	-- -----------------------------------------------------------------------------------------
-	subtype R_DATAPATH_BUS is natural range 134 downto 0;
-	subtype R_DPB_DATAA is natural range 134 downto 103;
-	subtype R_DPB_DATAB is natural range 102 downto 71;
-	subtype R_DPB_IMMED is natural range 70 downto 51;
-	subtype R_DPB_OPCODE is natural range 50 downto 45;
-	constant R_DPB_RBIMM : integer := 44;
-	subtype R_DPB_DATAW is natural range 43 downto 12;
-	subtype R_DPB_LDST is natural range 11 downto 10;
-	subtype R_DPB_BHW is natural range 9 downto 8;
-	constant R_DPB_ALUMEM   : integer := 7;
-	constant R_DPB_MEMUNSIG : integer := 6;
-	subtype R_DPB_ADDRD is natural range 5 downto 1;
 	constant R_DPB_WRREG : integer := 0;
+	subtype R_DPB_ADDRD is natural range 5 downto 1;
+    constant R_DPB_MEMUNSIG : integer := 6;
+    subtype R_DPB_ALUMEM is natural range 8 downto 7;
+	subtype R_DPB_BHW is natural range R_DPB_ALUMEM'high+2 downto R_DPB_ALUMEM'high+1;
+	subtype R_DPB_LDST is natural range R_DPB_BHW'high+2 downto R_DPB_BHW'high+1;
+	subtype R_DPB_DATAW is natural range R_DPB_LDST'high+32 downto R_DPB_LDST'high+1;
+	constant R_DPB_RBIMM : integer := R_DPB_DATAW'high+1;
+	subtype R_DPB_OPCODE is natural range R_DPB_RBIMM+6 downto R_DPB_RBIMM+1;
+	subtype R_DPB_IMMED is natural range R_DPB_OPCODE'high+20 downto R_DPB_OPCODE'high+1;
+	subtype R_DPB_DATAB is natural range R_DPB_IMMED'high+32 downto R_DPB_IMMED'high+1;
+	subtype R_DPB_DATAA is natural range R_DPB_DATAB'high+32 downto R_DPB_DATAB'high+1;
+    constant R_DPB_RAPC : integer := R_DPB_DATAA'high+1;
+    subtype R_DPB_PC is natural range R_DPB_RAPC+32 downto R_DPB_RAPC+1;
+	subtype R_DATAPATH_BUS is natural range R_DPB_PC'high downto 0;
 	subtype R_DPB_EXMEM is natural range 10 downto 0;
 	subtype R_DPB_MEMWB is natural range 5 downto 0;
 
