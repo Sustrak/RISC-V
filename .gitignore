@@ -5,3 +5,7 @@ simulation/*
 .qsys_edit/*
 c5_pin_model_dump.txt
 modelsim/*
+greybox_tmp/*
+*.swp
+*.tcl
+.*bin
