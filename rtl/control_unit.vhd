@@ -84,7 +84,9 @@ architecture Structure of control_unit is
 			o_bhw_to_mc       : out std_logic_vector(R_MEM_ACCS);
 			i_sdram_readvalid : in std_logic;
 			-- REGISTER
-			o_wr_reg		  : out std_logic
+			o_wr_reg		  : out std_logic;
+            -- STATE
+            o_fetch           : out std_logic
 		);
 	end component;
 
@@ -93,6 +95,7 @@ architecture Structure of control_unit is
 	signal s_inc_pc : std_logic;
 	signal s_ins    : std_logic_vector(R_INS);
 	signal s_ld_pc  : std_logic;
+    signal s_fetch  : std_logic;
 begin
 	c_ins_dec : ins_decoder
 	port map(
@@ -134,18 +137,18 @@ begin
 		o_bhw_to_mc       => o_bhw_to_mc,
 		i_sdram_readvalid => i_sdram_readvalid,
 		-- REGISTER
-		o_wr_reg		  => o_wr_reg_multi
+		o_wr_reg		  => o_wr_reg_multi,
+        -- STATE
+        o_fetch           => s_fetch
 	);
 
 	-- PROGRAM COUNTER
-	process (i_clk_proc, i_boot)
+	process (s_fetch, i_boot)
 	begin
-		if (rising_edge(i_clk_proc)) then
 			if (i_boot = '1') then
 				s_pc <= x"00400000";
-			elsif s_inc_pc = '1' and s_ld_pc = '1' then
+			elsif falling_edge(s_fetch) and s_ld_pc = '1' then
 				s_pc <= std_logic_vector(unsigned(s_pc) + 4);
 			end if;
-		end if;
 	end process;
 end Structure;

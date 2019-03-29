@@ -65,6 +65,7 @@ architecture Structure of datapath is
 	end component;
 	-- SIGNALS
 	signal s_wdata         : std_logic_vector(R_XLEN);
+	signal s_wr	       : std_logic;
 	signal s_port_a        : std_logic_vector(R_XLEN);
 	signal s_port_b        : std_logic_vector(R_XLEN);
 	signal s_bdata         : std_logic_vector(R_XLEN);
@@ -80,7 +81,7 @@ begin
 	c_reg_file : reg_file
 	port map(
 		i_clk_proc => i_clk_proc,
-		i_wr       => r_mem_wb(R_DPB_WRREG) and i_wr_reg_multi,
+		i_wr       => s_wr,
 		i_data     => r_mem_wb(R_DPB_DATAW),
 		i_addr_d   => r_mem_wb(R_DPB_ADDRD),
 		i_addr_a   => i_addr_a_reg,
@@ -114,6 +115,8 @@ begin
 
 	s_wdata_to_reg <= r_ex_mem(R_DPB_DATAW) when r_ex_mem(R_DPB_ALUMEM) = ALU_DATA else
 		s_rdata_mem_ws;
+
+	s_wr <= r_mem_wb(R_DPB_WRREG) and i_wr_reg_multi;
 
 	process (i_clk_proc)
 	begin

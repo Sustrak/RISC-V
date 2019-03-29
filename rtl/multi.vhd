@@ -19,7 +19,9 @@ entity multi is
 		o_bhw_to_mc       : out std_logic_vector(R_MEM_ACCS);
 		i_sdram_readvalid : in std_logic;
 		-- REGISTERS
-		o_wr_reg		  : out std_logic
+		o_wr_reg		  : out std_logic;
+        -- STATE
+        o_fetch           : out std_logic
 	);
 end entity;
 
@@ -76,4 +78,7 @@ begin
 
 	o_wr_reg <= '1' when state = WB else
 				'0';
+
+    o_fetch <= '1' when state = FETCH else
+               '0';
 end Structure;

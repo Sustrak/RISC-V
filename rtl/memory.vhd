@@ -35,7 +35,7 @@ architecture comportament of memory is
 		-- Open File in Read Mode
 		file romfile                                        : text open read_mode is "memory.hex";
 		variable lbuf                                       : line;
-		variable i                                          : integer := 0;--4194304; -- X"40 0000" ==> 4096 adreca inicial S.O.
+		variable i                                          : integer := 0;
 		variable fdata                                      : std_logic_vector (31 downto 0);
 	begin
 		while not endfile(romfile) loop
