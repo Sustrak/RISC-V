@@ -22,11 +22,11 @@ begin
 		-- SUB
 		std_logic_vector(signed(i_adata) - signed(i_bdata)) when i_opcode = ALU_SUB else
 		-- SLL
-		std_logic_vector(shift_left(signed(i_adata), to_integer(unsigned(i_bdata(3 downto 0))))) when i_opcode = ALU_SLL else
+		std_logic_vector(shift_left(signed(i_adata), to_integer(unsigned(i_bdata(4 downto 0))))) when i_opcode = ALU_SLL else
 		-- SRL
-		std_logic_vector(shift_right(unsigned(i_adata), to_integer(unsigned(i_bdata(3 downto 0))))) when i_opcode = ALU_SRL else
+		std_logic_vector(shift_right(unsigned(i_adata), to_integer(unsigned(i_bdata(4 downto 0))))) when i_opcode = ALU_SRL else
 		-- SRA
-		std_logic_vector(shift_right(signed(i_adata), to_integer(unsigned(i_bdata(3 downto 0))))) when i_opcode = ALU_SRA else
+		std_logic_vector(shift_right(signed(i_adata), to_integer(unsigned(i_bdata(4 downto 0))))) when i_opcode = ALU_SRA else
 		-- XOR
 		i_adata xor i_bdata when i_opcode = ALU_XOR else
 		-- OR
@@ -39,5 +39,8 @@ begin
 		x"00000001" when i_opcode = ALU_SLTU and unsigned(i_adata) < unsigned(i_bdata) else
         -- AUIPC
         std_logic_vector(signed(i_bdata(19 downto 0) & x"000") + signed(i_adata)) when i_opcode = ALU_AUIPC else
+        -- BRANCH
+        std_logic_vector(signed(i_adata) + signed(i_bdata)) when i_opcode = ALU_BEQ or i_opcode = ALU_BGE or i_opcode = ALU_BGEU or i_opcode = ALU_BLT or i_opcode = ALU_BLTU or i_opcode = ALU_BNE or i_opcode = ALU_JAL else
+        std_logic_vector(signed(i_adata) + signed(i_bdata))(R_XLEN'high downto R_XLEN'low+1) & '0' when i_opcode = ALU_JARL else
 		(others => '0');
 end Structure;

@@ -49,10 +49,20 @@ package ARCH32 is
 	constant ALU_SLT   : std_logic_vector := "001010";
 	constant ALU_SLTU  : std_logic_vector := "001011";
     constant ALU_AUIPC : std_logic_vector := "001100";
+    constant ALU_BEQ   : std_logic_vector := "001101";
+    constant ALU_BGE   : std_logic_vector := "001110";
+    constant ALU_BGEU  : std_logic_vector := "001111";
+    constant ALU_BLT   : std_logic_vector := "010000";
+    constant ALU_BLTU  : std_logic_vector := "010001";
+    constant ALU_BNE   : std_logic_vector := "010010";
+    constant ALU_JAL   : std_logic_vector := "010011";
+    constant ALU_JARL  : std_logic_vector := "010100";
 	-- INS OP CODE
 	constant LUI      : std_logic_vector := "0110111";
     constant AUIPC    : std_logic_vector := "0010111";
     constant JAL      : std_logic_vector := "1101111";
+    constant JARL     : std_logic_vector := "1100111";
+    constant BRANCH   : std_logic_vector := "1100011";
 	constant LOAD     : std_logic_vector := "0000011";
 	constant STORE    : std_logic_vector := "0100011";
 	constant ARITHI   : std_logic_vector := "0010011";
@@ -82,6 +92,12 @@ package ARCH32 is
 	constant F3_SLLI  : std_logic_vector := "001";
 	constant F3_SRLI  : std_logic_vector := "101";
 	constant F3_SRAI  : std_logic_vector := "101";
+    constant F3_BEQ   : std_logic_vector := "000";
+    constant F3_BGE   : std_logic_vector := "101";
+    constant F3_BGEU  : std_logic_vector := "111";
+    constant F3_BLT   : std_logic_vector := "100";
+    constant F3_BLTU  : std_logic_vector := "110";
+    constant F3_BNE   : std_logic_vector := "001";
 	-- FUNCT7 CODES
 	constant F7_SLLI  : std_logic_vector := "0000000";
 	constant F7_SRLI  : std_logic_vector := "0000000";
@@ -125,10 +141,10 @@ package ARCH32 is
 	-- PC|RA_PC|DATA A|DATA B|IMM|ALU_OPCODE|RB_IMM|DATA W|LD_ST|BHW|ALU_MEM|MEM_UNSIGNED|ADDR D|WR_REG|
 	-- -----------------------------------------------------------------------------------------
 	constant R_DPB_WRREG : integer := 0;
-	subtype R_DPB_ADDRD is natural range 5 downto 1;
-    constant R_DPB_MEMUNSIG : integer := 6;
-    subtype R_DPB_ALUMEM is natural range 8 downto 7;
-	subtype R_DPB_BHW is natural range R_DPB_ALUMEM'high+2 downto R_DPB_ALUMEM'high+1;
+	subtype R_DPB_ADDRD is natural range R_DPB_WRREG+5 downto R_DPB_WRREG+1;
+    constant R_DPB_MEMUNSIG : integer := R_DPB_ADDRD'high+1;
+    subtype R_DPB_ALUMEMPC is natural range R_DPB_MEMUNSIG+2 downto R_DPB_MEMUNSIG+1;
+	subtype R_DPB_BHW is natural range R_DPB_ALUMEMPC'high+2 downto R_DPB_ALUMEMPC'high+1;
 	subtype R_DPB_LDST is natural range R_DPB_BHW'high+2 downto R_DPB_BHW'high+1;
 	subtype R_DPB_DATAW is natural range R_DPB_LDST'high+32 downto R_DPB_LDST'high+1;
 	constant R_DPB_RBIMM : integer := R_DPB_DATAW'high+1;
@@ -138,7 +154,8 @@ package ARCH32 is
 	subtype R_DPB_DATAA is natural range R_DPB_DATAB'high+32 downto R_DPB_DATAB'high+1;
     constant R_DPB_RAPC : integer := R_DPB_DATAA'high+1;
     subtype R_DPB_PC is natural range R_DPB_RAPC+32 downto R_DPB_RAPC+1;
-	subtype R_DATAPATH_BUS is natural range R_DPB_PC'high downto 0;
+    constant R_DPB_TKBR : integer := R_DPB_PC'high+1;
+	subtype R_DATAPATH_BUS is natural range R_DPB_TKBR downto 0;
 	subtype R_DPB_EXMEM is natural range 10 downto 0;
 	subtype R_DPB_MEMWB is natural range 5 downto 0;
 

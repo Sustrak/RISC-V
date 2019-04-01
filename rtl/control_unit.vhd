@@ -24,6 +24,8 @@ entity control_unit is
 		o_alu_mem_pc      : out std_logic_vector(R_REG_DATA);
 		-- BRANCH
 		o_pc_br           : out std_logic_vector(R_XLEN);
+        i_new_pc          : in std_logic_vector(R_XLEN);
+        i_tkbr            : in std_logic;
 		-- MEMORY
 		i_addr_mem        : in std_logic_vector(R_XLEN);
 		o_addr_mem        : out std_logic_vector(R_XLEN);
@@ -146,12 +148,14 @@ begin
 	);
 
 	-- PROGRAM COUNTER
-	process (s_fetch, i_boot)
+	process (s_fetch, i_boot, i_tkbr)
 	begin
-			if (i_boot = '1') then
-				s_pc <= x"00400000";
-			elsif falling_edge(s_fetch) and s_ld_pc = '1' then
-				s_pc <= std_logic_vector(unsigned(s_pc) + 4);
-			end if;
+		if (i_boot = '1') then
+			s_pc <= x"00400000";
+        elsif i_tkbr = '1' then
+            s_pc <= i_new_pc;
+		elsif falling_edge(s_fetch) and s_ld_pc = '1' then
+			s_pc <= std_logic_vector(unsigned(s_pc) + 4);
+		end if;
 	end process;
 end Structure;

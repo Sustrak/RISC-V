@@ -37,6 +37,8 @@ architecture Structure of proc is
 			i_alu_mem_pc      : in std_logic_vector(R_REG_DATA);
 			-- BRANCH
 			i_pc_br        : in std_logic_vector(R_XLEN);
+            o_new_pc       : out std_logic_vector(R_XLEN);
+            o_tkbr         : out std_logic;
 			-- MEMORY
 			i_rdata_mem    : in std_logic_vector(R_XLEN);
 			o_wdata_mem    : out std_logic_vector(R_XLEN);
@@ -68,6 +70,8 @@ architecture Structure of proc is
 			o_alu_mem_pc         : out std_logic_vector(R_REG_DATA);
 			-- BRANCH
 			o_pc_br           : out std_logic_vector(R_XLEN);
+            i_new_pc          : in std_logic_vector(R_XLEN);
+            i_tkbr            : in std_logic;
 			-- MEMORY
 			i_addr_mem        : in std_logic_vector(R_XLEN);
 			o_addr_mem        : out std_logic_vector(R_XLEN);
@@ -99,6 +103,8 @@ architecture Structure of proc is
 	signal s_addr_a_reg   : std_logic_vector(R_REGS);
 	signal s_addr_b_reg   : std_logic_vector(R_REGS);
 	signal s_mem_unsigned : std_logic;
+    signal s_new_pc       : std_logic_vector(R_XLEN);
+    signal s_tkbr         : std_logic;
 begin
 	c_datapath : datapath
 	port map(
@@ -114,6 +120,8 @@ begin
 		i_ra_pc        => s_ra_pc,
 		i_alu_mem_pc      => s_alu_mem_pc,
 		i_pc_br        => s_pc_br,
+        o_new_pc       => s_new_pc,
+        o_tkbr         => s_tkbr,
 		-- MEMORY
 		i_rdata_mem    => i_rdata_mem,
 		o_wdata_mem    => o_wdata_mem,
@@ -140,6 +148,8 @@ begin
 		o_ra_pc           => s_ra_pc,
 		o_alu_mem_pc         => s_alu_mem_pc,
 		o_pc_br           => s_pc_br,
+        i_new_pc          => s_new_pc,
+        i_tkbr            => s_tkbr,
 		-- MEMORY
 		i_addr_mem        => s_addr_mem,
 		i_ld_st           => s_ld_st_dp,

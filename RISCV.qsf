@@ -1156,35 +1156,12 @@ set_instance_assignment -name IO_STANDARD LVDS -to HSMC_CLKOUT_N2
 set_location_assignment PIN_G24 -to HSMC_CLKOUT_N1
 set_instance_assignment -name IO_STANDARD LVDS -to HSMC_CLKOUT_N1
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[8] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_global_assignment -name QIP_FILE SRAMController/synthesis/SRAMController.qip
-set_global_assignment -name QIP_FILE SDRAMController/synthesis/SDRAMController.qip
-set_global_assignment -name VHDL_FILE rtl/memory_controller.vhd
-set_global_assignment -name VHDL_FILE rtl/sign_extensor.vhd
-set_global_assignment -name VHDL_FILE rtl/riscv_modelsim.vhd
-set_global_assignment -name VHDL_FILE rtl/riscv.vhd
-set_global_assignment -name VHDL_FILE rtl/reg_mem_wb.vhd
-set_global_assignment -name VHDL_FILE rtl/reg_if_id.vhd
-set_global_assignment -name VHDL_FILE rtl/reg_id_ex.vhd
-set_global_assignment -name VHDL_FILE rtl/reg_file.vhd
-set_global_assignment -name VHDL_FILE rtl/reg_ex_mem.vhd
-set_global_assignment -name VHDL_FILE rtl/proc.vhd
-set_global_assignment -name VHDL_FILE rtl/multi.vhd
-set_global_assignment -name VHDL_FILE rtl/memory.vhd
-set_global_assignment -name VHDL_FILE rtl/ins_decoder.vhd
-set_global_assignment -name VHDL_FILE rtl/datapath.vhd
-set_global_assignment -name VHDL_FILE rtl/control_unit.vhd
-set_global_assignment -name VHDL_FILE rtl/ARCH32.vhd
-set_global_assignment -name VHDL_FILE rtl/alu.vhd
-set_global_assignment -name SDC_FILE RISCV.sdc
-set_global_assignment -name SDC_FILE RISCV.SDC
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[27] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[0] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[11] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[5] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[7] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[2] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
-set_global_assignment -name SIGNALTAP_FILE "SDRAM-ST.stp"
-set_global_assignment -name SIGNALTAP_FILE RISCV.stp
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_clk -to CLOCK_50 -section_id auto_signaltap_0
 set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[0] -to "memory_controller:c_mem_ctrl|SDRAMController:c_sdram_controller|mm_bridge_s_read" -section_id auto_signaltap_0
 set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[1] -to "memory_controller:c_mem_ctrl|SDRAMController:c_sdram_controller|mm_bridge_s_readdatavalid" -section_id auto_signaltap_0
@@ -1766,5 +1743,29 @@ set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK=00
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK_LENGTH=846" -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[25] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[28] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name VHDL_FILE rtl/take_branch.vhd
+set_global_assignment -name QIP_FILE SRAMController/synthesis/SRAMController.qip
+set_global_assignment -name QIP_FILE SDRAMController/synthesis/SDRAMController.qip
+set_global_assignment -name VHDL_FILE rtl/memory_controller.vhd
+set_global_assignment -name VHDL_FILE rtl/sign_extensor.vhd
+set_global_assignment -name VHDL_FILE rtl/riscv_modelsim.vhd
+set_global_assignment -name VHDL_FILE rtl/riscv.vhd
+set_global_assignment -name VHDL_FILE rtl/reg_mem_wb.vhd
+set_global_assignment -name VHDL_FILE rtl/reg_if_id.vhd
+set_global_assignment -name VHDL_FILE rtl/reg_id_ex.vhd
+set_global_assignment -name VHDL_FILE rtl/reg_file.vhd
+set_global_assignment -name VHDL_FILE rtl/reg_ex_mem.vhd
+set_global_assignment -name VHDL_FILE rtl/proc.vhd
+set_global_assignment -name VHDL_FILE rtl/multi.vhd
+set_global_assignment -name VHDL_FILE rtl/memory.vhd
+set_global_assignment -name VHDL_FILE rtl/ins_decoder.vhd
+set_global_assignment -name VHDL_FILE rtl/datapath.vhd
+set_global_assignment -name VHDL_FILE rtl/control_unit.vhd
+set_global_assignment -name VHDL_FILE rtl/ARCH32.vhd
+set_global_assignment -name VHDL_FILE rtl/alu.vhd
+set_global_assignment -name SDC_FILE RISCV.sdc
+set_global_assignment -name SDC_FILE RISCV.SDC
+set_global_assignment -name SIGNALTAP_FILE "SDRAM-ST.stp"
+set_global_assignment -name SIGNALTAP_FILE RISCV.stp
 set_global_assignment -name SLD_FILE db/RISCV_auto_stripped.stp
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
