@@ -136,6 +136,14 @@ package ARCH32 is
 	-- DATA FROM MEM IS SIGNED OR UNSIGNED
 	constant M_UNSIGNED : std_logic        := '1';
 	constant M_SIGNED   : std_logic        := '0';
+    -- PROCESSOR STATES
+    subtype R_STATES is natural range 2 downto 0;
+    constant FETCH_STATE : std_logic_vector := "000";
+    constant DECODE_STATE : std_logic_vector := "001";
+    constant EXEC_STATE : std_logic_vector := "010";
+    constant MEM_STATE : std_logic_vector := "011";
+    constant WB_STATE : std_logic_vector := "100";
+    constant INI_STATE : std_logic_vector := "101";
 	-- DATAPATH BUS
 	-- -----------------------------------------------------------------------------------------
 	-- PC|RA_PC|DATA A|DATA B|IMM|ALU_OPCODE|RB_IMM|DATA W|LD_ST|BHW|ALU_MEM|MEM_UNSIGNED|ADDR D|WR_REG|

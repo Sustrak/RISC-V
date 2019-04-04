@@ -8,7 +8,6 @@ entity multi is
 	port (
 		i_boot            : in std_logic;
 		i_clk_proc        : in std_logic;
-		o_inc_pc          : out std_logic;
 		-- MEMORY
 		i_pc              : in std_logic_vector(R_XLEN);
 		i_addr_mem        : in std_logic_vector(R_XLEN);
@@ -21,7 +20,7 @@ entity multi is
 		-- REGISTERS
 		o_wr_reg		  : out std_logic;
         -- STATE
-        o_fetch           : out std_logic
+        o_states          : out std_logic_vector(R_STATES) 
 	);
 end entity;
 
@@ -64,8 +63,6 @@ begin
 		end if;
 	end process;
 
-	o_inc_pc <= '1' when state = WB else
-		'0';
 
 	o_ld_st_to_mc <= LD_SDRAM when state = FETCH else
 		i_ld_st when state = MEM else
@@ -79,6 +76,11 @@ begin
 	o_wr_reg <= '1' when state = WB else
 				'0';
 
-    o_fetch <= '1' when state = FETCH else
-               '0';
+    o_states <= FETCH_STATE when state = FETCH else
+                DECODE_STATE when state = ID else
+                EXEC_STATE when state = EX else
+                MEM_STATE when state = MEM or state = MEM2 else
+                WB_STATE when state = WB else
+                INI_STATE;
+
 end Structure;

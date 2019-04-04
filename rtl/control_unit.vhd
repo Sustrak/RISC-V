@@ -77,7 +77,6 @@ architecture Structure of control_unit is
 		port (
 			i_boot            : in std_logic;
 			i_clk_proc        : in std_logic;
-			o_inc_pc          : out std_logic;
 			-- MEMORY
 			i_pc              : in std_logic_vector(R_XLEN);
 			i_addr_mem        : in std_logic_vector(R_XLEN);
@@ -90,16 +89,18 @@ architecture Structure of control_unit is
 			-- REGISTER
 			o_wr_reg		  : out std_logic;
             -- STATE
-            o_fetch           : out std_logic
+            o_states          : out std_logic_vector(R_STATES)
 		);
 	end component;
 
 	-- SIGNALS
 	signal s_pc     : std_logic_vector(R_XLEN);
+	signal s_aux_pc     : std_logic_vector(R_XLEN);
 	signal s_inc_pc : std_logic;
 	signal s_ins    : std_logic_vector(R_INS);
 	signal s_ld_pc  : std_logic;
-    signal s_fetch  : std_logic;
+    signal s_wr_reg_multi : std_logic;
+    signal s_states  : std_logic_vector(R_STATES);
 begin
 	c_ins_dec : ins_decoder
 	port map(
@@ -131,7 +132,6 @@ begin
 	port map(
 		i_boot            => i_boot,
 		i_clk_proc        => i_clk_proc,
-		o_inc_pc          => s_inc_pc,
 		-- MEMORY
 		i_pc              => s_pc,
 		i_addr_mem        => i_addr_mem,
@@ -142,20 +142,29 @@ begin
 		o_bhw_to_mc       => o_bhw_to_mc,
 		i_sdram_readvalid => i_sdram_readvalid,
 		-- REGISTER
-		o_wr_reg		  => o_wr_reg_multi,
+		o_wr_reg		  => s_wr_reg_multi,
         -- STATE
-        o_fetch           => s_fetch
+        o_states           => s_states
 	);
 
+    o_wr_reg_multi <= s_wr_reg_multi;
+
 	-- PROGRAM COUNTER
-	process (s_fetch, i_boot, i_tkbr)
-	begin
-		if (i_boot = '1') then
-			s_pc <= x"00400000";
-        elsif i_tkbr = '1' then
-            s_pc <= i_new_pc;
-		elsif falling_edge(s_fetch) and s_ld_pc = '1' then
-			s_pc <= std_logic_vector(unsigned(s_pc) + 4);
-		end if;
-	end process;
+    process (s_states, i_boot, i_tkbr, i_clk_proc, s_ld_pc)
+    begin
+        if i_boot = '1' then
+            s_pc <= x"00400000";
+        elsif rising_edge(i_clk_proc) then
+           if s_states = DECODE_STATE then
+               if s_ld_pc = '1' then
+                   s_pc <= std_logic_vector(unsigned(s_pc) + 4);
+               end if;
+           elsif s_states = WB_STATE then
+               if i_tkbr = '1' then
+                   s_pc <= i_new_pc;
+               end if;
+           end if;
+        end if;
+    end process;
+
 end Structure;

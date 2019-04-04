@@ -77,7 +77,7 @@ begin
 	s_half_m <= '1' when s_bhw = H_ACCESS else
 		'0';
 
-	s_we <= '1' when s_ld_st = LD_SDRAM else
+	s_we <= '1' when s_ld_st = ST_SDRAM else
 			'0';
 
     s_sdram_readvalid <= not s_sdram_readvalid after 20 ns;
