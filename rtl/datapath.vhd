@@ -41,7 +41,7 @@ architecture Structure of datapath is
 		port (
 			i_clk_proc : in std_logic;
 			i_wr       : in std_logic;
-			i_data     : in std_logic_vector(R_XLEN);
+			i_port_d   : in std_logic_vector(R_XLEN);
 			i_addr_d   : in std_logic_vector(R_REGS);
 			i_addr_a   : in std_logic_vector(R_REGS);
 			i_addr_b   : in std_logic_vector(R_REGS);
@@ -81,11 +81,11 @@ architecture Structure of datapath is
 	signal s_port_b        : std_logic_vector(R_XLEN);
 	signal s_bdata         : std_logic_vector(R_XLEN);
 	signal s_adata         : std_logic_vector(R_XLEN);
-    signal s_ddata         : std_logic_vector(R_XLEN);
+    signal s_port_d         : std_logic_vector(R_XLEN);
 	signal s_overflow      : std_logic;
 	signal s_wdata_mem_alu : std_logic_vector(R_XLEN);
 	signal s_rdata_mem_ws  : std_logic_vector(R_XLEN);
-	signal s_wdata_to_reg  : std_logic_vector(R_XLEN);
+	signal s_wdata_wb  : std_logic_vector(R_XLEN);
     signal s_tkbr          : std_logic;
 	-- REGISTERS
 	signal r_id_ex         : std_logic_vector(R_DATAPATH_BUS);
@@ -96,7 +96,7 @@ begin
 	port map(
 		i_clk_proc => i_clk_proc,
 		i_wr       => s_wr,
-		i_data     => s_ddata,
+		i_port_d   => s_port_d,
 		i_addr_d   => r_mem_wb(R_DPB_ADDRD),
 		i_addr_a   => i_addr_a_reg,
 		i_addr_b   => i_addr_b_reg,
@@ -133,18 +133,18 @@ begin
     s_adata <= r_id_ex(R_DPB_PC) when r_id_ex(R_DPB_RAPC) = ALU_PC else
                r_id_ex(R_DPB_DATAA);
 
-    s_ddata <= r_mem_wb(R_DPB_PC) when r_mem_wb(R_DPB_ALUMEMPC) = PC_DATA else
-              r_mem_wb(R_DPB_DATAW); 
+    s_port_d <= r_mem_wb(R_DPB_DATAW); 
 
 	o_addr_mem     <= r_ex_mem(R_DPB_DATAW);
 	o_wdata_mem    <= r_ex_mem(R_DPB_DATAB);
 	o_bhw          <= r_ex_mem(R_DPB_BHW);
 	o_ld_st        <= r_ex_mem(R_DPB_LDST);
 
-	s_wdata_to_reg <= r_ex_mem(R_DPB_DATAW) when r_ex_mem(R_DPB_ALUMEMPC) = ALU_DATA else
-		s_rdata_mem_ws;
+	s_wdata_wb <= r_ex_mem(R_DPB_DATAW) when r_ex_mem(R_DPB_ALUMEMPC) = ALU_DATA else
+                  std_logic_vector(unsigned(r_ex_mem(R_DPB_PC)) + 4) when r_ex_mem(R_DPB_ALUMEMPC) = PC_DATA else -- Save PC+4 when JAL or JARL
+		          s_rdata_mem_ws;
 
-    o_new_pc <= r_mem_wb(R_DPB_DATAW);
+    o_new_pc <= r_mem_wb(R_DPB_NEWPC);
     o_tkbr <= r_mem_wb(R_DPB_TKBR);
 
 	s_wr <= r_mem_wb(R_DPB_WRREG) and i_wr_reg_multi;
@@ -167,8 +167,8 @@ begin
 			r_id_ex(R_DPB_DATAB)    <= s_port_b;
             r_id_ex(R_DPB_PC)       <= i_pc_br;
 			-- PASS THE SIGNAL TO THE OTHER REGISTERS
-			r_mem_wb                <= r_ex_mem(R_DATAPATH_BUS'high downto R_DPB_DATAW'high+1) & s_wdata_to_reg & r_ex_mem(R_DPB_DATAW'low-1 downto 0);
-			r_ex_mem                <= s_tkbr & r_id_ex(R_DATAPATH_BUS'high-1 downto R_DPB_DATAW'high+1) & s_wdata & r_id_ex(R_DPB_DATAW'low-1 downto 0);
+			r_mem_wb                <= r_ex_mem(R_DATAPATH_BUS'high downto R_DPB_DATAW'high+1) & s_wdata_wb & r_ex_mem(R_DPB_DATAW'low-1 downto 0);
+			r_ex_mem                <= s_wdata & s_tkbr & r_id_ex(R_DPB_NEWPC'low-2 downto R_DPB_DATAW'high+1) & s_wdata & r_id_ex(R_DPB_DATAW'low-1 downto 0);
 		end if;
 	end process;
 end Structure;

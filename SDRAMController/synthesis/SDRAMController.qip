@@ -2,7 +2,7 @@ set_global_assignment -entity "SDRAMController" -library "SDRAMController" -name
 set_global_assignment -entity "SDRAMController" -library "SDRAMController" -name IP_TOOL_VERSION "18.1"
 set_global_assignment -entity "SDRAMController" -library "SDRAMController" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "SDRAMController" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../SDRAMController.sopcinfo"]
-set_global_assignment -entity "SDRAMController" -library "SDRAMController" -name SLD_INFO "QSYS_NAME SDRAMController HAS_SOPCINFO 1 GENERATION_ID 1552046131"
+set_global_assignment -entity "SDRAMController" -library "SDRAMController" -name SLD_INFO "QSYS_NAME SDRAMController HAS_SOPCINFO 1 GENERATION_ID 1554839130"
 set_global_assignment -library "SDRAMController" -name MISC_FILE [file join $::quartus(qip_path) "../SDRAMController.cmp"]
 set_global_assignment -library "SDRAMController" -name SLD_FILE [file join $::quartus(qip_path) "SDRAMController.debuginfo"]
 set_global_assignment -entity "SDRAMController" -library "SDRAMController" -name IP_TARGETED_DEVICE_FAMILY "Cyclone IV E"
@@ -15,7 +15,7 @@ set_global_assignment -entity "SDRAMController" -library "SDRAMController" -name
 set_global_assignment -entity "SDRAMController" -library "SDRAMController" -name IP_COMPONENT_REPORT_HIERARCHY "On"
 set_global_assignment -entity "SDRAMController" -library "SDRAMController" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "SDRAMController" -library "SDRAMController" -name IP_COMPONENT_VERSION "MS4w"
-set_global_assignment -entity "SDRAMController" -library "SDRAMController" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTU1MjA0NjEzMQ==::QXV0byBHRU5FUkFUSU9OX0lE"
+set_global_assignment -entity "SDRAMController" -library "SDRAMController" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTU1NDgzOTEzMA==::QXV0byBHRU5FUkFUSU9OX0lE"
 set_global_assignment -entity "SDRAMController" -library "SDRAMController" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfRkFNSUxZ::Q3ljbG9uZSBJViBF::QXV0byBERVZJQ0VfRkFNSUxZ"
 set_global_assignment -entity "SDRAMController" -library "SDRAMController" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0U=::RVA0Q0UxMTVGMjlDNw==::QXV0byBERVZJQ0U="
 set_global_assignment -entity "SDRAMController" -library "SDRAMController" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfU1BFRURHUkFERQ==::Nw==::QXV0byBERVZJQ0VfU1BFRURHUkFERQ=="
@@ -573,7 +573,7 @@ set_global_assignment -entity "altera_avalon_mm_bridge" -library "SDRAMControlle
 set_global_assignment -entity "altera_avalon_mm_bridge" -library "SDRAMController" -name IP_COMPONENT_PARAMETER "QUREUkVTU19VTklUUw==::U1lNQk9MUw==::QWRkcmVzcyB1bml0cw=="
 set_global_assignment -entity "altera_avalon_mm_bridge" -library "SDRAMController" -name IP_COMPONENT_PARAMETER "QlVSU1RDT1VOVF9XSURUSA==::MQ==::QnVyc3Rjb3VudCB3aWR0aA=="
 set_global_assignment -entity "altera_avalon_mm_bridge" -library "SDRAMController" -name IP_COMPONENT_PARAMETER "TUFYX0JVUlNUX1NJWkU=::MQ==::TWF4aW11bSBidXJzdCBzaXplICh3b3Jkcyk="
-set_global_assignment -entity "altera_avalon_mm_bridge" -library "SDRAMController" -name IP_COMPONENT_PARAMETER "TUFYX1BFTkRJTkdfUkVTUE9OU0VT::NA==::TWF4aW11bSBwZW5kaW5nIHJlYWQgdHJhbnNhY3Rpb25z"
+set_global_assignment -entity "altera_avalon_mm_bridge" -library "SDRAMController" -name IP_COMPONENT_PARAMETER "TUFYX1BFTkRJTkdfUkVTUE9OU0VT::MQ==::TWF4aW11bSBwZW5kaW5nIHJlYWQgdHJhbnNhY3Rpb25z"
 set_global_assignment -entity "altera_avalon_mm_bridge" -library "SDRAMController" -name IP_COMPONENT_PARAMETER "TElORVdSQVBCVVJTVFM=::MA==::TGluZSB3cmFwIGJ1cnN0cw=="
 set_global_assignment -entity "altera_avalon_mm_bridge" -library "SDRAMController" -name IP_COMPONENT_PARAMETER "UElQRUxJTkVfQ09NTUFORA==::MQ==::UGlwZWxpbmUgY29tbWFuZCBzaWduYWxz"
 set_global_assignment -entity "altera_avalon_mm_bridge" -library "SDRAMController" -name IP_COMPONENT_PARAMETER "UElQRUxJTkVfUkVTUE9OU0U=::MQ==::UGlwZWxpbmUgcmVzcG9uc2Ugc2lnbmFscw=="

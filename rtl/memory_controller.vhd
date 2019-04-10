@@ -159,9 +159,9 @@ begin
 				controller_readdatavalid => s_sram_datavalid
 			);
 
-			s_mm_write0 <= '1' and not s_mm_waitrequest when i_ld_st = ST_SDRAM else
+			s_mm_write0 <= '1' when i_ld_st = ST_SDRAM else
 				'0';
-			s_mm_read0 <= '1' and not s_mm_waitrequest when i_ld_st = LD_SDRAM else
+			s_mm_read0 <= '1' when i_ld_st = LD_SDRAM else
 				'0';
 
 			s_mm_byteenable0 <= "1111" when i_bhw = W_ACCESS else

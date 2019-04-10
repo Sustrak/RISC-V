@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2019.03.08.12:55:31 -->
+ <!-- 2019.04.09.21:45:30 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1552046131</value>
+  <value>1554839130</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -1070,7 +1070,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MAX_PENDING_RESPONSES">
    <type>int</type>
-   <value>4</value>
+   <value>1</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -1400,7 +1400,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="maximumPendingReadTransactions">
     <type>int</type>
-    <value>4</value>
+    <value>1</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>

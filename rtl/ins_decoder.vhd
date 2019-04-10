@@ -58,7 +58,7 @@ begin
         ALU_BNE when s_op = BRANCH and s_funct3 = F3_BNE else
 		(others => '0');
 
-	o_wr_reg <= '1' when s_op = LUI or s_op = AUIPC or s_op = JAL or s_op = LOAD or s_op = ARITHI or s_op = ARITH else
+	o_wr_reg <= '1' when s_op = LUI or s_op = AUIPC or s_op = JAL or s_op = JARL or s_op = LOAD or s_op = ARITHI or s_op = ARITH else
 		'0';
 
 	o_immed <= i_ins(R_INSU_IMM) when s_op = LUI or s_op = AUIPC else
@@ -80,7 +80,7 @@ begin
 	o_rb_imm     <= ALU_IMM when s_op = LUI or s_op = AUIPC or s_op = JAL or s_op = LOAD or s_op = STORE or s_op = ARITHI or s_op = BRANCH or s_op = JARL else
 		ALU_RB;
 
-    o_ra_pc <= ALU_PC when s_op = AUIPC or s_op = JAL or s_op = JARL or s_op = BRANCH else
+    o_ra_pc <= ALU_PC when s_op = AUIPC or s_op = BRANCH or s_op = JAL else
                ALU_RA;
 
 	o_ld_st <= ST_SDRAM when s_op = STORE else

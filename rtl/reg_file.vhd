@@ -8,7 +8,7 @@ entity reg_file is
 	port (
 		i_clk_proc : in std_logic;
 		i_wr       : in std_logic;
-		i_data     : in std_logic_vector(R_XLEN);
+		i_port_d   : in std_logic_vector(R_XLEN);
 		i_addr_d   : in std_logic_vector(R_REGS);
 		i_addr_a   : in std_logic_vector(R_REGS);
 		i_addr_b   : in std_logic_vector(R_REGS);
@@ -25,7 +25,7 @@ begin
 	begin
 		if (rising_edge(i_clk_proc)) then
 			if (i_wr = '1') then
-				s_regs(to_integer(unsigned(i_addr_d))) <= i_data;
+				s_regs(to_integer(unsigned(i_addr_d))) <= i_port_d;
 			end if;
 		end if;
 	end process;
