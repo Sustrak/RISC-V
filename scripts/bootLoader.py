@@ -19,7 +19,7 @@ except ImportError:
     colors = False
     print("If you want to see the output with colors please install the collorama package\n pip install colorama")
 
-TEXT_ADDR = "0x400000"
+TEXT_ADDR = "0x000000"
 DATA_ADDR = "0x10010000"
 TEST_FOLDER = "../test/"
 

@@ -134,26 +134,33 @@ architecture Structure of riscv is
 			o_dram_dqm        : out std_logic_vector(3 downto 0);
 			o_dram_ras_n      : out std_logic;
 			o_dram_we_n       : out std_logic;
-			-- SRAM
-			io_sram_dq        : inout std_logic_vector(15 downto 0);
-			o_sram_addr       : out std_logic_vector(19 downto 0);
-			o_sram_lb         : out std_logic;
-			o_sram_ub         : out std_logic;
-			o_sram_ce         : out std_logic;
-			o_sram_oe         : out std_logic;
-			o_sram_we         : out std_logic;
 			-- PROC
 			i_clk_50          : in std_logic;
-			i_boot            : in std_logic;
+			i_reset           : in std_logic;
 			i_addr            : in std_logic_vector(R_XLEN);
 			i_bhw             : in std_logic_vector(R_MEM_ACCS);
 			i_wr_data         : in std_logic_vector(R_XLEN);
 			i_ld_st           : in std_logic_vector(R_MEM_LDST);
 			o_rd_data         : out std_logic_vector(R_XLEN);
-			o_sdram_readvalid : out std_logic
+			o_sdram_readvalid : out std_logic;
+            -- IO
+            o_led_r           : out std_logic_vector(R_LED_R);
+            o_led_g           : out std_logic_vector(R_LED_G);
+            o_hex             : out std_logic_vector(R_HEX);
+            i_key             : in std_logic_vector(R_KEY);
+            i_switch          : in std_logic_vector(R_SWITCH)
 		);
 	end component;
+    component pll_debug
+    	PORT
+    	(
+    		inclk0		: IN STD_LOGIC  := '0';
+    		c0		: OUT STD_LOGIC 
+    	);
+    end component;
+
 	signal s_clk_p           : std_logic                    := '0';
+    signal s_clock_100       : std_logic;
 	signal s_count           : std_logic_vector(1 downto 0) := "00";
 	signal s_rdata_mem       : std_logic_vector(R_XLEN);
 	signal s_wdata_mem       : std_logic_vector(R_XLEN);
@@ -161,6 +168,7 @@ architecture Structure of riscv is
 	signal s_ld_st           : std_logic_vector(R_MEM_LDST);
 	signal s_bhw             : std_logic_vector(R_MEM_ACCS);
 	signal s_sdram_readvalid : std_logic;
+    signal s_hex_bus         : std_logic_vector(R_HEX);
 begin
 	c_proc : proc
 	port map(
@@ -188,24 +196,37 @@ begin
 		o_dram_dqm        => DRAM_DQM,
 		o_dram_ras_n      => DRAM_RAS_N,
 		o_dram_we_n       => DRAM_WE_N,
-		-- SRAM
-		io_sram_dq        => SRAM_DQ,
-		o_sram_addr       => SRAM_ADDR,
-		o_sram_lb         => SRAM_LB_N,
-		o_sram_ub         => SRAM_UB_N,
-		o_sram_ce         => SRAM_CE_N,
-		o_sram_oe         => SRAM_OE_N,
-		o_sram_we         => SRAM_WE_N,
 		-- PROC
 		i_clk_50          => CLOCK_50,
-		i_boot            => SW(0),
+		i_reset           => KEY(0),
 		i_addr            => s_addr_mem,
 		i_bhw             => s_bhw,
 		i_wr_data         => s_wdata_mem,
 		i_ld_st           => s_ld_st,
 		o_rd_data         => s_rdata_mem,
-		o_sdram_readvalid => s_sdram_readvalid
+		o_sdram_readvalid => s_sdram_readvalid,
+        -- IO
+        o_led_r           => LEDR,
+        o_led_g           => LEDG,
+        o_hex             => s_hex_bus,
+        i_key             => KEY(3 downto 1) & '0',
+        i_switch          => SW(17 downto 1) & '0'
 	);
+
+    c_pll_debug : pll_debug
+    port map(
+        inclk0 => CLOCK_50,
+        c0 => s_clock_100
+    );
+
+    HEX7 <= s_hex_bus(R_HEX7);
+    HEX6 <= s_hex_bus(R_HEX6);
+    HEX5 <= s_hex_bus(R_HEX5);
+    HEX4 <= s_hex_bus(R_HEX4);
+    HEX3 <= s_hex_bus(R_HEX3);
+    HEX2 <= s_hex_bus(R_HEX2);
+    HEX1 <= s_hex_bus(R_HEX1);
+    HEX0 <= s_hex_bus(R_HEX0);
 
 	-- Base clock for the processor 
 	process (CLOCK_50)
@@ -217,6 +238,4 @@ begin
 
 	s_clk_p  <= s_count(1);
 
-	LEDR(17) <= SW(17);
-	LEDR(16) <= '1';
 end Structure;

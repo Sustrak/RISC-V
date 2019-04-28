@@ -18,9 +18,9 @@ entity multi is
 		o_bhw_to_mc       : out std_logic_vector(R_MEM_ACCS);
 		i_sdram_readvalid : in std_logic;
 		-- REGISTERS
-		o_wr_reg		  : out std_logic;
-        -- STATE
-        o_states          : out std_logic_vector(R_STATES) 
+		o_wr_reg          : out std_logic;
+		-- STATE
+		o_states          : out std_logic_vector(R_STATES)
 	);
 end entity;
 
@@ -62,8 +62,6 @@ begin
 			end if;
 		end if;
 	end process;
-
-
 	o_ld_st_to_mc <= LD_SDRAM when state = FETCH else
 		i_ld_st when state = MEM else
 		IDLE_SDRAM;
@@ -74,13 +72,13 @@ begin
 		i_addr_mem;
 
 	o_wr_reg <= '1' when state = WB else
-				'0';
+		'0';
 
-    o_states <= FETCH_STATE when state = FETCH else
-                DECODE_STATE when state = ID else
-                EXEC_STATE when state = EX else
-                MEM_STATE when state = MEM or state = MEM2 else
-                WB_STATE when state = WB else
-                INI_STATE;
+	o_states <= FETCH_STATE when state = FETCH else
+		DECODE_STATE when state = ID else
+		EXEC_STATE when state = EX else
+		MEM_STATE when state = MEM or state = MEM2 else
+		WB_STATE when state = WB else
+		INI_STATE;
 
 end Structure;

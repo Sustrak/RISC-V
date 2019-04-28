@@ -24,8 +24,8 @@ entity control_unit is
 		o_alu_mem_pc      : out std_logic_vector(R_REG_DATA);
 		-- BRANCH
 		o_pc_br           : out std_logic_vector(R_XLEN);
-        i_new_pc          : in std_logic_vector(R_XLEN);
-        i_tkbr            : in std_logic;
+		i_new_pc          : in std_logic_vector(R_XLEN);
+		i_tkbr            : in std_logic;
 		-- MEMORY
 		i_addr_mem        : in std_logic_vector(R_XLEN);
 		o_addr_mem        : out std_logic_vector(R_XLEN);
@@ -87,20 +87,20 @@ architecture Structure of control_unit is
 			o_bhw_to_mc       : out std_logic_vector(R_MEM_ACCS);
 			i_sdram_readvalid : in std_logic;
 			-- REGISTER
-			o_wr_reg		  : out std_logic;
-            -- STATE
-            o_states          : out std_logic_vector(R_STATES)
+			o_wr_reg          : out std_logic;
+			-- STATE
+			o_states          : out std_logic_vector(R_STATES)
 		);
 	end component;
 
 	-- SIGNALS
-	signal s_pc     : std_logic_vector(R_XLEN);
-	signal s_aux_pc     : std_logic_vector(R_XLEN);
-	signal s_inc_pc : std_logic;
-	signal s_ins    : std_logic_vector(R_INS);
-	signal s_ld_pc  : std_logic;
-    signal s_wr_reg_multi : std_logic;
-    signal s_states  : std_logic_vector(R_STATES);
+	signal s_pc           : std_logic_vector(R_XLEN);
+	signal s_aux_pc       : std_logic_vector(R_XLEN);
+	signal s_inc_pc       : std_logic;
+	signal s_ins          : std_logic_vector(R_INS);
+	signal s_ld_pc        : std_logic;
+	signal s_wr_reg_multi : std_logic;
+	signal s_states       : std_logic_vector(R_STATES);
 begin
 	c_ins_dec : ins_decoder
 	port map(
@@ -114,7 +114,7 @@ begin
 		o_rb_imm       => o_rb_imm,
 		o_ra_pc        => o_ra_pc,
 		o_alu_mem_pc   => o_alu_mem_pc,
-		o_ld_pc		   => s_ld_pc,
+		o_ld_pc        => s_ld_pc,
 		-- MEMORY
 		o_ld_st        => o_ld_st,
 		o_bhw          => o_bhw,
@@ -142,29 +142,29 @@ begin
 		o_bhw_to_mc       => o_bhw_to_mc,
 		i_sdram_readvalid => i_sdram_readvalid,
 		-- REGISTER
-		o_wr_reg		  => s_wr_reg_multi,
-        -- STATE
-        o_states           => s_states
+		o_wr_reg          => s_wr_reg_multi,
+		-- STATE
+		o_states          => s_states
 	);
 
-    o_wr_reg_multi <= s_wr_reg_multi;
+	o_wr_reg_multi <= s_wr_reg_multi;
 
 	-- PROGRAM COUNTER
-    process (s_states, i_boot, i_tkbr, i_clk_proc, s_ld_pc)
-    begin
-        if i_boot = '1' then
-            s_pc <= x"00400000";
-        elsif rising_edge(i_clk_proc) then
-           if s_states = DECODE_STATE then
-               if s_ld_pc = '1' then
-                   s_pc <= std_logic_vector(unsigned(s_pc) + 4);
-               end if;
-           elsif s_states = WB_STATE then
-               if i_tkbr = '1' then
-                   s_pc <= i_new_pc;
-               end if;
-           end if;
-        end if;
-    end process;
+	process (s_states, i_boot, i_tkbr, i_clk_proc, s_ld_pc)
+	begin
+		if i_boot = '1' then
+			s_pc <= x"00000000";
+		elsif rising_edge(i_clk_proc) then
+			if s_states = DECODE_STATE then
+				if s_ld_pc = '1' then
+					s_pc <= std_logic_vector(unsigned(s_pc) + 4);
+				end if;
+			elsif s_states = WB_STATE then
+				if i_tkbr = '1' then
+					s_pc <= i_new_pc;
+				end if;
+			end if;
+		end if;
+	end process;
 
 end Structure;

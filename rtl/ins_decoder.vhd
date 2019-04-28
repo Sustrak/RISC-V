@@ -16,9 +16,9 @@ entity ins_decoder is
 		o_addr_b_reg   : out std_logic_vector(R_REGS);
 		o_wr_reg       : out std_logic;
 		-- CONTROL
-        o_rb_imm       : out std_logic; -- Selects the value of RB or the IMMEDIATE as input of the ALU
-        o_ra_pc        : out std_logic; -- Selects the value of RA or the PC as input of the ALU
-        o_alu_mem_pc   : out std_logic_vector(R_REG_DATA); -- Selects which value has to be written to the registers
+		o_rb_imm       : out std_logic; -- Selects the value of RB or the IMMEDIATE as input of the ALU
+		o_ra_pc        : out std_logic; -- Selects the value of RA or the PC as input of the ALU
+		o_alu_mem_pc   : out std_logic_vector(R_REG_DATA); -- Selects which value has to be written to the registers
 		o_ld_pc        : out std_logic;
 		-- MEMORY
 		o_ld_st        : out std_logic_vector(R_MEM_LDST);
@@ -37,25 +37,25 @@ begin
 	s_funct7     <= i_ins(R_INS_FUNCT7);
 
 	o_alu_opcode <= ALU_LUI when s_op = LUI else
-        ALU_AUIPC when s_op = AUIPC else
+		ALU_AUIPC when s_op = AUIPC else
 		ALU_ADD when s_op = LOAD or s_op = STORE or (s_op = ARITHI and s_funct3 = F3_ADDI) or (s_op = ARITH and s_funct3 = F3_ADD and s_funct7 = F7_ADD) else
 		ALU_SUB when ((s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_SUB and s_funct7 = F7_SUB) else
 		ALU_SLL when ((s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_SLL) else
 		ALU_SLT when ((s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_SLT) else
-		ALU_SLTU when ((s_op = ARITH or s_op = ARITHI)  and s_funct3 = F3_SLTU) else
+		ALU_SLTU when ((s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_SLTU) else
 		ALU_XOR when ((s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_XOR) else
 		ALU_SRL when ((s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_SRL and s_funct7 = F7_SRL) else
 		ALU_SRA when ((s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_SRA and s_funct7 = F7_SRA) else
-		ALU_OR  when ((s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_OR)  else
-		ALU_AND when ((s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_AND) else	
-        ALU_JAL when s_op = JAL else
-        ALU_JARL when s_op = JARL else
-        ALU_BEQ when s_op = BRANCH and s_funct3 = F3_BEQ else
-        ALU_BGE when s_op = BRANCH and s_funct3 = F3_BGE else
-        ALU_BGEU when s_op = BRANCH and s_funct3 = F3_BGEU else
-        ALU_BLT  when s_op = BRANCH and s_funct3 = F3_BLT else
-        ALU_BLTU when s_op = BRANCH and s_funct3 = F3_BLTU else
-        ALU_BNE when s_op = BRANCH and s_funct3 = F3_BNE else
+		ALU_OR when ((s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_OR) else
+		ALU_AND when ((s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_AND) else
+		ALU_JAL when s_op = JAL else
+		ALU_JARL when s_op = JARL else
+		ALU_BEQ when s_op = BRANCH and s_funct3 = F3_BEQ else
+		ALU_BGE when s_op = BRANCH and s_funct3 = F3_BGE else
+		ALU_BGEU when s_op = BRANCH and s_funct3 = F3_BGEU else
+		ALU_BLT when s_op = BRANCH and s_funct3 = F3_BLT else
+		ALU_BLTU when s_op = BRANCH and s_funct3 = F3_BLTU else
+		ALU_BNE when s_op = BRANCH and s_funct3 = F3_BNE else
 		(others => '0');
 
 	o_wr_reg <= '1' when s_op = LUI or s_op = AUIPC or s_op = JAL or s_op = JARL or s_op = LOAD or s_op = ARITHI or s_op = ARITH else
@@ -68,9 +68,9 @@ begin
 		x"FF" & i_ins(R_INSS_IMM1) & i_ins(R_INSS_IMM0) when s_op = STORE and i_ins(31) = '1' else
 		x"00" & i_ins(R_INSI_IMM) when s_op = ARITHI and i_ins(31) = '0' else
 		x"FF" & i_ins(R_INSI_IMM) when s_op = ARITHI and i_ins(31) = '1' else
-        i_ins(R_INSJ_IMM3)&i_ins(R_INSJ_IMM2)&i_ins(R_INSJ_IMM1)&i_ins(R_INSJ_IMM0) when s_op = JAL else
-        x"00" & i_ins(R_INSB_IMM3)&i_ins(R_INSB_IMM2)&i_ins(R_INSB_IMM1)&i_ins(R_INSB_IMM0) when s_op = BRANCH and i_ins(31) = '0' else
-        x"FF" & i_ins(R_INSB_IMM3)&i_ins(R_INSB_IMM2)&i_ins(R_INSB_IMM1)&i_ins(R_INSB_IMM0) when s_op = BRANCH and i_ins(31) = '1' else
+		i_ins(R_INSJ_IMM3) & i_ins(R_INSJ_IMM2) & i_ins(R_INSJ_IMM1) & i_ins(R_INSJ_IMM0) when s_op = JAL else
+		x"00" & i_ins(R_INSB_IMM3) & i_ins(R_INSB_IMM2) & i_ins(R_INSB_IMM1) & i_ins(R_INSB_IMM0) when s_op = BRANCH and i_ins(31) = '0' else
+		x"FF" & i_ins(R_INSB_IMM3) & i_ins(R_INSB_IMM2) & i_ins(R_INSB_IMM1) & i_ins(R_INSB_IMM0) when s_op = BRANCH and i_ins(31) = '1' else
 		(others => '0');
 
 	o_addr_d_reg <= i_ins(R_INS_RD);
@@ -80,15 +80,15 @@ begin
 	o_rb_imm     <= ALU_IMM when s_op = LUI or s_op = AUIPC or s_op = JAL or s_op = LOAD or s_op = STORE or s_op = ARITHI or s_op = BRANCH or s_op = JARL else
 		ALU_RB;
 
-    o_ra_pc <= ALU_PC when s_op = AUIPC or s_op = BRANCH or s_op = JAL else
-               ALU_RA;
+	o_ra_pc <= ALU_PC when s_op = AUIPC or s_op = BRANCH or s_op = JAL else
+		ALU_RA;
 
 	o_ld_st <= ST_SDRAM when s_op = STORE else
 		LD_SDRAM when s_op = LOAD else
 		IDLE_SDRAM;
 
 	o_alu_mem_pc <= MEM_DATA when s_op = LOAD else
-        PC_DATA when s_op = JAL or s_op = JARL else
+		PC_DATA when s_op = JAL or s_op = JARL else
 		ALU_DATA;
 
 	o_bhw <= B_ACCESS when (s_op = STORE or s_op = LOAD) and (s_funct3 = F3_BYTE or s_funct3 = F3_BYTEU) else
@@ -99,5 +99,5 @@ begin
 		M_SIGNED;
 
 	o_ld_pc <= '0' when i_ins = x"FFFFFFFF" else
-			   '1';
+		'1';
 end Structure;
