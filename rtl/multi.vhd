@@ -16,7 +16,7 @@ entity multi is
 		i_bhw             : in std_logic_vector(R_MEM_ACCS);
 		o_ld_st_to_mc     : out std_logic_vector(R_MEM_LDST);
 		o_bhw_to_mc       : out std_logic_vector(R_MEM_ACCS);
-		i_sdram_readvalid : in std_logic;
+		i_avalon_readvalid : in std_logic;
 		-- REGISTERS
 		o_wr_reg          : out std_logic;
 		-- STATE
@@ -28,7 +28,7 @@ architecture Structure of multi is
 	type proc_state is (INI, FETCH, ID, EX, MEM, MEM2, WB);
 	signal state : proc_state := FETCH;
 begin
-	process (i_clk_proc, i_boot, i_sdram_readvalid)
+	process (i_clk_proc, i_boot, i_avalon_readvalid)
 	begin
 		if i_boot = '1' then
 			state <= INI;
@@ -36,7 +36,7 @@ begin
 			if state = INI then
 				state <= FETCH;
 			elsif state = FETCH then
-				if i_sdram_readvalid = '1' then
+				if i_avalon_readvalid = '1' then
 					state <= ID;
 				end if;
 			elsif state = ID then
@@ -46,7 +46,7 @@ begin
 			elsif state = MEM then
 				-- If the instruction is a load the we have to wait for the signal readvalid to proceed
 				if i_ld_st = LD_SDRAM then
-					if i_sdram_readvalid = '1' then
+					if i_avalon_readvalid = '1' then
 						-- Go to MEM2 to wait for the readvalid set its value to 0 so it doesn't interfere with the FETCH cycle
 						state <= MEM2;
 					end if;
@@ -54,7 +54,7 @@ begin
 					state <= WB;
 				end if;
 			elsif state = MEM2 then
-				if i_sdram_readvalid = '0' then
+				if i_avalon_readvalid = '0' then
 					state <= WB;
 				end if;
 			elsif state = WB then

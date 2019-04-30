@@ -118,7 +118,7 @@ architecture Structure of riscv is
 			o_addr_mem        : out std_logic_vector(R_XLEN);
 			o_bhw             : out std_logic_vector(R_MEM_ACCS);
 			o_ld_st           : out std_logic_vector(R_MEM_LDST);
-			i_sdram_readvalid : in std_logic
+			i_avalon_readvalid : in std_logic
 		);
 	end component;
 	component memory_controller is
@@ -136,13 +136,13 @@ architecture Structure of riscv is
 			o_dram_we_n       : out std_logic;
 			-- PROC
 			i_clk_50          : in std_logic;
-			i_reset           : in std_logic;
+			i_reset_n         : in std_logic;
 			i_addr            : in std_logic_vector(R_XLEN);
 			i_bhw             : in std_logic_vector(R_MEM_ACCS);
 			i_wr_data         : in std_logic_vector(R_XLEN);
 			i_ld_st           : in std_logic_vector(R_MEM_LDST);
 			o_rd_data         : out std_logic_vector(R_XLEN);
-			o_sdram_readvalid : out std_logic;
+			o_avalon_readvalid : out std_logic;
             -- IO
             o_led_r           : out std_logic_vector(R_LED_R);
             o_led_g           : out std_logic_vector(R_LED_G);
@@ -167,7 +167,7 @@ architecture Structure of riscv is
 	signal s_addr_mem        : std_logic_vector(R_XLEN);
 	signal s_ld_st           : std_logic_vector(R_MEM_LDST);
 	signal s_bhw             : std_logic_vector(R_MEM_ACCS);
-	signal s_sdram_readvalid : std_logic;
+	signal s_avalon_readvalid : std_logic;
     signal s_hex_bus         : std_logic_vector(R_HEX);
 begin
 	c_proc : proc
@@ -180,7 +180,7 @@ begin
 		o_addr_mem        => s_addr_mem,
 		o_bhw             => s_bhw,
 		o_ld_st           => s_ld_st,
-		i_sdram_readvalid => s_sdram_readvalid
+		i_avalon_readvalid => s_avalon_readvalid
 	);
 
 	c_mem_ctrl : memory_controller
@@ -198,13 +198,13 @@ begin
 		o_dram_we_n       => DRAM_WE_N,
 		-- PROC
 		i_clk_50          => CLOCK_50,
-		i_reset           => KEY(0),
+		i_reset_n           => SW(0),
 		i_addr            => s_addr_mem,
 		i_bhw             => s_bhw,
 		i_wr_data         => s_wdata_mem,
 		i_ld_st           => s_ld_st,
 		o_rd_data         => s_rdata_mem,
-		o_sdram_readvalid => s_sdram_readvalid,
+		o_avalon_readvalid => s_avalon_readvalid,
         -- IO
         o_led_r           => LEDR,
         o_led_g           => LEDG,

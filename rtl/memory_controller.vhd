@@ -19,13 +19,13 @@ entity memory_controller is
 		o_dram_we_n       : out std_logic;
 		-- PROC
 		i_clk_50          : in std_logic;
-		i_reset            : in std_logic;
+		i_reset_n       : in std_logic;
 		i_addr            : in std_logic_vector(R_XLEN);
 		i_bhw             : in std_logic_vector(R_MEM_ACCS);
 		i_wr_data         : in std_logic_vector(R_XLEN);
 		i_ld_st           : in std_logic_vector(R_MEM_LDST);
 		o_rd_data         : out std_logic_vector(R_XLEN);
-		o_sdram_readvalid : out std_logic;
+		o_avalon_readvalid : out std_logic;
         -- IO
         o_led_r           : out std_logic_vector(R_LED_R);
         o_led_g           : out std_logic_vector(R_LED_G);
@@ -61,19 +61,8 @@ architecture Structure of memory_controller is
 			sdram_ras_n               : out std_logic;
 			sdram_we_n                : out std_logic;
 			sdram_clk_clk             : out std_logic;
-			pp_led_r_export           : out std_logic_vector(17 downto 0);
 			pp_led_g_export           : out std_logic_vector(8 downto 0);
-			pp_hex_03_HEX0             : out std_logic_vector(6 downto 0);
-			pp_hex_03_HEX1             : out std_logic_vector(6 downto 0);
-			pp_hex_03_HEX2             : out std_logic_vector(6 downto 0);
-			pp_hex_03_HEX3             : out std_logic_vector(6 downto 0);
-			pp_hex_47_HEX4             : out std_logic_vector(6 downto 0);
-			pp_hex_47_HEX5             : out std_logic_vector(6 downto 0);
-			pp_hex_47_HEX6             : out std_logic_vector(6 downto 0);
-			pp_hex_47_HEX7             : out std_logic_vector(6 downto 0);
-			pp_key_export             : in std_logic_vector(3 downto 0)  := (others => 'X');
-			pp_switch_export          : in std_logic_vector(17 downto 0) := (others => 'X');
-            switch_int_irq            : out std_logic
+			pp_switch_export          : in std_logic_vector(17 downto 0) := (others => 'X')
 		);
 	end component AvalonMM;
 
@@ -85,19 +74,23 @@ architecture Structure of memory_controller is
 	signal s_mm_writedata     : std_logic_vector(31 downto 0);
 	signal s_mm_address       : std_logic_vector(27 downto 0);
 	signal s_mm_write         : std_logic;
-	signal s_mm_write0        : std_logic;
-	signal s_mm_read0         : std_logic;
+    signal s_write            : std_logic;
+    signal s_write_ff         : std_logic;
 	signal s_mm_read          : std_logic;
+	signal s_read             : std_logic;
+    signal s_read_ff          : std_logic;
 	signal s_mm_byteenable    : std_logic_vector(3 downto 0);
 	signal s_mm_byteenable0   : std_logic_vector(3 downto 0);
 	signal s_mm_debugaccess   : std_logic;
     signal s_switch_int       : std_logic;
+    signal s_reset            : std_logic;
+
 begin
 
     c_avalonmm : component AvalonMM
         port map (
            	clk_clk                   => i_clk_50,
-			reset_reset_n             => i_reset,
+			reset_reset_n             => s_reset,
 			sdram_clk_clk             => o_dram_clk,
 			sdram_addr                => o_dram_addr,
 			sdram_ba                  => o_dram_ba,
@@ -118,30 +111,41 @@ begin
 			mm_bridge_s_read          => s_mm_read,
 			mm_bridge_s_byteenable    => s_mm_byteenable,
 			mm_bridge_s_debugaccess   => s_mm_debugaccess,
-            pp_led_r_export           => o_led_r,
             pp_led_g_export           => o_led_g,
-            pp_hex_03_HEX0            => o_hex(R_HEX0),
-            pp_hex_03_HEX1            => o_hex(R_HEX1),
-            pp_hex_03_HEX2            => o_hex(R_HEX2),
-            pp_hex_03_HEX3            => o_hex(R_HEX3),
-            pp_hex_47_HEX4            => o_hex(R_HEX4),
-            pp_hex_47_HEX5            => o_hex(R_HEX5),
-            pp_hex_47_HEX6            => o_hex(R_HEX6),
-            pp_hex_47_HEX7            => o_hex(R_HEX7),
-            pp_key_export             => i_key,
-            pp_switch_export          => i_switch, 
-            switch_int_irq            => s_switch_int
+            pp_switch_export          => i_switch
         );
 
-	s_mm_write0 <= '1' when i_ld_st = ST_SDRAM else
+	s_write <= '1' when i_ld_st = ST_SDRAM else
 		'0';
-	s_mm_read0 <= '1' when i_ld_st = LD_SDRAM else
+	s_read <= '1' when i_ld_st = LD_SDRAM else
 		'0';
 
 	s_mm_byteenable0 <= "1111" when i_bhw = W_ACCESS else
 		"0011" when i_bhw = H_ACCESS else
 		"0001" when i_bhw = B_ACCESS else
 		"0000";
+
+    s_reset <= i_reset_n;
+
+    -- Flip flop so read and write signals to avalon only last on 50MHz cycle
+    process(i_clk_50, i_reset_n)
+    begin
+        if rising_edge(i_clk_50) then
+            s_read_ff <= s_read;        -- One cycle delayed
+            s_write_ff <= s_write;
+            s_mm_read <= '0';
+            s_mm_write <= '0';
+            if (s_read = '1') and (s_read_ff = '0') then    -- Detected '0' to '1' transition
+                s_mm_read <= '1';   -- Set to '1' during one cycle
+            end if;
+            if (s_write = '1') and (s_write_ff = '0') then
+                s_mm_write <= '1';
+            end if;
+        end if;
+        if i_reset_n = '0' then
+            s_mm_read <= '0';
+        end if;
+    end process; 
 
 	process (i_clk_50)
 	begin
@@ -151,8 +155,6 @@ begin
 			o_rd_data         <= s_mm_readdata;
 			s_mm_writedata    <= i_wr_data;
 
-			s_mm_write        <= s_mm_write0;
-			s_mm_read         <= s_mm_read0;
 
 			s_mm_burstcount   <= "1";
 
@@ -166,7 +168,7 @@ begin
 			-- 1000  -> Writes byte 3
 			s_mm_byteenable   <= s_mm_byteenable0;
 
-			o_sdram_readvalid <= s_mm_readdatavalid;
+			o_avalon_readvalid <= s_mm_readdatavalid;
 		end if;
 	end process;
 end Structure;

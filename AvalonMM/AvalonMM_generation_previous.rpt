@@ -20,8 +20,8 @@ Progress: Adding mm_bridge [altera_avalon_mm_bridge 18.1]
 Progress: Parameterizing module mm_bridge
 Progress: Adding pio_0 [altera_avalon_pio 18.1]
 Progress: Parameterizing module pio_0
-Progress: Adding ps2 [altera_up_avalon_ps2 18.0]
-Progress: Parameterizing module ps2
+Progress: Adding reset_bridge_0 [altera_reset_bridge 18.1]
+Progress: Parameterizing module reset_bridge_0
 Progress: Adding sdram_controller [altera_avalon_new_sdram_controller 18.1]
 Progress: Parameterizing module sdram_controller
 Progress: Adding sdram_pll [altera_up_avalon_sys_sdram_pll 18.0]
@@ -35,37 +35,18 @@ Progress: Done reading input file
 Info: AvalonMM.hex_03: The Parallel Port is now deprecated. The PIO component (Processor and Peripherals/Peripherals/PIO) should be used instead.
 Info: AvalonMM.hex_47: The Parallel Port is now deprecated. The PIO component (Processor and Peripherals/Peripherals/PIO) should be used instead.
 Info: AvalonMM.key: The Parallel Port is now deprecated. The PIO component (Processor and Peripherals/Peripherals/PIO) should be used instead.
+Info: AvalonMM.led_g: The Parallel Port is now deprecated. The PIO component (Processor and Peripherals/Peripherals/PIO) should be used instead.
 Info: AvalonMM.led_r: The Parallel Port is now deprecated. The PIO component (Processor and Peripherals/Peripherals/PIO) should be used instead.
 Info: AvalonMM.sdram_controller: SDRAM Controller will only be supported in Quartus Prime Standard Edition in the future release.
 Info: AvalonMM.sdram_pll: Refclk Freq: 50.0
 Info: AvalonMM.switch: The Parallel Port is now deprecated. The PIO component (Processor and Peripherals/Peripherals/PIO) should be used instead.
+Warning: AvalonMM.pio_0: pio_0.external_connection must be exported, or connected to a matching conduit.
 Warning: AvalonMM.: You have exported the interface mm_bridge.s0 but not its associated clock interface.  Export the driver of mm_bridge.clk
-Warning: AvalonMM.: You have exported the interface mm_bridge.s0 but not its associated reset interface.  Export the driver(s) of mm_bridge.reset
 Info: AvalonMM: Generating AvalonMM "AvalonMM" for QUARTUS_SYNTH
-Info: Inserting clock-crossing logic between cmd_demux.src0 and cmd_mux.sink0
-Info: Inserting clock-crossing logic between cmd_demux.src1 and cmd_mux_001.sink0
-Info: Inserting clock-crossing logic between cmd_demux.src2 and cmd_mux_002.sink0
-Info: Inserting clock-crossing logic between cmd_demux.src3 and cmd_mux_003.sink0
-Info: Inserting clock-crossing logic between cmd_demux.src4 and cmd_mux_004.sink0
-Info: Inserting clock-crossing logic between cmd_demux.src6 and cmd_mux_006.sink0
-Info: Inserting clock-crossing logic between cmd_demux_001.src0 and cmd_mux.sink1
-Info: Inserting clock-crossing logic between cmd_demux_001.src1 and cmd_mux_001.sink1
-Info: Inserting clock-crossing logic between cmd_demux_001.src2 and cmd_mux_002.sink1
-Info: Inserting clock-crossing logic between cmd_demux_001.src3 and cmd_mux_003.sink1
-Info: Inserting clock-crossing logic between cmd_demux_001.src4 and cmd_mux_004.sink1
-Info: Inserting clock-crossing logic between cmd_demux_001.src6 and cmd_mux_006.sink1
-Info: Inserting clock-crossing logic between rsp_demux.src0 and rsp_mux.sink0
-Info: Inserting clock-crossing logic between rsp_demux.src1 and rsp_mux_001.sink0
-Info: Inserting clock-crossing logic between rsp_demux_001.src0 and rsp_mux.sink1
-Info: Inserting clock-crossing logic between rsp_demux_001.src1 and rsp_mux_001.sink1
-Info: Inserting clock-crossing logic between rsp_demux_002.src0 and rsp_mux.sink2
-Info: Inserting clock-crossing logic between rsp_demux_002.src1 and rsp_mux_001.sink2
-Info: Inserting clock-crossing logic between rsp_demux_003.src0 and rsp_mux.sink3
-Info: Inserting clock-crossing logic between rsp_demux_003.src1 and rsp_mux_001.sink3
-Info: Inserting clock-crossing logic between rsp_demux_004.src0 and rsp_mux.sink4
-Info: Inserting clock-crossing logic between rsp_demux_004.src1 and rsp_mux_001.sink4
-Info: Inserting clock-crossing logic between rsp_demux_006.src0 and rsp_mux.sink6
-Info: Inserting clock-crossing logic between rsp_demux_006.src1 and rsp_mux_001.sink6
+Info: Inserting clock-crossing logic between cmd_demux.src7 and cmd_mux_007.sink0
+Info: Inserting clock-crossing logic between cmd_demux_001.src7 and cmd_mux_007.sink1
+Info: Inserting clock-crossing logic between rsp_demux_007.src0 and rsp_mux.sink7
+Info: Inserting clock-crossing logic between rsp_demux_007.src1 and rsp_mux_001.sink7
 Info: hex_03: Starting Generation of Parallel Port
 Info: hex_03: "AvalonMM" instantiated altera_up_avalon_parallel_port "hex_03"
 Info: hex_47: Starting Generation of Parallel Port
@@ -73,15 +54,17 @@ Info: hex_47: "AvalonMM" instantiated altera_up_avalon_parallel_port "hex_47"
 Info: jtag_master: "AvalonMM" instantiated altera_jtag_avalon_master "jtag_master"
 Info: key: Starting Generation of Parallel Port
 Info: key: "AvalonMM" instantiated altera_up_avalon_parallel_port "key"
+Info: led_g: Starting Generation of Parallel Port
+Info: led_g: "AvalonMM" instantiated altera_up_avalon_parallel_port "led_g"
 Info: led_r: Starting Generation of Parallel Port
 Info: led_r: "AvalonMM" instantiated altera_up_avalon_parallel_port "led_r"
 Info: mm_bridge: "AvalonMM" instantiated altera_avalon_mm_bridge "mm_bridge"
 Info: pio_0: Starting RTL generation for module 'AvalonMM_pio_0'
-Info: pio_0:   Generation command is [exec D:/intelfpga/18.1/quartus/bin64/perl/bin/perl.exe -I D:/intelfpga/18.1/quartus/bin64/perl/lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin/europa -I D:/intelfpga/18.1/quartus/sopc_builder/bin/perl_lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/common -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=AvalonMM_pio_0 --dir=C:/Users/PANORA~1/AppData/Local/Temp/alt8011_2120203555398740472.dir/0007_pio_0_gen/ --quartus_dir=D:/intelfpga/18.1/quartus --verilog --config=C:/Users/PANORA~1/AppData/Local/Temp/alt8011_2120203555398740472.dir/0007_pio_0_gen//AvalonMM_pio_0_component_configuration.pl  --do_build_sim=0  ]
+Info: pio_0:   Generation command is [exec D:/intelfpga/18.1/quartus/bin64/perl/bin/perl.exe -I D:/intelfpga/18.1/quartus/bin64/perl/lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin/europa -I D:/intelfpga/18.1/quartus/sopc_builder/bin/perl_lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/common -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=AvalonMM_pio_0 --dir=C:/Users/PANORA~1/AppData/Local/Temp/alt8015_500678515481802848.dir/0194_pio_0_gen/ --quartus_dir=D:/intelfpga/18.1/quartus --verilog --config=C:/Users/PANORA~1/AppData/Local/Temp/alt8015_500678515481802848.dir/0194_pio_0_gen//AvalonMM_pio_0_component_configuration.pl  --do_build_sim=0  ]
 Info: pio_0: Done RTL generation for module 'AvalonMM_pio_0'
 Info: pio_0: "AvalonMM" instantiated altera_avalon_pio "pio_0"
 Info: sdram_controller: Starting RTL generation for module 'AvalonMM_sdram_controller'
-Info: sdram_controller:   Generation command is [exec D:/intelfpga/18.1/quartus/bin64/perl/bin/perl.exe -I D:/intelfpga/18.1/quartus/bin64/perl/lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin/europa -I D:/intelfpga/18.1/quartus/sopc_builder/bin/perl_lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/common -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_new_sdram_controller -- D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_new_sdram_controller/generate_rtl.pl --name=AvalonMM_sdram_controller --dir=C:/Users/PANORA~1/AppData/Local/Temp/alt8011_2120203555398740472.dir/0008_sdram_controller_gen/ --quartus_dir=D:/intelfpga/18.1/quartus --verilog --config=C:/Users/PANORA~1/AppData/Local/Temp/alt8011_2120203555398740472.dir/0008_sdram_controller_gen//AvalonMM_sdram_controller_component_configuration.pl  --do_build_sim=0  ]
+Info: sdram_controller:   Generation command is [exec D:/intelfpga/18.1/quartus/bin64/perl/bin/perl.exe -I D:/intelfpga/18.1/quartus/bin64/perl/lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin/europa -I D:/intelfpga/18.1/quartus/sopc_builder/bin/perl_lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/common -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_new_sdram_controller -- D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_new_sdram_controller/generate_rtl.pl --name=AvalonMM_sdram_controller --dir=C:/Users/PANORA~1/AppData/Local/Temp/alt8015_500678515481802848.dir/0195_sdram_controller_gen/ --quartus_dir=D:/intelfpga/18.1/quartus --verilog --config=C:/Users/PANORA~1/AppData/Local/Temp/alt8015_500678515481802848.dir/0195_sdram_controller_gen//AvalonMM_sdram_controller_component_configuration.pl  --do_build_sim=0  ]
 Info: sdram_controller: Done RTL generation for module 'AvalonMM_sdram_controller'
 Info: sdram_controller: "AvalonMM" instantiated altera_avalon_new_sdram_controller "sdram_controller"
 Info: sdram_pll: "AvalonMM" instantiated altera_up_avalon_sys_sdram_pll "sdram_pll"
@@ -94,6 +77,7 @@ Info: avalon_st_adapter_003: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_004: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_005: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_006: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_007: Inserting error_adapter: error_adapter_0
 Info: mm_interconnect_0: "AvalonMM" instantiated altera_mm_interconnect "mm_interconnect_0"
 Info: rst_controller: "AvalonMM" instantiated altera_reset_controller "rst_controller"
 Info: jtag_phy_embedded_in_jtag_master: "jtag_master" instantiated altera_jtag_dc_streaming "jtag_phy_embedded_in_jtag_master"
@@ -126,6 +110,6 @@ Info: Reusing file C:/Users/Panoramix/Documents/RISCV/AvalonMM/synthesis/submodu
 Info: Reusing file C:/Users/Panoramix/Documents/RISCV/AvalonMM/synthesis/submodules/altera_std_synchronizer_nocut.v
 Info: avalon_st_adapter: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter"
 Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
-Info: AvalonMM: Done "AvalonMM" with 37 modules, 53 files
+Info: AvalonMM: Done "AvalonMM" with 38 modules, 56 files
 Info: qsys-generate succeeded.
 Info: Finished: Create HDL design files for synthesis

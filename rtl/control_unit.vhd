@@ -36,7 +36,7 @@ entity control_unit is
 		o_ld_st_to_mc     : out std_logic_vector(R_MEM_LDST);
 		o_bhw_to_mc       : out std_logic_vector(R_MEM_ACCS);
 		o_mem_unsigned    : out std_logic;
-		i_sdram_readvalid : in std_logic
+		i_avalon_readvalid : in std_logic
 	);
 end control_unit;
 
@@ -85,7 +85,7 @@ architecture Structure of control_unit is
 			i_bhw             : in std_logic_vector(R_MEM_ACCS);
 			o_ld_st_to_mc     : out std_logic_vector(R_MEM_LDST);
 			o_bhw_to_mc       : out std_logic_vector(R_MEM_ACCS);
-			i_sdram_readvalid : in std_logic;
+			i_avalon_readvalid : in std_logic;
 			-- REGISTER
 			o_wr_reg          : out std_logic;
 			-- STATE
@@ -97,14 +97,15 @@ architecture Structure of control_unit is
 	signal s_pc           : std_logic_vector(R_XLEN);
 	signal s_aux_pc       : std_logic_vector(R_XLEN);
 	signal s_inc_pc       : std_logic;
-	signal s_ins          : std_logic_vector(R_INS);
+	signal s_ins0         : std_logic_vector(R_INS);
+    signal s_ins          : std_logic_vector(R_INS);
 	signal s_ld_pc        : std_logic;
 	signal s_wr_reg_multi : std_logic;
 	signal s_states       : std_logic_vector(R_STATES);
 begin
 	c_ins_dec : ins_decoder
 	port map(
-		i_ins          => s_ins,
+		i_ins          => s_ins0,
 		o_alu_opcode   => o_alu_opcode,
 		o_immed        => o_immed,
 		o_addr_d_reg   => o_addr_d_reg,
@@ -123,9 +124,9 @@ begin
 	c_reg_if_id : reg_if_id
 	port map(
 		i_clk_proc => i_clk_proc,
-		i_ins      => i_ins,
+		i_ins      => s_ins,
 		i_pc       => s_pc,
-		o_ins      => s_ins,
+		o_ins      => s_ins0,
 		o_pc       => o_pc_br
 	);
 	c_multi : multi
@@ -140,7 +141,7 @@ begin
 		i_bhw             => i_bhw,
 		o_ld_st_to_mc     => o_ld_st_to_mc,
 		o_bhw_to_mc       => o_bhw_to_mc,
-		i_sdram_readvalid => i_sdram_readvalid,
+		i_avalon_readvalid => i_avalon_readvalid,
 		-- REGISTER
 		o_wr_reg          => s_wr_reg_multi,
 		-- STATE
@@ -148,6 +149,8 @@ begin
 	);
 
 	o_wr_reg_multi <= s_wr_reg_multi;
+    s_ins <= i_ins when s_states = FETCH_STATE and i_avalon_readvalid = '1' else
+             NOP;
 
 	-- PROGRAM COUNTER
 	process (s_states, i_boot, i_tkbr, i_clk_proc, s_ld_pc)

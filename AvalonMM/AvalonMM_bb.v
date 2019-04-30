@@ -11,18 +11,6 @@ module AvalonMM (
 	mm_bridge_s_read,
 	mm_bridge_s_byteenable,
 	mm_bridge_s_debugaccess,
-	pp_hex_03_HEX0,
-	pp_hex_03_HEX1,
-	pp_hex_03_HEX2,
-	pp_hex_03_HEX3,
-	pp_hex_47_HEX4,
-	pp_hex_47_HEX5,
-	pp_hex_47_HEX6,
-	pp_hex_47_HEX7,
-	pp_key_export,
-	pp_led_g_export,
-	pp_led_r_export,
-	pp_switch_export,
 	reset_reset_n,
 	sdram_addr,
 	sdram_ba,
@@ -34,7 +22,8 @@ module AvalonMM (
 	sdram_ras_n,
 	sdram_we_n,
 	sdram_clk_clk,
-	switch_int_irq);	
+	pp_led_g_export,
+	pp_switch_export);	
 
 	input		clk_clk;
 	output		mm_bridge_s_waitrequest;
@@ -47,18 +36,6 @@ module AvalonMM (
 	input		mm_bridge_s_read;
 	input	[3:0]	mm_bridge_s_byteenable;
 	input		mm_bridge_s_debugaccess;
-	output	[6:0]	pp_hex_03_HEX0;
-	output	[6:0]	pp_hex_03_HEX1;
-	output	[6:0]	pp_hex_03_HEX2;
-	output	[6:0]	pp_hex_03_HEX3;
-	output	[6:0]	pp_hex_47_HEX4;
-	output	[6:0]	pp_hex_47_HEX5;
-	output	[6:0]	pp_hex_47_HEX6;
-	output	[6:0]	pp_hex_47_HEX7;
-	input	[3:0]	pp_key_export;
-	output	[8:0]	pp_led_g_export;
-	output	[17:0]	pp_led_r_export;
-	input	[17:0]	pp_switch_export;
 	input		reset_reset_n;
 	output	[12:0]	sdram_addr;
 	output	[1:0]	sdram_ba;
@@ -70,5 +47,6 @@ module AvalonMM (
 	output		sdram_ras_n;
 	output		sdram_we_n;
 	output		sdram_clk_clk;
-	output		switch_int_irq;
+	output	[8:0]	pp_led_g_export;
+	input	[17:0]	pp_switch_export;
 endmodule
