@@ -20,6 +20,7 @@ entity datapath is
 		i_rb_imm       : in std_logic;
 		i_ra_pc        : in std_logic;
 		i_alu_mem_pc   : in std_logic_vector(R_REG_DATA);
+        i_reg_stall    : in std_logic;
 		-- BRANCH
 		i_pc_br        : in std_logic_vector(R_XLEN);
 		o_new_pc       : out std_logic_vector(R_XLEN);

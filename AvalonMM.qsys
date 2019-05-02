@@ -305,8 +305,6 @@
   <parameter name="baseAddress" value="0x08000000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
- <connection kind="clock" version="18.1" start="clk_0.clk" end="leg_g.clk" />
- <connection kind="clock" version="18.1" start="clk_0.clk" end="switch.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="sdram_pll.ref_clk" />
  <connection
    kind="clock"
@@ -323,11 +321,12 @@
    version="18.1"
    start="sdram_pll.sys_clk"
    end="jtag_master.clk" />
+ <connection kind="clock" version="18.1" start="sdram_pll.sys_clk" end="leg_g.clk" />
  <connection
-   kind="reset"
+   kind="clock"
    version="18.1"
-   start="clk_0.clk_reset"
-   end="jtag_master.clk_reset" />
+   start="sdram_pll.sys_clk"
+   end="switch.clk" />
  <connection
    kind="reset"
    version="18.1"
@@ -336,24 +335,28 @@
  <connection
    kind="reset"
    version="18.1"
-   start="clk_0.clk_reset"
-   end="mm_bridge.reset" />
- <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="leg_g.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
-   end="switch.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
-   end="sdram_controller.reset" />
- <connection
-   kind="reset"
-   version="18.1"
    start="jtag_master.master_reset"
    end="sdram_controller.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="sdram_pll.reset_source"
+   end="jtag_master.clk_reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="sdram_pll.reset_source"
+   end="mm_bridge.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="sdram_pll.reset_source"
+   end="leg_g.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="sdram_pll.reset_source"
+   end="switch.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />

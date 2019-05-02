@@ -11,6 +11,8 @@ module AvalonMM (
 	mm_bridge_s_read,
 	mm_bridge_s_byteenable,
 	mm_bridge_s_debugaccess,
+	pp_led_g_export,
+	pp_switch_export,
 	reset_reset_n,
 	sdram_addr,
 	sdram_ba,
@@ -21,9 +23,7 @@ module AvalonMM (
 	sdram_dqm,
 	sdram_ras_n,
 	sdram_we_n,
-	sdram_clk_clk,
-	pp_led_g_export,
-	pp_switch_export);	
+	sdram_clk_clk);	
 
 	input		clk_clk;
 	output		mm_bridge_s_waitrequest;
@@ -36,6 +36,8 @@ module AvalonMM (
 	input		mm_bridge_s_read;
 	input	[3:0]	mm_bridge_s_byteenable;
 	input		mm_bridge_s_debugaccess;
+	output	[8:0]	pp_led_g_export;
+	input	[17:0]	pp_switch_export;
 	input		reset_reset_n;
 	output	[12:0]	sdram_addr;
 	output	[1:0]	sdram_ba;
@@ -47,6 +49,4 @@ module AvalonMM (
 	output		sdram_ras_n;
 	output		sdram_we_n;
 	output		sdram_clk_clk;
-	output	[8:0]	pp_led_g_export;
-	input	[17:0]	pp_switch_export;
 endmodule

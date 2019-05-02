@@ -22,6 +22,7 @@ entity control_unit is
 		o_rb_imm          : out std_logic;
 		o_ra_pc           : out std_logic;
 		o_alu_mem_pc      : out std_logic_vector(R_REG_DATA);
+        o_reg_stall       : out std_logic;
 		-- BRANCH
 		o_pc_br           : out std_logic_vector(R_XLEN);
 		i_new_pc          : in std_logic_vector(R_XLEN);
@@ -36,7 +37,8 @@ entity control_unit is
 		o_ld_st_to_mc     : out std_logic_vector(R_MEM_LDST);
 		o_bhw_to_mc       : out std_logic_vector(R_MEM_ACCS);
 		o_mem_unsigned    : out std_logic;
-		i_avalon_readvalid : in std_logic
+		i_avalon_readvalid : in std_logic;
+        o_proc_data_read  : out std_logic
 	);
 end control_unit;
 
@@ -86,8 +88,10 @@ architecture Structure of control_unit is
 			o_ld_st_to_mc     : out std_logic_vector(R_MEM_LDST);
 			o_bhw_to_mc       : out std_logic_vector(R_MEM_ACCS);
 			i_avalon_readvalid : in std_logic;
+            o_proc_data_read  : out std_logic;
 			-- REGISTER
 			o_wr_reg          : out std_logic;
+            o_reg_stall       : out std_logic;
 			-- STATE
 			o_states          : out std_logic_vector(R_STATES)
 		);
@@ -142,8 +146,10 @@ begin
 		o_ld_st_to_mc     => o_ld_st_to_mc,
 		o_bhw_to_mc       => o_bhw_to_mc,
 		i_avalon_readvalid => i_avalon_readvalid,
+        o_proc_data_read  => o_proc_data_read,
 		-- REGISTER
 		o_wr_reg          => s_wr_reg_multi,
+        o_reg_stall       => o_reg_stall,
 		-- STATE
 		o_states          => s_states
 	);

@@ -10,6 +10,8 @@
 		.mm_bridge_s_read          (<connected-to-mm_bridge_s_read>),          //            .read
 		.mm_bridge_s_byteenable    (<connected-to-mm_bridge_s_byteenable>),    //            .byteenable
 		.mm_bridge_s_debugaccess   (<connected-to-mm_bridge_s_debugaccess>),   //            .debugaccess
+		.pp_led_g_export           (<connected-to-pp_led_g_export>),           //    pp_led_g.export
+		.pp_switch_export          (<connected-to-pp_switch_export>),          //   pp_switch.export
 		.reset_reset_n             (<connected-to-reset_reset_n>),             //       reset.reset_n
 		.sdram_addr                (<connected-to-sdram_addr>),                //       sdram.addr
 		.sdram_ba                  (<connected-to-sdram_ba>),                  //            .ba
@@ -20,8 +22,6 @@
 		.sdram_dqm                 (<connected-to-sdram_dqm>),                 //            .dqm
 		.sdram_ras_n               (<connected-to-sdram_ras_n>),               //            .ras_n
 		.sdram_we_n                (<connected-to-sdram_we_n>),                //            .we_n
-		.sdram_clk_clk             (<connected-to-sdram_clk_clk>),             //   sdram_clk.clk
-		.pp_led_g_export           (<connected-to-pp_led_g_export>),           //    pp_led_g.export
-		.pp_switch_export          (<connected-to-pp_switch_export>)           //   pp_switch.export
+		.sdram_clk_clk             (<connected-to-sdram_clk_clk>)              //   sdram_clk.clk
 	);
 

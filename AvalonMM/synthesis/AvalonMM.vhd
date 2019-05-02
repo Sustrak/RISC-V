@@ -154,10 +154,8 @@ architecture rtl of AvalonMM is
 
 	component AvalonMM_mm_interconnect_0 is
 		port (
-			clk_0_clk_clk                                      : in  std_logic                     := 'X';             -- clk
 			sdram_pll_sys_clk_clk                              : in  std_logic                     := 'X';             -- clk
 			jtag_master_clk_reset_reset_bridge_in_reset_reset  : in  std_logic                     := 'X';             -- reset
-			leg_g_reset_reset_bridge_in_reset_reset            : in  std_logic                     := 'X';             -- reset
 			mm_bridge_reset_reset_bridge_in_reset_reset        : in  std_logic                     := 'X';             -- reset
 			sdram_controller_reset_reset_bridge_in_reset_reset : in  std_logic                     := 'X';             -- reset
 			jtag_master_master_address                         : in  std_logic_vector(31 downto 0) := (others => 'X'); -- address
@@ -197,7 +195,7 @@ architecture rtl of AvalonMM is
 		);
 	end component AvalonMM_mm_interconnect_0;
 
-	component avalonmm_rst_controller is
+	component altera_reset_controller is
 		generic (
 			NUM_RESET_INPUTS          : integer := 6;
 			OUTPUT_RESET_SYNC_EDGES   : string  := "deassert";
@@ -225,111 +223,46 @@ architecture rtl of AvalonMM is
 			ADAPT_RESET_REQUEST       : integer := 0
 		);
 		port (
-			reset_in0      : in  std_logic := 'X'; -- reset_in0.reset
-			clk            : in  std_logic := 'X'; --       clk.clk
-			reset_out      : out std_logic;        -- reset_out.reset
-			reset_in1      : in  std_logic := 'X';
-			reset_in10     : in  std_logic := 'X';
-			reset_in11     : in  std_logic := 'X';
-			reset_in12     : in  std_logic := 'X';
-			reset_in13     : in  std_logic := 'X';
-			reset_in14     : in  std_logic := 'X';
-			reset_in15     : in  std_logic := 'X';
-			reset_in2      : in  std_logic := 'X';
-			reset_in3      : in  std_logic := 'X';
-			reset_in4      : in  std_logic := 'X';
-			reset_in5      : in  std_logic := 'X';
-			reset_in6      : in  std_logic := 'X';
-			reset_in7      : in  std_logic := 'X';
-			reset_in8      : in  std_logic := 'X';
-			reset_in9      : in  std_logic := 'X';
-			reset_req      : out std_logic;
-			reset_req_in0  : in  std_logic := 'X';
-			reset_req_in1  : in  std_logic := 'X';
-			reset_req_in10 : in  std_logic := 'X';
-			reset_req_in11 : in  std_logic := 'X';
-			reset_req_in12 : in  std_logic := 'X';
-			reset_req_in13 : in  std_logic := 'X';
-			reset_req_in14 : in  std_logic := 'X';
-			reset_req_in15 : in  std_logic := 'X';
-			reset_req_in2  : in  std_logic := 'X';
-			reset_req_in3  : in  std_logic := 'X';
-			reset_req_in4  : in  std_logic := 'X';
-			reset_req_in5  : in  std_logic := 'X';
-			reset_req_in6  : in  std_logic := 'X';
-			reset_req_in7  : in  std_logic := 'X';
-			reset_req_in8  : in  std_logic := 'X';
-			reset_req_in9  : in  std_logic := 'X'
+			reset_in0      : in  std_logic := 'X'; -- reset
+			clk            : in  std_logic := 'X'; -- clk
+			reset_out      : out std_logic;        -- reset
+			reset_req      : out std_logic;        -- reset_req
+			reset_req_in0  : in  std_logic := 'X'; -- reset_req
+			reset_in1      : in  std_logic := 'X'; -- reset
+			reset_req_in1  : in  std_logic := 'X'; -- reset_req
+			reset_in2      : in  std_logic := 'X'; -- reset
+			reset_req_in2  : in  std_logic := 'X'; -- reset_req
+			reset_in3      : in  std_logic := 'X'; -- reset
+			reset_req_in3  : in  std_logic := 'X'; -- reset_req
+			reset_in4      : in  std_logic := 'X'; -- reset
+			reset_req_in4  : in  std_logic := 'X'; -- reset_req
+			reset_in5      : in  std_logic := 'X'; -- reset
+			reset_req_in5  : in  std_logic := 'X'; -- reset_req
+			reset_in6      : in  std_logic := 'X'; -- reset
+			reset_req_in6  : in  std_logic := 'X'; -- reset_req
+			reset_in7      : in  std_logic := 'X'; -- reset
+			reset_req_in7  : in  std_logic := 'X'; -- reset_req
+			reset_in8      : in  std_logic := 'X'; -- reset
+			reset_req_in8  : in  std_logic := 'X'; -- reset_req
+			reset_in9      : in  std_logic := 'X'; -- reset
+			reset_req_in9  : in  std_logic := 'X'; -- reset_req
+			reset_in10     : in  std_logic := 'X'; -- reset
+			reset_req_in10 : in  std_logic := 'X'; -- reset_req
+			reset_in11     : in  std_logic := 'X'; -- reset
+			reset_req_in11 : in  std_logic := 'X'; -- reset_req
+			reset_in12     : in  std_logic := 'X'; -- reset
+			reset_req_in12 : in  std_logic := 'X'; -- reset_req
+			reset_in13     : in  std_logic := 'X'; -- reset
+			reset_req_in13 : in  std_logic := 'X'; -- reset_req
+			reset_in14     : in  std_logic := 'X'; -- reset
+			reset_req_in14 : in  std_logic := 'X'; -- reset_req
+			reset_in15     : in  std_logic := 'X'; -- reset
+			reset_req_in15 : in  std_logic := 'X'  -- reset_req
 		);
-	end component avalonmm_rst_controller;
+	end component altera_reset_controller;
 
-	component avalonmm_rst_controller_002 is
-		generic (
-			NUM_RESET_INPUTS          : integer := 6;
-			OUTPUT_RESET_SYNC_EDGES   : string  := "deassert";
-			SYNC_DEPTH                : integer := 2;
-			RESET_REQUEST_PRESENT     : integer := 0;
-			RESET_REQ_WAIT_TIME       : integer := 1;
-			MIN_RST_ASSERTION_TIME    : integer := 3;
-			RESET_REQ_EARLY_DSRT_TIME : integer := 1;
-			USE_RESET_REQUEST_IN0     : integer := 0;
-			USE_RESET_REQUEST_IN1     : integer := 0;
-			USE_RESET_REQUEST_IN2     : integer := 0;
-			USE_RESET_REQUEST_IN3     : integer := 0;
-			USE_RESET_REQUEST_IN4     : integer := 0;
-			USE_RESET_REQUEST_IN5     : integer := 0;
-			USE_RESET_REQUEST_IN6     : integer := 0;
-			USE_RESET_REQUEST_IN7     : integer := 0;
-			USE_RESET_REQUEST_IN8     : integer := 0;
-			USE_RESET_REQUEST_IN9     : integer := 0;
-			USE_RESET_REQUEST_IN10    : integer := 0;
-			USE_RESET_REQUEST_IN11    : integer := 0;
-			USE_RESET_REQUEST_IN12    : integer := 0;
-			USE_RESET_REQUEST_IN13    : integer := 0;
-			USE_RESET_REQUEST_IN14    : integer := 0;
-			USE_RESET_REQUEST_IN15    : integer := 0;
-			ADAPT_RESET_REQUEST       : integer := 0
-		);
-		port (
-			reset_in0      : in  std_logic := 'X'; -- reset_in0.reset
-			reset_in1      : in  std_logic := 'X'; -- reset_in1.reset
-			clk            : in  std_logic := 'X'; --       clk.clk
-			reset_out      : out std_logic;        -- reset_out.reset
-			reset_in10     : in  std_logic := 'X';
-			reset_in11     : in  std_logic := 'X';
-			reset_in12     : in  std_logic := 'X';
-			reset_in13     : in  std_logic := 'X';
-			reset_in14     : in  std_logic := 'X';
-			reset_in15     : in  std_logic := 'X';
-			reset_in2      : in  std_logic := 'X';
-			reset_in3      : in  std_logic := 'X';
-			reset_in4      : in  std_logic := 'X';
-			reset_in5      : in  std_logic := 'X';
-			reset_in6      : in  std_logic := 'X';
-			reset_in7      : in  std_logic := 'X';
-			reset_in8      : in  std_logic := 'X';
-			reset_in9      : in  std_logic := 'X';
-			reset_req      : out std_logic;
-			reset_req_in0  : in  std_logic := 'X';
-			reset_req_in1  : in  std_logic := 'X';
-			reset_req_in10 : in  std_logic := 'X';
-			reset_req_in11 : in  std_logic := 'X';
-			reset_req_in12 : in  std_logic := 'X';
-			reset_req_in13 : in  std_logic := 'X';
-			reset_req_in14 : in  std_logic := 'X';
-			reset_req_in15 : in  std_logic := 'X';
-			reset_req_in2  : in  std_logic := 'X';
-			reset_req_in3  : in  std_logic := 'X';
-			reset_req_in4  : in  std_logic := 'X';
-			reset_req_in5  : in  std_logic := 'X';
-			reset_req_in6  : in  std_logic := 'X';
-			reset_req_in7  : in  std_logic := 'X';
-			reset_req_in8  : in  std_logic := 'X';
-			reset_req_in9  : in  std_logic := 'X'
-		);
-	end component avalonmm_rst_controller_002;
-
-	signal sdram_pll_sys_clk_clk                                      : std_logic;                     -- sdram_pll:sys_clk_clk -> [jtag_master:clk_clk, mm_bridge:clk, mm_interconnect_0:sdram_pll_sys_clk_clk, rst_controller_001:clk, rst_controller_002:clk, sdram_controller:clk]
+	signal sdram_pll_sys_clk_clk                                      : std_logic;                     -- sdram_pll:sys_clk_clk -> [jtag_master:clk_clk, leg_g:clk, mm_bridge:clk, mm_interconnect_0:sdram_pll_sys_clk_clk, rst_controller:clk, rst_controller_001:clk, sdram_controller:clk, switch:clk]
+	signal sdram_pll_reset_source_reset                               : std_logic;                     -- sdram_pll:reset_source_reset -> [jtag_master:clk_reset_reset, rst_controller:reset_in0]
 	signal mm_bridge_m0_waitrequest                                   : std_logic;                     -- mm_interconnect_0:mm_bridge_m0_waitrequest -> mm_bridge:m0_waitrequest
 	signal mm_bridge_m0_readdata                                      : std_logic_vector(31 downto 0); -- mm_interconnect_0:mm_bridge_m0_readdata -> mm_bridge:m0_readdata
 	signal mm_bridge_m0_debugaccess                                   : std_logic;                     -- mm_bridge:m0_debugaccess -> mm_interconnect_0:mm_bridge_m0_debugaccess
@@ -364,17 +297,17 @@ architecture rtl of AvalonMM is
 	signal mm_interconnect_0_leg_g_s1_writedata                       : std_logic_vector(31 downto 0); -- mm_interconnect_0:leg_g_s1_writedata -> leg_g:writedata
 	signal mm_interconnect_0_switch_s1_readdata                       : std_logic_vector(31 downto 0); -- switch:readdata -> mm_interconnect_0:switch_s1_readdata
 	signal mm_interconnect_0_switch_s1_address                        : std_logic_vector(1 downto 0);  -- mm_interconnect_0:switch_s1_address -> switch:address
-	signal rst_controller_reset_out_reset                             : std_logic;                     -- rst_controller:reset_out -> [mm_interconnect_0:leg_g_reset_reset_bridge_in_reset_reset, rst_controller_reset_out_reset:in, sdram_pll:ref_reset_reset]
-	signal rst_controller_001_reset_out_reset                         : std_logic;                     -- rst_controller_001:reset_out -> [mm_bridge:reset, mm_interconnect_0:jtag_master_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_0:mm_bridge_reset_reset_bridge_in_reset_reset]
-	signal rst_controller_002_reset_out_reset                         : std_logic;                     -- rst_controller_002:reset_out -> [mm_interconnect_0:sdram_controller_reset_reset_bridge_in_reset_reset, rst_controller_002_reset_out_reset:in]
-	signal jtag_master_master_reset_reset                             : std_logic;                     -- jtag_master:master_reset_reset -> rst_controller_002:reset_in1
-	signal reset_reset_n_ports_inv                                    : std_logic;                     -- reset_reset_n:inv -> [jtag_master:clk_reset_reset, rst_controller:reset_in0, rst_controller_001:reset_in0, rst_controller_002:reset_in0]
+	signal rst_controller_reset_out_reset                             : std_logic;                     -- rst_controller:reset_out -> [mm_bridge:reset, mm_interconnect_0:jtag_master_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_0:mm_bridge_reset_reset_bridge_in_reset_reset, rst_controller_reset_out_reset:in]
+	signal rst_controller_001_reset_out_reset                         : std_logic;                     -- rst_controller_001:reset_out -> [mm_interconnect_0:sdram_controller_reset_reset_bridge_in_reset_reset, rst_controller_001_reset_out_reset:in]
+	signal jtag_master_master_reset_reset                             : std_logic;                     -- jtag_master:master_reset_reset -> rst_controller_001:reset_in0
+	signal rst_controller_002_reset_out_reset                         : std_logic;                     -- rst_controller_002:reset_out -> sdram_pll:ref_reset_reset
+	signal reset_reset_n_ports_inv                                    : std_logic;                     -- reset_reset_n:inv -> rst_controller_002:reset_in0
 	signal mm_interconnect_0_sdram_controller_s1_read_ports_inv       : std_logic;                     -- mm_interconnect_0_sdram_controller_s1_read:inv -> sdram_controller:az_rd_n
 	signal mm_interconnect_0_sdram_controller_s1_byteenable_ports_inv : std_logic_vector(3 downto 0);  -- mm_interconnect_0_sdram_controller_s1_byteenable:inv -> sdram_controller:az_be_n
 	signal mm_interconnect_0_sdram_controller_s1_write_ports_inv      : std_logic;                     -- mm_interconnect_0_sdram_controller_s1_write:inv -> sdram_controller:az_wr_n
 	signal mm_interconnect_0_leg_g_s1_write_ports_inv                 : std_logic;                     -- mm_interconnect_0_leg_g_s1_write:inv -> leg_g:write_n
 	signal rst_controller_reset_out_reset_ports_inv                   : std_logic;                     -- rst_controller_reset_out_reset:inv -> [leg_g:reset_n, switch:reset_n]
-	signal rst_controller_002_reset_out_reset_ports_inv               : std_logic;                     -- rst_controller_002_reset_out_reset:inv -> sdram_controller:reset_n
+	signal rst_controller_001_reset_out_reset_ports_inv               : std_logic;                     -- rst_controller_001_reset_out_reset:inv -> sdram_controller:reset_n
 
 begin
 
@@ -386,7 +319,7 @@ begin
 		)
 		port map (
 			clk_clk              => sdram_pll_sys_clk_clk,            --          clk.clk
-			clk_reset_reset      => reset_reset_n_ports_inv,          --    clk_reset.reset
+			clk_reset_reset      => sdram_pll_reset_source_reset,     --    clk_reset.reset
 			master_address       => jtag_master_master_address,       --       master.address
 			master_readdata      => jtag_master_master_readdata,      --             .readdata
 			master_read          => jtag_master_master_read,          --             .read
@@ -400,7 +333,7 @@ begin
 
 	leg_g : component AvalonMM_leg_g
 		port map (
-			clk        => clk_clk,                                    --                 clk.clk
+			clk        => sdram_pll_sys_clk_clk,                      --                 clk.clk
 			reset_n    => rst_controller_reset_out_reset_ports_inv,   --               reset.reset_n
 			address    => mm_interconnect_0_leg_g_s1_address,         --                  s1.address
 			write_n    => mm_interconnect_0_leg_g_s1_write_ports_inv, --                    .write_n
@@ -420,36 +353,36 @@ begin
 			PIPELINE_RESPONSE => 0
 		)
 		port map (
-			clk              => sdram_pll_sys_clk_clk,              --   clk.clk
-			reset            => rst_controller_001_reset_out_reset, -- reset.reset
-			s0_waitrequest   => mm_bridge_s_waitrequest,            --    s0.waitrequest
-			s0_readdata      => mm_bridge_s_readdata,               --      .readdata
-			s0_readdatavalid => mm_bridge_s_readdatavalid,          --      .readdatavalid
-			s0_burstcount    => mm_bridge_s_burstcount,             --      .burstcount
-			s0_writedata     => mm_bridge_s_writedata,              --      .writedata
-			s0_address       => mm_bridge_s_address,                --      .address
-			s0_write         => mm_bridge_s_write,                  --      .write
-			s0_read          => mm_bridge_s_read,                   --      .read
-			s0_byteenable    => mm_bridge_s_byteenable,             --      .byteenable
-			s0_debugaccess   => mm_bridge_s_debugaccess,            --      .debugaccess
-			m0_waitrequest   => mm_bridge_m0_waitrequest,           --    m0.waitrequest
-			m0_readdata      => mm_bridge_m0_readdata,              --      .readdata
-			m0_readdatavalid => mm_bridge_m0_readdatavalid,         --      .readdatavalid
-			m0_burstcount    => mm_bridge_m0_burstcount,            --      .burstcount
-			m0_writedata     => mm_bridge_m0_writedata,             --      .writedata
-			m0_address       => mm_bridge_m0_address,               --      .address
-			m0_write         => mm_bridge_m0_write,                 --      .write
-			m0_read          => mm_bridge_m0_read,                  --      .read
-			m0_byteenable    => mm_bridge_m0_byteenable,            --      .byteenable
-			m0_debugaccess   => mm_bridge_m0_debugaccess,           --      .debugaccess
-			s0_response      => open,                               -- (terminated)
-			m0_response      => "00"                                -- (terminated)
+			clk              => sdram_pll_sys_clk_clk,          --   clk.clk
+			reset            => rst_controller_reset_out_reset, -- reset.reset
+			s0_waitrequest   => mm_bridge_s_waitrequest,        --    s0.waitrequest
+			s0_readdata      => mm_bridge_s_readdata,           --      .readdata
+			s0_readdatavalid => mm_bridge_s_readdatavalid,      --      .readdatavalid
+			s0_burstcount    => mm_bridge_s_burstcount,         --      .burstcount
+			s0_writedata     => mm_bridge_s_writedata,          --      .writedata
+			s0_address       => mm_bridge_s_address,            --      .address
+			s0_write         => mm_bridge_s_write,              --      .write
+			s0_read          => mm_bridge_s_read,               --      .read
+			s0_byteenable    => mm_bridge_s_byteenable,         --      .byteenable
+			s0_debugaccess   => mm_bridge_s_debugaccess,        --      .debugaccess
+			m0_waitrequest   => mm_bridge_m0_waitrequest,       --    m0.waitrequest
+			m0_readdata      => mm_bridge_m0_readdata,          --      .readdata
+			m0_readdatavalid => mm_bridge_m0_readdatavalid,     --      .readdatavalid
+			m0_burstcount    => mm_bridge_m0_burstcount,        --      .burstcount
+			m0_writedata     => mm_bridge_m0_writedata,         --      .writedata
+			m0_address       => mm_bridge_m0_address,           --      .address
+			m0_write         => mm_bridge_m0_write,             --      .write
+			m0_read          => mm_bridge_m0_read,              --      .read
+			m0_byteenable    => mm_bridge_m0_byteenable,        --      .byteenable
+			m0_debugaccess   => mm_bridge_m0_debugaccess,       --      .debugaccess
+			s0_response      => open,                           -- (terminated)
+			m0_response      => "00"                            -- (terminated)
 		);
 
 	sdram_controller : component AvalonMM_sdram_controller
 		port map (
 			clk            => sdram_pll_sys_clk_clk,                                      --   clk.clk
-			reset_n        => rst_controller_002_reset_out_reset_ports_inv,               -- reset.reset_n
+			reset_n        => rst_controller_001_reset_out_reset_ports_inv,               -- reset.reset_n
 			az_addr        => mm_interconnect_0_sdram_controller_s1_address,              --    s1.address
 			az_be_n        => mm_interconnect_0_sdram_controller_s1_byteenable_ports_inv, --      .byteenable_n
 			az_cs          => mm_interconnect_0_sdram_controller_s1_chipselect,           --      .chipselect
@@ -472,16 +405,16 @@ begin
 
 	sdram_pll : component AvalonMM_sdram_pll
 		port map (
-			ref_clk_clk        => clk_clk,                        --      ref_clk.clk
-			ref_reset_reset    => rst_controller_reset_out_reset, --    ref_reset.reset
-			sys_clk_clk        => sdram_pll_sys_clk_clk,          --      sys_clk.clk
-			sdram_clk_clk      => sdram_clk_clk,                  --    sdram_clk.clk
-			reset_source_reset => open                            -- reset_source.reset
+			ref_clk_clk        => clk_clk,                            --      ref_clk.clk
+			ref_reset_reset    => rst_controller_002_reset_out_reset, --    ref_reset.reset
+			sys_clk_clk        => sdram_pll_sys_clk_clk,              --      sys_clk.clk
+			sdram_clk_clk      => sdram_clk_clk,                      --    sdram_clk.clk
+			reset_source_reset => sdram_pll_reset_source_reset        -- reset_source.reset
 		);
 
 	switch : component AvalonMM_switch
 		port map (
-			clk      => clk_clk,                                  --                 clk.clk
+			clk      => sdram_pll_sys_clk_clk,                    --                 clk.clk
 			reset_n  => rst_controller_reset_out_reset_ports_inv, --               reset.reset_n
 			address  => mm_interconnect_0_switch_s1_address,      --                  s1.address
 			readdata => mm_interconnect_0_switch_s1_readdata,     --                    .readdata
@@ -490,12 +423,10 @@ begin
 
 	mm_interconnect_0 : component AvalonMM_mm_interconnect_0
 		port map (
-			clk_0_clk_clk                                      => clk_clk,                                             --                                    clk_0_clk.clk
 			sdram_pll_sys_clk_clk                              => sdram_pll_sys_clk_clk,                               --                            sdram_pll_sys_clk.clk
-			jtag_master_clk_reset_reset_bridge_in_reset_reset  => rst_controller_001_reset_out_reset,                  --  jtag_master_clk_reset_reset_bridge_in_reset.reset
-			leg_g_reset_reset_bridge_in_reset_reset            => rst_controller_reset_out_reset,                      --            leg_g_reset_reset_bridge_in_reset.reset
-			mm_bridge_reset_reset_bridge_in_reset_reset        => rst_controller_001_reset_out_reset,                  --        mm_bridge_reset_reset_bridge_in_reset.reset
-			sdram_controller_reset_reset_bridge_in_reset_reset => rst_controller_002_reset_out_reset,                  -- sdram_controller_reset_reset_bridge_in_reset.reset
+			jtag_master_clk_reset_reset_bridge_in_reset_reset  => rst_controller_reset_out_reset,                      --  jtag_master_clk_reset_reset_bridge_in_reset.reset
+			mm_bridge_reset_reset_bridge_in_reset_reset        => rst_controller_reset_out_reset,                      --        mm_bridge_reset_reset_bridge_in_reset.reset
+			sdram_controller_reset_reset_bridge_in_reset_reset => rst_controller_001_reset_out_reset,                  -- sdram_controller_reset_reset_bridge_in_reset.reset
 			jtag_master_master_address                         => jtag_master_master_address,                          --                           jtag_master_master.address
 			jtag_master_master_waitrequest                     => jtag_master_master_waitrequest,                      --                                             .waitrequest
 			jtag_master_master_byteenable                      => jtag_master_master_byteenable,                       --                                             .byteenable
@@ -532,7 +463,7 @@ begin
 			switch_s1_readdata                                 => mm_interconnect_0_switch_s1_readdata                 --                                             .readdata
 		);
 
-	rst_controller : component avalonmm_rst_controller
+	rst_controller : component altera_reset_controller
 		generic map (
 			NUM_RESET_INPUTS          => 1,
 			OUTPUT_RESET_SYNC_EDGES   => "deassert",
@@ -560,8 +491,8 @@ begin
 			ADAPT_RESET_REQUEST       => 0
 		)
 		port map (
-			reset_in0      => reset_reset_n_ports_inv,        -- reset_in0.reset
-			clk            => clk_clk,                        --       clk.clk
+			reset_in0      => sdram_pll_reset_source_reset,   -- reset_in0.reset
+			clk            => sdram_pll_sys_clk_clk,          --       clk.clk
 			reset_out      => rst_controller_reset_out_reset, -- reset_out.reset
 			reset_req      => open,                           -- (terminated)
 			reset_req_in0  => '0',                            -- (terminated)
@@ -597,7 +528,7 @@ begin
 			reset_req_in15 => '0'                             -- (terminated)
 		);
 
-	rst_controller_001 : component avalonmm_rst_controller
+	rst_controller_001 : component altera_reset_controller
 		generic map (
 			NUM_RESET_INPUTS          => 1,
 			OUTPUT_RESET_SYNC_EDGES   => "deassert",
@@ -625,7 +556,7 @@ begin
 			ADAPT_RESET_REQUEST       => 0
 		)
 		port map (
-			reset_in0      => reset_reset_n_ports_inv,            -- reset_in0.reset
+			reset_in0      => jtag_master_master_reset_reset,     -- reset_in0.reset
 			clk            => sdram_pll_sys_clk_clk,              --       clk.clk
 			reset_out      => rst_controller_001_reset_out_reset, -- reset_out.reset
 			reset_req      => open,                               -- (terminated)
@@ -662,9 +593,9 @@ begin
 			reset_req_in15 => '0'                                 -- (terminated)
 		);
 
-	rst_controller_002 : component avalonmm_rst_controller_002
+	rst_controller_002 : component altera_reset_controller
 		generic map (
-			NUM_RESET_INPUTS          => 2,
+			NUM_RESET_INPUTS          => 1,
 			OUTPUT_RESET_SYNC_EDGES   => "deassert",
 			SYNC_DEPTH                => 2,
 			RESET_REQUEST_PRESENT     => 0,
@@ -691,11 +622,11 @@ begin
 		)
 		port map (
 			reset_in0      => reset_reset_n_ports_inv,            -- reset_in0.reset
-			reset_in1      => jtag_master_master_reset_reset,     -- reset_in1.reset
-			clk            => sdram_pll_sys_clk_clk,              --       clk.clk
+			clk            => clk_clk,                            --       clk.clk
 			reset_out      => rst_controller_002_reset_out_reset, -- reset_out.reset
 			reset_req      => open,                               -- (terminated)
 			reset_req_in0  => '0',                                -- (terminated)
+			reset_in1      => '0',                                -- (terminated)
 			reset_req_in1  => '0',                                -- (terminated)
 			reset_in2      => '0',                                -- (terminated)
 			reset_req_in2  => '0',                                -- (terminated)
@@ -739,6 +670,6 @@ begin
 
 	rst_controller_reset_out_reset_ports_inv <= not rst_controller_reset_out_reset;
 
-	rst_controller_002_reset_out_reset_ports_inv <= not rst_controller_002_reset_out_reset;
+	rst_controller_001_reset_out_reset_ports_inv <= not rst_controller_001_reset_out_reset;
 
 end architecture rtl; -- of AvalonMM

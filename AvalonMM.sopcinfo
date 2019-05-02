@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="AvalonMM" kind="AvalonMM" version="1.0" fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2019.04.29.23:53:18 -->
+ <!-- 2019.04.30.16:10:01 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1556574798</value>
+  <value>1556633401</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -330,18 +330,6 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>clk</role>
    </port>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>leg_g</moduleName>
-    <slaveName>clk</slaveName>
-    <name>leg_g.clk</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>switch</moduleName>
-    <slaveName>clk</slaveName>
-    <name>switch.clk</name>
-   </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
     <moduleName>sdram_pll</moduleName>
@@ -3992,6 +3980,18 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>clk</slaveName>
     <name>jtag_master.clk</name>
    </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>leg_g</moduleName>
+    <slaveName>clk</slaveName>
+    <name>leg_g.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>switch</moduleName>
+    <slaveName>clk</slaveName>
+    <name>switch.clk</name>
+   </clockDomainMember>
   </interface>
   <interface name="sdram_clk" kind="clock_source" version="18.1">
    <!-- The connection points exposed by a module instance for the
@@ -5187,60 +5187,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
-   name="clk_0.clk/leg_g.clk"
-   kind="clock"
-   version="18.1"
-   start="clk_0.clk"
-   end="leg_g.clk">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>leg_g</endModule>
-  <endConnectionPoint>clk</endConnectionPoint>
- </connection>
- <connection
-   name="clk_0.clk/switch.clk"
-   kind="clock"
-   version="18.1"
-   start="clk_0.clk"
-   end="switch.clk">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>switch</endModule>
-  <endConnectionPoint>clk</endConnectionPoint>
- </connection>
- <connection
    name="clk_0.clk/sdram_pll.ref_clk"
    kind="clock"
    version="18.1"
@@ -5349,11 +5295,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clk</endConnectionPoint>
  </connection>
  <connection
-   name="clk_0.clk_reset/jtag_master.clk_reset"
-   kind="reset"
+   name="sdram_pll.sys_clk/leg_g.clk"
+   kind="clock"
    version="18.1"
-   start="clk_0.clk_reset"
-   end="jtag_master.clk_reset">
+   start="sdram_pll.sys_clk"
+   end="leg_g.clk">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -5370,10 +5316,37 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>jtag_master</endModule>
-  <endConnectionPoint>clk_reset</endConnectionPoint>
+  <startModule>sdram_pll</startModule>
+  <startConnectionPoint>sys_clk</startConnectionPoint>
+  <endModule>leg_g</endModule>
+  <endConnectionPoint>clk</endConnectionPoint>
+ </connection>
+ <connection
+   name="sdram_pll.sys_clk/switch.clk"
+   kind="clock"
+   version="18.1"
+   start="sdram_pll.sys_clk"
+   end="switch.clk">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>sdram_pll</startModule>
+  <startConnectionPoint>sys_clk</startConnectionPoint>
+  <endModule>switch</endModule>
+  <endConnectionPoint>clk</endConnectionPoint>
  </connection>
  <connection
    name="clk_0.clk_reset/sdram_pll.ref_reset"
@@ -5403,114 +5376,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>ref_reset</endConnectionPoint>
  </connection>
  <connection
-   name="clk_0.clk_reset/mm_bridge.reset"
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
-   end="mm_bridge.reset">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>mm_bridge</endModule>
-  <endConnectionPoint>reset</endConnectionPoint>
- </connection>
- <connection
-   name="clk_0.clk_reset/leg_g.reset"
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
-   end="leg_g.reset">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>leg_g</endModule>
-  <endConnectionPoint>reset</endConnectionPoint>
- </connection>
- <connection
-   name="clk_0.clk_reset/switch.reset"
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
-   end="switch.reset">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>switch</endModule>
-  <endConnectionPoint>reset</endConnectionPoint>
- </connection>
- <connection
-   name="clk_0.clk_reset/sdram_controller.reset"
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
-   end="sdram_controller.reset">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>sdram_controller</endModule>
-  <endConnectionPoint>reset</endConnectionPoint>
- </connection>
- <connection
    name="jtag_master.master_reset/sdram_controller.reset"
    kind="reset"
    version="18.1"
@@ -5535,6 +5400,114 @@ parameters are a RESULT of the module parameters. -->
   <startModule>jtag_master</startModule>
   <startConnectionPoint>master_reset</startConnectionPoint>
   <endModule>sdram_controller</endModule>
+  <endConnectionPoint>reset</endConnectionPoint>
+ </connection>
+ <connection
+   name="sdram_pll.reset_source/jtag_master.clk_reset"
+   kind="reset"
+   version="18.1"
+   start="sdram_pll.reset_source"
+   end="jtag_master.clk_reset">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>sdram_pll</startModule>
+  <startConnectionPoint>reset_source</startConnectionPoint>
+  <endModule>jtag_master</endModule>
+  <endConnectionPoint>clk_reset</endConnectionPoint>
+ </connection>
+ <connection
+   name="sdram_pll.reset_source/mm_bridge.reset"
+   kind="reset"
+   version="18.1"
+   start="sdram_pll.reset_source"
+   end="mm_bridge.reset">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>sdram_pll</startModule>
+  <startConnectionPoint>reset_source</startConnectionPoint>
+  <endModule>mm_bridge</endModule>
+  <endConnectionPoint>reset</endConnectionPoint>
+ </connection>
+ <connection
+   name="sdram_pll.reset_source/leg_g.reset"
+   kind="reset"
+   version="18.1"
+   start="sdram_pll.reset_source"
+   end="leg_g.reset">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>sdram_pll</startModule>
+  <startConnectionPoint>reset_source</startConnectionPoint>
+  <endModule>leg_g</endModule>
+  <endConnectionPoint>reset</endConnectionPoint>
+ </connection>
+ <connection
+   name="sdram_pll.reset_source/switch.reset"
+   kind="reset"
+   version="18.1"
+   start="sdram_pll.reset_source"
+   end="switch.reset">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>sdram_pll</startModule>
+  <startConnectionPoint>reset_source</startConnectionPoint>
+  <endModule>switch</endModule>
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <plugin>
@@ -5690,7 +5663,7 @@ parameters are a RESULT of the module parameters. -->
   <version>18.1</version>
  </plugin>
  <plugin>
-  <instanceCount>7</instanceCount>
+  <instanceCount>6</instanceCount>
   <name>reset</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>

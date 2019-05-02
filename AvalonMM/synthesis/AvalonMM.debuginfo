@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="AvalonMM" kind="system" version="18.1" fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2019.04.29.23:53:27 -->
+ <!-- 2019.04.30.16:10:11 -->
  <!-- A collection of modules and connections -->
  <parameter name="clockCrossingAdapter">
   <type>com.altera.sopcmodel.ensemble.EClockAdapter</type>
@@ -53,7 +53,7 @@
  </parameter>
  <parameter name="generationId">
   <type>int</type>
-  <value>1556574798</value>
+  <value>1556633401</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>true</visible>
@@ -384,33 +384,15 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>leg_g</moduleName>
-    <slaveName>clk</slaveName>
-    <name>leg_g.clk</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>switch</moduleName>
-    <slaveName>clk</slaveName>
-    <name>switch.clk</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
     <moduleName>sdram_pll</moduleName>
     <slaveName>ref_clk</slaveName>
     <name>sdram_pll.ref_clk</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>mm_interconnect_0</moduleName>
-    <slaveName>clk_0_clk</slaveName>
-    <name>mm_interconnect_0.clk_0_clk</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>rst_controller</moduleName>
+    <moduleName>rst_controller_002</moduleName>
     <slaveName>clk</slaveName>
-    <name>rst_controller.clk</name>
+    <name>rst_controller_002.clk</name>
    </clockDomainMember>
   </interface>
   <interface name="clk_reset" kind="reset_source" version="18.1">
@@ -4026,21 +4008,33 @@ parameters are a RESULT of the module parameters. -->
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
+    <moduleName>leg_g</moduleName>
+    <slaveName>clk</slaveName>
+    <name>leg_g.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>switch</moduleName>
+    <slaveName>clk</slaveName>
+    <name>switch.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
     <moduleName>mm_interconnect_0</moduleName>
     <slaveName>sdram_pll_sys_clk</slaveName>
     <name>mm_interconnect_0.sdram_pll_sys_clk</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>rst_controller_001</moduleName>
+    <moduleName>rst_controller</moduleName>
     <slaveName>clk</slaveName>
-    <name>rst_controller_001.clk</name>
+    <name>rst_controller.clk</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>rst_controller_002</moduleName>
+    <moduleName>rst_controller_001</moduleName>
     <slaveName>clk</slaveName>
-    <name>rst_controller_002.clk</name>
+    <name>rst_controller_001.clk</name>
    </clockDomainMember>
   </interface>
   <interface name="sdram_clk" kind="clock_source" version="18.1">
@@ -5007,7 +5001,7 @@ the requested settings for a module instance. -->
    responds="1"
    user_default="0" />
 </address_map>
-};set_instance_parameter_value {jtag_master_master_agent} {SUPPRESS_0_BYTEEN_RSP} {0};set_instance_parameter_value {jtag_master_master_agent} {ID} {0};set_instance_parameter_value {jtag_master_master_agent} {BURSTWRAP_VALUE} {1};set_instance_parameter_value {jtag_master_master_agent} {CACHE_VALUE} {0};set_instance_parameter_value {jtag_master_master_agent} {SECURE_ACCESS_BIT} {1};set_instance_parameter_value {jtag_master_master_agent} {USE_READRESPONSE} {0};set_instance_parameter_value {jtag_master_master_agent} {USE_WRITERESPONSE} {0};add_instance {sdram_controller_s1_agent} {altera_merlin_slave_agent};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_ORI_BURST_SIZE_H} {103};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_ORI_BURST_SIZE_L} {101};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_RESPONSE_STATUS_H} {100};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_RESPONSE_STATUS_L} {99};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_BURST_SIZE_H} {80};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_BURST_SIZE_L} {78};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_TRANS_LOCK} {72};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_BEGIN_BURST} {85};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_PROTECTION_H} {94};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_PROTECTION_L} {92};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_BURSTWRAP_H} {77};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_BURSTWRAP_L} {77};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_BYTE_CNT_H} {76};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_BYTE_CNT_L} {74};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_ADDR_H} {67};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_ADDR_L} {36};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_TRANS_COMPRESSED_READ} {68};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_TRANS_POSTED} {69};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_TRANS_WRITE} {70};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_TRANS_READ} {71};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_DATA_H} {31};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_DATA_L} {0};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_BYTEEN_H} {35};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_BYTEEN_L} {32};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_SRC_ID_H} {88};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_SRC_ID_L} {87};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_DEST_ID_H} {90};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_DEST_ID_L} {89};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_SYMBOL_W} {8};set_instance_parameter_value {sdram_controller_s1_agent} {ST_CHANNEL_W} {3};set_instance_parameter_value {sdram_controller_s1_agent} {ST_DATA_W} {104};set_instance_parameter_value {sdram_controller_s1_agent} {AVS_BURSTCOUNT_SYMBOLS} {0};set_instance_parameter_value {sdram_controller_s1_agent} {AVS_BURSTCOUNT_W} {3};set_instance_parameter_value {sdram_controller_s1_agent} {AV_LINEWRAPBURSTS} {0};set_instance_parameter_value {sdram_controller_s1_agent} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};set_instance_parameter_value {sdram_controller_s1_agent} {SUPPRESS_0_BYTEEN_CMD} {0};set_instance_parameter_value {sdram_controller_s1_agent} {PREVENT_FIFO_OVERFLOW} {1};set_instance_parameter_value {sdram_controller_s1_agent} {MAX_BYTE_CNT} {4};set_instance_parameter_value {sdram_controller_s1_agent} {MAX_BURSTWRAP} {1};set_instance_parameter_value {sdram_controller_s1_agent} {ID} {1};set_instance_parameter_value {sdram_controller_s1_agent} {USE_READRESPONSE} {0};set_instance_parameter_value {sdram_controller_s1_agent} {USE_WRITERESPONSE} {0};set_instance_parameter_value {sdram_controller_s1_agent} {ECC_ENABLE} {0};add_instance {sdram_controller_s1_agent_rsp_fifo} {altera_avalon_sc_fifo};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {SYMBOLS_PER_BEAT} {1};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {BITS_PER_SYMBOL} {105};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {FIFO_DEPTH} {8};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {CHANNEL_WIDTH} {0};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {ERROR_WIDTH} {0};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {USE_PACKETS} {1};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {USE_FILL_LEVEL} {0};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {EMPTY_LATENCY} {1};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {USE_MEMORY_BLOCKS} {0};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {USE_STORE_FORWARD} {0};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {USE_ALMOST_FULL_IF} {0};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {USE_ALMOST_EMPTY_IF} {0};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {ENABLE_EXPLICIT_MAXCHANNEL} {false};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {EXPLICIT_MAXCHANNEL} {0};add_instance {leg_g_s1_agent} {altera_merlin_slave_agent};set_instance_parameter_value {leg_g_s1_agent} {PKT_ORI_BURST_SIZE_H} {103};set_instance_parameter_value {leg_g_s1_agent} {PKT_ORI_BURST_SIZE_L} {101};set_instance_parameter_value {leg_g_s1_agent} {PKT_RESPONSE_STATUS_H} {100};set_instance_parameter_value {leg_g_s1_agent} {PKT_RESPONSE_STATUS_L} {99};set_instance_parameter_value {leg_g_s1_agent} {PKT_BURST_SIZE_H} {80};set_instance_parameter_value {leg_g_s1_agent} {PKT_BURST_SIZE_L} {78};set_instance_parameter_value {leg_g_s1_agent} {PKT_TRANS_LOCK} {72};set_instance_parameter_value {leg_g_s1_agent} {PKT_BEGIN_BURST} {85};set_instance_parameter_value {leg_g_s1_agent} {PKT_PROTECTION_H} {94};set_instance_parameter_value {leg_g_s1_agent} {PKT_PROTECTION_L} {92};set_instance_parameter_value {leg_g_s1_agent} {PKT_BURSTWRAP_H} {77};set_instance_parameter_value {leg_g_s1_agent} {PKT_BURSTWRAP_L} {77};set_instance_parameter_value {leg_g_s1_agent} {PKT_BYTE_CNT_H} {76};set_instance_parameter_value {leg_g_s1_agent} {PKT_BYTE_CNT_L} {74};set_instance_parameter_value {leg_g_s1_agent} {PKT_ADDR_H} {67};set_instance_parameter_value {leg_g_s1_agent} {PKT_ADDR_L} {36};set_instance_parameter_value {leg_g_s1_agent} {PKT_TRANS_COMPRESSED_READ} {68};set_instance_parameter_value {leg_g_s1_agent} {PKT_TRANS_POSTED} {69};set_instance_parameter_value {leg_g_s1_agent} {PKT_TRANS_WRITE} {70};set_instance_parameter_value {leg_g_s1_agent} {PKT_TRANS_READ} {71};set_instance_parameter_value {leg_g_s1_agent} {PKT_DATA_H} {31};set_instance_parameter_value {leg_g_s1_agent} {PKT_DATA_L} {0};set_instance_parameter_value {leg_g_s1_agent} {PKT_BYTEEN_H} {35};set_instance_parameter_value {leg_g_s1_agent} {PKT_BYTEEN_L} {32};set_instance_parameter_value {leg_g_s1_agent} {PKT_SRC_ID_H} {88};set_instance_parameter_value {leg_g_s1_agent} {PKT_SRC_ID_L} {87};set_instance_parameter_value {leg_g_s1_agent} {PKT_DEST_ID_H} {90};set_instance_parameter_value {leg_g_s1_agent} {PKT_DEST_ID_L} {89};set_instance_parameter_value {leg_g_s1_agent} {PKT_SYMBOL_W} {8};set_instance_parameter_value {leg_g_s1_agent} {ST_CHANNEL_W} {3};set_instance_parameter_value {leg_g_s1_agent} {ST_DATA_W} {104};set_instance_parameter_value {leg_g_s1_agent} {AVS_BURSTCOUNT_SYMBOLS} {0};set_instance_parameter_value {leg_g_s1_agent} {AVS_BURSTCOUNT_W} {3};set_instance_parameter_value {leg_g_s1_agent} {AV_LINEWRAPBURSTS} {0};set_instance_parameter_value {leg_g_s1_agent} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};set_instance_parameter_value {leg_g_s1_agent} {SUPPRESS_0_BYTEEN_CMD} {0};set_instance_parameter_value {leg_g_s1_agent} {PREVENT_FIFO_OVERFLOW} {1};set_instance_parameter_value {leg_g_s1_agent} {MAX_BYTE_CNT} {4};set_instance_parameter_value {leg_g_s1_agent} {MAX_BURSTWRAP} {1};set_instance_parameter_value {leg_g_s1_agent} {ID} {0};set_instance_parameter_value {leg_g_s1_agent} {USE_READRESPONSE} {0};set_instance_parameter_value {leg_g_s1_agent} {USE_WRITERESPONSE} {0};set_instance_parameter_value {leg_g_s1_agent} {ECC_ENABLE} {0};add_instance {leg_g_s1_agent_rsp_fifo} {altera_avalon_sc_fifo};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {SYMBOLS_PER_BEAT} {1};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {BITS_PER_SYMBOL} {105};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {FIFO_DEPTH} {2};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {CHANNEL_WIDTH} {0};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {ERROR_WIDTH} {0};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {USE_PACKETS} {1};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {USE_FILL_LEVEL} {0};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {EMPTY_LATENCY} {1};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {USE_MEMORY_BLOCKS} {0};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {USE_STORE_FORWARD} {0};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {USE_ALMOST_FULL_IF} {0};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {USE_ALMOST_EMPTY_IF} {0};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {ENABLE_EXPLICIT_MAXCHANNEL} {false};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {EXPLICIT_MAXCHANNEL} {0};add_instance {leg_g_s1_agent_rdata_fifo} {altera_avalon_sc_fifo};set_instance_parameter_value {leg_g_s1_agent_rdata_fifo} {SYMBOLS_PER_BEAT} {1};set_instance_parameter_value {leg_g_s1_agent_rdata_fifo} {BITS_PER_SYMBOL} {34};set_instance_parameter_value {leg_g_s1_agent_rdata_fifo} {FIFO_DEPTH} {2};set_instance_parameter_value {leg_g_s1_agent_rdata_fifo} {CHANNEL_WIDTH} {0};set_instance_parameter_value {leg_g_s1_agent_rdata_fifo} {ERROR_WIDTH} {0};set_instance_parameter_value {leg_g_s1_agent_rdata_fifo} {USE_PACKETS} {0};set_instance_parameter_value {leg_g_s1_agent_rdata_fifo} {USE_FILL_LEVEL} {0};set_instance_parameter_value {leg_g_s1_agent_rdata_fifo} {EMPTY_LATENCY} {0};set_instance_parameter_value {leg_g_s1_agent_rdata_fifo} {USE_MEMORY_BLOCKS} {0};set_instance_parameter_value {leg_g_s1_agent_rdata_fifo} {USE_STORE_FORWARD} {0};set_instance_parameter_value {leg_g_s1_agent_rdata_fifo} {USE_ALMOST_FULL_IF} {0};set_instance_parameter_value {leg_g_s1_agent_rdata_fifo} {USE_ALMOST_EMPTY_IF} {0};set_instance_parameter_value {leg_g_s1_agent_rdata_fifo} {ENABLE_EXPLICIT_MAXCHANNEL} {false};set_instance_parameter_value {leg_g_s1_agent_rdata_fifo} {EXPLICIT_MAXCHANNEL} {0};add_instance {switch_s1_agent} {altera_merlin_slave_agent};set_instance_parameter_value {switch_s1_agent} {PKT_ORI_BURST_SIZE_H} {103};set_instance_parameter_value {switch_s1_agent} {PKT_ORI_BURST_SIZE_L} {101};set_instance_parameter_value {switch_s1_agent} {PKT_RESPONSE_STATUS_H} {100};set_instance_parameter_value {switch_s1_agent} {PKT_RESPONSE_STATUS_L} {99};set_instance_parameter_value {switch_s1_agent} {PKT_BURST_SIZE_H} {80};set_instance_parameter_value {switch_s1_agent} {PKT_BURST_SIZE_L} {78};set_instance_parameter_value {switch_s1_agent} {PKT_TRANS_LOCK} {72};set_instance_parameter_value {switch_s1_agent} {PKT_BEGIN_BURST} {85};set_instance_parameter_value {switch_s1_agent} {PKT_PROTECTION_H} {94};set_instance_parameter_value {switch_s1_agent} {PKT_PROTECTION_L} {92};set_instance_parameter_value {switch_s1_agent} {PKT_BURSTWRAP_H} {77};set_instance_parameter_value {switch_s1_agent} {PKT_BURSTWRAP_L} {77};set_instance_parameter_value {switch_s1_agent} {PKT_BYTE_CNT_H} {76};set_instance_parameter_value {switch_s1_agent} {PKT_BYTE_CNT_L} {74};set_instance_parameter_value {switch_s1_agent} {PKT_ADDR_H} {67};set_instance_parameter_value {switch_s1_agent} {PKT_ADDR_L} {36};set_instance_parameter_value {switch_s1_agent} {PKT_TRANS_COMPRESSED_READ} {68};set_instance_parameter_value {switch_s1_agent} {PKT_TRANS_POSTED} {69};set_instance_parameter_value {switch_s1_agent} {PKT_TRANS_WRITE} {70};set_instance_parameter_value {switch_s1_agent} {PKT_TRANS_READ} {71};set_instance_parameter_value {switch_s1_agent} {PKT_DATA_H} {31};set_instance_parameter_value {switch_s1_agent} {PKT_DATA_L} {0};set_instance_parameter_value {switch_s1_agent} {PKT_BYTEEN_H} {35};set_instance_parameter_value {switch_s1_agent} {PKT_BYTEEN_L} {32};set_instance_parameter_value {switch_s1_agent} {PKT_SRC_ID_H} {88};set_instance_parameter_value {switch_s1_agent} {PKT_SRC_ID_L} {87};set_instance_parameter_value {switch_s1_agent} {PKT_DEST_ID_H} {90};set_instance_parameter_value {switch_s1_agent} {PKT_DEST_ID_L} {89};set_instance_parameter_value {switch_s1_agent} {PKT_SYMBOL_W} {8};set_instance_parameter_value {switch_s1_agent} {ST_CHANNEL_W} {3};set_instance_parameter_value {switch_s1_agent} {ST_DATA_W} {104};set_instance_parameter_value {switch_s1_agent} {AVS_BURSTCOUNT_SYMBOLS} {0};set_instance_parameter_value {switch_s1_agent} {AVS_BURSTCOUNT_W} {3};set_instance_parameter_value {switch_s1_agent} {AV_LINEWRAPBURSTS} {0};set_instance_parameter_value {switch_s1_agent} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};set_instance_parameter_value {switch_s1_agent} {SUPPRESS_0_BYTEEN_CMD} {0};set_instance_parameter_value {switch_s1_agent} {PREVENT_FIFO_OVERFLOW} {1};set_instance_parameter_value {switch_s1_agent} {MAX_BYTE_CNT} {4};set_instance_parameter_value {switch_s1_agent} {MAX_BURSTWRAP} {1};set_instance_parameter_value {switch_s1_agent} {ID} {2};set_instance_parameter_value {switch_s1_agent} {USE_READRESPONSE} {0};set_instance_parameter_value {switch_s1_agent} {USE_WRITERESPONSE} {0};set_instance_parameter_value {switch_s1_agent} {ECC_ENABLE} {0};add_instance {switch_s1_agent_rsp_fifo} {altera_avalon_sc_fifo};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {SYMBOLS_PER_BEAT} {1};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {BITS_PER_SYMBOL} {105};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {FIFO_DEPTH} {2};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {CHANNEL_WIDTH} {0};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {ERROR_WIDTH} {0};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {USE_PACKETS} {1};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {USE_FILL_LEVEL} {0};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {EMPTY_LATENCY} {1};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {USE_MEMORY_BLOCKS} {0};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {USE_STORE_FORWARD} {0};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {USE_ALMOST_FULL_IF} {0};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {USE_ALMOST_EMPTY_IF} {0};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {ENABLE_EXPLICIT_MAXCHANNEL} {false};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {EXPLICIT_MAXCHANNEL} {0};add_instance {switch_s1_agent_rdata_fifo} {altera_avalon_sc_fifo};set_instance_parameter_value {switch_s1_agent_rdata_fifo} {SYMBOLS_PER_BEAT} {1};set_instance_parameter_value {switch_s1_agent_rdata_fifo} {BITS_PER_SYMBOL} {34};set_instance_parameter_value {switch_s1_agent_rdata_fifo} {FIFO_DEPTH} {2};set_instance_parameter_value {switch_s1_agent_rdata_fifo} {CHANNEL_WIDTH} {0};set_instance_parameter_value {switch_s1_agent_rdata_fifo} {ERROR_WIDTH} {0};set_instance_parameter_value {switch_s1_agent_rdata_fifo} {USE_PACKETS} {0};set_instance_parameter_value {switch_s1_agent_rdata_fifo} {USE_FILL_LEVEL} {0};set_instance_parameter_value {switch_s1_agent_rdata_fifo} {EMPTY_LATENCY} {0};set_instance_parameter_value {switch_s1_agent_rdata_fifo} {USE_MEMORY_BLOCKS} {0};set_instance_parameter_value {switch_s1_agent_rdata_fifo} {USE_STORE_FORWARD} {0};set_instance_parameter_value {switch_s1_agent_rdata_fifo} {USE_ALMOST_FULL_IF} {0};set_instance_parameter_value {switch_s1_agent_rdata_fifo} {USE_ALMOST_EMPTY_IF} {0};set_instance_parameter_value {switch_s1_agent_rdata_fifo} {ENABLE_EXPLICIT_MAXCHANNEL} {false};set_instance_parameter_value {switch_s1_agent_rdata_fifo} {EXPLICIT_MAXCHANNEL} {0};add_instance {router} {altera_merlin_router};set_instance_parameter_value {router} {DESTINATION_ID} {1 2 0 };set_instance_parameter_value {router} {CHANNEL_ID} {001 100 010 };set_instance_parameter_value {router} {TYPE_OF_TRANSACTION} {both read both };set_instance_parameter_value {router} {START_ADDRESS} {0x0 0x8000000 0x8000010 };set_instance_parameter_value {router} {END_ADDRESS} {0x8000000 0x8000010 0x8000020 };set_instance_parameter_value {router} {NON_SECURED_TAG} {1 1 1 };set_instance_parameter_value {router} {SECURED_RANGE_PAIRS} {0 0 0 };set_instance_parameter_value {router} {SECURED_RANGE_LIST} {0 0 0 };set_instance_parameter_value {router} {SPAN_OFFSET} {};set_instance_parameter_value {router} {PKT_ADDR_H} {67};set_instance_parameter_value {router} {PKT_ADDR_L} {36};set_instance_parameter_value {router} {PKT_PROTECTION_H} {94};set_instance_parameter_value {router} {PKT_PROTECTION_L} {92};set_instance_parameter_value {router} {PKT_DEST_ID_H} {90};set_instance_parameter_value {router} {PKT_DEST_ID_L} {89};set_instance_parameter_value {router} {PKT_TRANS_WRITE} {70};set_instance_parameter_value {router} {PKT_TRANS_READ} {71};set_instance_parameter_value {router} {ST_DATA_W} {104};set_instance_parameter_value {router} {ST_CHANNEL_W} {3};set_instance_parameter_value {router} {DECODER_TYPE} {0};set_instance_parameter_value {router} {DEFAULT_CHANNEL} {0};set_instance_parameter_value {router} {DEFAULT_WR_CHANNEL} {-1};set_instance_parameter_value {router} {DEFAULT_RD_CHANNEL} {-1};set_instance_parameter_value {router} {DEFAULT_DESTID} {1};set_instance_parameter_value {router} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};set_instance_parameter_value {router} {MEMORY_ALIASING_DECODE} {0};add_instance {router_001} {altera_merlin_router};set_instance_parameter_value {router_001} {DESTINATION_ID} {1 2 0 };set_instance_parameter_value {router_001} {CHANNEL_ID} {001 100 010 };set_instance_parameter_value {router_001} {TYPE_OF_TRANSACTION} {both read both };set_instance_parameter_value {router_001} {START_ADDRESS} {0x0 0x8000000 0x8000010 };set_instance_parameter_value {router_001} {END_ADDRESS} {0x8000000 0x8000010 0x8000020 };set_instance_parameter_value {router_001} {NON_SECURED_TAG} {1 1 1 };set_instance_parameter_value {router_001} {SECURED_RANGE_PAIRS} {0 0 0 };set_instance_parameter_value {router_001} {SECURED_RANGE_LIST} {0 0 0 };set_instance_parameter_value {router_001} {SPAN_OFFSET} {};set_instance_parameter_value {router_001} {PKT_ADDR_H} {67};set_instance_parameter_value {router_001} {PKT_ADDR_L} {36};set_instance_parameter_value {router_001} {PKT_PROTECTION_H} {94};set_instance_parameter_value {router_001} {PKT_PROTECTION_L} {92};set_instance_parameter_value {router_001} {PKT_DEST_ID_H} {90};set_instance_parameter_value {router_001} {PKT_DEST_ID_L} {89};set_instance_parameter_value {router_001} {PKT_TRANS_WRITE} {70};set_instance_parameter_value {router_001} {PKT_TRANS_READ} {71};set_instance_parameter_value {router_001} {ST_DATA_W} {104};set_instance_parameter_value {router_001} {ST_CHANNEL_W} {3};set_instance_parameter_value {router_001} {DECODER_TYPE} {0};set_instance_parameter_value {router_001} {DEFAULT_CHANNEL} {0};set_instance_parameter_value {router_001} {DEFAULT_WR_CHANNEL} {-1};set_instance_parameter_value {router_001} {DEFAULT_RD_CHANNEL} {-1};set_instance_parameter_value {router_001} {DEFAULT_DESTID} {1};set_instance_parameter_value {router_001} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};set_instance_parameter_value {router_001} {MEMORY_ALIASING_DECODE} {0};add_instance {router_002} {altera_merlin_router};set_instance_parameter_value {router_002} {DESTINATION_ID} {1 0 };set_instance_parameter_value {router_002} {CHANNEL_ID} {01 10 };set_instance_parameter_value {router_002} {TYPE_OF_TRANSACTION} {both both };set_instance_parameter_value {router_002} {START_ADDRESS} {0x0 0x0 };set_instance_parameter_value {router_002} {END_ADDRESS} {0x0 0x0 };set_instance_parameter_value {router_002} {NON_SECURED_TAG} {1 1 };set_instance_parameter_value {router_002} {SECURED_RANGE_PAIRS} {0 0 };set_instance_parameter_value {router_002} {SECURED_RANGE_LIST} {0 0 };set_instance_parameter_value {router_002} {SPAN_OFFSET} {};set_instance_parameter_value {router_002} {PKT_ADDR_H} {67};set_instance_parameter_value {router_002} {PKT_ADDR_L} {36};set_instance_parameter_value {router_002} {PKT_PROTECTION_H} {94};set_instance_parameter_value {router_002} {PKT_PROTECTION_L} {92};set_instance_parameter_value {router_002} {PKT_DEST_ID_H} {90};set_instance_parameter_value {router_002} {PKT_DEST_ID_L} {89};set_instance_parameter_value {router_002} {PKT_TRANS_WRITE} {70};set_instance_parameter_value {router_002} {PKT_TRANS_READ} {71};set_instance_parameter_value {router_002} {ST_DATA_W} {104};set_instance_parameter_value {router_002} {ST_CHANNEL_W} {3};set_instance_parameter_value {router_002} {DECODER_TYPE} {1};set_instance_parameter_value {router_002} {DEFAULT_CHANNEL} {0};set_instance_parameter_value {router_002} {DEFAULT_WR_CHANNEL} {-1};set_instance_parameter_value {router_002} {DEFAULT_RD_CHANNEL} {-1};set_instance_parameter_value {router_002} {DEFAULT_DESTID} {1};set_instance_parameter_value {router_002} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};set_instance_parameter_value {router_002} {MEMORY_ALIASING_DECODE} {0};add_instance {router_003} {altera_merlin_router};set_instance_parameter_value {router_003} {DESTINATION_ID} {1 0 };set_instance_parameter_value {router_003} {CHANNEL_ID} {01 10 };set_instance_parameter_value {router_003} {TYPE_OF_TRANSACTION} {both both };set_instance_parameter_value {router_003} {START_ADDRESS} {0x0 0x0 };set_instance_parameter_value {router_003} {END_ADDRESS} {0x0 0x0 };set_instance_parameter_value {router_003} {NON_SECURED_TAG} {1 1 };set_instance_parameter_value {router_003} {SECURED_RANGE_PAIRS} {0 0 };set_instance_parameter_value {router_003} {SECURED_RANGE_LIST} {0 0 };set_instance_parameter_value {router_003} {SPAN_OFFSET} {};set_instance_parameter_value {router_003} {PKT_ADDR_H} {67};set_instance_parameter_value {router_003} {PKT_ADDR_L} {36};set_instance_parameter_value {router_003} {PKT_PROTECTION_H} {94};set_instance_parameter_value {router_003} {PKT_PROTECTION_L} {92};set_instance_parameter_value {router_003} {PKT_DEST_ID_H} {90};set_instance_parameter_value {router_003} {PKT_DEST_ID_L} {89};set_instance_parameter_value {router_003} {PKT_TRANS_WRITE} {70};set_instance_parameter_value {router_003} {PKT_TRANS_READ} {71};set_instance_parameter_value {router_003} {ST_DATA_W} {104};set_instance_parameter_value {router_003} {ST_CHANNEL_W} {3};set_instance_parameter_value {router_003} {DECODER_TYPE} {1};set_instance_parameter_value {router_003} {DEFAULT_CHANNEL} {0};set_instance_parameter_value {router_003} {DEFAULT_WR_CHANNEL} {-1};set_instance_parameter_value {router_003} {DEFAULT_RD_CHANNEL} {-1};set_instance_parameter_value {router_003} {DEFAULT_DESTID} {1};set_instance_parameter_value {router_003} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};set_instance_parameter_value {router_003} {MEMORY_ALIASING_DECODE} {0};add_instance {router_004} {altera_merlin_router};set_instance_parameter_value {router_004} {DESTINATION_ID} {1 0 };set_instance_parameter_value {router_004} {CHANNEL_ID} {01 10 };set_instance_parameter_value {router_004} {TYPE_OF_TRANSACTION} {both both };set_instance_parameter_value {router_004} {START_ADDRESS} {0x0 0x0 };set_instance_parameter_value {router_004} {END_ADDRESS} {0x0 0x0 };set_instance_parameter_value {router_004} {NON_SECURED_TAG} {1 1 };set_instance_parameter_value {router_004} {SECURED_RANGE_PAIRS} {0 0 };set_instance_parameter_value {router_004} {SECURED_RANGE_LIST} {0 0 };set_instance_parameter_value {router_004} {SPAN_OFFSET} {};set_instance_parameter_value {router_004} {PKT_ADDR_H} {67};set_instance_parameter_value {router_004} {PKT_ADDR_L} {36};set_instance_parameter_value {router_004} {PKT_PROTECTION_H} {94};set_instance_parameter_value {router_004} {PKT_PROTECTION_L} {92};set_instance_parameter_value {router_004} {PKT_DEST_ID_H} {90};set_instance_parameter_value {router_004} {PKT_DEST_ID_L} {89};set_instance_parameter_value {router_004} {PKT_TRANS_WRITE} {70};set_instance_parameter_value {router_004} {PKT_TRANS_READ} {71};set_instance_parameter_value {router_004} {ST_DATA_W} {104};set_instance_parameter_value {router_004} {ST_CHANNEL_W} {3};set_instance_parameter_value {router_004} {DECODER_TYPE} {1};set_instance_parameter_value {router_004} {DEFAULT_CHANNEL} {0};set_instance_parameter_value {router_004} {DEFAULT_WR_CHANNEL} {-1};set_instance_parameter_value {router_004} {DEFAULT_RD_CHANNEL} {-1};set_instance_parameter_value {router_004} {DEFAULT_DESTID} {1};set_instance_parameter_value {router_004} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};set_instance_parameter_value {router_004} {MEMORY_ALIASING_DECODE} {0};add_instance {mm_bridge_m0_limiter} {altera_merlin_traffic_limiter};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_DEST_ID_H} {90};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_DEST_ID_L} {89};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_SRC_ID_H} {88};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_SRC_ID_L} {87};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_BYTE_CNT_H} {76};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_BYTE_CNT_L} {74};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_BYTEEN_H} {35};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_BYTEEN_L} {32};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_TRANS_POSTED} {69};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_TRANS_WRITE} {70};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_THREAD_ID_H} {91};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_THREAD_ID_L} {91};set_instance_parameter_value {mm_bridge_m0_limiter} {MAX_BURST_LENGTH} {1};set_instance_parameter_value {mm_bridge_m0_limiter} {MAX_OUTSTANDING_RESPONSES} {7};set_instance_parameter_value {mm_bridge_m0_limiter} {PIPELINED} {0};set_instance_parameter_value {mm_bridge_m0_limiter} {ST_DATA_W} {104};set_instance_parameter_value {mm_bridge_m0_limiter} {ST_CHANNEL_W} {3};set_instance_parameter_value {mm_bridge_m0_limiter} {VALID_WIDTH} {3};set_instance_parameter_value {mm_bridge_m0_limiter} {ENFORCE_ORDER} {1};set_instance_parameter_value {mm_bridge_m0_limiter} {PREVENT_HAZARDS} {0};set_instance_parameter_value {mm_bridge_m0_limiter} {SUPPORTS_POSTED_WRITES} {1};set_instance_parameter_value {mm_bridge_m0_limiter} {SUPPORTS_NONPOSTED_WRITES} {0};set_instance_parameter_value {mm_bridge_m0_limiter} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};set_instance_parameter_value {mm_bridge_m0_limiter} {REORDER} {0};add_instance {jtag_master_master_limiter} {altera_merlin_traffic_limiter};set_instance_parameter_value {jtag_master_master_limiter} {PKT_DEST_ID_H} {90};set_instance_parameter_value {jtag_master_master_limiter} {PKT_DEST_ID_L} {89};set_instance_parameter_value {jtag_master_master_limiter} {PKT_SRC_ID_H} {88};set_instance_parameter_value {jtag_master_master_limiter} {PKT_SRC_ID_L} {87};set_instance_parameter_value {jtag_master_master_limiter} {PKT_BYTE_CNT_H} {76};set_instance_parameter_value {jtag_master_master_limiter} {PKT_BYTE_CNT_L} {74};set_instance_parameter_value {jtag_master_master_limiter} {PKT_BYTEEN_H} {35};set_instance_parameter_value {jtag_master_master_limiter} {PKT_BYTEEN_L} {32};set_instance_parameter_value {jtag_master_master_limiter} {PKT_TRANS_POSTED} {69};set_instance_parameter_value {jtag_master_master_limiter} {PKT_TRANS_WRITE} {70};set_instance_parameter_value {jtag_master_master_limiter} {PKT_THREAD_ID_H} {91};set_instance_parameter_value {jtag_master_master_limiter} {PKT_THREAD_ID_L} {91};set_instance_parameter_value {jtag_master_master_limiter} {MAX_BURST_LENGTH} {1};set_instance_parameter_value {jtag_master_master_limiter} {MAX_OUTSTANDING_RESPONSES} {7};set_instance_parameter_value {jtag_master_master_limiter} {PIPELINED} {0};set_instance_parameter_value {jtag_master_master_limiter} {ST_DATA_W} {104};set_instance_parameter_value {jtag_master_master_limiter} {ST_CHANNEL_W} {3};set_instance_parameter_value {jtag_master_master_limiter} {VALID_WIDTH} {3};set_instance_parameter_value {jtag_master_master_limiter} {ENFORCE_ORDER} {1};set_instance_parameter_value {jtag_master_master_limiter} {PREVENT_HAZARDS} {0};set_instance_parameter_value {jtag_master_master_limiter} {SUPPORTS_POSTED_WRITES} {1};set_instance_parameter_value {jtag_master_master_limiter} {SUPPORTS_NONPOSTED_WRITES} {0};set_instance_parameter_value {jtag_master_master_limiter} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};set_instance_parameter_value {jtag_master_master_limiter} {REORDER} {0};add_instance {cmd_demux} {altera_merlin_demultiplexer};set_instance_parameter_value {cmd_demux} {ST_DATA_W} {104};set_instance_parameter_value {cmd_demux} {ST_CHANNEL_W} {3};set_instance_parameter_value {cmd_demux} {NUM_OUTPUTS} {3};set_instance_parameter_value {cmd_demux} {VALID_WIDTH} {3};set_instance_parameter_value {cmd_demux} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};add_instance {cmd_demux_001} {altera_merlin_demultiplexer};set_instance_parameter_value {cmd_demux_001} {ST_DATA_W} {104};set_instance_parameter_value {cmd_demux_001} {ST_CHANNEL_W} {3};set_instance_parameter_value {cmd_demux_001} {NUM_OUTPUTS} {3};set_instance_parameter_value {cmd_demux_001} {VALID_WIDTH} {3};set_instance_parameter_value {cmd_demux_001} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};add_instance {cmd_mux} {altera_merlin_multiplexer};set_instance_parameter_value {cmd_mux} {ST_DATA_W} {104};set_instance_parameter_value {cmd_mux} {ST_CHANNEL_W} {3};set_instance_parameter_value {cmd_mux} {NUM_INPUTS} {2};set_instance_parameter_value {cmd_mux} {PIPELINE_ARB} {1};set_instance_parameter_value {cmd_mux} {USE_EXTERNAL_ARB} {0};set_instance_parameter_value {cmd_mux} {PKT_TRANS_LOCK} {72};set_instance_parameter_value {cmd_mux} {ARBITRATION_SCHEME} {round-robin};set_instance_parameter_value {cmd_mux} {ARBITRATION_SHARES} {1 1 };set_instance_parameter_value {cmd_mux} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};add_instance {cmd_mux_001} {altera_merlin_multiplexer};set_instance_parameter_value {cmd_mux_001} {ST_DATA_W} {104};set_instance_parameter_value {cmd_mux_001} {ST_CHANNEL_W} {3};set_instance_parameter_value {cmd_mux_001} {NUM_INPUTS} {2};set_instance_parameter_value {cmd_mux_001} {PIPELINE_ARB} {1};set_instance_parameter_value {cmd_mux_001} {USE_EXTERNAL_ARB} {0};set_instance_parameter_value {cmd_mux_001} {PKT_TRANS_LOCK} {72};set_instance_parameter_value {cmd_mux_001} {ARBITRATION_SCHEME} {round-robin};set_instance_parameter_value {cmd_mux_001} {ARBITRATION_SHARES} {1 1 };set_instance_parameter_value {cmd_mux_001} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};add_instance {cmd_mux_002} {altera_merlin_multiplexer};set_instance_parameter_value {cmd_mux_002} {ST_DATA_W} {104};set_instance_parameter_value {cmd_mux_002} {ST_CHANNEL_W} {3};set_instance_parameter_value {cmd_mux_002} {NUM_INPUTS} {2};set_instance_parameter_value {cmd_mux_002} {PIPELINE_ARB} {1};set_instance_parameter_value {cmd_mux_002} {USE_EXTERNAL_ARB} {0};set_instance_parameter_value {cmd_mux_002} {PKT_TRANS_LOCK} {72};set_instance_parameter_value {cmd_mux_002} {ARBITRATION_SCHEME} {round-robin};set_instance_parameter_value {cmd_mux_002} {ARBITRATION_SHARES} {1 1 };set_instance_parameter_value {cmd_mux_002} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};add_instance {rsp_demux} {altera_merlin_demultiplexer};set_instance_parameter_value {rsp_demux} {ST_DATA_W} {104};set_instance_parameter_value {rsp_demux} {ST_CHANNEL_W} {3};set_instance_parameter_value {rsp_demux} {NUM_OUTPUTS} {2};set_instance_parameter_value {rsp_demux} {VALID_WIDTH} {1};set_instance_parameter_value {rsp_demux} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};add_instance {rsp_demux_001} {altera_merlin_demultiplexer};set_instance_parameter_value {rsp_demux_001} {ST_DATA_W} {104};set_instance_parameter_value {rsp_demux_001} {ST_CHANNEL_W} {3};set_instance_parameter_value {rsp_demux_001} {NUM_OUTPUTS} {2};set_instance_parameter_value {rsp_demux_001} {VALID_WIDTH} {1};set_instance_parameter_value {rsp_demux_001} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};add_instance {rsp_demux_002} {altera_merlin_demultiplexer};set_instance_parameter_value {rsp_demux_002} {ST_DATA_W} {104};set_instance_parameter_value {rsp_demux_002} {ST_CHANNEL_W} {3};set_instance_parameter_value {rsp_demux_002} {NUM_OUTPUTS} {2};set_instance_parameter_value {rsp_demux_002} {VALID_WIDTH} {1};set_instance_parameter_value {rsp_demux_002} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};add_instance {rsp_mux} {altera_merlin_multiplexer};set_instance_parameter_value {rsp_mux} {ST_DATA_W} {104};set_instance_parameter_value {rsp_mux} {ST_CHANNEL_W} {3};set_instance_parameter_value {rsp_mux} {NUM_INPUTS} {3};set_instance_parameter_value {rsp_mux} {PIPELINE_ARB} {0};set_instance_parameter_value {rsp_mux} {USE_EXTERNAL_ARB} {0};set_instance_parameter_value {rsp_mux} {PKT_TRANS_LOCK} {72};set_instance_parameter_value {rsp_mux} {ARBITRATION_SCHEME} {no-arb};set_instance_parameter_value {rsp_mux} {ARBITRATION_SHARES} {1 1 1 };set_instance_parameter_value {rsp_mux} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};add_instance {rsp_mux_001} {altera_merlin_multiplexer};set_instance_parameter_value {rsp_mux_001} {ST_DATA_W} {104};set_instance_parameter_value {rsp_mux_001} {ST_CHANNEL_W} {3};set_instance_parameter_value {rsp_mux_001} {NUM_INPUTS} {3};set_instance_parameter_value {rsp_mux_001} {PIPELINE_ARB} {0};set_instance_parameter_value {rsp_mux_001} {USE_EXTERNAL_ARB} {0};set_instance_parameter_value {rsp_mux_001} {PKT_TRANS_LOCK} {72};set_instance_parameter_value {rsp_mux_001} {ARBITRATION_SCHEME} {no-arb};set_instance_parameter_value {rsp_mux_001} {ARBITRATION_SHARES} {1 1 1 };set_instance_parameter_value {rsp_mux_001} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};add_instance {crosser} {altera_avalon_st_handshake_clock_crosser};set_instance_parameter_value {crosser} {DATA_WIDTH} {104};set_instance_parameter_value {crosser} {BITS_PER_SYMBOL} {104};set_instance_parameter_value {crosser} {USE_PACKETS} {1};set_instance_parameter_value {crosser} {USE_CHANNEL} {1};set_instance_parameter_value {crosser} {CHANNEL_WIDTH} {3};set_instance_parameter_value {crosser} {MAX_CHANNEL} {0};set_instance_parameter_value {crosser} {USE_ERROR} {0};set_instance_parameter_value {crosser} {ERROR_WIDTH} {1};set_instance_parameter_value {crosser} {VALID_SYNC_DEPTH} {2};set_instance_parameter_value {crosser} {READY_SYNC_DEPTH} {2};set_instance_parameter_value {crosser} {USE_OUTPUT_PIPELINE} {0};add_instance {crosser_001} {altera_avalon_st_handshake_clock_crosser};set_instance_parameter_value {crosser_001} {DATA_WIDTH} {104};set_instance_parameter_value {crosser_001} {BITS_PER_SYMBOL} {104};set_instance_parameter_value {crosser_001} {USE_PACKETS} {1};set_instance_parameter_value {crosser_001} {USE_CHANNEL} {1};set_instance_parameter_value {crosser_001} {CHANNEL_WIDTH} {3};set_instance_parameter_value {crosser_001} {MAX_CHANNEL} {0};set_instance_parameter_value {crosser_001} {USE_ERROR} {0};set_instance_parameter_value {crosser_001} {ERROR_WIDTH} {1};set_instance_parameter_value {crosser_001} {VALID_SYNC_DEPTH} {2};set_instance_parameter_value {crosser_001} {READY_SYNC_DEPTH} {2};set_instance_parameter_value {crosser_001} {USE_OUTPUT_PIPELINE} {0};add_instance {crosser_002} {altera_avalon_st_handshake_clock_crosser};set_instance_parameter_value {crosser_002} {DATA_WIDTH} {104};set_instance_parameter_value {crosser_002} {BITS_PER_SYMBOL} {104};set_instance_parameter_value {crosser_002} {USE_PACKETS} {1};set_instance_parameter_value {crosser_002} {USE_CHANNEL} {1};set_instance_parameter_value {crosser_002} {CHANNEL_WIDTH} {3};set_instance_parameter_value {crosser_002} {MAX_CHANNEL} {0};set_instance_parameter_value {crosser_002} {USE_ERROR} {0};set_instance_parameter_value {crosser_002} {ERROR_WIDTH} {1};set_instance_parameter_value {crosser_002} {VALID_SYNC_DEPTH} {2};set_instance_parameter_value {crosser_002} {READY_SYNC_DEPTH} {2};set_instance_parameter_value {crosser_002} {USE_OUTPUT_PIPELINE} {0};add_instance {crosser_003} {altera_avalon_st_handshake_clock_crosser};set_instance_parameter_value {crosser_003} {DATA_WIDTH} {104};set_instance_parameter_value {crosser_003} {BITS_PER_SYMBOL} {104};set_instance_parameter_value {crosser_003} {USE_PACKETS} {1};set_instance_parameter_value {crosser_003} {USE_CHANNEL} {1};set_instance_parameter_value {crosser_003} {CHANNEL_WIDTH} {3};set_instance_parameter_value {crosser_003} {MAX_CHANNEL} {0};set_instance_parameter_value {crosser_003} {USE_ERROR} {0};set_instance_parameter_value {crosser_003} {ERROR_WIDTH} {1};set_instance_parameter_value {crosser_003} {VALID_SYNC_DEPTH} {2};set_instance_parameter_value {crosser_003} {READY_SYNC_DEPTH} {2};set_instance_parameter_value {crosser_003} {USE_OUTPUT_PIPELINE} {0};add_instance {crosser_004} {altera_avalon_st_handshake_clock_crosser};set_instance_parameter_value {crosser_004} {DATA_WIDTH} {104};set_instance_parameter_value {crosser_004} {BITS_PER_SYMBOL} {104};set_instance_parameter_value {crosser_004} {USE_PACKETS} {1};set_instance_parameter_value {crosser_004} {USE_CHANNEL} {1};set_instance_parameter_value {crosser_004} {CHANNEL_WIDTH} {3};set_instance_parameter_value {crosser_004} {MAX_CHANNEL} {0};set_instance_parameter_value {crosser_004} {USE_ERROR} {0};set_instance_parameter_value {crosser_004} {ERROR_WIDTH} {1};set_instance_parameter_value {crosser_004} {VALID_SYNC_DEPTH} {2};set_instance_parameter_value {crosser_004} {READY_SYNC_DEPTH} {2};set_instance_parameter_value {crosser_004} {USE_OUTPUT_PIPELINE} {0};add_instance {crosser_005} {altera_avalon_st_handshake_clock_crosser};set_instance_parameter_value {crosser_005} {DATA_WIDTH} {104};set_instance_parameter_value {crosser_005} {BITS_PER_SYMBOL} {104};set_instance_parameter_value {crosser_005} {USE_PACKETS} {1};set_instance_parameter_value {crosser_005} {USE_CHANNEL} {1};set_instance_parameter_value {crosser_005} {CHANNEL_WIDTH} {3};set_instance_parameter_value {crosser_005} {MAX_CHANNEL} {0};set_instance_parameter_value {crosser_005} {USE_ERROR} {0};set_instance_parameter_value {crosser_005} {ERROR_WIDTH} {1};set_instance_parameter_value {crosser_005} {VALID_SYNC_DEPTH} {2};set_instance_parameter_value {crosser_005} {READY_SYNC_DEPTH} {2};set_instance_parameter_value {crosser_005} {USE_OUTPUT_PIPELINE} {0};add_instance {crosser_006} {altera_avalon_st_handshake_clock_crosser};set_instance_parameter_value {crosser_006} {DATA_WIDTH} {104};set_instance_parameter_value {crosser_006} {BITS_PER_SYMBOL} {104};set_instance_parameter_value {crosser_006} {USE_PACKETS} {1};set_instance_parameter_value {crosser_006} {USE_CHANNEL} {1};set_instance_parameter_value {crosser_006} {CHANNEL_WIDTH} {3};set_instance_parameter_value {crosser_006} {MAX_CHANNEL} {0};set_instance_parameter_value {crosser_006} {USE_ERROR} {0};set_instance_parameter_value {crosser_006} {ERROR_WIDTH} {1};set_instance_parameter_value {crosser_006} {VALID_SYNC_DEPTH} {2};set_instance_parameter_value {crosser_006} {READY_SYNC_DEPTH} {2};set_instance_parameter_value {crosser_006} {USE_OUTPUT_PIPELINE} {0};add_instance {crosser_007} {altera_avalon_st_handshake_clock_crosser};set_instance_parameter_value {crosser_007} {DATA_WIDTH} {104};set_instance_parameter_value {crosser_007} {BITS_PER_SYMBOL} {104};set_instance_parameter_value {crosser_007} {USE_PACKETS} {1};set_instance_parameter_value {crosser_007} {USE_CHANNEL} {1};set_instance_parameter_value {crosser_007} {CHANNEL_WIDTH} {3};set_instance_parameter_value {crosser_007} {MAX_CHANNEL} {0};set_instance_parameter_value {crosser_007} {USE_ERROR} {0};set_instance_parameter_value {crosser_007} {ERROR_WIDTH} {1};set_instance_parameter_value {crosser_007} {VALID_SYNC_DEPTH} {2};set_instance_parameter_value {crosser_007} {READY_SYNC_DEPTH} {2};set_instance_parameter_value {crosser_007} {USE_OUTPUT_PIPELINE} {0};add_instance {mm_bridge_reset_reset_bridge} {altera_reset_bridge};set_instance_parameter_value {mm_bridge_reset_reset_bridge} {ACTIVE_LOW_RESET} {0};set_instance_parameter_value {mm_bridge_reset_reset_bridge} {SYNCHRONOUS_EDGES} {deassert};set_instance_parameter_value {mm_bridge_reset_reset_bridge} {NUM_RESET_OUTPUTS} {1};set_instance_parameter_value {mm_bridge_reset_reset_bridge} {USE_RESET_REQUEST} {0};add_instance {jtag_master_clk_reset_reset_bridge} {altera_reset_bridge};set_instance_parameter_value {jtag_master_clk_reset_reset_bridge} {ACTIVE_LOW_RESET} {0};set_instance_parameter_value {jtag_master_clk_reset_reset_bridge} {SYNCHRONOUS_EDGES} {deassert};set_instance_parameter_value {jtag_master_clk_reset_reset_bridge} {NUM_RESET_OUTPUTS} {1};set_instance_parameter_value {jtag_master_clk_reset_reset_bridge} {USE_RESET_REQUEST} {0};add_instance {sdram_controller_reset_reset_bridge} {altera_reset_bridge};set_instance_parameter_value {sdram_controller_reset_reset_bridge} {ACTIVE_LOW_RESET} {0};set_instance_parameter_value {sdram_controller_reset_reset_bridge} {SYNCHRONOUS_EDGES} {deassert};set_instance_parameter_value {sdram_controller_reset_reset_bridge} {NUM_RESET_OUTPUTS} {1};set_instance_parameter_value {sdram_controller_reset_reset_bridge} {USE_RESET_REQUEST} {0};add_instance {leg_g_reset_reset_bridge} {altera_reset_bridge};set_instance_parameter_value {leg_g_reset_reset_bridge} {ACTIVE_LOW_RESET} {0};set_instance_parameter_value {leg_g_reset_reset_bridge} {SYNCHRONOUS_EDGES} {deassert};set_instance_parameter_value {leg_g_reset_reset_bridge} {NUM_RESET_OUTPUTS} {1};set_instance_parameter_value {leg_g_reset_reset_bridge} {USE_RESET_REQUEST} {0};add_instance {sdram_pll_sys_clk_clock_bridge} {altera_clock_bridge};set_instance_parameter_value {sdram_pll_sys_clk_clock_bridge} {EXPLICIT_CLOCK_RATE} {50000000};set_instance_parameter_value {sdram_pll_sys_clk_clock_bridge} {NUM_CLOCK_OUTPUTS} {1};add_instance {clk_0_clk_clock_bridge} {altera_clock_bridge};set_instance_parameter_value {clk_0_clk_clock_bridge} {EXPLICIT_CLOCK_RATE} {50000000};set_instance_parameter_value {clk_0_clk_clock_bridge} {NUM_CLOCK_OUTPUTS} {1};add_connection {mm_bridge_m0_translator.avalon_universal_master_0} {mm_bridge_m0_agent.av} {avalon};set_connection_parameter_value {mm_bridge_m0_translator.avalon_universal_master_0/mm_bridge_m0_agent.av} {arbitrationPriority} {1};set_connection_parameter_value {mm_bridge_m0_translator.avalon_universal_master_0/mm_bridge_m0_agent.av} {baseAddress} {0x0000};set_connection_parameter_value {mm_bridge_m0_translator.avalon_universal_master_0/mm_bridge_m0_agent.av} {defaultConnection} {false};add_connection {jtag_master_master_translator.avalon_universal_master_0} {jtag_master_master_agent.av} {avalon};set_connection_parameter_value {jtag_master_master_translator.avalon_universal_master_0/jtag_master_master_agent.av} {arbitrationPriority} {1};set_connection_parameter_value {jtag_master_master_translator.avalon_universal_master_0/jtag_master_master_agent.av} {baseAddress} {0x0000};set_connection_parameter_value {jtag_master_master_translator.avalon_universal_master_0/jtag_master_master_agent.av} {defaultConnection} {false};add_connection {sdram_controller_s1_agent.m0} {sdram_controller_s1_translator.avalon_universal_slave_0} {avalon};set_connection_parameter_value {sdram_controller_s1_agent.m0/sdram_controller_s1_translator.avalon_universal_slave_0} {arbitrationPriority} {1};set_connection_parameter_value {sdram_controller_s1_agent.m0/sdram_controller_s1_translator.avalon_universal_slave_0} {baseAddress} {0x0000};set_connection_parameter_value {sdram_controller_s1_agent.m0/sdram_controller_s1_translator.avalon_universal_slave_0} {defaultConnection} {false};add_connection {sdram_controller_s1_agent.rf_source} {sdram_controller_s1_agent_rsp_fifo.in} {avalon_streaming};add_connection {sdram_controller_s1_agent_rsp_fifo.out} {sdram_controller_s1_agent.rf_sink} {avalon_streaming};add_connection {sdram_controller_s1_agent.rdata_fifo_src} {sdram_controller_s1_agent.rdata_fifo_sink} {avalon_streaming};add_connection {cmd_mux.src} {sdram_controller_s1_agent.cp} {avalon_streaming};preview_set_connection_tag {cmd_mux.src/sdram_controller_s1_agent.cp} {qsys_mm.command};add_connection {leg_g_s1_agent.m0} {leg_g_s1_translator.avalon_universal_slave_0} {avalon};set_connection_parameter_value {leg_g_s1_agent.m0/leg_g_s1_translator.avalon_universal_slave_0} {arbitrationPriority} {1};set_connection_parameter_value {leg_g_s1_agent.m0/leg_g_s1_translator.avalon_universal_slave_0} {baseAddress} {0x0000};set_connection_parameter_value {leg_g_s1_agent.m0/leg_g_s1_translator.avalon_universal_slave_0} {defaultConnection} {false};add_connection {leg_g_s1_agent.rf_source} {leg_g_s1_agent_rsp_fifo.in} {avalon_streaming};add_connection {leg_g_s1_agent_rsp_fifo.out} {leg_g_s1_agent.rf_sink} {avalon_streaming};add_connection {leg_g_s1_agent.rdata_fifo_src} {leg_g_s1_agent_rdata_fifo.in} {avalon_streaming};add_connection {leg_g_s1_agent_rdata_fifo.out} {leg_g_s1_agent.rdata_fifo_sink} {avalon_streaming};add_connection {cmd_mux_001.src} {leg_g_s1_agent.cp} {avalon_streaming};preview_set_connection_tag {cmd_mux_001.src/leg_g_s1_agent.cp} {qsys_mm.command};add_connection {switch_s1_agent.m0} {switch_s1_translator.avalon_universal_slave_0} {avalon};set_connection_parameter_value {switch_s1_agent.m0/switch_s1_translator.avalon_universal_slave_0} {arbitrationPriority} {1};set_connection_parameter_value {switch_s1_agent.m0/switch_s1_translator.avalon_universal_slave_0} {baseAddress} {0x0000};set_connection_parameter_value {switch_s1_agent.m0/switch_s1_translator.avalon_universal_slave_0} {defaultConnection} {false};add_connection {switch_s1_agent.rf_source} {switch_s1_agent_rsp_fifo.in} {avalon_streaming};add_connection {switch_s1_agent_rsp_fifo.out} {switch_s1_agent.rf_sink} {avalon_streaming};add_connection {switch_s1_agent.rdata_fifo_src} {switch_s1_agent_rdata_fifo.in} {avalon_streaming};add_connection {switch_s1_agent_rdata_fifo.out} {switch_s1_agent.rdata_fifo_sink} {avalon_streaming};add_connection {cmd_mux_002.src} {switch_s1_agent.cp} {avalon_streaming};preview_set_connection_tag {cmd_mux_002.src/switch_s1_agent.cp} {qsys_mm.command};add_connection {mm_bridge_m0_agent.cp} {router.sink} {avalon_streaming};preview_set_connection_tag {mm_bridge_m0_agent.cp/router.sink} {qsys_mm.command};add_connection {jtag_master_master_agent.cp} {router_001.sink} {avalon_streaming};preview_set_connection_tag {jtag_master_master_agent.cp/router_001.sink} {qsys_mm.command};add_connection {sdram_controller_s1_agent.rp} {router_002.sink} {avalon_streaming};preview_set_connection_tag {sdram_controller_s1_agent.rp/router_002.sink} {qsys_mm.response};add_connection {router_002.src} {rsp_demux.sink} {avalon_streaming};preview_set_connection_tag {router_002.src/rsp_demux.sink} {qsys_mm.response};add_connection {leg_g_s1_agent.rp} {router_003.sink} {avalon_streaming};preview_set_connection_tag {leg_g_s1_agent.rp/router_003.sink} {qsys_mm.response};add_connection {router_003.src} {rsp_demux_001.sink} {avalon_streaming};preview_set_connection_tag {router_003.src/rsp_demux_001.sink} {qsys_mm.response};add_connection {switch_s1_agent.rp} {router_004.sink} {avalon_streaming};preview_set_connection_tag {switch_s1_agent.rp/router_004.sink} {qsys_mm.response};add_connection {router_004.src} {rsp_demux_002.sink} {avalon_streaming};preview_set_connection_tag {router_004.src/rsp_demux_002.sink} {qsys_mm.response};add_connection {router.src} {mm_bridge_m0_limiter.cmd_sink} {avalon_streaming};preview_set_connection_tag {router.src/mm_bridge_m0_limiter.cmd_sink} {qsys_mm.command};add_connection {mm_bridge_m0_limiter.cmd_src} {cmd_demux.sink} {avalon_streaming};preview_set_connection_tag {mm_bridge_m0_limiter.cmd_src/cmd_demux.sink} {qsys_mm.command};add_connection {rsp_mux.src} {mm_bridge_m0_limiter.rsp_sink} {avalon_streaming};preview_set_connection_tag {rsp_mux.src/mm_bridge_m0_limiter.rsp_sink} {qsys_mm.response};add_connection {mm_bridge_m0_limiter.rsp_src} {mm_bridge_m0_agent.rp} {avalon_streaming};preview_set_connection_tag {mm_bridge_m0_limiter.rsp_src/mm_bridge_m0_agent.rp} {qsys_mm.response};add_connection {router_001.src} {jtag_master_master_limiter.cmd_sink} {avalon_streaming};preview_set_connection_tag {router_001.src/jtag_master_master_limiter.cmd_sink} {qsys_mm.command};add_connection {jtag_master_master_limiter.cmd_src} {cmd_demux_001.sink} {avalon_streaming};preview_set_connection_tag {jtag_master_master_limiter.cmd_src/cmd_demux_001.sink} {qsys_mm.command};add_connection {rsp_mux_001.src} {jtag_master_master_limiter.rsp_sink} {avalon_streaming};preview_set_connection_tag {rsp_mux_001.src/jtag_master_master_limiter.rsp_sink} {qsys_mm.response};add_connection {jtag_master_master_limiter.rsp_src} {jtag_master_master_agent.rp} {avalon_streaming};preview_set_connection_tag {jtag_master_master_limiter.rsp_src/jtag_master_master_agent.rp} {qsys_mm.response};add_connection {cmd_demux.src0} {cmd_mux.sink0} {avalon_streaming};preview_set_connection_tag {cmd_demux.src0/cmd_mux.sink0} {qsys_mm.command};add_connection {cmd_demux_001.src0} {cmd_mux.sink1} {avalon_streaming};preview_set_connection_tag {cmd_demux_001.src0/cmd_mux.sink1} {qsys_mm.command};add_connection {rsp_demux.src0} {rsp_mux.sink0} {avalon_streaming};preview_set_connection_tag {rsp_demux.src0/rsp_mux.sink0} {qsys_mm.response};add_connection {rsp_demux.src1} {rsp_mux_001.sink0} {avalon_streaming};preview_set_connection_tag {rsp_demux.src1/rsp_mux_001.sink0} {qsys_mm.response};add_connection {cmd_demux.src1} {crosser.in} {avalon_streaming};preview_set_connection_tag {cmd_demux.src1/crosser.in} {qsys_mm.command};add_connection {crosser.out} {cmd_mux_001.sink0} {avalon_streaming};preview_set_connection_tag {crosser.out/cmd_mux_001.sink0} {qsys_mm.command};add_connection {cmd_demux.src2} {crosser_001.in} {avalon_streaming};preview_set_connection_tag {cmd_demux.src2/crosser_001.in} {qsys_mm.command};add_connection {crosser_001.out} {cmd_mux_002.sink0} {avalon_streaming};preview_set_connection_tag {crosser_001.out/cmd_mux_002.sink0} {qsys_mm.command};add_connection {cmd_demux_001.src1} {crosser_002.in} {avalon_streaming};preview_set_connection_tag {cmd_demux_001.src1/crosser_002.in} {qsys_mm.command};add_connection {crosser_002.out} {cmd_mux_001.sink1} {avalon_streaming};preview_set_connection_tag {crosser_002.out/cmd_mux_001.sink1} {qsys_mm.command};add_connection {cmd_demux_001.src2} {crosser_003.in} {avalon_streaming};preview_set_connection_tag {cmd_demux_001.src2/crosser_003.in} {qsys_mm.command};add_connection {crosser_003.out} {cmd_mux_002.sink1} {avalon_streaming};preview_set_connection_tag {crosser_003.out/cmd_mux_002.sink1} {qsys_mm.command};add_connection {rsp_demux_001.src0} {crosser_004.in} {avalon_streaming};preview_set_connection_tag {rsp_demux_001.src0/crosser_004.in} {qsys_mm.response};add_connection {crosser_004.out} {rsp_mux.sink1} {avalon_streaming};preview_set_connection_tag {crosser_004.out/rsp_mux.sink1} {qsys_mm.response};add_connection {rsp_demux_001.src1} {crosser_005.in} {avalon_streaming};preview_set_connection_tag {rsp_demux_001.src1/crosser_005.in} {qsys_mm.response};add_connection {crosser_005.out} {rsp_mux_001.sink1} {avalon_streaming};preview_set_connection_tag {crosser_005.out/rsp_mux_001.sink1} {qsys_mm.response};add_connection {rsp_demux_002.src0} {crosser_006.in} {avalon_streaming};preview_set_connection_tag {rsp_demux_002.src0/crosser_006.in} {qsys_mm.response};add_connection {crosser_006.out} {rsp_mux.sink2} {avalon_streaming};preview_set_connection_tag {crosser_006.out/rsp_mux.sink2} {qsys_mm.response};add_connection {rsp_demux_002.src1} {crosser_007.in} {avalon_streaming};preview_set_connection_tag {rsp_demux_002.src1/crosser_007.in} {qsys_mm.response};add_connection {crosser_007.out} {rsp_mux_001.sink2} {avalon_streaming};preview_set_connection_tag {crosser_007.out/rsp_mux_001.sink2} {qsys_mm.response};add_connection {mm_bridge_m0_limiter.cmd_valid} {cmd_demux.sink_valid} {avalon_streaming};add_connection {jtag_master_master_limiter.cmd_valid} {cmd_demux_001.sink_valid} {avalon_streaming};add_connection {mm_bridge_reset_reset_bridge.out_reset} {mm_bridge_m0_translator.reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {jtag_master_master_translator.reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {mm_bridge_m0_agent.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {jtag_master_master_agent.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {router.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {router_001.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {mm_bridge_m0_limiter.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {jtag_master_master_limiter.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {cmd_demux.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {cmd_demux_001.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {rsp_mux.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {rsp_mux_001.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {crosser.in_clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {crosser_001.in_clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {crosser_002.in_clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {crosser_003.in_clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {crosser_004.out_clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {crosser_005.out_clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {crosser_006.out_clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {crosser_007.out_clk_reset} {reset};add_connection {sdram_controller_reset_reset_bridge.out_reset} {sdram_controller_s1_translator.reset} {reset};add_connection {sdram_controller_reset_reset_bridge.out_reset} {sdram_controller_s1_agent.clk_reset} {reset};add_connection {sdram_controller_reset_reset_bridge.out_reset} {sdram_controller_s1_agent_rsp_fifo.clk_reset} {reset};add_connection {sdram_controller_reset_reset_bridge.out_reset} {router_002.clk_reset} {reset};add_connection {sdram_controller_reset_reset_bridge.out_reset} {cmd_mux.clk_reset} {reset};add_connection {sdram_controller_reset_reset_bridge.out_reset} {rsp_demux.clk_reset} {reset};add_connection {leg_g_reset_reset_bridge.out_reset} {leg_g_s1_translator.reset} {reset};add_connection {leg_g_reset_reset_bridge.out_reset} {switch_s1_translator.reset} {reset};add_connection {leg_g_reset_reset_bridge.out_reset} {leg_g_s1_agent.clk_reset} {reset};add_connection {leg_g_reset_reset_bridge.out_reset} {leg_g_s1_agent_rsp_fifo.clk_reset} {reset};add_connection {leg_g_reset_reset_bridge.out_reset} {leg_g_s1_agent_rdata_fifo.clk_reset} {reset};add_connection {leg_g_reset_reset_bridge.out_reset} {switch_s1_agent.clk_reset} {reset};add_connection {leg_g_reset_reset_bridge.out_reset} {switch_s1_agent_rsp_fifo.clk_reset} {reset};add_connection {leg_g_reset_reset_bridge.out_reset} {switch_s1_agent_rdata_fifo.clk_reset} {reset};add_connection {leg_g_reset_reset_bridge.out_reset} {router_003.clk_reset} {reset};add_connection {leg_g_reset_reset_bridge.out_reset} {router_004.clk_reset} {reset};add_connection {leg_g_reset_reset_bridge.out_reset} {cmd_mux_001.clk_reset} {reset};add_connection {leg_g_reset_reset_bridge.out_reset} {cmd_mux_002.clk_reset} {reset};add_connection {leg_g_reset_reset_bridge.out_reset} {rsp_demux_001.clk_reset} {reset};add_connection {leg_g_reset_reset_bridge.out_reset} {rsp_demux_002.clk_reset} {reset};add_connection {leg_g_reset_reset_bridge.out_reset} {crosser.out_clk_reset} {reset};add_connection {leg_g_reset_reset_bridge.out_reset} {crosser_001.out_clk_reset} {reset};add_connection {leg_g_reset_reset_bridge.out_reset} {crosser_002.out_clk_reset} {reset};add_connection {leg_g_reset_reset_bridge.out_reset} {crosser_003.out_clk_reset} {reset};add_connection {leg_g_reset_reset_bridge.out_reset} {crosser_004.in_clk_reset} {reset};add_connection {leg_g_reset_reset_bridge.out_reset} {crosser_005.in_clk_reset} {reset};add_connection {leg_g_reset_reset_bridge.out_reset} {crosser_006.in_clk_reset} {reset};add_connection {leg_g_reset_reset_bridge.out_reset} {crosser_007.in_clk_reset} {reset};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {mm_bridge_m0_translator.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {jtag_master_master_translator.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {sdram_controller_s1_translator.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {mm_bridge_m0_agent.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {jtag_master_master_agent.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {sdram_controller_s1_agent.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {sdram_controller_s1_agent_rsp_fifo.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {router.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {router_001.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {router_002.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {mm_bridge_m0_limiter.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {jtag_master_master_limiter.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {cmd_demux.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {rsp_mux.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {cmd_demux_001.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {rsp_mux_001.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {cmd_mux.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {rsp_demux.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {crosser.in_clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {crosser_001.in_clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {crosser_002.in_clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {crosser_003.in_clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {crosser_004.out_clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {crosser_005.out_clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {crosser_006.out_clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {crosser_007.out_clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {mm_bridge_reset_reset_bridge.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {jtag_master_clk_reset_reset_bridge.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {sdram_controller_reset_reset_bridge.clk} {clock};add_connection {clk_0_clk_clock_bridge.out_clk} {leg_g_s1_translator.clk} {clock};add_connection {clk_0_clk_clock_bridge.out_clk} {switch_s1_translator.clk} {clock};add_connection {clk_0_clk_clock_bridge.out_clk} {leg_g_s1_agent.clk} {clock};add_connection {clk_0_clk_clock_bridge.out_clk} {leg_g_s1_agent_rsp_fifo.clk} {clock};add_connection {clk_0_clk_clock_bridge.out_clk} {leg_g_s1_agent_rdata_fifo.clk} {clock};add_connection {clk_0_clk_clock_bridge.out_clk} {switch_s1_agent.clk} {clock};add_connection {clk_0_clk_clock_bridge.out_clk} {switch_s1_agent_rsp_fifo.clk} {clock};add_connection {clk_0_clk_clock_bridge.out_clk} {switch_s1_agent_rdata_fifo.clk} {clock};add_connection {clk_0_clk_clock_bridge.out_clk} {router_003.clk} {clock};add_connection {clk_0_clk_clock_bridge.out_clk} {router_004.clk} {clock};add_connection {clk_0_clk_clock_bridge.out_clk} {cmd_mux_001.clk} {clock};add_connection {clk_0_clk_clock_bridge.out_clk} {rsp_demux_001.clk} {clock};add_connection {clk_0_clk_clock_bridge.out_clk} {cmd_mux_002.clk} {clock};add_connection {clk_0_clk_clock_bridge.out_clk} {rsp_demux_002.clk} {clock};add_connection {clk_0_clk_clock_bridge.out_clk} {crosser.out_clk} {clock};add_connection {clk_0_clk_clock_bridge.out_clk} {crosser_001.out_clk} {clock};add_connection {clk_0_clk_clock_bridge.out_clk} {crosser_002.out_clk} {clock};add_connection {clk_0_clk_clock_bridge.out_clk} {crosser_003.out_clk} {clock};add_connection {clk_0_clk_clock_bridge.out_clk} {crosser_004.in_clk} {clock};add_connection {clk_0_clk_clock_bridge.out_clk} {crosser_005.in_clk} {clock};add_connection {clk_0_clk_clock_bridge.out_clk} {crosser_006.in_clk} {clock};add_connection {clk_0_clk_clock_bridge.out_clk} {crosser_007.in_clk} {clock};add_connection {clk_0_clk_clock_bridge.out_clk} {leg_g_reset_reset_bridge.clk} {clock};add_interface {clk_0_clk} {clock} {slave};set_interface_property {clk_0_clk} {EXPORT_OF} {clk_0_clk_clock_bridge.in_clk};add_interface {sdram_pll_sys_clk} {clock} {slave};set_interface_property {sdram_pll_sys_clk} {EXPORT_OF} {sdram_pll_sys_clk_clock_bridge.in_clk};add_interface {jtag_master_clk_reset_reset_bridge_in_reset} {reset} {slave};set_interface_property {jtag_master_clk_reset_reset_bridge_in_reset} {EXPORT_OF} {jtag_master_clk_reset_reset_bridge.in_reset};add_interface {leg_g_reset_reset_bridge_in_reset} {reset} {slave};set_interface_property {leg_g_reset_reset_bridge_in_reset} {EXPORT_OF} {leg_g_reset_reset_bridge.in_reset};add_interface {mm_bridge_reset_reset_bridge_in_reset} {reset} {slave};set_interface_property {mm_bridge_reset_reset_bridge_in_reset} {EXPORT_OF} {mm_bridge_reset_reset_bridge.in_reset};add_interface {sdram_controller_reset_reset_bridge_in_reset} {reset} {slave};set_interface_property {sdram_controller_reset_reset_bridge_in_reset} {EXPORT_OF} {sdram_controller_reset_reset_bridge.in_reset};add_interface {jtag_master_master} {avalon} {slave};set_interface_property {jtag_master_master} {EXPORT_OF} {jtag_master_master_translator.avalon_anti_master_0};add_interface {mm_bridge_m0} {avalon} {slave};set_interface_property {mm_bridge_m0} {EXPORT_OF} {mm_bridge_m0_translator.avalon_anti_master_0};add_interface {leg_g_s1} {avalon} {master};set_interface_property {leg_g_s1} {EXPORT_OF} {leg_g_s1_translator.avalon_anti_slave_0};add_interface {sdram_controller_s1} {avalon} {master};set_interface_property {sdram_controller_s1} {EXPORT_OF} {sdram_controller_s1_translator.avalon_anti_slave_0};add_interface {switch_s1} {avalon} {master};set_interface_property {switch_s1} {EXPORT_OF} {switch_s1_translator.avalon_anti_slave_0};set_module_assignment {interconnect_id.jtag_master.master} {0};set_module_assignment {interconnect_id.leg_g.s1} {0};set_module_assignment {interconnect_id.mm_bridge.m0} {1};set_module_assignment {interconnect_id.sdram_controller.s1} {1};set_module_assignment {interconnect_id.switch.s1} {2};]]></value>
+};set_instance_parameter_value {jtag_master_master_agent} {SUPPRESS_0_BYTEEN_RSP} {0};set_instance_parameter_value {jtag_master_master_agent} {ID} {0};set_instance_parameter_value {jtag_master_master_agent} {BURSTWRAP_VALUE} {1};set_instance_parameter_value {jtag_master_master_agent} {CACHE_VALUE} {0};set_instance_parameter_value {jtag_master_master_agent} {SECURE_ACCESS_BIT} {1};set_instance_parameter_value {jtag_master_master_agent} {USE_READRESPONSE} {0};set_instance_parameter_value {jtag_master_master_agent} {USE_WRITERESPONSE} {0};add_instance {sdram_controller_s1_agent} {altera_merlin_slave_agent};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_ORI_BURST_SIZE_H} {103};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_ORI_BURST_SIZE_L} {101};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_RESPONSE_STATUS_H} {100};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_RESPONSE_STATUS_L} {99};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_BURST_SIZE_H} {80};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_BURST_SIZE_L} {78};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_TRANS_LOCK} {72};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_BEGIN_BURST} {85};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_PROTECTION_H} {94};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_PROTECTION_L} {92};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_BURSTWRAP_H} {77};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_BURSTWRAP_L} {77};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_BYTE_CNT_H} {76};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_BYTE_CNT_L} {74};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_ADDR_H} {67};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_ADDR_L} {36};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_TRANS_COMPRESSED_READ} {68};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_TRANS_POSTED} {69};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_TRANS_WRITE} {70};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_TRANS_READ} {71};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_DATA_H} {31};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_DATA_L} {0};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_BYTEEN_H} {35};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_BYTEEN_L} {32};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_SRC_ID_H} {88};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_SRC_ID_L} {87};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_DEST_ID_H} {90};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_DEST_ID_L} {89};set_instance_parameter_value {sdram_controller_s1_agent} {PKT_SYMBOL_W} {8};set_instance_parameter_value {sdram_controller_s1_agent} {ST_CHANNEL_W} {3};set_instance_parameter_value {sdram_controller_s1_agent} {ST_DATA_W} {104};set_instance_parameter_value {sdram_controller_s1_agent} {AVS_BURSTCOUNT_SYMBOLS} {0};set_instance_parameter_value {sdram_controller_s1_agent} {AVS_BURSTCOUNT_W} {3};set_instance_parameter_value {sdram_controller_s1_agent} {AV_LINEWRAPBURSTS} {0};set_instance_parameter_value {sdram_controller_s1_agent} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};set_instance_parameter_value {sdram_controller_s1_agent} {SUPPRESS_0_BYTEEN_CMD} {0};set_instance_parameter_value {sdram_controller_s1_agent} {PREVENT_FIFO_OVERFLOW} {1};set_instance_parameter_value {sdram_controller_s1_agent} {MAX_BYTE_CNT} {4};set_instance_parameter_value {sdram_controller_s1_agent} {MAX_BURSTWRAP} {1};set_instance_parameter_value {sdram_controller_s1_agent} {ID} {1};set_instance_parameter_value {sdram_controller_s1_agent} {USE_READRESPONSE} {0};set_instance_parameter_value {sdram_controller_s1_agent} {USE_WRITERESPONSE} {0};set_instance_parameter_value {sdram_controller_s1_agent} {ECC_ENABLE} {0};add_instance {sdram_controller_s1_agent_rsp_fifo} {altera_avalon_sc_fifo};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {SYMBOLS_PER_BEAT} {1};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {BITS_PER_SYMBOL} {105};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {FIFO_DEPTH} {8};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {CHANNEL_WIDTH} {0};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {ERROR_WIDTH} {0};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {USE_PACKETS} {1};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {USE_FILL_LEVEL} {0};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {EMPTY_LATENCY} {1};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {USE_MEMORY_BLOCKS} {0};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {USE_STORE_FORWARD} {0};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {USE_ALMOST_FULL_IF} {0};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {USE_ALMOST_EMPTY_IF} {0};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {ENABLE_EXPLICIT_MAXCHANNEL} {false};set_instance_parameter_value {sdram_controller_s1_agent_rsp_fifo} {EXPLICIT_MAXCHANNEL} {0};add_instance {leg_g_s1_agent} {altera_merlin_slave_agent};set_instance_parameter_value {leg_g_s1_agent} {PKT_ORI_BURST_SIZE_H} {103};set_instance_parameter_value {leg_g_s1_agent} {PKT_ORI_BURST_SIZE_L} {101};set_instance_parameter_value {leg_g_s1_agent} {PKT_RESPONSE_STATUS_H} {100};set_instance_parameter_value {leg_g_s1_agent} {PKT_RESPONSE_STATUS_L} {99};set_instance_parameter_value {leg_g_s1_agent} {PKT_BURST_SIZE_H} {80};set_instance_parameter_value {leg_g_s1_agent} {PKT_BURST_SIZE_L} {78};set_instance_parameter_value {leg_g_s1_agent} {PKT_TRANS_LOCK} {72};set_instance_parameter_value {leg_g_s1_agent} {PKT_BEGIN_BURST} {85};set_instance_parameter_value {leg_g_s1_agent} {PKT_PROTECTION_H} {94};set_instance_parameter_value {leg_g_s1_agent} {PKT_PROTECTION_L} {92};set_instance_parameter_value {leg_g_s1_agent} {PKT_BURSTWRAP_H} {77};set_instance_parameter_value {leg_g_s1_agent} {PKT_BURSTWRAP_L} {77};set_instance_parameter_value {leg_g_s1_agent} {PKT_BYTE_CNT_H} {76};set_instance_parameter_value {leg_g_s1_agent} {PKT_BYTE_CNT_L} {74};set_instance_parameter_value {leg_g_s1_agent} {PKT_ADDR_H} {67};set_instance_parameter_value {leg_g_s1_agent} {PKT_ADDR_L} {36};set_instance_parameter_value {leg_g_s1_agent} {PKT_TRANS_COMPRESSED_READ} {68};set_instance_parameter_value {leg_g_s1_agent} {PKT_TRANS_POSTED} {69};set_instance_parameter_value {leg_g_s1_agent} {PKT_TRANS_WRITE} {70};set_instance_parameter_value {leg_g_s1_agent} {PKT_TRANS_READ} {71};set_instance_parameter_value {leg_g_s1_agent} {PKT_DATA_H} {31};set_instance_parameter_value {leg_g_s1_agent} {PKT_DATA_L} {0};set_instance_parameter_value {leg_g_s1_agent} {PKT_BYTEEN_H} {35};set_instance_parameter_value {leg_g_s1_agent} {PKT_BYTEEN_L} {32};set_instance_parameter_value {leg_g_s1_agent} {PKT_SRC_ID_H} {88};set_instance_parameter_value {leg_g_s1_agent} {PKT_SRC_ID_L} {87};set_instance_parameter_value {leg_g_s1_agent} {PKT_DEST_ID_H} {90};set_instance_parameter_value {leg_g_s1_agent} {PKT_DEST_ID_L} {89};set_instance_parameter_value {leg_g_s1_agent} {PKT_SYMBOL_W} {8};set_instance_parameter_value {leg_g_s1_agent} {ST_CHANNEL_W} {3};set_instance_parameter_value {leg_g_s1_agent} {ST_DATA_W} {104};set_instance_parameter_value {leg_g_s1_agent} {AVS_BURSTCOUNT_SYMBOLS} {0};set_instance_parameter_value {leg_g_s1_agent} {AVS_BURSTCOUNT_W} {3};set_instance_parameter_value {leg_g_s1_agent} {AV_LINEWRAPBURSTS} {0};set_instance_parameter_value {leg_g_s1_agent} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};set_instance_parameter_value {leg_g_s1_agent} {SUPPRESS_0_BYTEEN_CMD} {0};set_instance_parameter_value {leg_g_s1_agent} {PREVENT_FIFO_OVERFLOW} {1};set_instance_parameter_value {leg_g_s1_agent} {MAX_BYTE_CNT} {4};set_instance_parameter_value {leg_g_s1_agent} {MAX_BURSTWRAP} {1};set_instance_parameter_value {leg_g_s1_agent} {ID} {0};set_instance_parameter_value {leg_g_s1_agent} {USE_READRESPONSE} {0};set_instance_parameter_value {leg_g_s1_agent} {USE_WRITERESPONSE} {0};set_instance_parameter_value {leg_g_s1_agent} {ECC_ENABLE} {0};add_instance {leg_g_s1_agent_rsp_fifo} {altera_avalon_sc_fifo};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {SYMBOLS_PER_BEAT} {1};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {BITS_PER_SYMBOL} {105};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {FIFO_DEPTH} {2};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {CHANNEL_WIDTH} {0};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {ERROR_WIDTH} {0};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {USE_PACKETS} {1};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {USE_FILL_LEVEL} {0};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {EMPTY_LATENCY} {1};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {USE_MEMORY_BLOCKS} {0};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {USE_STORE_FORWARD} {0};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {USE_ALMOST_FULL_IF} {0};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {USE_ALMOST_EMPTY_IF} {0};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {ENABLE_EXPLICIT_MAXCHANNEL} {false};set_instance_parameter_value {leg_g_s1_agent_rsp_fifo} {EXPLICIT_MAXCHANNEL} {0};add_instance {switch_s1_agent} {altera_merlin_slave_agent};set_instance_parameter_value {switch_s1_agent} {PKT_ORI_BURST_SIZE_H} {103};set_instance_parameter_value {switch_s1_agent} {PKT_ORI_BURST_SIZE_L} {101};set_instance_parameter_value {switch_s1_agent} {PKT_RESPONSE_STATUS_H} {100};set_instance_parameter_value {switch_s1_agent} {PKT_RESPONSE_STATUS_L} {99};set_instance_parameter_value {switch_s1_agent} {PKT_BURST_SIZE_H} {80};set_instance_parameter_value {switch_s1_agent} {PKT_BURST_SIZE_L} {78};set_instance_parameter_value {switch_s1_agent} {PKT_TRANS_LOCK} {72};set_instance_parameter_value {switch_s1_agent} {PKT_BEGIN_BURST} {85};set_instance_parameter_value {switch_s1_agent} {PKT_PROTECTION_H} {94};set_instance_parameter_value {switch_s1_agent} {PKT_PROTECTION_L} {92};set_instance_parameter_value {switch_s1_agent} {PKT_BURSTWRAP_H} {77};set_instance_parameter_value {switch_s1_agent} {PKT_BURSTWRAP_L} {77};set_instance_parameter_value {switch_s1_agent} {PKT_BYTE_CNT_H} {76};set_instance_parameter_value {switch_s1_agent} {PKT_BYTE_CNT_L} {74};set_instance_parameter_value {switch_s1_agent} {PKT_ADDR_H} {67};set_instance_parameter_value {switch_s1_agent} {PKT_ADDR_L} {36};set_instance_parameter_value {switch_s1_agent} {PKT_TRANS_COMPRESSED_READ} {68};set_instance_parameter_value {switch_s1_agent} {PKT_TRANS_POSTED} {69};set_instance_parameter_value {switch_s1_agent} {PKT_TRANS_WRITE} {70};set_instance_parameter_value {switch_s1_agent} {PKT_TRANS_READ} {71};set_instance_parameter_value {switch_s1_agent} {PKT_DATA_H} {31};set_instance_parameter_value {switch_s1_agent} {PKT_DATA_L} {0};set_instance_parameter_value {switch_s1_agent} {PKT_BYTEEN_H} {35};set_instance_parameter_value {switch_s1_agent} {PKT_BYTEEN_L} {32};set_instance_parameter_value {switch_s1_agent} {PKT_SRC_ID_H} {88};set_instance_parameter_value {switch_s1_agent} {PKT_SRC_ID_L} {87};set_instance_parameter_value {switch_s1_agent} {PKT_DEST_ID_H} {90};set_instance_parameter_value {switch_s1_agent} {PKT_DEST_ID_L} {89};set_instance_parameter_value {switch_s1_agent} {PKT_SYMBOL_W} {8};set_instance_parameter_value {switch_s1_agent} {ST_CHANNEL_W} {3};set_instance_parameter_value {switch_s1_agent} {ST_DATA_W} {104};set_instance_parameter_value {switch_s1_agent} {AVS_BURSTCOUNT_SYMBOLS} {0};set_instance_parameter_value {switch_s1_agent} {AVS_BURSTCOUNT_W} {3};set_instance_parameter_value {switch_s1_agent} {AV_LINEWRAPBURSTS} {0};set_instance_parameter_value {switch_s1_agent} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};set_instance_parameter_value {switch_s1_agent} {SUPPRESS_0_BYTEEN_CMD} {0};set_instance_parameter_value {switch_s1_agent} {PREVENT_FIFO_OVERFLOW} {1};set_instance_parameter_value {switch_s1_agent} {MAX_BYTE_CNT} {4};set_instance_parameter_value {switch_s1_agent} {MAX_BURSTWRAP} {1};set_instance_parameter_value {switch_s1_agent} {ID} {2};set_instance_parameter_value {switch_s1_agent} {USE_READRESPONSE} {0};set_instance_parameter_value {switch_s1_agent} {USE_WRITERESPONSE} {0};set_instance_parameter_value {switch_s1_agent} {ECC_ENABLE} {0};add_instance {switch_s1_agent_rsp_fifo} {altera_avalon_sc_fifo};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {SYMBOLS_PER_BEAT} {1};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {BITS_PER_SYMBOL} {105};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {FIFO_DEPTH} {2};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {CHANNEL_WIDTH} {0};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {ERROR_WIDTH} {0};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {USE_PACKETS} {1};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {USE_FILL_LEVEL} {0};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {EMPTY_LATENCY} {1};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {USE_MEMORY_BLOCKS} {0};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {USE_STORE_FORWARD} {0};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {USE_ALMOST_FULL_IF} {0};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {USE_ALMOST_EMPTY_IF} {0};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {ENABLE_EXPLICIT_MAXCHANNEL} {false};set_instance_parameter_value {switch_s1_agent_rsp_fifo} {EXPLICIT_MAXCHANNEL} {0};add_instance {router} {altera_merlin_router};set_instance_parameter_value {router} {DESTINATION_ID} {1 2 0 };set_instance_parameter_value {router} {CHANNEL_ID} {001 100 010 };set_instance_parameter_value {router} {TYPE_OF_TRANSACTION} {both read both };set_instance_parameter_value {router} {START_ADDRESS} {0x0 0x8000000 0x8000010 };set_instance_parameter_value {router} {END_ADDRESS} {0x8000000 0x8000010 0x8000020 };set_instance_parameter_value {router} {NON_SECURED_TAG} {1 1 1 };set_instance_parameter_value {router} {SECURED_RANGE_PAIRS} {0 0 0 };set_instance_parameter_value {router} {SECURED_RANGE_LIST} {0 0 0 };set_instance_parameter_value {router} {SPAN_OFFSET} {};set_instance_parameter_value {router} {PKT_ADDR_H} {67};set_instance_parameter_value {router} {PKT_ADDR_L} {36};set_instance_parameter_value {router} {PKT_PROTECTION_H} {94};set_instance_parameter_value {router} {PKT_PROTECTION_L} {92};set_instance_parameter_value {router} {PKT_DEST_ID_H} {90};set_instance_parameter_value {router} {PKT_DEST_ID_L} {89};set_instance_parameter_value {router} {PKT_TRANS_WRITE} {70};set_instance_parameter_value {router} {PKT_TRANS_READ} {71};set_instance_parameter_value {router} {ST_DATA_W} {104};set_instance_parameter_value {router} {ST_CHANNEL_W} {3};set_instance_parameter_value {router} {DECODER_TYPE} {0};set_instance_parameter_value {router} {DEFAULT_CHANNEL} {0};set_instance_parameter_value {router} {DEFAULT_WR_CHANNEL} {-1};set_instance_parameter_value {router} {DEFAULT_RD_CHANNEL} {-1};set_instance_parameter_value {router} {DEFAULT_DESTID} {1};set_instance_parameter_value {router} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};set_instance_parameter_value {router} {MEMORY_ALIASING_DECODE} {0};add_instance {router_001} {altera_merlin_router};set_instance_parameter_value {router_001} {DESTINATION_ID} {1 2 0 };set_instance_parameter_value {router_001} {CHANNEL_ID} {001 100 010 };set_instance_parameter_value {router_001} {TYPE_OF_TRANSACTION} {both read both };set_instance_parameter_value {router_001} {START_ADDRESS} {0x0 0x8000000 0x8000010 };set_instance_parameter_value {router_001} {END_ADDRESS} {0x8000000 0x8000010 0x8000020 };set_instance_parameter_value {router_001} {NON_SECURED_TAG} {1 1 1 };set_instance_parameter_value {router_001} {SECURED_RANGE_PAIRS} {0 0 0 };set_instance_parameter_value {router_001} {SECURED_RANGE_LIST} {0 0 0 };set_instance_parameter_value {router_001} {SPAN_OFFSET} {};set_instance_parameter_value {router_001} {PKT_ADDR_H} {67};set_instance_parameter_value {router_001} {PKT_ADDR_L} {36};set_instance_parameter_value {router_001} {PKT_PROTECTION_H} {94};set_instance_parameter_value {router_001} {PKT_PROTECTION_L} {92};set_instance_parameter_value {router_001} {PKT_DEST_ID_H} {90};set_instance_parameter_value {router_001} {PKT_DEST_ID_L} {89};set_instance_parameter_value {router_001} {PKT_TRANS_WRITE} {70};set_instance_parameter_value {router_001} {PKT_TRANS_READ} {71};set_instance_parameter_value {router_001} {ST_DATA_W} {104};set_instance_parameter_value {router_001} {ST_CHANNEL_W} {3};set_instance_parameter_value {router_001} {DECODER_TYPE} {0};set_instance_parameter_value {router_001} {DEFAULT_CHANNEL} {0};set_instance_parameter_value {router_001} {DEFAULT_WR_CHANNEL} {-1};set_instance_parameter_value {router_001} {DEFAULT_RD_CHANNEL} {-1};set_instance_parameter_value {router_001} {DEFAULT_DESTID} {1};set_instance_parameter_value {router_001} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};set_instance_parameter_value {router_001} {MEMORY_ALIASING_DECODE} {0};add_instance {router_002} {altera_merlin_router};set_instance_parameter_value {router_002} {DESTINATION_ID} {1 0 };set_instance_parameter_value {router_002} {CHANNEL_ID} {01 10 };set_instance_parameter_value {router_002} {TYPE_OF_TRANSACTION} {both both };set_instance_parameter_value {router_002} {START_ADDRESS} {0x0 0x0 };set_instance_parameter_value {router_002} {END_ADDRESS} {0x0 0x0 };set_instance_parameter_value {router_002} {NON_SECURED_TAG} {1 1 };set_instance_parameter_value {router_002} {SECURED_RANGE_PAIRS} {0 0 };set_instance_parameter_value {router_002} {SECURED_RANGE_LIST} {0 0 };set_instance_parameter_value {router_002} {SPAN_OFFSET} {};set_instance_parameter_value {router_002} {PKT_ADDR_H} {67};set_instance_parameter_value {router_002} {PKT_ADDR_L} {36};set_instance_parameter_value {router_002} {PKT_PROTECTION_H} {94};set_instance_parameter_value {router_002} {PKT_PROTECTION_L} {92};set_instance_parameter_value {router_002} {PKT_DEST_ID_H} {90};set_instance_parameter_value {router_002} {PKT_DEST_ID_L} {89};set_instance_parameter_value {router_002} {PKT_TRANS_WRITE} {70};set_instance_parameter_value {router_002} {PKT_TRANS_READ} {71};set_instance_parameter_value {router_002} {ST_DATA_W} {104};set_instance_parameter_value {router_002} {ST_CHANNEL_W} {3};set_instance_parameter_value {router_002} {DECODER_TYPE} {1};set_instance_parameter_value {router_002} {DEFAULT_CHANNEL} {0};set_instance_parameter_value {router_002} {DEFAULT_WR_CHANNEL} {-1};set_instance_parameter_value {router_002} {DEFAULT_RD_CHANNEL} {-1};set_instance_parameter_value {router_002} {DEFAULT_DESTID} {1};set_instance_parameter_value {router_002} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};set_instance_parameter_value {router_002} {MEMORY_ALIASING_DECODE} {0};add_instance {router_003} {altera_merlin_router};set_instance_parameter_value {router_003} {DESTINATION_ID} {1 0 };set_instance_parameter_value {router_003} {CHANNEL_ID} {01 10 };set_instance_parameter_value {router_003} {TYPE_OF_TRANSACTION} {both both };set_instance_parameter_value {router_003} {START_ADDRESS} {0x0 0x0 };set_instance_parameter_value {router_003} {END_ADDRESS} {0x0 0x0 };set_instance_parameter_value {router_003} {NON_SECURED_TAG} {1 1 };set_instance_parameter_value {router_003} {SECURED_RANGE_PAIRS} {0 0 };set_instance_parameter_value {router_003} {SECURED_RANGE_LIST} {0 0 };set_instance_parameter_value {router_003} {SPAN_OFFSET} {};set_instance_parameter_value {router_003} {PKT_ADDR_H} {67};set_instance_parameter_value {router_003} {PKT_ADDR_L} {36};set_instance_parameter_value {router_003} {PKT_PROTECTION_H} {94};set_instance_parameter_value {router_003} {PKT_PROTECTION_L} {92};set_instance_parameter_value {router_003} {PKT_DEST_ID_H} {90};set_instance_parameter_value {router_003} {PKT_DEST_ID_L} {89};set_instance_parameter_value {router_003} {PKT_TRANS_WRITE} {70};set_instance_parameter_value {router_003} {PKT_TRANS_READ} {71};set_instance_parameter_value {router_003} {ST_DATA_W} {104};set_instance_parameter_value {router_003} {ST_CHANNEL_W} {3};set_instance_parameter_value {router_003} {DECODER_TYPE} {1};set_instance_parameter_value {router_003} {DEFAULT_CHANNEL} {0};set_instance_parameter_value {router_003} {DEFAULT_WR_CHANNEL} {-1};set_instance_parameter_value {router_003} {DEFAULT_RD_CHANNEL} {-1};set_instance_parameter_value {router_003} {DEFAULT_DESTID} {1};set_instance_parameter_value {router_003} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};set_instance_parameter_value {router_003} {MEMORY_ALIASING_DECODE} {0};add_instance {router_004} {altera_merlin_router};set_instance_parameter_value {router_004} {DESTINATION_ID} {1 0 };set_instance_parameter_value {router_004} {CHANNEL_ID} {01 10 };set_instance_parameter_value {router_004} {TYPE_OF_TRANSACTION} {both both };set_instance_parameter_value {router_004} {START_ADDRESS} {0x0 0x0 };set_instance_parameter_value {router_004} {END_ADDRESS} {0x0 0x0 };set_instance_parameter_value {router_004} {NON_SECURED_TAG} {1 1 };set_instance_parameter_value {router_004} {SECURED_RANGE_PAIRS} {0 0 };set_instance_parameter_value {router_004} {SECURED_RANGE_LIST} {0 0 };set_instance_parameter_value {router_004} {SPAN_OFFSET} {};set_instance_parameter_value {router_004} {PKT_ADDR_H} {67};set_instance_parameter_value {router_004} {PKT_ADDR_L} {36};set_instance_parameter_value {router_004} {PKT_PROTECTION_H} {94};set_instance_parameter_value {router_004} {PKT_PROTECTION_L} {92};set_instance_parameter_value {router_004} {PKT_DEST_ID_H} {90};set_instance_parameter_value {router_004} {PKT_DEST_ID_L} {89};set_instance_parameter_value {router_004} {PKT_TRANS_WRITE} {70};set_instance_parameter_value {router_004} {PKT_TRANS_READ} {71};set_instance_parameter_value {router_004} {ST_DATA_W} {104};set_instance_parameter_value {router_004} {ST_CHANNEL_W} {3};set_instance_parameter_value {router_004} {DECODER_TYPE} {1};set_instance_parameter_value {router_004} {DEFAULT_CHANNEL} {0};set_instance_parameter_value {router_004} {DEFAULT_WR_CHANNEL} {-1};set_instance_parameter_value {router_004} {DEFAULT_RD_CHANNEL} {-1};set_instance_parameter_value {router_004} {DEFAULT_DESTID} {1};set_instance_parameter_value {router_004} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};set_instance_parameter_value {router_004} {MEMORY_ALIASING_DECODE} {0};add_instance {mm_bridge_m0_limiter} {altera_merlin_traffic_limiter};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_DEST_ID_H} {90};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_DEST_ID_L} {89};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_SRC_ID_H} {88};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_SRC_ID_L} {87};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_BYTE_CNT_H} {76};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_BYTE_CNT_L} {74};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_BYTEEN_H} {35};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_BYTEEN_L} {32};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_TRANS_POSTED} {69};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_TRANS_WRITE} {70};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_THREAD_ID_H} {91};set_instance_parameter_value {mm_bridge_m0_limiter} {PKT_THREAD_ID_L} {91};set_instance_parameter_value {mm_bridge_m0_limiter} {MAX_BURST_LENGTH} {1};set_instance_parameter_value {mm_bridge_m0_limiter} {MAX_OUTSTANDING_RESPONSES} {7};set_instance_parameter_value {mm_bridge_m0_limiter} {PIPELINED} {0};set_instance_parameter_value {mm_bridge_m0_limiter} {ST_DATA_W} {104};set_instance_parameter_value {mm_bridge_m0_limiter} {ST_CHANNEL_W} {3};set_instance_parameter_value {mm_bridge_m0_limiter} {VALID_WIDTH} {3};set_instance_parameter_value {mm_bridge_m0_limiter} {ENFORCE_ORDER} {1};set_instance_parameter_value {mm_bridge_m0_limiter} {PREVENT_HAZARDS} {0};set_instance_parameter_value {mm_bridge_m0_limiter} {SUPPORTS_POSTED_WRITES} {1};set_instance_parameter_value {mm_bridge_m0_limiter} {SUPPORTS_NONPOSTED_WRITES} {0};set_instance_parameter_value {mm_bridge_m0_limiter} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};set_instance_parameter_value {mm_bridge_m0_limiter} {REORDER} {0};add_instance {jtag_master_master_limiter} {altera_merlin_traffic_limiter};set_instance_parameter_value {jtag_master_master_limiter} {PKT_DEST_ID_H} {90};set_instance_parameter_value {jtag_master_master_limiter} {PKT_DEST_ID_L} {89};set_instance_parameter_value {jtag_master_master_limiter} {PKT_SRC_ID_H} {88};set_instance_parameter_value {jtag_master_master_limiter} {PKT_SRC_ID_L} {87};set_instance_parameter_value {jtag_master_master_limiter} {PKT_BYTE_CNT_H} {76};set_instance_parameter_value {jtag_master_master_limiter} {PKT_BYTE_CNT_L} {74};set_instance_parameter_value {jtag_master_master_limiter} {PKT_BYTEEN_H} {35};set_instance_parameter_value {jtag_master_master_limiter} {PKT_BYTEEN_L} {32};set_instance_parameter_value {jtag_master_master_limiter} {PKT_TRANS_POSTED} {69};set_instance_parameter_value {jtag_master_master_limiter} {PKT_TRANS_WRITE} {70};set_instance_parameter_value {jtag_master_master_limiter} {PKT_THREAD_ID_H} {91};set_instance_parameter_value {jtag_master_master_limiter} {PKT_THREAD_ID_L} {91};set_instance_parameter_value {jtag_master_master_limiter} {MAX_BURST_LENGTH} {1};set_instance_parameter_value {jtag_master_master_limiter} {MAX_OUTSTANDING_RESPONSES} {7};set_instance_parameter_value {jtag_master_master_limiter} {PIPELINED} {0};set_instance_parameter_value {jtag_master_master_limiter} {ST_DATA_W} {104};set_instance_parameter_value {jtag_master_master_limiter} {ST_CHANNEL_W} {3};set_instance_parameter_value {jtag_master_master_limiter} {VALID_WIDTH} {3};set_instance_parameter_value {jtag_master_master_limiter} {ENFORCE_ORDER} {1};set_instance_parameter_value {jtag_master_master_limiter} {PREVENT_HAZARDS} {0};set_instance_parameter_value {jtag_master_master_limiter} {SUPPORTS_POSTED_WRITES} {1};set_instance_parameter_value {jtag_master_master_limiter} {SUPPORTS_NONPOSTED_WRITES} {0};set_instance_parameter_value {jtag_master_master_limiter} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};set_instance_parameter_value {jtag_master_master_limiter} {REORDER} {0};add_instance {cmd_demux} {altera_merlin_demultiplexer};set_instance_parameter_value {cmd_demux} {ST_DATA_W} {104};set_instance_parameter_value {cmd_demux} {ST_CHANNEL_W} {3};set_instance_parameter_value {cmd_demux} {NUM_OUTPUTS} {3};set_instance_parameter_value {cmd_demux} {VALID_WIDTH} {3};set_instance_parameter_value {cmd_demux} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};add_instance {cmd_demux_001} {altera_merlin_demultiplexer};set_instance_parameter_value {cmd_demux_001} {ST_DATA_W} {104};set_instance_parameter_value {cmd_demux_001} {ST_CHANNEL_W} {3};set_instance_parameter_value {cmd_demux_001} {NUM_OUTPUTS} {3};set_instance_parameter_value {cmd_demux_001} {VALID_WIDTH} {3};set_instance_parameter_value {cmd_demux_001} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};add_instance {cmd_mux} {altera_merlin_multiplexer};set_instance_parameter_value {cmd_mux} {ST_DATA_W} {104};set_instance_parameter_value {cmd_mux} {ST_CHANNEL_W} {3};set_instance_parameter_value {cmd_mux} {NUM_INPUTS} {2};set_instance_parameter_value {cmd_mux} {PIPELINE_ARB} {1};set_instance_parameter_value {cmd_mux} {USE_EXTERNAL_ARB} {0};set_instance_parameter_value {cmd_mux} {PKT_TRANS_LOCK} {72};set_instance_parameter_value {cmd_mux} {ARBITRATION_SCHEME} {round-robin};set_instance_parameter_value {cmd_mux} {ARBITRATION_SHARES} {1 1 };set_instance_parameter_value {cmd_mux} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};add_instance {cmd_mux_001} {altera_merlin_multiplexer};set_instance_parameter_value {cmd_mux_001} {ST_DATA_W} {104};set_instance_parameter_value {cmd_mux_001} {ST_CHANNEL_W} {3};set_instance_parameter_value {cmd_mux_001} {NUM_INPUTS} {2};set_instance_parameter_value {cmd_mux_001} {PIPELINE_ARB} {1};set_instance_parameter_value {cmd_mux_001} {USE_EXTERNAL_ARB} {0};set_instance_parameter_value {cmd_mux_001} {PKT_TRANS_LOCK} {72};set_instance_parameter_value {cmd_mux_001} {ARBITRATION_SCHEME} {round-robin};set_instance_parameter_value {cmd_mux_001} {ARBITRATION_SHARES} {1 1 };set_instance_parameter_value {cmd_mux_001} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};add_instance {cmd_mux_002} {altera_merlin_multiplexer};set_instance_parameter_value {cmd_mux_002} {ST_DATA_W} {104};set_instance_parameter_value {cmd_mux_002} {ST_CHANNEL_W} {3};set_instance_parameter_value {cmd_mux_002} {NUM_INPUTS} {2};set_instance_parameter_value {cmd_mux_002} {PIPELINE_ARB} {1};set_instance_parameter_value {cmd_mux_002} {USE_EXTERNAL_ARB} {0};set_instance_parameter_value {cmd_mux_002} {PKT_TRANS_LOCK} {72};set_instance_parameter_value {cmd_mux_002} {ARBITRATION_SCHEME} {round-robin};set_instance_parameter_value {cmd_mux_002} {ARBITRATION_SHARES} {1 1 };set_instance_parameter_value {cmd_mux_002} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};add_instance {rsp_demux} {altera_merlin_demultiplexer};set_instance_parameter_value {rsp_demux} {ST_DATA_W} {104};set_instance_parameter_value {rsp_demux} {ST_CHANNEL_W} {3};set_instance_parameter_value {rsp_demux} {NUM_OUTPUTS} {2};set_instance_parameter_value {rsp_demux} {VALID_WIDTH} {1};set_instance_parameter_value {rsp_demux} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};add_instance {rsp_demux_001} {altera_merlin_demultiplexer};set_instance_parameter_value {rsp_demux_001} {ST_DATA_W} {104};set_instance_parameter_value {rsp_demux_001} {ST_CHANNEL_W} {3};set_instance_parameter_value {rsp_demux_001} {NUM_OUTPUTS} {2};set_instance_parameter_value {rsp_demux_001} {VALID_WIDTH} {1};set_instance_parameter_value {rsp_demux_001} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};add_instance {rsp_demux_002} {altera_merlin_demultiplexer};set_instance_parameter_value {rsp_demux_002} {ST_DATA_W} {104};set_instance_parameter_value {rsp_demux_002} {ST_CHANNEL_W} {3};set_instance_parameter_value {rsp_demux_002} {NUM_OUTPUTS} {2};set_instance_parameter_value {rsp_demux_002} {VALID_WIDTH} {1};set_instance_parameter_value {rsp_demux_002} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};add_instance {rsp_mux} {altera_merlin_multiplexer};set_instance_parameter_value {rsp_mux} {ST_DATA_W} {104};set_instance_parameter_value {rsp_mux} {ST_CHANNEL_W} {3};set_instance_parameter_value {rsp_mux} {NUM_INPUTS} {3};set_instance_parameter_value {rsp_mux} {PIPELINE_ARB} {0};set_instance_parameter_value {rsp_mux} {USE_EXTERNAL_ARB} {0};set_instance_parameter_value {rsp_mux} {PKT_TRANS_LOCK} {72};set_instance_parameter_value {rsp_mux} {ARBITRATION_SCHEME} {no-arb};set_instance_parameter_value {rsp_mux} {ARBITRATION_SHARES} {1 1 1 };set_instance_parameter_value {rsp_mux} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};add_instance {rsp_mux_001} {altera_merlin_multiplexer};set_instance_parameter_value {rsp_mux_001} {ST_DATA_W} {104};set_instance_parameter_value {rsp_mux_001} {ST_CHANNEL_W} {3};set_instance_parameter_value {rsp_mux_001} {NUM_INPUTS} {3};set_instance_parameter_value {rsp_mux_001} {PIPELINE_ARB} {0};set_instance_parameter_value {rsp_mux_001} {USE_EXTERNAL_ARB} {0};set_instance_parameter_value {rsp_mux_001} {PKT_TRANS_LOCK} {72};set_instance_parameter_value {rsp_mux_001} {ARBITRATION_SCHEME} {no-arb};set_instance_parameter_value {rsp_mux_001} {ARBITRATION_SHARES} {1 1 1 };set_instance_parameter_value {rsp_mux_001} {MERLIN_PACKET_FORMAT} {ori_burst_size(103:101) response_status(100:99) cache(98:95) protection(94:92) thread_id(91) dest_id(90:89) src_id(88:87) qos(86) begin_burst(85) data_sideband(84) addr_sideband(83) burst_type(82:81) burst_size(80:78) burstwrap(77) byte_cnt(76:74) trans_exclusive(73) trans_lock(72) trans_read(71) trans_write(70) trans_posted(69) trans_compressed_read(68) addr(67:36) byteen(35:32) data(31:0)};add_instance {mm_bridge_reset_reset_bridge} {altera_reset_bridge};set_instance_parameter_value {mm_bridge_reset_reset_bridge} {ACTIVE_LOW_RESET} {0};set_instance_parameter_value {mm_bridge_reset_reset_bridge} {SYNCHRONOUS_EDGES} {deassert};set_instance_parameter_value {mm_bridge_reset_reset_bridge} {NUM_RESET_OUTPUTS} {1};set_instance_parameter_value {mm_bridge_reset_reset_bridge} {USE_RESET_REQUEST} {0};add_instance {jtag_master_clk_reset_reset_bridge} {altera_reset_bridge};set_instance_parameter_value {jtag_master_clk_reset_reset_bridge} {ACTIVE_LOW_RESET} {0};set_instance_parameter_value {jtag_master_clk_reset_reset_bridge} {SYNCHRONOUS_EDGES} {deassert};set_instance_parameter_value {jtag_master_clk_reset_reset_bridge} {NUM_RESET_OUTPUTS} {1};set_instance_parameter_value {jtag_master_clk_reset_reset_bridge} {USE_RESET_REQUEST} {0};add_instance {sdram_controller_reset_reset_bridge} {altera_reset_bridge};set_instance_parameter_value {sdram_controller_reset_reset_bridge} {ACTIVE_LOW_RESET} {0};set_instance_parameter_value {sdram_controller_reset_reset_bridge} {SYNCHRONOUS_EDGES} {deassert};set_instance_parameter_value {sdram_controller_reset_reset_bridge} {NUM_RESET_OUTPUTS} {1};set_instance_parameter_value {sdram_controller_reset_reset_bridge} {USE_RESET_REQUEST} {0};add_instance {sdram_pll_sys_clk_clock_bridge} {altera_clock_bridge};set_instance_parameter_value {sdram_pll_sys_clk_clock_bridge} {EXPLICIT_CLOCK_RATE} {50000000};set_instance_parameter_value {sdram_pll_sys_clk_clock_bridge} {NUM_CLOCK_OUTPUTS} {1};add_connection {mm_bridge_m0_translator.avalon_universal_master_0} {mm_bridge_m0_agent.av} {avalon};set_connection_parameter_value {mm_bridge_m0_translator.avalon_universal_master_0/mm_bridge_m0_agent.av} {arbitrationPriority} {1};set_connection_parameter_value {mm_bridge_m0_translator.avalon_universal_master_0/mm_bridge_m0_agent.av} {baseAddress} {0x0000};set_connection_parameter_value {mm_bridge_m0_translator.avalon_universal_master_0/mm_bridge_m0_agent.av} {defaultConnection} {false};add_connection {jtag_master_master_translator.avalon_universal_master_0} {jtag_master_master_agent.av} {avalon};set_connection_parameter_value {jtag_master_master_translator.avalon_universal_master_0/jtag_master_master_agent.av} {arbitrationPriority} {1};set_connection_parameter_value {jtag_master_master_translator.avalon_universal_master_0/jtag_master_master_agent.av} {baseAddress} {0x0000};set_connection_parameter_value {jtag_master_master_translator.avalon_universal_master_0/jtag_master_master_agent.av} {defaultConnection} {false};add_connection {sdram_controller_s1_agent.m0} {sdram_controller_s1_translator.avalon_universal_slave_0} {avalon};set_connection_parameter_value {sdram_controller_s1_agent.m0/sdram_controller_s1_translator.avalon_universal_slave_0} {arbitrationPriority} {1};set_connection_parameter_value {sdram_controller_s1_agent.m0/sdram_controller_s1_translator.avalon_universal_slave_0} {baseAddress} {0x0000};set_connection_parameter_value {sdram_controller_s1_agent.m0/sdram_controller_s1_translator.avalon_universal_slave_0} {defaultConnection} {false};add_connection {sdram_controller_s1_agent.rf_source} {sdram_controller_s1_agent_rsp_fifo.in} {avalon_streaming};add_connection {sdram_controller_s1_agent_rsp_fifo.out} {sdram_controller_s1_agent.rf_sink} {avalon_streaming};add_connection {sdram_controller_s1_agent.rdata_fifo_src} {sdram_controller_s1_agent.rdata_fifo_sink} {avalon_streaming};add_connection {cmd_mux.src} {sdram_controller_s1_agent.cp} {avalon_streaming};preview_set_connection_tag {cmd_mux.src/sdram_controller_s1_agent.cp} {qsys_mm.command};add_connection {leg_g_s1_agent.m0} {leg_g_s1_translator.avalon_universal_slave_0} {avalon};set_connection_parameter_value {leg_g_s1_agent.m0/leg_g_s1_translator.avalon_universal_slave_0} {arbitrationPriority} {1};set_connection_parameter_value {leg_g_s1_agent.m0/leg_g_s1_translator.avalon_universal_slave_0} {baseAddress} {0x0000};set_connection_parameter_value {leg_g_s1_agent.m0/leg_g_s1_translator.avalon_universal_slave_0} {defaultConnection} {false};add_connection {leg_g_s1_agent.rf_source} {leg_g_s1_agent_rsp_fifo.in} {avalon_streaming};add_connection {leg_g_s1_agent_rsp_fifo.out} {leg_g_s1_agent.rf_sink} {avalon_streaming};add_connection {leg_g_s1_agent.rdata_fifo_src} {leg_g_s1_agent.rdata_fifo_sink} {avalon_streaming};add_connection {cmd_mux_001.src} {leg_g_s1_agent.cp} {avalon_streaming};preview_set_connection_tag {cmd_mux_001.src/leg_g_s1_agent.cp} {qsys_mm.command};add_connection {switch_s1_agent.m0} {switch_s1_translator.avalon_universal_slave_0} {avalon};set_connection_parameter_value {switch_s1_agent.m0/switch_s1_translator.avalon_universal_slave_0} {arbitrationPriority} {1};set_connection_parameter_value {switch_s1_agent.m0/switch_s1_translator.avalon_universal_slave_0} {baseAddress} {0x0000};set_connection_parameter_value {switch_s1_agent.m0/switch_s1_translator.avalon_universal_slave_0} {defaultConnection} {false};add_connection {switch_s1_agent.rf_source} {switch_s1_agent_rsp_fifo.in} {avalon_streaming};add_connection {switch_s1_agent_rsp_fifo.out} {switch_s1_agent.rf_sink} {avalon_streaming};add_connection {switch_s1_agent.rdata_fifo_src} {switch_s1_agent.rdata_fifo_sink} {avalon_streaming};add_connection {cmd_mux_002.src} {switch_s1_agent.cp} {avalon_streaming};preview_set_connection_tag {cmd_mux_002.src/switch_s1_agent.cp} {qsys_mm.command};add_connection {mm_bridge_m0_agent.cp} {router.sink} {avalon_streaming};preview_set_connection_tag {mm_bridge_m0_agent.cp/router.sink} {qsys_mm.command};add_connection {jtag_master_master_agent.cp} {router_001.sink} {avalon_streaming};preview_set_connection_tag {jtag_master_master_agent.cp/router_001.sink} {qsys_mm.command};add_connection {sdram_controller_s1_agent.rp} {router_002.sink} {avalon_streaming};preview_set_connection_tag {sdram_controller_s1_agent.rp/router_002.sink} {qsys_mm.response};add_connection {router_002.src} {rsp_demux.sink} {avalon_streaming};preview_set_connection_tag {router_002.src/rsp_demux.sink} {qsys_mm.response};add_connection {leg_g_s1_agent.rp} {router_003.sink} {avalon_streaming};preview_set_connection_tag {leg_g_s1_agent.rp/router_003.sink} {qsys_mm.response};add_connection {router_003.src} {rsp_demux_001.sink} {avalon_streaming};preview_set_connection_tag {router_003.src/rsp_demux_001.sink} {qsys_mm.response};add_connection {switch_s1_agent.rp} {router_004.sink} {avalon_streaming};preview_set_connection_tag {switch_s1_agent.rp/router_004.sink} {qsys_mm.response};add_connection {router_004.src} {rsp_demux_002.sink} {avalon_streaming};preview_set_connection_tag {router_004.src/rsp_demux_002.sink} {qsys_mm.response};add_connection {router.src} {mm_bridge_m0_limiter.cmd_sink} {avalon_streaming};preview_set_connection_tag {router.src/mm_bridge_m0_limiter.cmd_sink} {qsys_mm.command};add_connection {mm_bridge_m0_limiter.cmd_src} {cmd_demux.sink} {avalon_streaming};preview_set_connection_tag {mm_bridge_m0_limiter.cmd_src/cmd_demux.sink} {qsys_mm.command};add_connection {rsp_mux.src} {mm_bridge_m0_limiter.rsp_sink} {avalon_streaming};preview_set_connection_tag {rsp_mux.src/mm_bridge_m0_limiter.rsp_sink} {qsys_mm.response};add_connection {mm_bridge_m0_limiter.rsp_src} {mm_bridge_m0_agent.rp} {avalon_streaming};preview_set_connection_tag {mm_bridge_m0_limiter.rsp_src/mm_bridge_m0_agent.rp} {qsys_mm.response};add_connection {router_001.src} {jtag_master_master_limiter.cmd_sink} {avalon_streaming};preview_set_connection_tag {router_001.src/jtag_master_master_limiter.cmd_sink} {qsys_mm.command};add_connection {jtag_master_master_limiter.cmd_src} {cmd_demux_001.sink} {avalon_streaming};preview_set_connection_tag {jtag_master_master_limiter.cmd_src/cmd_demux_001.sink} {qsys_mm.command};add_connection {rsp_mux_001.src} {jtag_master_master_limiter.rsp_sink} {avalon_streaming};preview_set_connection_tag {rsp_mux_001.src/jtag_master_master_limiter.rsp_sink} {qsys_mm.response};add_connection {jtag_master_master_limiter.rsp_src} {jtag_master_master_agent.rp} {avalon_streaming};preview_set_connection_tag {jtag_master_master_limiter.rsp_src/jtag_master_master_agent.rp} {qsys_mm.response};add_connection {cmd_demux.src0} {cmd_mux.sink0} {avalon_streaming};preview_set_connection_tag {cmd_demux.src0/cmd_mux.sink0} {qsys_mm.command};add_connection {cmd_demux.src1} {cmd_mux_001.sink0} {avalon_streaming};preview_set_connection_tag {cmd_demux.src1/cmd_mux_001.sink0} {qsys_mm.command};add_connection {cmd_demux.src2} {cmd_mux_002.sink0} {avalon_streaming};preview_set_connection_tag {cmd_demux.src2/cmd_mux_002.sink0} {qsys_mm.command};add_connection {cmd_demux_001.src0} {cmd_mux.sink1} {avalon_streaming};preview_set_connection_tag {cmd_demux_001.src0/cmd_mux.sink1} {qsys_mm.command};add_connection {cmd_demux_001.src1} {cmd_mux_001.sink1} {avalon_streaming};preview_set_connection_tag {cmd_demux_001.src1/cmd_mux_001.sink1} {qsys_mm.command};add_connection {cmd_demux_001.src2} {cmd_mux_002.sink1} {avalon_streaming};preview_set_connection_tag {cmd_demux_001.src2/cmd_mux_002.sink1} {qsys_mm.command};add_connection {rsp_demux.src0} {rsp_mux.sink0} {avalon_streaming};preview_set_connection_tag {rsp_demux.src0/rsp_mux.sink0} {qsys_mm.response};add_connection {rsp_demux.src1} {rsp_mux_001.sink0} {avalon_streaming};preview_set_connection_tag {rsp_demux.src1/rsp_mux_001.sink0} {qsys_mm.response};add_connection {rsp_demux_001.src0} {rsp_mux.sink1} {avalon_streaming};preview_set_connection_tag {rsp_demux_001.src0/rsp_mux.sink1} {qsys_mm.response};add_connection {rsp_demux_001.src1} {rsp_mux_001.sink1} {avalon_streaming};preview_set_connection_tag {rsp_demux_001.src1/rsp_mux_001.sink1} {qsys_mm.response};add_connection {rsp_demux_002.src0} {rsp_mux.sink2} {avalon_streaming};preview_set_connection_tag {rsp_demux_002.src0/rsp_mux.sink2} {qsys_mm.response};add_connection {rsp_demux_002.src1} {rsp_mux_001.sink2} {avalon_streaming};preview_set_connection_tag {rsp_demux_002.src1/rsp_mux_001.sink2} {qsys_mm.response};add_connection {mm_bridge_m0_limiter.cmd_valid} {cmd_demux.sink_valid} {avalon_streaming};add_connection {jtag_master_master_limiter.cmd_valid} {cmd_demux_001.sink_valid} {avalon_streaming};add_connection {mm_bridge_reset_reset_bridge.out_reset} {mm_bridge_m0_translator.reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {jtag_master_master_translator.reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {leg_g_s1_translator.reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {switch_s1_translator.reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {mm_bridge_m0_agent.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {jtag_master_master_agent.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {leg_g_s1_agent.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {leg_g_s1_agent_rsp_fifo.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {switch_s1_agent.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {switch_s1_agent_rsp_fifo.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {router.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {router_001.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {router_003.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {router_004.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {mm_bridge_m0_limiter.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {jtag_master_master_limiter.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {cmd_demux.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {cmd_demux_001.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {cmd_mux_001.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {cmd_mux_002.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {rsp_demux_001.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {rsp_demux_002.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {rsp_mux.clk_reset} {reset};add_connection {mm_bridge_reset_reset_bridge.out_reset} {rsp_mux_001.clk_reset} {reset};add_connection {sdram_controller_reset_reset_bridge.out_reset} {sdram_controller_s1_translator.reset} {reset};add_connection {sdram_controller_reset_reset_bridge.out_reset} {sdram_controller_s1_agent.clk_reset} {reset};add_connection {sdram_controller_reset_reset_bridge.out_reset} {sdram_controller_s1_agent_rsp_fifo.clk_reset} {reset};add_connection {sdram_controller_reset_reset_bridge.out_reset} {router_002.clk_reset} {reset};add_connection {sdram_controller_reset_reset_bridge.out_reset} {cmd_mux.clk_reset} {reset};add_connection {sdram_controller_reset_reset_bridge.out_reset} {rsp_demux.clk_reset} {reset};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {mm_bridge_m0_translator.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {jtag_master_master_translator.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {sdram_controller_s1_translator.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {leg_g_s1_translator.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {switch_s1_translator.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {mm_bridge_m0_agent.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {jtag_master_master_agent.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {sdram_controller_s1_agent.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {sdram_controller_s1_agent_rsp_fifo.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {leg_g_s1_agent.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {leg_g_s1_agent_rsp_fifo.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {switch_s1_agent.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {switch_s1_agent_rsp_fifo.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {router.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {router_001.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {router_002.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {router_003.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {router_004.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {mm_bridge_m0_limiter.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {jtag_master_master_limiter.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {cmd_demux.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {rsp_mux.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {cmd_demux_001.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {rsp_mux_001.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {cmd_mux.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {rsp_demux.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {cmd_mux_001.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {rsp_demux_001.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {cmd_mux_002.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {rsp_demux_002.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {mm_bridge_reset_reset_bridge.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {jtag_master_clk_reset_reset_bridge.clk} {clock};add_connection {sdram_pll_sys_clk_clock_bridge.out_clk} {sdram_controller_reset_reset_bridge.clk} {clock};add_interface {sdram_pll_sys_clk} {clock} {slave};set_interface_property {sdram_pll_sys_clk} {EXPORT_OF} {sdram_pll_sys_clk_clock_bridge.in_clk};add_interface {jtag_master_clk_reset_reset_bridge_in_reset} {reset} {slave};set_interface_property {jtag_master_clk_reset_reset_bridge_in_reset} {EXPORT_OF} {jtag_master_clk_reset_reset_bridge.in_reset};add_interface {mm_bridge_reset_reset_bridge_in_reset} {reset} {slave};set_interface_property {mm_bridge_reset_reset_bridge_in_reset} {EXPORT_OF} {mm_bridge_reset_reset_bridge.in_reset};add_interface {sdram_controller_reset_reset_bridge_in_reset} {reset} {slave};set_interface_property {sdram_controller_reset_reset_bridge_in_reset} {EXPORT_OF} {sdram_controller_reset_reset_bridge.in_reset};add_interface {jtag_master_master} {avalon} {slave};set_interface_property {jtag_master_master} {EXPORT_OF} {jtag_master_master_translator.avalon_anti_master_0};add_interface {mm_bridge_m0} {avalon} {slave};set_interface_property {mm_bridge_m0} {EXPORT_OF} {mm_bridge_m0_translator.avalon_anti_master_0};add_interface {leg_g_s1} {avalon} {master};set_interface_property {leg_g_s1} {EXPORT_OF} {leg_g_s1_translator.avalon_anti_slave_0};add_interface {sdram_controller_s1} {avalon} {master};set_interface_property {sdram_controller_s1} {EXPORT_OF} {sdram_controller_s1_translator.avalon_anti_slave_0};add_interface {switch_s1} {avalon} {master};set_interface_property {switch_s1} {EXPORT_OF} {switch_s1_translator.avalon_anti_slave_0};set_module_assignment {interconnect_id.jtag_master.master} {0};set_module_assignment {interconnect_id.leg_g.s1} {0};set_module_assignment {interconnect_id.mm_bridge.m0} {1};set_module_assignment {interconnect_id.sdram_controller.s1} {1};set_module_assignment {interconnect_id.switch.s1} {2};]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -5057,51 +5051,6 @@ the requested settings for a module instance. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <interface name="clk_0_clk" kind="clock_sink" version="18.1">
-   <!-- The connection points exposed by a module instance for the
-particular module parameters. Connection points and their
-parameters are a RESULT of the module parameters. -->
-   <parameter name="externallyDriven">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="ptfSchematicName">
-    <type>java.lang.String</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="deviceFamily">
-    <type>java.lang.String</type>
-    <value>UNKNOWN</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="generateLegacySim">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <type>clock</type>
-   <isStart>false</isStart>
-   <port>
-    <name>clk_0_clk_clk</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>clk</role>
-   </port>
-  </interface>
   <interface name="sdram_pll_sys_clk" kind="clock_sink" version="18.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
@@ -5190,54 +5139,6 @@ parameters are a RESULT of the module parameters. -->
    <isStart>false</isStart>
    <port>
     <name>jtag_master_clk_reset_reset_bridge_in_reset_reset</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>reset</role>
-   </port>
-  </interface>
-  <interface
-     name="leg_g_reset_reset_bridge_in_reset"
-     kind="reset_sink"
-     version="18.1">
-   <!-- The connection points exposed by a module instance for the
-particular module parameters. Connection points and their
-parameters are a RESULT of the module parameters. -->
-   <parameter name="associatedClock">
-    <type>java.lang.String</type>
-    <value>clk_0_clk</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="synchronousEdges">
-    <type>com.altera.sopcmodel.reset.Reset$Edges</type>
-    <value>DEASSERT</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="deviceFamily">
-    <type>java.lang.String</type>
-    <value>UNKNOWN</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="generateLegacySim">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <type>reset</type>
-   <isStart>false</isStart>
-   <port>
-    <name>leg_g_reset_reset_bridge_in_reset_reset</name>
     <direction>Input</direction>
     <width>1</width>
     <role>reset</role>
@@ -6163,7 +6064,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clk_0_clk</value>
+    <value>sdram_pll_sys_clk</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -6171,7 +6072,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedReset">
     <type>java.lang.String</type>
-    <value>leg_g_reset_reset_bridge_in_reset</value>
+    <value>mm_bridge_reset_reset_bridge_in_reset</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -6789,7 +6690,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clk_0_clk</value>
+    <value>sdram_pll_sys_clk</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -6797,7 +6698,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedReset">
     <type>java.lang.String</type>
-    <value>leg_g_reset_reset_bridge_in_reset</value>
+    <value>mm_bridge_reset_reset_bridge_in_reset</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -7794,7 +7695,7 @@ parameters are a RESULT of the module parameters. -->
 the requested settings for a module instance. -->
   <parameter name="NUM_RESET_INPUTS">
    <type>int</type>
-   <value>2</value>
+   <value>1</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -8053,51 +7954,6 @@ parameters are a RESULT of the module parameters. -->
     <role>reset</role>
    </port>
   </interface>
-  <interface name="reset_in1" kind="reset_sink" version="18.1">
-   <!-- The connection points exposed by a module instance for the
-particular module parameters. Connection points and their
-parameters are a RESULT of the module parameters. -->
-   <parameter name="associatedClock">
-    <type>java.lang.String</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="synchronousEdges">
-    <type>com.altera.sopcmodel.reset.Reset$Edges</type>
-    <value>NONE</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="deviceFamily">
-    <type>java.lang.String</type>
-    <value>UNKNOWN</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="generateLegacySim">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <type>reset</type>
-   <isStart>false</isStart>
-   <port>
-    <name>reset_in1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>reset</role>
-   </port>
-  </interface>
   <interface name="clk" kind="clock_sink" version="18.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
@@ -8165,7 +8021,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedResetSinks">
     <type>[Ljava.lang.String;</type>
-    <value>reset_in0,reset_in1</value>
+    <value>reset_in0</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -8205,60 +8061,6 @@ parameters are a RESULT of the module parameters. -->
    </port>
   </interface>
  </module>
- <connection
-   name="clk_0.clk/leg_g.clk"
-   kind="clock"
-   version="18.1"
-   start="clk_0.clk"
-   end="leg_g.clk">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>leg_g</endModule>
-  <endConnectionPoint>clk</endConnectionPoint>
- </connection>
- <connection
-   name="clk_0.clk/switch.clk"
-   kind="clock"
-   version="18.1"
-   start="clk_0.clk"
-   end="switch.clk">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>switch</endModule>
-  <endConnectionPoint>clk</endConnectionPoint>
- </connection>
  <connection
    name="clk_0.clk/sdram_pll.ref_clk"
    kind="clock"
@@ -8368,10 +8170,64 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clk</endConnectionPoint>
  </connection>
  <connection
-   name="clk_0.clk_reset/jtag_master.clk_reset"
+   name="sdram_pll.sys_clk/leg_g.clk"
+   kind="clock"
+   version="18.1"
+   start="sdram_pll.sys_clk"
+   end="leg_g.clk">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>sdram_pll</startModule>
+  <startConnectionPoint>sys_clk</startConnectionPoint>
+  <endModule>leg_g</endModule>
+  <endConnectionPoint>clk</endConnectionPoint>
+ </connection>
+ <connection
+   name="sdram_pll.sys_clk/switch.clk"
+   kind="clock"
+   version="18.1"
+   start="sdram_pll.sys_clk"
+   end="switch.clk">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>sdram_pll</startModule>
+  <startConnectionPoint>sys_clk</startConnectionPoint>
+  <endModule>switch</endModule>
+  <endConnectionPoint>clk</endConnectionPoint>
+ </connection>
+ <connection
+   name="sdram_pll.reset_source/jtag_master.clk_reset"
    kind="reset"
    version="18.1"
-   start="clk_0.clk_reset"
+   start="sdram_pll.reset_source"
    end="jtag_master.clk_reset">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -8389,8 +8245,8 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk_reset</startConnectionPoint>
+  <startModule>sdram_pll</startModule>
+  <startConnectionPoint>reset_source</startConnectionPoint>
   <endModule>jtag_master</endModule>
   <endConnectionPoint>clk_reset</endConnectionPoint>
  </connection>
@@ -8626,33 +8482,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
-   name="clk_0.clk/mm_interconnect_0.clk_0_clk"
-   kind="clock"
-   version="18.1"
-   start="clk_0.clk"
-   end="mm_interconnect_0.clk_0_clk">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>mm_interconnect_0</endModule>
-  <endConnectionPoint>clk_0_clk</endConnectionPoint>
- </connection>
- <connection
    name="mm_interconnect_0.switch_s1/switch.s1"
    kind="avalon"
    version="18.1"
@@ -8731,11 +8560,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
-   name="rst_controller.reset_out/sdram_pll.ref_reset"
+   name="rst_controller.reset_out/mm_bridge.reset"
    kind="reset"
    version="18.1"
    start="rst_controller.reset_out"
-   end="sdram_pll.ref_reset">
+   end="mm_bridge.reset">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -8754,8 +8583,8 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>rst_controller</startModule>
   <startConnectionPoint>reset_out</startConnectionPoint>
-  <endModule>sdram_pll</endModule>
-  <endConnectionPoint>ref_reset</endConnectionPoint>
+  <endModule>mm_bridge</endModule>
+  <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
    name="rst_controller.reset_out/switch.reset"
@@ -8785,11 +8614,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
-   name="rst_controller.reset_out/mm_interconnect_0.leg_g_reset_reset_bridge_in_reset"
+   name="rst_controller.reset_out/mm_interconnect_0.jtag_master_clk_reset_reset_bridge_in_reset"
    kind="reset"
    version="18.1"
    start="rst_controller.reset_out"
-   end="mm_interconnect_0.leg_g_reset_reset_bridge_in_reset">
+   end="mm_interconnect_0.jtag_master_clk_reset_reset_bridge_in_reset">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -8809,121 +8638,13 @@ parameters are a RESULT of the module parameters. -->
   <startModule>rst_controller</startModule>
   <startConnectionPoint>reset_out</startConnectionPoint>
   <endModule>mm_interconnect_0</endModule>
-  <endConnectionPoint>leg_g_reset_reset_bridge_in_reset</endConnectionPoint>
- </connection>
- <connection
-   name="clk_0.clk_reset/rst_controller.reset_in0"
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
-   end="rst_controller.reset_in0">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>rst_controller</endModule>
-  <endConnectionPoint>reset_in0</endConnectionPoint>
- </connection>
- <connection
-   name="clk_0.clk/rst_controller.clk"
-   kind="clock"
-   version="18.1"
-   start="clk_0.clk"
-   end="rst_controller.clk">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>rst_controller</endModule>
-  <endConnectionPoint>clk</endConnectionPoint>
- </connection>
- <connection
-   name="rst_controller_001.reset_out/mm_bridge.reset"
-   kind="reset"
-   version="18.1"
-   start="rst_controller_001.reset_out"
-   end="mm_bridge.reset">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>rst_controller_001</startModule>
-  <startConnectionPoint>reset_out</startConnectionPoint>
-  <endModule>mm_bridge</endModule>
-  <endConnectionPoint>reset</endConnectionPoint>
- </connection>
- <connection
-   name="rst_controller_001.reset_out/mm_interconnect_0.jtag_master_clk_reset_reset_bridge_in_reset"
-   kind="reset"
-   version="18.1"
-   start="rst_controller_001.reset_out"
-   end="mm_interconnect_0.jtag_master_clk_reset_reset_bridge_in_reset">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>rst_controller_001</startModule>
-  <startConnectionPoint>reset_out</startConnectionPoint>
-  <endModule>mm_interconnect_0</endModule>
   <endConnectionPoint>jtag_master_clk_reset_reset_bridge_in_reset</endConnectionPoint>
  </connection>
  <connection
-   name="rst_controller_001.reset_out/mm_interconnect_0.mm_bridge_reset_reset_bridge_in_reset"
+   name="rst_controller.reset_out/mm_interconnect_0.mm_bridge_reset_reset_bridge_in_reset"
    kind="reset"
    version="18.1"
-   start="rst_controller_001.reset_out"
+   start="rst_controller.reset_out"
    end="mm_interconnect_0.mm_bridge_reset_reset_bridge_in_reset">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -8941,16 +8662,124 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>rst_controller_001</startModule>
+  <startModule>rst_controller</startModule>
   <startConnectionPoint>reset_out</startConnectionPoint>
   <endModule>mm_interconnect_0</endModule>
   <endConnectionPoint>mm_bridge_reset_reset_bridge_in_reset</endConnectionPoint>
  </connection>
  <connection
-   name="clk_0.clk_reset/rst_controller_001.reset_in0"
+   name="sdram_pll.reset_source/rst_controller.reset_in0"
    kind="reset"
    version="18.1"
-   start="clk_0.clk_reset"
+   start="sdram_pll.reset_source"
+   end="rst_controller.reset_in0">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>sdram_pll</startModule>
+  <startConnectionPoint>reset_source</startConnectionPoint>
+  <endModule>rst_controller</endModule>
+  <endConnectionPoint>reset_in0</endConnectionPoint>
+ </connection>
+ <connection
+   name="sdram_pll.sys_clk/rst_controller.clk"
+   kind="clock"
+   version="18.1"
+   start="sdram_pll.sys_clk"
+   end="rst_controller.clk">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>sdram_pll</startModule>
+  <startConnectionPoint>sys_clk</startConnectionPoint>
+  <endModule>rst_controller</endModule>
+  <endConnectionPoint>clk</endConnectionPoint>
+ </connection>
+ <connection
+   name="rst_controller_001.reset_out/sdram_controller.reset"
+   kind="reset"
+   version="18.1"
+   start="rst_controller_001.reset_out"
+   end="sdram_controller.reset">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>rst_controller_001</startModule>
+  <startConnectionPoint>reset_out</startConnectionPoint>
+  <endModule>sdram_controller</endModule>
+  <endConnectionPoint>reset</endConnectionPoint>
+ </connection>
+ <connection
+   name="rst_controller_001.reset_out/mm_interconnect_0.sdram_controller_reset_reset_bridge_in_reset"
+   kind="reset"
+   version="18.1"
+   start="rst_controller_001.reset_out"
+   end="mm_interconnect_0.sdram_controller_reset_reset_bridge_in_reset">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>rst_controller_001</startModule>
+  <startConnectionPoint>reset_out</startConnectionPoint>
+  <endModule>mm_interconnect_0</endModule>
+  <endConnectionPoint>sdram_controller_reset_reset_bridge_in_reset</endConnectionPoint>
+ </connection>
+ <connection
+   name="jtag_master.master_reset/rst_controller_001.reset_in0"
+   kind="reset"
+   version="18.1"
+   start="jtag_master.master_reset"
    end="rst_controller_001.reset_in0">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -8968,8 +8797,8 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk_reset</startConnectionPoint>
+  <startModule>jtag_master</startModule>
+  <startConnectionPoint>master_reset</startConnectionPoint>
   <endModule>rst_controller_001</endModule>
   <endConnectionPoint>reset_in0</endConnectionPoint>
  </connection>
@@ -9001,11 +8830,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clk</endConnectionPoint>
  </connection>
  <connection
-   name="rst_controller_002.reset_out/sdram_controller.reset"
+   name="rst_controller_002.reset_out/sdram_pll.ref_reset"
    kind="reset"
    version="18.1"
    start="rst_controller_002.reset_out"
-   end="sdram_controller.reset">
+   end="sdram_pll.ref_reset">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -9024,35 +8853,8 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>rst_controller_002</startModule>
   <startConnectionPoint>reset_out</startConnectionPoint>
-  <endModule>sdram_controller</endModule>
-  <endConnectionPoint>reset</endConnectionPoint>
- </connection>
- <connection
-   name="rst_controller_002.reset_out/mm_interconnect_0.sdram_controller_reset_reset_bridge_in_reset"
-   kind="reset"
-   version="18.1"
-   start="rst_controller_002.reset_out"
-   end="mm_interconnect_0.sdram_controller_reset_reset_bridge_in_reset">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>rst_controller_002</startModule>
-  <startConnectionPoint>reset_out</startConnectionPoint>
-  <endModule>mm_interconnect_0</endModule>
-  <endConnectionPoint>sdram_controller_reset_reset_bridge_in_reset</endConnectionPoint>
+  <endModule>sdram_pll</endModule>
+  <endConnectionPoint>ref_reset</endConnectionPoint>
  </connection>
  <connection
    name="clk_0.clk_reset/rst_controller_002.reset_in0"
@@ -9082,37 +8884,10 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>reset_in0</endConnectionPoint>
  </connection>
  <connection
-   name="jtag_master.master_reset/rst_controller_002.reset_in1"
-   kind="reset"
-   version="18.1"
-   start="jtag_master.master_reset"
-   end="rst_controller_002.reset_in1">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>jtag_master</startModule>
-  <startConnectionPoint>master_reset</startConnectionPoint>
-  <endModule>rst_controller_002</endModule>
-  <endConnectionPoint>reset_in1</endConnectionPoint>
- </connection>
- <connection
-   name="sdram_pll.sys_clk/rst_controller_002.clk"
+   name="clk_0.clk/rst_controller_002.clk"
    kind="clock"
    version="18.1"
-   start="sdram_pll.sys_clk"
+   start="clk_0.clk"
    end="rst_controller_002.clk">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -9130,8 +8905,8 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>sdram_pll</startModule>
-  <startConnectionPoint>sys_clk</startConnectionPoint>
+  <startModule>clk_0</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
   <endModule>rst_controller_002</endModule>
   <endConnectionPoint>clk</endConnectionPoint>
  </connection>
@@ -9184,7 +8959,7 @@ parameters are a RESULT of the module parameters. -->
   <version>18.1</version>
  </plugin>
  <plugin>
-  <instanceCount>11</instanceCount>
+  <instanceCount>10</instanceCount>
   <name>clock_sink</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
@@ -9192,7 +8967,7 @@ parameters are a RESULT of the module parameters. -->
   <version>18.1</version>
  </plugin>
  <plugin>
-  <instanceCount>14</instanceCount>
+  <instanceCount>12</instanceCount>
   <name>reset_sink</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
@@ -9312,7 +9087,7 @@ parameters are a RESULT of the module parameters. -->
   <version>18.1</version>
  </plugin>
  <plugin>
-  <instanceCount>5</instanceCount>
+  <instanceCount>4</instanceCount>
   <name>clock</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>
@@ -9320,7 +9095,7 @@ parameters are a RESULT of the module parameters. -->
   <version>18.1</version>
  </plugin>
  <plugin>
-  <instanceCount>13</instanceCount>
+  <instanceCount>11</instanceCount>
   <name>reset</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>
@@ -9328,5 +9103,5 @@ parameters are a RESULT of the module parameters. -->
   <version>18.1</version>
  </plugin>
  <reportVersion>18.1 625</reportVersion>
- <uniqueIdentifier>4CCC6A0FCF4F0000016A6B168BF9</uniqueIdentifier>
+ <uniqueIdentifier>4CCC6A0FCF4F0000016A6E94C268</uniqueIdentifier>
 </EnsembleReport>

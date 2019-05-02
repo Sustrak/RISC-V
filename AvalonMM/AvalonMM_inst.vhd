@@ -11,6 +11,8 @@
 			mm_bridge_s_read          : in    std_logic                     := 'X';             -- read
 			mm_bridge_s_byteenable    : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- byteenable
 			mm_bridge_s_debugaccess   : in    std_logic                     := 'X';             -- debugaccess
+			pp_led_g_export           : out   std_logic_vector(8 downto 0);                     -- export
+			pp_switch_export          : in    std_logic_vector(17 downto 0) := (others => 'X'); -- export
 			reset_reset_n             : in    std_logic                     := 'X';             -- reset_n
 			sdram_addr                : out   std_logic_vector(12 downto 0);                    -- addr
 			sdram_ba                  : out   std_logic_vector(1 downto 0);                     -- ba
@@ -21,9 +23,7 @@
 			sdram_dqm                 : out   std_logic_vector(3 downto 0);                     -- dqm
 			sdram_ras_n               : out   std_logic;                                        -- ras_n
 			sdram_we_n                : out   std_logic;                                        -- we_n
-			sdram_clk_clk             : out   std_logic;                                        -- clk
-			pp_led_g_export           : out   std_logic_vector(8 downto 0);                     -- export
-			pp_switch_export          : in    std_logic_vector(17 downto 0) := (others => 'X')  -- export
+			sdram_clk_clk             : out   std_logic                                         -- clk
 		);
 	end component AvalonMM;
 
@@ -40,6 +40,8 @@
 			mm_bridge_s_read          => CONNECTED_TO_mm_bridge_s_read,          --            .read
 			mm_bridge_s_byteenable    => CONNECTED_TO_mm_bridge_s_byteenable,    --            .byteenable
 			mm_bridge_s_debugaccess   => CONNECTED_TO_mm_bridge_s_debugaccess,   --            .debugaccess
+			pp_led_g_export           => CONNECTED_TO_pp_led_g_export,           --    pp_led_g.export
+			pp_switch_export          => CONNECTED_TO_pp_switch_export,          --   pp_switch.export
 			reset_reset_n             => CONNECTED_TO_reset_reset_n,             --       reset.reset_n
 			sdram_addr                => CONNECTED_TO_sdram_addr,                --       sdram.addr
 			sdram_ba                  => CONNECTED_TO_sdram_ba,                  --            .ba
@@ -50,8 +52,6 @@
 			sdram_dqm                 => CONNECTED_TO_sdram_dqm,                 --            .dqm
 			sdram_ras_n               => CONNECTED_TO_sdram_ras_n,               --            .ras_n
 			sdram_we_n                => CONNECTED_TO_sdram_we_n,                --            .we_n
-			sdram_clk_clk             => CONNECTED_TO_sdram_clk_clk,             --   sdram_clk.clk
-			pp_led_g_export           => CONNECTED_TO_pp_led_g_export,           --    pp_led_g.export
-			pp_switch_export          => CONNECTED_TO_pp_switch_export           --   pp_switch.export
+			sdram_clk_clk             => CONNECTED_TO_sdram_clk_clk              --   sdram_clk.clk
 		);
 

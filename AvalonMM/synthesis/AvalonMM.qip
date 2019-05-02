@@ -2,7 +2,7 @@ set_global_assignment -entity "AvalonMM" -library "AvalonMM" -name IP_TOOL_NAME 
 set_global_assignment -entity "AvalonMM" -library "AvalonMM" -name IP_TOOL_VERSION "18.1"
 set_global_assignment -entity "AvalonMM" -library "AvalonMM" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "AvalonMM" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../AvalonMM.sopcinfo"]
-set_global_assignment -entity "AvalonMM" -library "AvalonMM" -name SLD_INFO "QSYS_NAME AvalonMM HAS_SOPCINFO 1 GENERATION_ID 1556574798"
+set_global_assignment -entity "AvalonMM" -library "AvalonMM" -name SLD_INFO "QSYS_NAME AvalonMM HAS_SOPCINFO 1 GENERATION_ID 1556633401"
 set_global_assignment -library "AvalonMM" -name MISC_FILE [file join $::quartus(qip_path) "../AvalonMM.cmp"]
 set_global_assignment -library "AvalonMM" -name SLD_FILE [file join $::quartus(qip_path) "AvalonMM.regmap"]
 set_global_assignment -library "AvalonMM" -name SLD_FILE [file join $::quartus(qip_path) "AvalonMM.debuginfo"]
@@ -16,7 +16,7 @@ set_global_assignment -entity "AvalonMM" -library "AvalonMM" -name IP_COMPONENT_
 set_global_assignment -entity "AvalonMM" -library "AvalonMM" -name IP_COMPONENT_REPORT_HIERARCHY "On"
 set_global_assignment -entity "AvalonMM" -library "AvalonMM" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "AvalonMM" -library "AvalonMM" -name IP_COMPONENT_VERSION "MS4w"
-set_global_assignment -entity "AvalonMM" -library "AvalonMM" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTU1NjU3NDc5OA==::QXV0byBHRU5FUkFUSU9OX0lE"
+set_global_assignment -entity "AvalonMM" -library "AvalonMM" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTU1NjYzMzQwMQ==::QXV0byBHRU5FUkFUSU9OX0lE"
 set_global_assignment -entity "AvalonMM" -library "AvalonMM" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfRkFNSUxZ::Q3ljbG9uZSBJViBF::QXV0byBERVZJQ0VfRkFNSUxZ"
 set_global_assignment -entity "AvalonMM" -library "AvalonMM" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0U=::RVA0Q0UxMTVGMjlDNw==::QXV0byBERVZJQ0U="
 set_global_assignment -entity "AvalonMM" -library "AvalonMM" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfU1BFRURHUkFERQ==::Nw==::QXV0byBERVZJQ0VfU1BFRURHUkFERQ=="
@@ -109,26 +109,6 @@ set_global_assignment -entity "AvalonMM_mm_interconnect_0_avalon_st_adapter_erro
 set_global_assignment -entity "AvalonMM_mm_interconnect_0_avalon_st_adapter_error_adapter_0" -library "AvalonMM" -name IP_COMPONENT_PARAMETER "aW5SZWFkeUxhdGVuY3k=::MA==::UmVhZHkgTGF0ZW5jeQ=="
 set_global_assignment -entity "AvalonMM_mm_interconnect_0_avalon_st_adapter_error_adapter_0" -library "AvalonMM" -name IP_COMPONENT_PARAMETER "aW5FcnJvcldpZHRo::MA==::RXJyb3IgU2lnbmFsIFdpZHRoIChiaXRzKQ=="
 set_global_assignment -entity "AvalonMM_mm_interconnect_0_avalon_st_adapter_error_adapter_0" -library "AvalonMM" -name IP_COMPONENT_PARAMETER "b3V0RXJyb3JXaWR0aA==::MQ==::RXJyb3IgU2lnbmFsIFdpZHRoIChiaXRzKQ=="
-set_global_assignment -entity "altera_avalon_st_handshake_clock_crosser" -library "AvalonMM" -name IP_COMPONENT_NAME "YWx0ZXJhX2F2YWxvbl9zdF9oYW5kc2hha2VfY2xvY2tfY3Jvc3Nlcg=="
-set_global_assignment -entity "altera_avalon_st_handshake_clock_crosser" -library "AvalonMM" -name IP_COMPONENT_DISPLAY_NAME "QXZhbG9uLVNUIEhhbmRzaGFrZSBDbG9jayBDcm9zc2Vy"
-set_global_assignment -entity "altera_avalon_st_handshake_clock_crosser" -library "AvalonMM" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
-set_global_assignment -entity "altera_avalon_st_handshake_clock_crosser" -library "AvalonMM" -name IP_COMPONENT_INTERNAL "On"
-set_global_assignment -entity "altera_avalon_st_handshake_clock_crosser" -library "AvalonMM" -name IP_COMPONENT_AUTHOR "QWx0ZXJhIENvcnBvcmF0aW9u"
-set_global_assignment -entity "altera_avalon_st_handshake_clock_crosser" -library "AvalonMM" -name IP_COMPONENT_VERSION "MTguMQ=="
-set_global_assignment -entity "altera_avalon_st_handshake_clock_crosser" -library "AvalonMM" -name IP_COMPONENT_DESCRIPTION "Q29ubmVjdHMgc3RyZWFtcyB0aGF0IG9wZXJhdGUgYXQgZGlmZmVyZW50IGZyZXF1ZW5jaWVzIHVzaW5nIGEgaGFuZC1zaGFraW5nIHByb3RvY29sIHRvIHByb3BhZ2F0ZSB0cmFuc2ZlciBjb250cm9sIHNpZ25hbHMgYW5kIHJlc3BvbnNlcyBhY3Jvc3MgdGhlIGNsb2NrIGJvdW5kYXJ5IGFuZCByZXNwb25zZXMgaW4gdGhlIG90aGVyIGRpcmVjdGlvbi4="
-set_global_assignment -entity "altera_avalon_st_handshake_clock_crosser" -library "AvalonMM" -name IP_COMPONENT_PARAMETER "REFUQV9XSURUSA==::MTA0::RGF0YSB3aWR0aA=="
-set_global_assignment -entity "altera_avalon_st_handshake_clock_crosser" -library "AvalonMM" -name IP_COMPONENT_PARAMETER "QklUU19QRVJfU1lNQk9M::MTA0::Qml0cyBwZXIgc3ltYm9s"
-set_global_assignment -entity "altera_avalon_st_handshake_clock_crosser" -library "AvalonMM" -name IP_COMPONENT_PARAMETER "VVNFX1BBQ0tFVFM=::MQ==::VXNlIHBhY2tldHM="
-set_global_assignment -entity "altera_avalon_st_handshake_clock_crosser" -library "AvalonMM" -name IP_COMPONENT_PARAMETER "VVNFX0NIQU5ORUw=::MQ==::VXNlIGNoYW5uZWw="
-set_global_assignment -entity "altera_avalon_st_handshake_clock_crosser" -library "AvalonMM" -name IP_COMPONENT_PARAMETER "Q0hBTk5FTF9XSURUSA==::Mw==::Q2hhbm5lbCB3aWR0aA=="
-set_global_assignment -entity "altera_avalon_st_handshake_clock_crosser" -library "AvalonMM" -name IP_COMPONENT_PARAMETER "TUFYX0NIQU5ORUw=::MA==::TWF4aW11bSBjaGFubmVsIHZhbHVl"
-set_global_assignment -entity "altera_avalon_st_handshake_clock_crosser" -library "AvalonMM" -name IP_COMPONENT_PARAMETER "VVNFX0VSUk9S::MA==::VXNlIGVycm9y"
-set_global_assignment -entity "altera_avalon_st_handshake_clock_crosser" -library "AvalonMM" -name IP_COMPONENT_PARAMETER "RVJST1JfV0lEVEg=::MQ==::RXJyb3Igd2lkdGg="
-set_global_assignment -entity "altera_avalon_st_handshake_clock_crosser" -library "AvalonMM" -name IP_COMPONENT_PARAMETER "VkFMSURfU1lOQ19ERVBUSA==::Mg==::VmFsaWQgc3luY2hyb25pemVyIGRlcHRo"
-set_global_assignment -entity "altera_avalon_st_handshake_clock_crosser" -library "AvalonMM" -name IP_COMPONENT_PARAMETER "UkVBRFlfU1lOQ19ERVBUSA==::Mg==::UmVhZHkgc3luY2hyb25pemVyIGRlcHRo"
-set_global_assignment -entity "altera_avalon_st_handshake_clock_crosser" -library "AvalonMM" -name IP_COMPONENT_PARAMETER "VVNFX09VVFBVVF9QSVBFTElORQ==::MA==::VXNlIG91dHB1dCBwaXBlbGluZQ=="
-set_global_assignment -entity "altera_avalon_st_handshake_clock_crosser" -library "AvalonMM" -name IP_COMPONENT_PARAMETER "QVVUT19JTl9DTEtfQ0xPQ0tfUkFURQ==::NTAwMDAwMDA=::QXV0byBDTE9DS19SQVRF"
-set_global_assignment -entity "altera_avalon_st_handshake_clock_crosser" -library "AvalonMM" -name IP_COMPONENT_PARAMETER "QVVUT19PVVRfQ0xLX0NMT0NLX1JBVEU=::NTAwMDAwMDA=::QXV0byBDTE9DS19SQVRF"
 set_global_assignment -entity "AvalonMM_mm_interconnect_0_rsp_mux" -library "AvalonMM" -name IP_COMPONENT_NAME "QXZhbG9uTU1fbW1faW50ZXJjb25uZWN0XzBfcnNwX211eA=="
 set_global_assignment -entity "AvalonMM_mm_interconnect_0_rsp_mux" -library "AvalonMM" -name IP_COMPONENT_DISPLAY_NAME "TWVtb3J5IE1hcHBlZCBNdWx0aXBsZXhlcg=="
 set_global_assignment -entity "AvalonMM_mm_interconnect_0_rsp_mux" -library "AvalonMM" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
@@ -780,19 +760,12 @@ set_global_assignment -entity "altera_avalon_st_jtag_interface" -library "Avalon
 set_global_assignment -entity "altera_avalon_st_jtag_interface" -library "AvalonMM" -name IP_COMPONENT_PARAMETER "RkFCUklD::Mi4w::RkFCUklD"
 
 set_global_assignment -library "AvalonMM" -name VHDL_FILE [file join $::quartus(qip_path) "AvalonMM.vhd"]
-set_global_assignment -library "AvalonMM" -name VHDL_FILE [file join $::quartus(qip_path) "avalonmm_rst_controller.vhd"]
-set_global_assignment -library "AvalonMM" -name VHDL_FILE [file join $::quartus(qip_path) "avalonmm_rst_controller_002.vhd"]
 set_global_assignment -library "AvalonMM" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_reset_controller.v"]
 set_global_assignment -library "AvalonMM" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_reset_synchronizer.v"]
 set_global_assignment -library "AvalonMM" -name SDC_FILE [file join $::quartus(qip_path) "submodules/altera_reset_controller.sdc"]
 set_global_assignment -library "AvalonMM" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/AvalonMM_mm_interconnect_0.v"]
 set_global_assignment -library "AvalonMM" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/AvalonMM_mm_interconnect_0_avalon_st_adapter.v"]
 set_global_assignment -library "AvalonMM" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/AvalonMM_mm_interconnect_0_avalon_st_adapter_error_adapter_0.sv"]
-set_global_assignment -library "AvalonMM" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_avalon_st_handshake_clock_crosser.v"]
-set_global_assignment -library "AvalonMM" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_avalon_st_clock_crosser.v"]
-set_global_assignment -library "AvalonMM" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_avalon_st_pipeline_base.v"]
-set_global_assignment -library "AvalonMM" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_std_synchronizer_nocut.v"]
-set_global_assignment -library "AvalonMM" -name SDC_FILE [file join $::quartus(qip_path) "submodules/altera_avalon_st_handshake_clock_crosser.sdc"]
 set_global_assignment -library "AvalonMM" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/AvalonMM_mm_interconnect_0_rsp_mux.sv"]
 set_global_assignment -library "AvalonMM" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_merlin_arbitrator.sv"]
 set_global_assignment -library "AvalonMM" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/AvalonMM_mm_interconnect_0_rsp_demux.sv"]
@@ -801,6 +774,7 @@ set_global_assignment -library "AvalonMM" -name SYSTEMVERILOG_FILE [file join $:
 set_global_assignment -library "AvalonMM" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_merlin_traffic_limiter.sv"]
 set_global_assignment -library "AvalonMM" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_merlin_reorder_memory.sv"]
 set_global_assignment -library "AvalonMM" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_avalon_sc_fifo.v"]
+set_global_assignment -library "AvalonMM" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_avalon_st_pipeline_base.v"]
 set_global_assignment -library "AvalonMM" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/AvalonMM_mm_interconnect_0_router_002.sv"]
 set_global_assignment -library "AvalonMM" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/AvalonMM_mm_interconnect_0_router.sv"]
 set_global_assignment -library "AvalonMM" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_merlin_slave_agent.sv"]
@@ -826,6 +800,8 @@ set_global_assignment -library "AvalonMM" -name VERILOG_FILE [file join $::quart
 set_global_assignment -library "AvalonMM" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_jtag_dc_streaming.v"]
 set_global_assignment -library "AvalonMM" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_jtag_sld_node.v"]
 set_global_assignment -library "AvalonMM" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_jtag_streaming.v"]
+set_global_assignment -library "AvalonMM" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_avalon_st_clock_crosser.v"]
+set_global_assignment -library "AvalonMM" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_std_synchronizer_nocut.v"]
 set_global_assignment -library "AvalonMM" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_avalon_st_idle_remover.v"]
 set_global_assignment -library "AvalonMM" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_avalon_st_idle_inserter.v"]
 set_global_assignment -library "AvalonMM" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_avalon_st_pipeline_stage.sv"]
@@ -843,9 +819,6 @@ set_global_assignment -entity "AvalonMM_mm_interconnect_0_avalon_st_adapter" -li
 set_global_assignment -entity "AvalonMM_mm_interconnect_0_avalon_st_adapter_error_adapter_0" -library "AvalonMM" -name IP_TOOL_NAME "error_adapter"
 set_global_assignment -entity "AvalonMM_mm_interconnect_0_avalon_st_adapter_error_adapter_0" -library "AvalonMM" -name IP_TOOL_VERSION "18.1"
 set_global_assignment -entity "AvalonMM_mm_interconnect_0_avalon_st_adapter_error_adapter_0" -library "AvalonMM" -name IP_TOOL_ENV "Qsys"
-set_global_assignment -entity "altera_avalon_st_handshake_clock_crosser" -library "AvalonMM" -name IP_TOOL_NAME "altera_avalon_st_handshake_clock_crosser"
-set_global_assignment -entity "altera_avalon_st_handshake_clock_crosser" -library "AvalonMM" -name IP_TOOL_VERSION "18.1"
-set_global_assignment -entity "altera_avalon_st_handshake_clock_crosser" -library "AvalonMM" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -entity "AvalonMM_mm_interconnect_0_rsp_mux" -library "AvalonMM" -name IP_TOOL_NAME "altera_merlin_multiplexer"
 set_global_assignment -entity "AvalonMM_mm_interconnect_0_rsp_mux" -library "AvalonMM" -name IP_TOOL_VERSION "18.1"
 set_global_assignment -entity "AvalonMM_mm_interconnect_0_rsp_mux" -library "AvalonMM" -name IP_TOOL_ENV "Qsys"
