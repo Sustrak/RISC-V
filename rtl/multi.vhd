@@ -28,7 +28,7 @@ entity multi is
 end entity;
 
 architecture Structure of multi is
-	type proc_state is (INI, FETCH, ID, EX, MEM, WB);
+	type proc_state is (INI, FETCH, ID, EX, MEM, MEM_LD_WAIT, WB);
 	signal state : proc_state := FETCH;
     signal s_proc_data_read : std_logic;
     signal rebotes : std_logic_vector(15 downto 0);
@@ -65,10 +65,14 @@ begin
 			elsif state = EX then
 				state <= MEM;
 			elsif state = MEM then
-                    if i_avalon_readvalid = '1' then
-                        s_proc_data_read <= '1';
-                        state <= WB;
-                    elsif i_ld_st /= LD_SDRAM then
+                if i_ld_st = LD_SDRAM then
+                    state <= MEM_LD_WAIT;
+                else
+                    state <= WB;
+                end if;
+            elsif state = MEM_LD_WAIT then
+                if i_avalon_readvalid = '1' then
+                    s_proc_data_read <= '1';
                     state <= WB;
                 end if;
 			elsif state = WB then
@@ -79,7 +83,7 @@ begin
 
     o_proc_data_read <= s_proc_data_read;
 
-    o_reg_stall <= '1' when state = MEM and i_ld_st = LD_SDRAM else
+    o_reg_stall <= '1' when state = MEM_LD_WAIT else
                    '0';
 
 

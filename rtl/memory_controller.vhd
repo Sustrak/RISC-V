@@ -67,6 +67,16 @@ architecture Structure of memory_controller is
 		);
 	end component AvalonMM;
 
+    component edge_detector is
+        port (
+            i_clk : in std_logic;
+            i_signal : in std_logic;
+            i_data : in std_logic_vector(R_XLEN);
+            o_data : out std_logic_vector(R_XLEN);
+            o_edge : out std_logic
+        );
+    end component;
+
 	-- AVALON MM
 	signal s_mm_waitrequest   : std_logic;
 	signal s_mm_readdata      : std_logic_vector(31 downto 0);
@@ -83,6 +93,11 @@ architecture Structure of memory_controller is
 	signal s_mm_debugaccess   : std_logic;
     signal s_switch_int       : std_logic;
     signal s_reset            : std_logic;
+    signal s_mm_read_edge     : std_logic;
+    signal s_mm_readdatavalid_edge : std_logic;
+    signal s_readdata : std_logic_vector(R_XLEN);
+    
+
     
 
     -- Unexpected readdatavalids from SDRAM
@@ -126,6 +141,24 @@ begin
             pp_switch_export          => i_switch
         );
 
+    c_edge_detector0 : component edge_detector
+        port map (
+            i_clk => i_clk_50,
+            i_signal => s_mm_read,
+            i_data => (others => '0'),
+            o_data => open,
+            o_edge => s_mm_read_edge
+        );
+
+    c_edge_detector1 : component edge_detector
+        port map (
+            i_clk => i_clk_50,
+            i_signal => s_mm_readdatavalid,
+            i_data => s_mm_readdata,
+            o_data => s_readdata,
+            o_edge => s_mm_readdatavalid_edge
+        );
+
 	s_write <= '1' when i_ld_st = ST_SDRAM else
 		'0';
 	s_read <= '1' when i_ld_st = LD_SDRAM else
@@ -137,46 +170,10 @@ begin
 		"0000";
 
 
-    
-    --rw_flipflop: process(i_clk_50, i_reset_n)
-    --begin
-    --    if rising_edge(i_clk_50) then
-    --        s_read_ff <= s_read;        -- One cycle delayed
-    --        s_write_ff <= s_write;
-    --        s_mm_read <= '0';
-    --        s_mm_write <= '0';
-    --        if (s_read = '1') and (s_read_ff = '0') then    -- Detected '0' to '1' transition
-    --            s_mm_read <= '1';   -- Set to '1' during one cycle
-    --        end if;
-    --        if (s_write = '1') and (s_write_ff = '0') then
-    --            s_mm_write <= '1';
-    --        end if;
-    --    end if;
-    --    if i_reset_n = '1' then
-    --        s_mm_read <= '0';
-    --        s_mm_write <= '0';
-    --    end if;
-    --end process; 
-
-    --datavalid_ff : process(i_clk_50, i_reset)
-    --begin
-    --    if rising_edge(i_clk_50) then
-    --        s_readdatavalid_ff <= s_mm_readdatavalid;
-    --        s_readdatavalid <= '0';
-    --        if (s_mm_readdatavalid = '1') and (s_readdatavalid_ff = '0') then
-    --            s_readdatavalid <= '1';
-    --        end if;
-    --    end if;
-    --    if i_reset = '1' then
-    --        s_readdatavalid <= '0';
-    --    end if;
-    --end process; 
-
     -- Read data holder
-
-    expect_readdata: process(s_mm_read, i_proc_data_read, i_reset)
+    expect_readdata: process(i_clk_50, s_mm_read_edge, i_proc_data_read, i_reset)
     begin
-        if rising_edge(s_mm_read) then
+        if rising_edge(i_clk_50) and s_mm_read_edge = '1' then
             s_expect_readdata <= '1';
         end if;
         if i_proc_data_read = '1' or i_reset = '1' then
@@ -184,18 +181,18 @@ begin
         end if;
     end process;
     
-    rd_hold: process(s_mm_readdatavalid, i_proc_data_read, i_reset)
+    rd_hold: process(i_clk_50, s_mm_readdatavalid_edge, i_proc_data_read, i_reset)
     begin
-        if rising_edge(s_mm_readdatavalid) and s_expect_readdata = '1' then
+        if rising_edge(i_clk_50) and s_mm_readdatavalid_edge = '1' and s_expect_readdata = '1' then
             if s_mm_address < x"0001000" then
                 if s_last_ins /= s_mm_readdata then
                     s_reg_readdatavalid <= '1';
-                    s_reg_readdata <= s_mm_readdata;
-                    s_last_ins <= s_mm_readdata;
+                    s_reg_readdata <= s_readdata;
+                    s_last_ins <= s_readdata;
                 end if;
             else
                 s_reg_readdatavalid <= '1';
-                s_reg_readdata <= s_mm_readdata;
+                s_reg_readdata <= s_readdata;
             end if;
         end if;
         if i_proc_data_read = '1' then

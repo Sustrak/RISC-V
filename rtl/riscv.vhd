@@ -153,17 +153,16 @@ architecture Structure of riscv is
             i_switch          : in std_logic_vector(R_SWITCH)
 		);
 	end component;
-    component pll_debug
-    	PORT
-    	(
-    		inclk0		: IN STD_LOGIC  := '0';
-    		c0		: OUT STD_LOGIC 
-    	);
+    component system_pll is
+        port (
+            inclk0 : in std_logic;
+            c0     : out std_logic;
+            c1     : out std_logic
+        );
     end component;
 
 	signal s_clk_p           : std_logic                    := '0';
     signal s_clock_100       : std_logic;
-	signal s_count           : std_logic_vector(1 downto 0) := "00";
 	signal s_rdata_mem       : std_logic_vector(R_XLEN);
 	signal s_wdata_mem       : std_logic_vector(R_XLEN);
 	signal s_addr_mem        : std_logic_vector(R_XLEN);
@@ -218,10 +217,11 @@ begin
         i_switch          => SW(17 downto 1) & '0'
 	);
 
-    c_pll_debug : pll_debug
+    c_system_pll : system_pll
     port map(
         inclk0 => CLOCK_50,
-        c0 => s_clock_100
+        c0 => s_clock_100,
+        c1 => s_clk_p
     );
 
     HEX7 <= s_hex_bus(R_HEX7);
@@ -232,15 +232,4 @@ begin
     HEX2 <= s_hex_bus(R_HEX2);
     HEX1 <= s_hex_bus(R_HEX1);
     HEX0 <= s_hex_bus(R_HEX0);
-
-	-- Base clock for the processor 
-	process (CLOCK_50)
-	begin
-		if rising_edge(CLOCK_50) then
-			s_count <= std_logic_vector(unsigned(s_count) + 1);
-		end if;
-	end process;
-
-	s_clk_p  <= s_count(1);
-
 end Structure;

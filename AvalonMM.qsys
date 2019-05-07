@@ -148,6 +148,7 @@
    internal="sdram_pll.sdram_clk"
    type="clock"
    dir="start" />
+ <interface name="switch_int" internal="switch.irq" />
  <module name="clk_0" kind="clock_source" version="18.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />

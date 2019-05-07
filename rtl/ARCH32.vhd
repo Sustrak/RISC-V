@@ -181,7 +181,5 @@ package ARCH32 is
 	constant R_DPB_TKBR : integer := R_DPB_PC'high + 1;
 	subtype R_DPB_NEWPC is natural range R_DPB_TKBR + 32 downto R_DPB_TKBR + 1;
 	subtype R_DATAPATH_BUS is natural range R_DPB_NEWPC'high downto 0;
-	subtype R_DPB_EXMEM is natural range 10 downto 0;
-	subtype R_DPB_MEMWB is natural range 5 downto 0;
 
 end ARCH32;
