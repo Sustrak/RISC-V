@@ -20,6 +20,7 @@ entity datapath is
 		i_rb_imm       : in std_logic;
 		i_ra_pc        : in std_logic;
 		i_alu_mem_pc   : in std_logic_vector(R_REG_DATA);
+        i_reg_stall    : in std_logic;
 		-- BRANCH
 		i_pc_br        : in std_logic_vector(R_XLEN);
 		o_new_pc       : out std_logic_vector(R_XLEN);
@@ -133,7 +134,8 @@ begin
 	s_adata <= r_id_ex(R_DPB_PC) when r_id_ex(R_DPB_RAPC) = ALU_PC else
 		r_id_ex(R_DPB_DATAA);
 
-	s_port_d    <= r_mem_wb(R_DPB_DATAW);
+    s_port_d    <=  s_rdata_mem_ws when r_mem_wb(R_DPB_ALUMEMPC) = MEM_DATA else
+                    r_mem_wb(R_DPB_DATAW);
 
 	o_addr_mem  <= r_ex_mem(R_DPB_DATAW);
 	o_wdata_mem <= r_ex_mem(R_DPB_DATAB);
@@ -142,7 +144,8 @@ begin
 
 	s_wdata_wb  <= r_ex_mem(R_DPB_DATAW) when r_ex_mem(R_DPB_ALUMEMPC) = ALU_DATA else
 		std_logic_vector(unsigned(r_ex_mem(R_DPB_PC)) + 4) when r_ex_mem(R_DPB_ALUMEMPC) = PC_DATA else -- Save PC+4 when JAL or JARL
-		s_rdata_mem_ws;
+        (others => '0');
+		--s_rdata_mem_ws;
 
 	o_new_pc <= r_mem_wb(R_DPB_NEWPC);
 	o_tkbr   <= r_mem_wb(R_DPB_TKBR);
@@ -151,7 +154,7 @@ begin
 
 	process (i_clk_proc)
 	begin
-		if rising_edge(i_clk_proc) then
+		if rising_edge(i_clk_proc) and i_reg_stall = '0' then
 			-- ID/EX REGISTER IN SIGNALS
 			r_id_ex(R_DPB_IMMED)    <= i_immed;
 			r_id_ex(R_DPB_OPCODE)   <= i_alu_opcode;
@@ -167,8 +170,8 @@ begin
 			r_id_ex(R_DPB_DATAB)    <= s_port_b;
 			r_id_ex(R_DPB_PC)       <= i_pc_br;
 			-- PASS THE SIGNAL TO THE OTHER REGISTERS
-			r_mem_wb                <= r_ex_mem(R_DATAPATH_BUS'high downto R_DPB_DATAW'high + 1) & s_wdata_wb & r_ex_mem(R_DPB_DATAW'low - 1 downto 0);
 			r_ex_mem                <= s_wdata & s_tkbr & r_id_ex(R_DPB_NEWPC'low - 2 downto R_DPB_DATAW'high + 1) & s_wdata & r_id_ex(R_DPB_DATAW'low - 1 downto 0);
+			r_mem_wb                <= r_ex_mem(R_DATAPATH_BUS'high downto R_DPB_DATAW'high + 1) & s_wdata_wb & r_ex_mem(R_DPB_DATAW'low - 1 downto 0);
 		end if;
 	end process;
 end Structure;

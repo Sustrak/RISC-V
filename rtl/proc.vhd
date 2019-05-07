@@ -14,7 +14,8 @@ entity proc is
 		o_addr_mem        : out std_logic_vector(R_XLEN);
 		o_bhw             : out std_logic_vector(R_MEM_ACCS);
 		o_ld_st           : out std_logic_vector(R_MEM_LDST);
-		i_sdram_readvalid : in std_logic
+		i_avalon_readvalid : in std_logic;
+        o_proc_data_read  : out std_logic
 	);
 end proc;
 
@@ -35,6 +36,7 @@ architecture Structure of proc is
 			i_rb_imm       : in std_logic;
 			i_ra_pc        : in std_logic;
 			i_alu_mem_pc   : in std_logic_vector(R_REG_DATA);
+            i_reg_stall    : in std_logic;
 			-- BRANCH
 			i_pc_br        : in std_logic_vector(R_XLEN);
 			o_new_pc       : out std_logic_vector(R_XLEN);
@@ -68,6 +70,7 @@ architecture Structure of proc is
 			o_rb_imm          : out std_logic;
 			o_ra_pc           : out std_logic;
 			o_alu_mem_pc      : out std_logic_vector(R_REG_DATA);
+            o_reg_stall       : out std_logic;
 			-- BRANCH
 			o_pc_br           : out std_logic_vector(R_XLEN);
 			i_new_pc          : in std_logic_vector(R_XLEN);
@@ -82,7 +85,8 @@ architecture Structure of proc is
 			o_mem_unsigned    : out std_logic;
 			o_ld_st_to_mc     : out std_logic_vector(R_MEM_LDST);
 			o_bhw_to_mc       : out std_logic_vector(R_MEM_ACCS);
-			i_sdram_readvalid : in std_logic
+			i_avalon_readvalid : in std_logic;
+            o_proc_data_read  : out std_logic
 		);
 	end component;
 
@@ -105,6 +109,7 @@ architecture Structure of proc is
 	signal s_mem_unsigned : std_logic;
 	signal s_new_pc       : std_logic_vector(R_XLEN);
 	signal s_tkbr         : std_logic;
+    signal s_reg_stall    : std_logic;
 begin
 	c_datapath : datapath
 	port map(
@@ -122,6 +127,7 @@ begin
 		i_pc_br        => s_pc_br,
 		o_new_pc       => s_new_pc,
 		o_tkbr         => s_tkbr,
+        i_reg_stall    => s_reg_stall,
 		-- MEMORY
 		i_rdata_mem    => i_rdata_mem,
 		o_wdata_mem    => o_wdata_mem,
@@ -150,6 +156,7 @@ begin
 		o_pc_br           => s_pc_br,
 		i_new_pc          => s_new_pc,
 		i_tkbr            => s_tkbr,
+        o_reg_stall       => s_reg_stall,
 		-- MEMORY
 		i_addr_mem        => s_addr_mem,
 		i_ld_st           => s_ld_st_dp,
@@ -160,6 +167,7 @@ begin
 		o_bhw_to_mc       => o_bhw,
 		o_addr_mem        => o_addr_mem,
 		o_mem_unsigned    => s_mem_unsigned,
-		i_sdram_readvalid => i_sdram_readvalid
+		i_avalon_readvalid => i_avalon_readvalid,
+        o_proc_data_read  => o_proc_data_read
 	);
 end Structure;
