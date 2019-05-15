@@ -27,6 +27,9 @@ entity memory_controller is
 		o_rd_data         : out std_logic_vector(R_XLEN);
 		o_avalon_readvalid : out std_logic;
         i_proc_data_read : in std_logic;
+        i_int_ack         : in std_logic;
+        o_int             : out std_logic;
+        o_mcause          : out std_logic_vector(R_XLEN);
         -- IO
         o_led_r           : out std_logic_vector(R_LED_R);
         o_led_g           : out std_logic_vector(R_LED_G);
@@ -63,7 +66,11 @@ architecture Structure of memory_controller is
 			sdram_we_n                : out std_logic;
 			sdram_clk_clk             : out std_logic;
 			pp_led_g_export           : out std_logic_vector(8 downto 0);
-			pp_switch_export          : in std_logic_vector(17 downto 0) := (others => 'X')
+			pp_led_r_export           : out std_logic_vector(17 downto 0);
+			pp_switch_export          : in std_logic_vector(17 downto 0) := (others => 'X');
+			pp_key_export             : in std_logic_vector(3 downto 0) := (others => 'X');
+            pp_switch_int_irq         : out std_logic;
+            pp_key_int_irq            : out std_logic
 		);
 	end component AvalonMM;
 
@@ -74,6 +81,18 @@ architecture Structure of memory_controller is
             i_data : in std_logic_vector(R_XLEN);
             o_data : out std_logic_vector(R_XLEN);
             o_edge : out std_logic
+        );
+    end component;
+
+    component int_controller is
+        port (
+            i_clk : in std_logic;
+            i_reset : in std_logic;
+            i_int_ack : in std_logic;
+            i_int_sw  : in std_logic;
+            i_int_key : in std_logic;
+            o_int     : out std_logic;
+            o_mcause  : out std_logic_vector(R_XLEN)
         );
     end component;
 
@@ -91,7 +110,6 @@ architecture Structure of memory_controller is
 	signal s_mm_byteenable    : std_logic_vector(3 downto 0);
 	signal s_mm_byteenable0   : std_logic_vector(3 downto 0);
 	signal s_mm_debugaccess   : std_logic;
-    signal s_switch_int       : std_logic;
     signal s_reset            : std_logic;
     signal s_mm_read_edge     : std_logic;
     signal s_mm_readdatavalid_edge : std_logic;
@@ -109,6 +127,10 @@ architecture Structure of memory_controller is
     signal s_reg_readdatavalid : std_logic;
     signal s_readdatavalid_ff : std_logic;
     signal s_readdatavalid    : std_logic;
+
+    -- INTERRUPTS
+    signal s_switch_int       : std_logic;
+    signal s_key_int          : std_logic;
 
 
 begin
@@ -138,7 +160,11 @@ begin
 			mm_bridge_s_byteenable    => s_mm_byteenable,
 			mm_bridge_s_debugaccess   => s_mm_debugaccess,
             pp_led_g_export           => o_led_g,
-            pp_switch_export          => i_switch
+            pp_led_r_export           => o_led_r,
+            pp_switch_export          => i_switch,
+            pp_key_export             => i_key,
+            pp_switch_int_irq         => s_switch_int,
+            pp_key_int_irq            => s_key_int
         );
 
     c_edge_detector0 : component edge_detector
@@ -212,7 +238,6 @@ begin
 		if rising_edge(i_clk_50) then
 			s_mm_address      <= i_addr(27 downto 0);
 
-            --o_rd_data         <= s_mm_readdata;
 			s_mm_writedata    <= i_wr_data;
 
             s_mm_read <= s_read;
@@ -231,7 +256,17 @@ begin
 			-- 1000  -> Writes byte 3
 			s_mm_byteenable   <= s_mm_byteenable0;
 
-			--o_avalon_readvalid <= s_mm_readdatavalid;
 		end if;
 	end process;
+
+    c_int_controller : int_controller
+        port map (
+            i_clk => i_clk_50,
+            i_reset => i_reset,
+            i_int_ack => i_int_ack,
+            i_int_sw  => s_switch_int,
+            i_int_key => s_key_int,
+            o_int     => o_int,
+            o_mcause  => o_mcause
+        );
 end Structure;

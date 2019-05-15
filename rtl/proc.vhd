@@ -15,7 +15,10 @@ entity proc is
 		o_bhw             : out std_logic_vector(R_MEM_ACCS);
 		o_ld_st           : out std_logic_vector(R_MEM_LDST);
 		i_avalon_readvalid : in std_logic;
-        o_proc_data_read  : out std_logic
+        o_proc_data_read  : out std_logic;
+        o_int_ack         : out std_logic;
+        i_int             : in std_logic;
+        i_mcause          : in std_logic_vector(R_XLEN)
 	);
 end proc;
 
@@ -24,8 +27,8 @@ architecture Structure of proc is
 		port (
 			-- REGFILE
 			i_clk_proc     : in std_logic;
+            i_reset        : in std_logic;
 			i_wr_reg       : in std_logic;
-			i_wr_reg_multi : in std_logic;
 			i_addr_d_reg   : in std_logic_vector(R_REGS);
 			i_addr_a_reg   : in std_logic_vector(R_REGS);
 			i_addr_b_reg   : in std_logic_vector(R_REGS);
@@ -37,6 +40,12 @@ architecture Structure of proc is
 			i_ra_pc        : in std_logic;
 			i_alu_mem_pc   : in std_logic_vector(R_REG_DATA);
             i_reg_stall    : in std_logic;
+            -- INTERRUPT
+            i_mcause       : in std_logic_vector(R_XLEN);
+            o_int_enabled  : out std_logic;
+            i_csr_op       : in std_logic_vector(R_CSR_OP);
+            i_addr_csr     : in std_logic_vector(R_CSR);
+            i_mret         : in std_logic;
 			-- BRANCH
 			i_pc_br        : in std_logic_vector(R_XLEN);
 			o_new_pc       : out std_logic_vector(R_XLEN);
@@ -49,7 +58,9 @@ architecture Structure of proc is
 			i_bhw          : in std_logic_vector(R_MEM_ACCS);
 			o_ld_st        : out std_logic_vector(R_MEM_LDST);
 			o_bhw          : out std_logic_vector(R_MEM_ACCS);
-			i_mem_unsigned : in std_logic
+			i_mem_unsigned : in std_logic;
+            -- STATES
+            i_states       : in std_logic_vector(R_STATES)
 		);
 	end component;
 	component control_unit is
@@ -65,7 +76,6 @@ architecture Structure of proc is
 			o_addr_a_reg      : out std_logic_vector(R_REGS);
 			o_addr_b_reg      : out std_logic_vector(R_REGS);
 			o_wr_reg          : out std_logic;
-			o_wr_reg_multi    : out std_logic;
 			--CONTROL
 			o_rb_imm          : out std_logic;
 			o_ra_pc           : out std_logic;
@@ -86,7 +96,14 @@ architecture Structure of proc is
 			o_ld_st_to_mc     : out std_logic_vector(R_MEM_LDST);
 			o_bhw_to_mc       : out std_logic_vector(R_MEM_ACCS);
 			i_avalon_readvalid : in std_logic;
-            o_proc_data_read  : out std_logic
+            o_proc_data_read  : out std_logic;
+            -- STATES
+            o_states          : out std_logic_vector(R_STATES);
+            -- INTERRUPTS
+            i_int             : in std_logic;
+            o_csr_op          : out std_logic_vector(R_CSR_OP);
+            o_addr_csr        : out std_logic_vector(R_CSR);
+            o_mret            : out std_logic
 		);
 	end component;
 
@@ -110,12 +127,18 @@ architecture Structure of proc is
 	signal s_new_pc       : std_logic_vector(R_XLEN);
 	signal s_tkbr         : std_logic;
     signal s_reg_stall    : std_logic;
+    signal s_mret         : std_logic;
+    signal s_csr_op       : std_logic_vector(R_CSR_OP);
+    signal s_addr_csr     : std_logic_vector(R_CSR);
+    signal s_states       : std_logic_vector(R_STATES);
+    signal s_int_enabled  : std_logic;
+    signal s_int          : std_logic;
 begin
 	c_datapath : datapath
 	port map(
 		i_clk_proc     => i_clk_proc,
+        i_reset        => i_boot,
 		i_wr_reg       => s_wr_reg,
-		i_wr_reg_multi => s_wr_reg_multi,
 		i_addr_d_reg   => s_addr_d_reg,
 		i_addr_a_reg   => s_addr_a_reg,
 		i_addr_b_reg   => s_addr_b_reg,
@@ -128,6 +151,7 @@ begin
 		o_new_pc       => s_new_pc,
 		o_tkbr         => s_tkbr,
         i_reg_stall    => s_reg_stall,
+        i_mcause       => i_mcause,
 		-- MEMORY
 		i_rdata_mem    => i_rdata_mem,
 		o_wdata_mem    => o_wdata_mem,
@@ -136,7 +160,13 @@ begin
 		i_bhw          => s_bhw_cu,
 		o_ld_st        => s_ld_st_dp,
 		o_bhw          => s_bhw_dp,
-		i_mem_unsigned => s_mem_unsigned
+		i_mem_unsigned => s_mem_unsigned,
+        -- INTERRPUTS
+        i_csr_op       => s_csr_op,
+        o_int_enabled  => s_int_enabled,
+        i_addr_csr     => s_addr_csr,
+        i_mret         => s_mret,
+        i_states       => s_states
 	);
 	c_cu : control_unit
 	port map(
@@ -149,7 +179,6 @@ begin
 		o_addr_a_reg      => s_addr_a_reg,
 		o_addr_b_reg      => s_addr_b_reg,
 		o_wr_reg          => s_wr_reg,
-		o_wr_reg_multi    => s_wr_reg_multi,
 		o_rb_imm          => s_rb_imm,
 		o_ra_pc           => s_ra_pc,
 		o_alu_mem_pc      => s_alu_mem_pc,
@@ -168,6 +197,16 @@ begin
 		o_addr_mem        => o_addr_mem,
 		o_mem_unsigned    => s_mem_unsigned,
 		i_avalon_readvalid => i_avalon_readvalid,
-        o_proc_data_read  => o_proc_data_read
+        o_proc_data_read  => o_proc_data_read,
+        o_states          => s_states,
+        -- INTERRUPTS
+        i_int              => s_int,
+        o_csr_op           => s_csr_op,
+        o_addr_csr         => s_addr_csr,
+        o_mret             => s_mret
 	);
+
+    s_int <= s_int_enabled and i_int;
+    
+    o_int_ack <= s_mret;
 end Structure;

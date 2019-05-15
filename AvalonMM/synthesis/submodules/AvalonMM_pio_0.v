@@ -33,7 +33,7 @@ module AvalonMM_pio_0 (
                       )
 ;
 
-  output  [  7: 0] out_port;
+  output  [ 17: 0] out_port;
   output  [ 31: 0] readdata;
   input   [  1: 0] address;
   input            chipselect;
@@ -44,19 +44,19 @@ module AvalonMM_pio_0 (
 
 
 wire             clk_en;
-reg     [  7: 0] data_out;
-wire    [  7: 0] out_port;
-wire    [  7: 0] read_mux_out;
+reg     [ 17: 0] data_out;
+wire    [ 17: 0] out_port;
+wire    [ 17: 0] read_mux_out;
 wire    [ 31: 0] readdata;
   assign clk_en = 1;
   //s1, which is an e_avalon_slave
-  assign read_mux_out = {8 {(address == 0)}} & data_out;
+  assign read_mux_out = {18 {(address == 0)}} & data_out;
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
           data_out <= 0;
       else if (chipselect && ~write_n && (address == 0))
-          data_out <= writedata[7 : 0];
+          data_out <= writedata[17 : 0];
     end
 
 

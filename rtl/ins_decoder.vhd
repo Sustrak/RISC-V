@@ -23,7 +23,11 @@ entity ins_decoder is
 		-- MEMORY
 		o_ld_st        : out std_logic_vector(R_MEM_LDST);
 		o_bhw          : out std_logic_vector(R_MEM_ACCS);
-		o_mem_unsigned : out std_logic
+		o_mem_unsigned : out std_logic;
+        -- INTERRUPTS
+        o_csr_op       : out std_logic_vector(R_CSR_OP);
+        o_addr_csr     : out std_logic_vector(R_CSR);
+        o_mret         : out std_logic
 	);
 end ins_decoder;
 
@@ -49,16 +53,19 @@ begin
 		ALU_OR when ((s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_OR) else
 		ALU_AND when ((s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_AND) else
 		ALU_JAL when s_op = JAL else
-		ALU_JARL when s_op = JARL else
+		ALU_JALR when s_op = JARL else
 		ALU_BEQ when s_op = BRANCH and s_funct3 = F3_BEQ else
 		ALU_BGE when s_op = BRANCH and s_funct3 = F3_BGE else
 		ALU_BGEU when s_op = BRANCH and s_funct3 = F3_BGEU else
 		ALU_BLT when s_op = BRANCH and s_funct3 = F3_BLT else
 		ALU_BLTU when s_op = BRANCH and s_funct3 = F3_BLTU else
 		ALU_BNE when s_op = BRANCH and s_funct3 = F3_BNE else
+        ALU_PASS_B when s_op = SYSTEM and (s_funct3 = F3_CSRRWI or s_funct3 = F3_CSRRSI or s_funct3 = F3_CSRRCI) else
+        ALU_PASS_A when s_op = SYSTEM and (s_funct3 = F3_CSRRW or s_funct3 = F3_CSRRS or s_funct3 = F3_CSRRC) else
+        ALU_MRET when s_op = SYSTEM and i_ins(R_INSI_IMM) = PRIV_MRET else
 		(others => '0');
 
-	o_wr_reg <= '1' when s_op = LUI or s_op = AUIPC or s_op = JAL or s_op = JARL or s_op = LOAD or s_op = ARITHI or s_op = ARITH else
+	o_wr_reg <= '1' when s_op = LUI or s_op = AUIPC or s_op = JAL or s_op = JARL or s_op = LOAD or s_op = ARITHI or s_op = ARITH or (s_op = SYSTEM and (s_funct3 = F3_CSRRW or s_funct3 = F3_CSRRWI))  else
 		'0';
 
 	o_immed <= i_ins(R_INSU_IMM) when s_op = LUI or s_op = AUIPC else
@@ -71,6 +78,7 @@ begin
 		i_ins(R_INSJ_IMM3) & i_ins(R_INSJ_IMM2) & i_ins(R_INSJ_IMM1) & i_ins(R_INSJ_IMM0) when s_op = JAL else
 		x"00" & i_ins(R_INSB_IMM3) & i_ins(R_INSB_IMM2) & i_ins(R_INSB_IMM1) & i_ins(R_INSB_IMM0) when s_op = BRANCH and i_ins(31) = '0' else
 		x"FF" & i_ins(R_INSB_IMM3) & i_ins(R_INSB_IMM2) & i_ins(R_INSB_IMM1) & i_ins(R_INSB_IMM0) when s_op = BRANCH and i_ins(31) = '1' else
+        x"000" & "000" & i_ins(R_INS_RS1) when s_op = SYSTEM and (s_funct3 = F3_CSRRWI or s_funct3 = F3_CSRRSI or s_funct3 = F3_CSRRCI) else
 		(others => '0');
 
 	o_addr_d_reg <= i_ins(R_INS_RD);
@@ -100,4 +108,20 @@ begin
 
 	o_ld_pc <= '0' when i_ins = x"FFFFFFFF" else
 		'1';
+
+    o_addr_csr <= i_ins(R_INSI_IMM);
+
+    o_csr_op <= CSRRW when s_op = SYSTEM and s_funct3 = F3_CSRRW else
+                CSRRS when s_op = SYSTEM and s_funct3 = F3_CSRRS else
+                CSRRC when s_op = SYSTEM and s_funct3 = F3_CSRRC else
+                CSRRWI when s_op = SYSTEM and s_funct3 = F3_CSRRWI else
+                CSRRSI when s_op = SYSTEM and s_funct3 = F3_CSRRSI else
+                CSRRCI when s_op = SYSTEM and s_funct3 = F3_CSRRCI else
+                CSRNOP;
+
+    --o_int_ack <= '1' when s_op = SYSTEM and s_ins(R_INSI_IMM) = PRIV_MRET else
+    --             '0';
+
+    o_mret    <= '1' when s_op = SYSTEM and i_ins(R_INSI_IMM) = PRIV_MRET else
+                 '0';
 end Structure;

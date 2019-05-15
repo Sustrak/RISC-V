@@ -20,6 +20,7 @@ except ImportError:
     print("If you want to see the output with colors please install the collorama package\n pip install colorama")
 
 TEXT_ADDR = "0x000000"
+RSI_ADDR = "0x500"
 DATA_ADDR = "0x00001000"
 TEST_FOLDER = "../test/"
 
@@ -30,6 +31,27 @@ def generate_bin():
     verbose_print(f"HexFile: {hex_name} open")
     bin_file = open(bin_name, "w+b")
     verbose_print(f"BinFile: {bin_file} created")
+    if args.rsi:
+        rsi_hex_file = open(rsi_hex, "r")
+        rsi_bin_file = open(rsi_bin, "w+b")
+        
+        for line in rsi_hex_file:
+            x = line[6] + line[7] + line[4] + line[5] + line[2] + line[3] + line[0] + line[1]
+            rsi_bin_file.write(binascii.unhexlify(x))
+        
+    if args.int_enabled:
+        # Enable switch interrupts
+        bin_file.write(binascii.unhexlify("b7020400"))
+        bin_file.write(binascii.unhexlify("9382e2ff"))
+        bin_file.write(binascii.unhexlify("37030008"))
+        bin_file.write(binascii.unhexlify("13038300"))
+        bin_file.write(binascii.unhexlify("23205300"))
+        # Enable key interrupts
+        bin_file.write(binascii.unhexlify("37050008"))
+        bin_file.write(binascii.unhexlify("13058502"))
+        bin_file.write(binascii.unhexlify("9302f000"))
+        bin_file.write(binascii.unhexlify("23205500"))
+        
     for line in hex_file:
         x = line[6] + line[7] + line[4] + line[5] + line[2] + line[3] + line[0] + line[1]
         bin_file.write(binascii.unhexlify(x))
@@ -37,9 +59,12 @@ def generate_bin():
     if args.halt:
         bin_file.write(binascii.unhexlify("FFFFFFFF"))
     verbose_print(f"BinFile writted")
+    
     # Close files
     hex_file.close()
     bin_file.close()
+    rsi_hex_file.close()
+    rsi_bin_file.close()
 
 
 def generate_load_tcl(file_name):
@@ -47,9 +72,15 @@ def generate_load_tcl(file_name):
     tcl_name = file_name + "_load.tcl"
     tcl_file = open(tcl_name, "w+")
     # Write the script
-    script = """set master [claim_service "master" [lindex [get_service_paths "master"] 0] ""]; 
-    master_write_from_file $master {}/{} {};
-    """.format(os.getcwd().replace('\\', '/'), bin_name, TEXT_ADDR)
+    if "rsi" in args:
+        script = """set master [claim_service "master" [lindex [get_service_paths "master"] 0] ""]; 
+        master_write_from_file $master {0}/{1} {2};
+        master_write_from_file $master {0}/{3} {4}
+        """.format(os.getcwd().replace('\\', '/'), bin_name, TEXT_ADDR, rsi_bin, RSI_ADDR)
+    else:
+        script = """set master [claim_service "master" [lindex [get_service_paths "master"] 0] ""]; 
+        master_write_from_file $master {}/{} {};
+        """.format(os.getcwd().replace('\\', '/'), bin_name, TEXT_ADDR)
     tcl_file.write(script)
     tcl_file.close()
     return tcl_name
@@ -189,6 +220,10 @@ if __name__ == "__main__":
     parser.add_argument("-d", "--debug", action='store_true', default=False,
                        help="When provided will try to find the ASM file to get some debug info about the "
                             "instructions executing")
+    parser.add_argument("--int-enabled", action='store_true', default=False,
+                        help="Adds store instructions to enable the interrupts on the devices")
+    parser.add_argument("--rsi", type=str,
+                        help="Puts this code in the RSI section, 0x500 by default")
     args = parser.parse_args()
 
     verbose_print = print if args.verbose else lambda *a, **k: None
@@ -197,6 +232,11 @@ if __name__ == "__main__":
     hex_name = file_name + ".hex"
     bin_name = file_name + ".bin"
     created_files = [bin_name, ]
+    if args.rsi:
+        rsi_name = TEST_FOLDER + args.rsi.split('.')[0]
+        rsi_hex = rsi_name + ".hex"
+        rsi_bin = rsi_name + ".bin"
+        created_files.append(rsi_bin)
 
     execute_pipeline()
 

@@ -119,7 +119,10 @@ architecture Structure of riscv is
 			o_bhw             : out std_logic_vector(R_MEM_ACCS);
 			o_ld_st           : out std_logic_vector(R_MEM_LDST);
 			i_avalon_readvalid : in std_logic;
-            o_proc_data_read  : out std_logic
+            o_proc_data_read  : out std_logic;
+            i_int             : in std_logic;
+            i_mcause          : in std_logic_vector(R_XLEN);
+            o_int_ack         : out std_logic
 		);
 	end component;
 	component memory_controller is
@@ -145,6 +148,9 @@ architecture Structure of riscv is
 			o_rd_data         : out std_logic_vector(R_XLEN);
 			o_avalon_readvalid : out std_logic;
             i_proc_data_read  : in std_logic;
+            i_int_ack         : in std_logic;
+            o_int             : out std_logic;
+            o_mcause          : out std_logic_vector(R_XLEN);
             -- IO
             o_led_r           : out std_logic_vector(R_LED_R);
             o_led_g           : out std_logic_vector(R_LED_G);
@@ -171,6 +177,10 @@ architecture Structure of riscv is
 	signal s_avalon_readvalid : std_logic;
     signal s_proc_data_read  : std_logic;
     signal s_hex_bus         : std_logic_vector(R_HEX);
+    signal s_key             : std_logic_vector(R_KEY);
+    signal s_int_ack         : std_logic;
+    signal s_int             : std_logic;
+    signal s_mcause          : std_logic_vector(R_XLEN);
 begin
 	c_proc : proc
 	port map(
@@ -183,7 +193,10 @@ begin
 		o_bhw             => s_bhw,
 		o_ld_st           => s_ld_st,
 		i_avalon_readvalid => s_avalon_readvalid,
-        o_proc_data_read  => s_proc_data_read
+        o_proc_data_read  => s_proc_data_read,
+        o_int_ack         => s_int_ack,
+        i_int             => s_int,
+        i_mcause          => s_mcause
 	);
 
 	c_mem_ctrl : memory_controller
@@ -209,11 +222,14 @@ begin
 		o_rd_data         => s_rdata_mem,
 		o_avalon_readvalid => s_avalon_readvalid,
         i_proc_data_read  => s_proc_data_read,
+        i_int_ack         => s_int_ack,
+        o_int             => s_int,
+        o_mcause          => s_mcause,
         -- IO
         o_led_r           => LEDR,
         o_led_g           => LEDG,
         o_hex             => s_hex_bus,
-        i_key             => KEY(3 downto 1) & '0',
+        i_key             => s_key,
         i_switch          => SW(17 downto 1) & '0'
 	);
 
@@ -223,6 +239,8 @@ begin
         c0 => s_clock_100,
         c1 => s_clk_p
     );
+
+    s_key <= not KEY;
 
     HEX7 <= s_hex_bus(R_HEX7);
     HEX6 <= s_hex_bus(R_HEX6);

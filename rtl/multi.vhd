@@ -19,16 +19,17 @@ entity multi is
 		i_avalon_readvalid : in std_logic;
         o_proc_data_read  : out std_logic;
 		-- REGISTERS
-		o_wr_reg          : out std_logic;
         o_reg_stall       : out std_logic;
 		-- STATE
 		o_states          : out std_logic_vector(R_STATES);
-        o_rebotes         : out std_logic_vector(15 downto 0)
+        o_rebotes         : out std_logic_vector(15 downto 0);
+        -- INTERRUPTS
+        i_int             : in std_logic
 	);
 end entity;
 
 architecture Structure of multi is
-	type proc_state is (INI, FETCH, ID, EX, MEM, MEM_LD_WAIT, WB);
+	type proc_state is (INI, FETCH, ID, EX, MEM, MEM_LD_WAIT, WB, SYS);
 	signal state : proc_state := FETCH;
     signal s_proc_data_read : std_logic;
     signal rebotes : std_logic_vector(15 downto 0);
@@ -76,7 +77,13 @@ begin
                     state <= WB;
                 end if;
 			elsif state = WB then
-				state <= FETCH;
+                if i_int = '1' then
+                    state <= SYS;
+                else
+				    state <= FETCH;
+                end if;
+            elsif state = SYS then
+                state <= FETCH;
 			end if;
 		end if;
 	end process;
@@ -96,14 +103,12 @@ begin
 	o_addr_mem <= i_pc when state = FETCH else
 		i_addr_mem;
 
-	o_wr_reg <= '1' when state = WB else
-		'0';
-
 	o_states <= FETCH_STATE when state = FETCH else
 		DECODE_STATE when state = ID else
 		EXEC_STATE when state = EX else
 		MEM_STATE when state = MEM else
 		WB_STATE when state = WB else
+        SYS_STATE when state = SYS else
 		INI_STATE;
 
 end Structure;

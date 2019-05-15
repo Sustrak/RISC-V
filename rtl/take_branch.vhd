@@ -22,7 +22,8 @@ begin
 		(unsigned(i_adata) < unsigned(i_bdata) and i_opcode = ALU_BLTU) or
 		(i_adata /= i_bdata and i_opcode = ALU_BNE) or
 		i_opcode = ALU_JAL or
-		i_opcode = ALU_JARL else
+		i_opcode = ALU_JALR or
+        i_opcode = ALU_MRET else
 		'0';
 
 end Structure;

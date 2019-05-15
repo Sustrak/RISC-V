@@ -4,7 +4,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.ARCH32.all;
 
-entity reg_file is
+entity usr_regfile is
 	port (
 		i_clk_proc : in std_logic;
 		i_wr       : in std_logic;
@@ -15,9 +15,9 @@ entity reg_file is
 		o_port_a   : out std_logic_vector(R_XLEN);
 		o_port_b   : out std_logic_vector(R_XLEN)
 	);
-end reg_file;
+end usr_regfile;
 
-architecture Structure of reg_file is
+architecture Structure of usr_regfile is
 	type reg_bank is array (R_NUM_REGS) of std_logic_vector (R_XLEN);
 	signal s_regs : reg_bank;
 begin

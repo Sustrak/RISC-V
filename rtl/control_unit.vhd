@@ -17,7 +17,6 @@ entity control_unit is
 		o_addr_a_reg      : out std_logic_vector(R_REGS);
 		o_addr_b_reg      : out std_logic_vector(R_REGS);
 		o_wr_reg          : out std_logic;
-		o_wr_reg_multi    : out std_logic;
 		-- CONTROL
 		o_rb_imm          : out std_logic;
 		o_ra_pc           : out std_logic;
@@ -38,7 +37,14 @@ entity control_unit is
 		o_bhw_to_mc       : out std_logic_vector(R_MEM_ACCS);
 		o_mem_unsigned    : out std_logic;
 		i_avalon_readvalid : in std_logic;
-        o_proc_data_read  : out std_logic
+        o_proc_data_read  : out std_logic;
+        -- STATE
+        o_states          : out std_logic_vector(R_STATES);
+        -- INTERRUPTS
+        i_int             : in std_logic;
+        o_csr_op          : out std_logic_vector(R_CSR_OP);
+        o_addr_csr        : out std_logic_vector(R_CSR);
+        o_mret            : out std_logic
 	);
 end control_unit;
 
@@ -62,7 +68,11 @@ architecture Structure of control_unit is
 			-- MEMORY
 			o_ld_st        : out std_logic_vector(R_MEM_LDST);
 			o_bhw          : out std_logic_vector(R_MEM_ACCS);
-			o_mem_unsigned : out std_logic
+			o_mem_unsigned : out std_logic;
+            -- INTERRUPTS
+            o_csr_op       : out std_logic_vector(R_CSR_OP);
+            o_addr_csr     : out std_logic_vector(R_CSR);
+            o_mret         : out std_logic
 		);
 	end component;
 
@@ -90,10 +100,11 @@ architecture Structure of control_unit is
 			i_avalon_readvalid : in std_logic;
             o_proc_data_read  : out std_logic;
 			-- REGISTER
-			o_wr_reg          : out std_logic;
             o_reg_stall       : out std_logic;
 			-- STATE
-			o_states          : out std_logic_vector(R_STATES)
+			o_states          : out std_logic_vector(R_STATES);
+            -- INTERRUPTS
+            i_int             : in std_logic
 		);
 	end component;
 
@@ -104,7 +115,6 @@ architecture Structure of control_unit is
 	signal s_ins0         : std_logic_vector(R_INS);
     signal s_ins          : std_logic_vector(R_INS);
 	signal s_ld_pc        : std_logic;
-	signal s_wr_reg_multi : std_logic;
 	signal s_states       : std_logic_vector(R_STATES);
 begin
 	c_ins_dec : ins_decoder
@@ -123,7 +133,11 @@ begin
 		-- MEMORY
 		o_ld_st        => o_ld_st,
 		o_bhw          => o_bhw,
-		o_mem_unsigned => o_mem_unsigned
+		o_mem_unsigned => o_mem_unsigned,
+        -- INTERRUPTS
+        o_csr_op       => o_csr_op,
+        o_addr_csr     => o_addr_csr,
+        o_mret         => o_mret
 	);
 	c_reg_if_id : reg_if_id
 	port map(
@@ -148,15 +162,17 @@ begin
 		i_avalon_readvalid => i_avalon_readvalid,
         o_proc_data_read  => o_proc_data_read,
 		-- REGISTER
-		o_wr_reg          => s_wr_reg_multi,
         o_reg_stall       => o_reg_stall,
 		-- STATE
-		o_states          => s_states
+		o_states          => s_states,
+        -- INTERRUPTS
+        i_int             => i_int
 	);
 
-	o_wr_reg_multi <= s_wr_reg_multi;
     s_ins <= i_ins when s_states = FETCH_STATE and i_avalon_readvalid = '1' else
              NOP;
+
+    o_states <= s_states;
 
 	-- PROGRAM COUNTER
 	process (s_states, i_boot, i_tkbr, i_clk_proc, s_ld_pc)
@@ -172,6 +188,8 @@ begin
 				if i_tkbr = '1' then
 					s_pc <= i_new_pc;
 				end if;
+            elsif s_states = SYS_STATE then
+                s_pc <= i_new_pc;
 			end if;
 		end if;
 	end process;

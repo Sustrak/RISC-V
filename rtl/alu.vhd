@@ -41,8 +41,11 @@ begin
 		-- AUIPC
 		std_logic_vector(signed(i_bdata(19 downto 0) & x"000") + signed(i_adata)) when i_opcode = ALU_AUIPC else
 		-- BRANCH
-		std_logic_vector(signed(i_adata) + shift_left(signed(i_bdata), 1)) when i_opcode = ALU_BEQ or i_opcode = ALU_BGE or i_opcode = ALU_BGEU or i_opcode = ALU_BLT or i_opcode = ALU_BLTU or i_opcode = ALU_BNE or i_opcode = ALU_JAL else
-		s_jarl(R_XLEN'high downto R_XLEN'low + 1) & '0' when i_opcode = ALU_JARL else
+		std_logic_vector(signed(i_adata) + signed(shift_left(signed(i_bdata), 1))) when i_opcode = ALU_BEQ or i_opcode = ALU_BGE or i_opcode = ALU_BGEU or i_opcode = ALU_BLT or i_opcode = ALU_BLTU or i_opcode = ALU_BNE or i_opcode = ALU_JAL else
+		s_jarl(R_XLEN'high downto R_XLEN'low + 1) & '0' when i_opcode = ALU_JALR else
+        i_bdata when i_opcode = ALU_PASS_B else
+        i_adata when i_opcode = ALU_PASS_A else
+        i_adata when i_opcode = ALU_MRET else
 		(others => '0');
 
 	s_jarl <= std_logic_vector(signed(i_adata) + signed(i_bdata));
