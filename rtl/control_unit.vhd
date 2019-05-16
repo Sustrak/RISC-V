@@ -44,7 +44,7 @@ entity control_unit is
         i_int             : in std_logic;
         o_csr_op          : out std_logic_vector(R_CSR_OP);
         o_addr_csr        : out std_logic_vector(R_CSR);
-        o_mret            : out std_logic,
+        o_mret            : out std_logic;
         o_int_ack         : out std_logic
 	);
 end control_unit;
@@ -73,7 +73,7 @@ architecture Structure of control_unit is
             -- INTERRUPTS
             o_csr_op       : out std_logic_vector(R_CSR_OP);
             o_addr_csr     : out std_logic_vector(R_CSR);
-            o_mret         : out std_logic,
+            o_mret         : out std_logic;
             o_int_ack      : out std_logic
 		);
 	end component;

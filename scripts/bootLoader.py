@@ -39,7 +39,7 @@ def generate_bin():
             x = line[6] + line[7] + line[4] + line[5] + line[2] + line[3] + line[0] + line[1]
             rsi_bin_file.write(binascii.unhexlify(x))
         
-    if args.int_enabled:
+    if args.enable_int:
         # Enable switch interrupts
         bin_file.write(binascii.unhexlify("b7020400"))
         bin_file.write(binascii.unhexlify("9382e2ff"))
@@ -220,7 +220,7 @@ if __name__ == "__main__":
     parser.add_argument("-d", "--debug", action='store_true', default=False,
                        help="When provided will try to find the ASM file to get some debug info about the "
                             "instructions executing")
-    parser.add_argument("--int-enabled", action='store_true', default=False,
+    parser.add_argument("--enable-int", action='store_true', default=False,
                         help="Adds store instructions to enable the interrupts on the devices")
     parser.add_argument("--rsi", type=str,
                         help="Puts this code in the RSI section, 0x500 by default")

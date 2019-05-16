@@ -211,7 +211,7 @@ begin
     begin
         if rising_edge(i_clk_50) and s_mm_readdatavalid_edge = '1' and s_expect_readdata = '1' then
             if s_mm_address < x"0001000" then
-                if s_last_ins /= s_mm_readdata then
+                if s_last_ins /= s_readdata then
                     s_reg_readdatavalid <= '1';
                     s_reg_readdata <= s_readdata;
                     s_last_ins <= s_readdata;

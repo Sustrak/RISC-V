@@ -197,7 +197,7 @@ package ARCH32 is
 
 	-- DATAPATH BUS
 	-- ---------------------------------------------------------------------------------------------------------
-	-- NEWP_PC|PC|RA_PC|DATA A|DATA B|IMM|ALU_OPCODE|RB_IMM|DATA W|LD_ST|BHW|ALU_MEM|MEM_UNSIGNED|ADDR D|WR_REG|
+	-- INTACK|CSROP|ADDRCSR|MRET|NEWP_PC|PC|RA_PC|DATA A|DATA B|IMM|ALU_OPCODE|RB_IMM|DATA W|LD_ST|BHW|ALU_MEM|MEM_UNSIGNED|ADDR D|WR_REG|
 	-- ---------------------------------------------------------------------------------------------------------
 	constant R_DPB_WRREG    : integer          := 0;
 	subtype  R_DPB_ADDRD    is natural range R_DPB_WRREG + 5 downto R_DPB_WRREG + 1;

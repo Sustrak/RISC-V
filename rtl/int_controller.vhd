@@ -29,9 +29,12 @@ architecture Structure of int_controller is
 
     signal s_edge_int_sw : std_logic;
     signal s_edge_int_key : std_logic;
+    signal s_mcause      : std_logic_vector(R_XLEN);
+
+    -- IO devices
     signal s_int_sw      : std_logic;
     signal s_int_key     : std_logic;
-    signal s_mcause      : std_logic_vector(R_XLEN);
+
 begin
     c_edge_detector_sw : edge_detector
     port map (
@@ -54,19 +57,20 @@ begin
     int_capture : process(i_clk, i_reset)
     begin
         if rising_edge(i_clk) then
-            if s_edge_int_sw = '1' then
-                s_int_sw <= '1';
-                s_mcause <= MCAUSE_SW;
-            elsif s_edge_int_key = '1' then
-                s_int_key <= '1';
-                s_mcause <= MCAUSE_KEY;
-            elsif i_int_ack = '1' then
+            if i_int_ack = '1' then
                 if s_int_sw = '1' then
                     s_int_sw <= '0';
+                    s_mcause <= MCAUSE_SW;
                 elsif s_int_key = '1' then
                     s_int_key <= '0';
+                    s_mcause <= MCAUSE_KEY;
                 end if;
-                s_mcause <= MCAUSE_NO_INT;
+            end if;
+            if s_edge_int_sw = '1' then
+                s_int_sw <= '1';
+            end if;
+            if s_edge_int_key = '1' then
+                s_int_key <= '1';
             end if;
         end if;
         if i_reset = '1' then

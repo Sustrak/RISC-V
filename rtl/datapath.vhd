@@ -107,10 +107,12 @@ architecture Structure of datapath is
 	signal s_rdata_mem_ws  : std_logic_vector(R_XLEN);
 	signal s_wdata_wb      : std_logic_vector(R_XLEN);
 	signal s_tkbr          : std_logic;
+	signal s_int_ret_pc    : std_logic_vector(R_XLEN);
 	-- REGISTERS
 	signal r_id_ex         : std_logic_vector(R_DATAPATH_BUS);
 	signal r_ex_mem        : std_logic_vector(R_DATAPATH_BUS);
 	signal r_mem_wb        : std_logic_vector(R_DATAPATH_BUS);
+	signal r_wb_sys        : std_logic_vector(R_DATAPATH_BUS);
 begin
 	c_reg_file : regfile
 	port map(
@@ -123,13 +125,13 @@ begin
         i_addr_b   => i_addr_b_reg,
         i_addr_csr => r_mem_wb(R_DPB_ADDRCSR),
         i_csr_op   => r_mem_wb(R_DPB_CSROP),
-        i_mret     => r_mem_wb(R_DPB_MRET),
+        i_mret     => i_mret, --r_mem_wb(R_DPB_MRET),
         i_mcause   => i_mcause,
         o_int_enabled => o_int_enabled,
         o_port_a   => s_port_a,
         o_port_b   => s_port_b,
         i_states   => i_states,
-        i_ret_pc   => i_pc_br
+        i_ret_pc   => s_int_ret_pc
 	);
 	c_alu : alu
 	port map(
@@ -175,10 +177,14 @@ begin
 
     o_new_pc <= s_port_a when i_states = SYS_STATE else
                 r_mem_wb(R_DPB_NEWPC);
+
 	o_tkbr   <= r_mem_wb(R_DPB_TKBR);
 
     s_wr     <= r_mem_wb(R_DPB_WRREG) when i_states = WB_STATE else
                 '0'; 
+
+    s_int_ret_pc <= r_wb_sys(R_DPB_NEWPC) when r_wb_sys(R_DPB_TKBR) = '1' else
+                    i_pc_br;
 
     o_int_ack <= r_mem_wb(R_DPB_INTACK);
 
@@ -206,6 +212,7 @@ begin
 			-- PASS THE SIGNAL TO THE OTHER REGISTERS
 			r_ex_mem                <= r_id_ex(R_DATAPATH_BUS'high downto R_DPB_MRET) & s_wdata & s_tkbr & r_id_ex(R_DPB_NEWPC'low - 2 downto R_DPB_DATAW'high + 1) & s_wdata & r_id_ex(R_DPB_DATAW'low - 1 downto 0);
 			r_mem_wb                <= r_ex_mem(R_DATAPATH_BUS'high downto R_DPB_DATAW'high + 1) & s_wdata_wb & r_ex_mem(R_DPB_DATAW'low - 1 downto 0);
+            r_wb_sys                <= r_mem_wb;
 		end if;
 	end process;
 end Structure;
