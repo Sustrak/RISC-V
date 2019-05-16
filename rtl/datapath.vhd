@@ -27,6 +27,8 @@ entity datapath is
         i_csr_op       : in std_logic_vector(R_CSR_OP);
         i_addr_csr     : in std_logic_vector(R_CSR);
         i_mret         : in std_logic;
+        i_int_ack      : in std_logic;
+        o_int_ack      : out std_logic;
 		-- BRANCH
 		i_pc_br        : in std_logic_vector(R_XLEN);
 		o_new_pc       : out std_logic_vector(R_XLEN);
@@ -178,6 +180,8 @@ begin
     s_wr     <= r_mem_wb(R_DPB_WRREG) when i_states = WB_STATE else
                 '0'; 
 
+    o_int_ack <= r_mem_wb(R_DPB_INTACK);
+
 	process (i_clk_proc)
 	begin
 		if rising_edge(i_clk_proc) and i_reg_stall = '0' then
@@ -198,6 +202,7 @@ begin
             r_id_ex(R_DPB_ADDRCSR)  <= i_addr_csr;
             r_id_ex(R_DPB_CSROP)    <= i_csr_op;
             r_id_ex(R_DPB_MRET)     <= i_mret;
+            r_id_ex(R_DPB_INTACK)   <= i_int_ack;
 			-- PASS THE SIGNAL TO THE OTHER REGISTERS
 			r_ex_mem                <= r_id_ex(R_DATAPATH_BUS'high downto R_DPB_MRET) & s_wdata & s_tkbr & r_id_ex(R_DPB_NEWPC'low - 2 downto R_DPB_DATAW'high + 1) & s_wdata & r_id_ex(R_DPB_DATAW'low - 1 downto 0);
 			r_mem_wb                <= r_ex_mem(R_DATAPATH_BUS'high downto R_DPB_DATAW'high + 1) & s_wdata_wb & r_ex_mem(R_DPB_DATAW'low - 1 downto 0);

@@ -218,6 +218,7 @@ package ARCH32 is
     constant R_DPB_MRET     : integer := R_DPB_NEWPC'high + 1;
     subtype  R_DPB_ADDRCSR  is natural range R_DPB_MRET + 12 downto R_DPB_MRET + 1;
     subtype  R_DPB_CSROP    is natural range R_DPB_ADDRCSR'high + 3 downto R_DPB_ADDRCSR'high + 1;
-	subtype  R_DATAPATH_BUS is natural range R_DPB_CSROP'high downto 0;
+    constant R_DPB_INTACK   : integer := R_DPB_CSROP'high + 1;
+	subtype  R_DATAPATH_BUS is natural range R_DPB_INTACK downto 0;
 
 end ARCH32;

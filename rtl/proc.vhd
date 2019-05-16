@@ -46,6 +46,8 @@ architecture Structure of proc is
             i_csr_op       : in std_logic_vector(R_CSR_OP);
             i_addr_csr     : in std_logic_vector(R_CSR);
             i_mret         : in std_logic;
+            i_int_ack      : in std_logic;
+            o_int_ack      : out std_logic;
 			-- BRANCH
 			i_pc_br        : in std_logic_vector(R_XLEN);
 			o_new_pc       : out std_logic_vector(R_XLEN);
@@ -103,7 +105,8 @@ architecture Structure of proc is
             i_int             : in std_logic;
             o_csr_op          : out std_logic_vector(R_CSR_OP);
             o_addr_csr        : out std_logic_vector(R_CSR);
-            o_mret            : out std_logic
+            o_mret            : out std_logic,
+            o_int_ack         : out std_logic
 		);
 	end component;
 
@@ -133,6 +136,7 @@ architecture Structure of proc is
     signal s_states       : std_logic_vector(R_STATES);
     signal s_int_enabled  : std_logic;
     signal s_int          : std_logic;
+    signal s_int_ack      : std_logic;
 begin
 	c_datapath : datapath
 	port map(
@@ -166,6 +170,8 @@ begin
         o_int_enabled  => s_int_enabled,
         i_addr_csr     => s_addr_csr,
         i_mret         => s_mret,
+        i_int_ack      => s_int_ack,
+        o_int_ack      => o_int_ack,
         i_states       => s_states
 	);
 	c_cu : control_unit
@@ -203,10 +209,10 @@ begin
         i_int              => s_int,
         o_csr_op           => s_csr_op,
         o_addr_csr         => s_addr_csr,
-        o_mret             => s_mret
+        o_mret             => s_mret,
+        o_int_ack          => s_int_ack
 	);
 
     s_int <= s_int_enabled and i_int;
     
-    o_int_ack <= s_mret;
 end Structure;
