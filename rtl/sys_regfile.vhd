@@ -15,8 +15,9 @@ entity sys_regfile is
         o_port_a   : out std_logic_vector(R_XLEN);
         -- INTERRUPTS
         i_mcause   : in std_logic_vector(R_XLEN);
+        i_mtval    : in std_logic_vector(R_XLEN);
         i_mret     : in std_logic;
-        o_int_enabled : out std_logic;
+        o_trap_enabled : out std_logic;
         -- STATE
         i_sys_state : in std_logic;
         i_ret_pc   : in std_logic_vector(R_XLEN)
@@ -40,8 +41,8 @@ begin
                         s_mstatus <= i_port_d;
                     when CSR_MTVEC =>
                         s_mtvec <= i_port_d;
-                    when CSR_MTVAL =>
-                        s_mtval <= i_port_d;
+                    -- when CSR_MTVAL =>
+                    --     s_mtval <= i_port_d;
                     when CSR_MPEC =>
                         s_mpec <= i_port_d;
                     -- when CSR_MCAUSE =>
@@ -63,6 +64,7 @@ begin
     end process;
 
     s_mcause <= i_mcause;
+    s_mtval <= i_mtval;
 
     o_port_a <= s_mstatus when i_addr_a = CSR_MSTATUS else
                 s_mtvec when i_addr_a = CSR_MTVEC else
@@ -73,6 +75,6 @@ begin
                 s_mpec  when i_mret = '1' else
                 (others => '0');
 
-    o_int_enabled <= s_mstatus(3);
+    o_trap_enabled <= s_mstatus(3);
 
 end Structure;

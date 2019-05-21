@@ -23,12 +23,13 @@ entity datapath is
         i_reg_stall    : in std_logic;
         -- INTERRUPT
         i_mcause       : in std_logic_vector(R_XLEN);
-        o_int_enabled  : out std_logic;
+        i_mtval        : in std_logic_vector(R_XLEN);
+        o_trap_enabled  : out std_logic;
         i_csr_op       : in std_logic_vector(R_CSR_OP);
         i_addr_csr     : in std_logic_vector(R_CSR);
         i_mret         : in std_logic;
-        i_int_ack      : in std_logic;
-        o_int_ack      : out std_logic;
+        i_trap_ack      : in std_logic;
+        o_trap_ack      : out std_logic;
 		-- BRANCH
 		i_pc_br        : in std_logic_vector(R_XLEN);
 		o_new_pc       : out std_logic_vector(R_XLEN);
@@ -64,7 +65,8 @@ architecture Structure of datapath is
             o_port_b   : out std_logic_vector(R_XLEN);
             -- INTERRUPTS
             i_mcause   : in std_logic_vector(R_XLEN);
-            o_int_enabled : out std_logic;
+            i_mtval    : in std_logic_vector(R_XLEN);
+            o_trap_enabled : out std_logic;
             i_states    : in std_logic_vector(R_STATES);
             i_ret_pc   : in std_logic_vector(R_XLEN)
         );
@@ -127,7 +129,8 @@ begin
         i_csr_op   => r_mem_wb(R_DPB_CSROP),
         i_mret     => i_mret, --r_mem_wb(R_DPB_MRET),
         i_mcause   => i_mcause,
-        o_int_enabled => o_int_enabled,
+        i_mtval    => i_mtval,
+        o_trap_enabled => o_trap_enabled,
         o_port_a   => s_port_a,
         o_port_b   => s_port_b,
         i_states   => i_states,
@@ -186,7 +189,7 @@ begin
     s_int_ret_pc <= r_wb_sys(R_DPB_NEWPC) when r_wb_sys(R_DPB_TKBR) = '1' else
                     i_pc_br;
 
-    o_int_ack <= r_mem_wb(R_DPB_INTACK);
+    o_trap_ack <= r_mem_wb(R_DPB_TRAPACK);
 
 	process (i_clk_proc)
 	begin
@@ -208,7 +211,7 @@ begin
             r_id_ex(R_DPB_ADDRCSR)  <= i_addr_csr;
             r_id_ex(R_DPB_CSROP)    <= i_csr_op;
             r_id_ex(R_DPB_MRET)     <= i_mret;
-            r_id_ex(R_DPB_INTACK)   <= i_int_ack;
+            r_id_ex(R_DPB_TRAPACK)   <= i_trap_ack;
 			-- PASS THE SIGNAL TO THE OTHER REGISTERS
 			r_ex_mem                <= r_id_ex(R_DATAPATH_BUS'high downto R_DPB_MRET) & s_wdata & s_tkbr & r_id_ex(R_DPB_NEWPC'low - 2 downto R_DPB_DATAW'high + 1) & s_wdata & r_id_ex(R_DPB_DATAW'low - 1 downto 0);
 			r_mem_wb                <= r_ex_mem(R_DATAPATH_BUS'high downto R_DPB_DATAW'high + 1) & s_wdata_wb & r_ex_mem(R_DPB_DATAW'low - 1 downto 0);

@@ -24,7 +24,7 @@ entity multi is
 		o_states          : out std_logic_vector(R_STATES);
         o_rebotes         : out std_logic_vector(15 downto 0);
         -- INTERRUPTS
-        i_int             : in std_logic
+        i_trap             : in std_logic
 	);
 end entity;
 
@@ -77,7 +77,7 @@ begin
                     state <= WB;
                 end if;
 			elsif state = WB then
-                if i_int = '1' then
+                if i_trap = '1' then
                     state <= SYS;
                 else
 				    state <= FETCH;

@@ -20,7 +20,8 @@ entity regfile is
         o_port_b   : out std_logic_vector(R_XLEN);
         -- INTERRUPTS
         i_mcause   : in std_logic_vector(R_XLEN);
-        o_int_enabled : out std_logic;
+        i_mtval    : in std_logic_vector(R_XLEN);
+        o_trap_enabled : out std_logic;
         -- STATE
         i_states   : in std_logic_vector(R_STATES);
         i_ret_pc   : in std_logic_vector(R_XLEN)
@@ -52,8 +53,9 @@ architecture Structure of regfile is
             o_port_a   : out std_logic_vector(R_XLEN);
             -- INTERRUPTS
             i_mcause   : in std_logic_vector(R_XLEN);
+            i_mtval    : in std_logic_vector(R_XLEN);
             i_mret     : in std_logic;
-            o_int_enabled : out std_logic;
+            o_trap_enabled : out std_logic;
             -- SYS STATE
             i_sys_state : in std_logic;
             i_ret_pc    : in std_logic_vector(R_XLEN)
@@ -90,8 +92,9 @@ begin
         i_addr_a   => i_addr_csr,
         o_port_a   => s_sys_port_a,
         i_mcause   => i_mcause,
+        i_mtval    => i_mtval,
         i_mret     => i_mret,
-        o_int_enabled => o_int_enabled,
+        o_trap_enabled => o_trap_enabled,
         i_sys_state => s_sys_state,
         i_ret_pc   => i_ret_pc
     );

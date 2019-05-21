@@ -28,7 +28,10 @@ entity ins_decoder is
         o_csr_op       : out std_logic_vector(R_CSR_OP);
         o_addr_csr     : out std_logic_vector(R_CSR);
         o_mret         : out std_logic;
-        o_int_ack      : out std_logic
+        o_trap_ack      : out std_logic;
+        -- EXCEPTIONS
+        o_illegal_ins  : out std_logic;
+        o_ecall        : out std_logic
 	);
 end ins_decoder;
 
@@ -126,6 +129,12 @@ begin
     o_mret    <= '1' when s_op = SYSTEM and i_ins(R_INSI_IMM) = PRIV_MRET else
                  '0';
 
-    o_int_ack <= '1' when s_op = SYSTEM and i_ins(R_INSI_IMM) = CSR_MCAUSE else
+    o_trap_ack <= '1' when s_op = SYSTEM and i_ins(R_INSI_IMM) = CSR_MCAUSE else
                  '0';
+
+    o_ecall   <= '1' when i_ins = PRIV_ECALL else
+                 '0';
+
+    o_illegal_ins <= '1' when o_csr_op /= CSRNOP and not (o_addr_csr = CSR_MSTATUS or o_addr_csr = CSR_MTVEC or o_addr_csr = CSR_MTVAL or o_addr_csr = CSR_MPEC or o_addr_csr = CSR_MCAUSE) else
+                     '0';
 end Structure;

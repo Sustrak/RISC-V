@@ -112,6 +112,7 @@ architecture Structure of riscv is
 		port (
 			i_boot            : in std_logic;
 			i_clk_proc        : in std_logic;
+            i_clk_50          : in std_logic;
 			-- MEMORY
 			i_rdata_mem       : in std_logic_vector(R_XLEN);
 			o_wdata_mem       : out std_logic_vector(R_XLEN);
@@ -121,7 +122,7 @@ architecture Structure of riscv is
 			i_avalon_readvalid : in std_logic;
             o_proc_data_read  : out std_logic;
             i_int             : in std_logic;
-            i_mcause          : in std_logic_vector(R_XLEN);
+            i_int_mcause      : in std_logic_vector(R_XLEN);
             o_int_ack         : out std_logic
 		);
 	end component;
@@ -185,6 +186,7 @@ begin
 	c_proc : proc
 	port map(
 		i_boot            => SW(0),
+        i_clk_50          => CLOCK_50,
 		i_clk_proc        => s_clk_p,
 		-- MEMORY
 		i_rdata_mem       => s_rdata_mem,
@@ -194,9 +196,9 @@ begin
 		o_ld_st           => s_ld_st,
 		i_avalon_readvalid => s_avalon_readvalid,
         o_proc_data_read  => s_proc_data_read,
-        o_int_ack         => s_int_ack,
+        o_int_ack        => s_int_ack,
         i_int             => s_int,
-        i_mcause          => s_mcause
+        i_int_mcause          => s_mcause
 	);
 
 	c_mem_ctrl : memory_controller

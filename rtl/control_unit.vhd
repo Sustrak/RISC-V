@@ -7,6 +7,7 @@ use work.ARCH32.all;
 entity control_unit is
 	port (
 		i_boot            : in std_logic;
+        i_clk_50          : in std_logic;
 		i_clk_proc        : in std_logic;
 		i_ins             : in std_logic_vector(R_INS);
 		-- ALU
@@ -40,12 +41,17 @@ entity control_unit is
         o_proc_data_read  : out std_logic;
         -- STATE
         o_states          : out std_logic_vector(R_STATES);
-        -- INTERRUPTS
-        i_int             : in std_logic;
+        -- INTERRUPTS/EXCEPTIONS
+        i_trap_enabled    : in std_logic;
+        i_int_trap        : in std_logic;
+        i_exc_ack         : in std_logic;
+        o_exc_in_order    : out std_logic;
         o_csr_op          : out std_logic_vector(R_CSR_OP);
         o_addr_csr        : out std_logic_vector(R_CSR);
         o_mret            : out std_logic;
-        o_int_ack         : out std_logic
+        o_trap_ack        : out std_logic;
+        o_mcause          : out std_logic_vector(R_XLEN);
+        o_mtval           : out std_logic_vector(R_XLEN)
 	);
 end control_unit;
 
@@ -74,7 +80,10 @@ architecture Structure of control_unit is
             o_csr_op       : out std_logic_vector(R_CSR_OP);
             o_addr_csr     : out std_logic_vector(R_CSR);
             o_mret         : out std_logic;
-            o_int_ack      : out std_logic
+            o_trap_ack      : out std_logic;
+            -- EXCEPTIONS
+            o_illegal_ins  : out std_logic;
+            o_ecall        : out std_logic
 		);
 	end component;
 
@@ -106,9 +115,30 @@ architecture Structure of control_unit is
 			-- STATE
 			o_states          : out std_logic_vector(R_STATES);
             -- INTERRUPTS
-            i_int             : in std_logic
+            i_trap            : in std_logic
 		);
 	end component;
+
+    component exc_controller is
+        port (
+            i_clk   : in std_logic;
+            i_reset : in std_logic;
+            i_current_pc : in std_logic_vector(R_XLEN);
+            i_state_fetch : in std_logic;
+            i_trap_enabled : in std_logic;
+            i_exc_ack  : in std_logic;
+            o_exc_trap : out std_logic;
+            o_exc_in_order : out std_logic;
+            o_mcause   : out std_logic_vector(R_XLEN);
+            o_mtval    : out std_logic_vector(R_XLEN);
+            -- EXCEPTIONS
+            i_ins_addr_miss_align : in std_logic;
+            i_illegal_ins : in std_logic;
+            i_load_addr_miss_align : in std_logic;
+            i_store_addr_miss_align : in std_logic;
+            i_ecall  : in std_logic
+        ); 
+    end component;
 
 	-- SIGNALS
 	signal s_pc           : std_logic_vector(R_XLEN);
@@ -118,6 +148,16 @@ architecture Structure of control_unit is
     signal s_ins          : std_logic_vector(R_INS);
 	signal s_ld_pc        : std_logic;
 	signal s_states       : std_logic_vector(R_STATES);
+    signal s_trap         : std_logic;
+    signal s_state_fetch  : std_logic;
+    -- EXCEPTIONS
+    signal s_exc_trap            : std_logic;
+    signal s_ecall               : std_logic;
+    signal s_illegal_ins         : std_logic;
+    signal s_ins_addr_miss_align : std_logic;
+    signal s_load_addr_miss_align : std_logic;
+    signal s_store_add_miss_align : std_logic;
+
 begin
 	c_ins_dec : ins_decoder
 	port map(
@@ -140,10 +180,13 @@ begin
         o_csr_op       => o_csr_op,
         o_addr_csr     => o_addr_csr,
         o_mret         => o_mret,
-        o_int_ack      => o_int_ack
+        o_trap_ack      => o_trap_ack,
+        -- EXCEPTIONS
+        o_illegal_ins  => s_illegal_ins,
+        o_ecall        => s_ecall
 	);
 	c_reg_if_id : reg_if_id
-	port map(
+	port map (
 		i_clk_proc => i_clk_proc,
 		i_ins      => s_ins,
 		i_pc       => s_pc,
@@ -151,7 +194,7 @@ begin
 		o_pc       => o_pc_br
 	);
 	c_multi : multi
-	port map(
+	port map (
 		i_boot            => i_boot,
 		i_clk_proc        => i_clk_proc,
 		-- MEMORY
@@ -169,13 +212,46 @@ begin
 		-- STATE
 		o_states          => s_states,
         -- INTERRUPTS
-        i_int             => i_int
+        i_trap             => s_trap
 	);
+
+    c_exc_controller : exc_controller
+        port map (
+            i_clk  => i_clk_50,
+            i_reset => i_boot,
+            i_current_pc => s_pc,
+            i_state_fetch => s_state_fetch,
+            i_trap_enabled => i_trap_enabled,
+            i_exc_ack => i_exc_ack,
+            o_exc_trap => s_exc_trap,
+            o_exc_in_order => o_exc_in_order,
+            o_mcause   => o_mcause,
+            o_mtval    => o_mtval,
+            -- EXCEPTIONS
+            i_ins_addr_miss_align  => s_ins_addr_miss_align,
+            i_illegal_ins          => s_illegal_ins, 
+            i_load_addr_miss_align => s_load_addr_miss_align,
+            i_store_addr_miss_align => s_store_add_miss_align,
+            i_ecall                => s_ecall 
+        ); 
 
     s_ins <= i_ins when s_states = FETCH_STATE and i_avalon_readvalid = '1' else
              NOP;
 
     o_states <= s_states;
+
+    s_trap <= i_int_trap or s_exc_trap;
+ 
+    s_state_fetch <= '1' when s_states = FETCH_STATE else
+                     '0';
+
+    -- Instruction @ must be aligned to 4-byte
+    s_ins_addr_miss_align <= '1' when s_states = WB_STATE and i_tkbr = '1' and i_new_pc(1 downto 0) /= "00" else
+                             '0';
+    s_load_addr_miss_align <= '1' when s_states = MEM_STATE and o_ld_st_to_mc = LD_SDRAM and o_addr_mem(1 downto 0) /= "00" else
+                              '0';
+    s_store_add_miss_align <= '1' when s_states = MEM_STATE and o_ld_st_to_mc = ST_SDRAM and o_addr_mem(1 downto 0) /= "00" else
+                              '0';
 
 	-- PROGRAM COUNTER
 	process (s_states, i_boot, i_tkbr, i_clk_proc, s_ld_pc)

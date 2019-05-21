@@ -134,6 +134,7 @@ package ARCH32 is
 
     -- PRIVILEGED INSTRUCTIONS (I-TYPE) CODES
     constant PRIV_MRET : std_logic_vector := "001100000010"; 
+    constant PRIV_ECALL : std_logic_vector := x"00000073";
 	-- MEMORY ACCESS
 	subtype R_MEM_ACCS is natural range 1 downto 0;
 	constant B_ACCESS : std_logic_vector := "10";
@@ -191,9 +192,14 @@ package ARCH32 is
     constant CSRRC       : std_logic_vector := "101"; 
     constant CSRRCI      : std_logic_vector := "110"; 
     -- INT CODES (MCAUSE)
-    constant MCAUSE_NO_INT : std_logic_vector := x"FFFFFFFF";
-    constant MCAUSE_SW     : std_logic_vector := x"8000000C";
-    constant MCAUSE_KEY    : std_logic_vector := x"8000000D";
+    constant MCAUSE_NO_INT                : std_logic_vector := x"FFFFFFFF";
+    constant MCAUSE_SW                    : std_logic_vector := x"8000000C";
+    constant MCAUSE_KEY                   : std_logic_vector := x"8000000D";
+    constant MCAUSE_INS_ADDR_MISS_ALIGN   : std_logic_vector := x"00000000";
+    constant MCAUSE_ILLEGAL_INS           : std_logic_vector := x"00000002";
+    constant MCAUSE_LD_ADDR_MISS_ALIGN    : std_logic_vector := x"00000004";
+    constant MCAUSE_ST_ADDR_MISS_ALIGN    : std_logic_vector := x"00000006";
+    constant MCAUSE_ECALL                 : std_logic_vector := x"00000008";
 
 	-- DATAPATH BUS
 	-- ---------------------------------------------------------------------------------------------------------
@@ -218,7 +224,7 @@ package ARCH32 is
     constant R_DPB_MRET     : integer := R_DPB_NEWPC'high + 1;
     subtype  R_DPB_ADDRCSR  is natural range R_DPB_MRET + 12 downto R_DPB_MRET + 1;
     subtype  R_DPB_CSROP    is natural range R_DPB_ADDRCSR'high + 3 downto R_DPB_ADDRCSR'high + 1;
-    constant R_DPB_INTACK   : integer := R_DPB_CSROP'high + 1;
-	subtype  R_DATAPATH_BUS is natural range R_DPB_INTACK downto 0;
+    constant R_DPB_TRAPACK   : integer := R_DPB_CSROP'high + 1;
+	subtype  R_DATAPATH_BUS is natural range R_DPB_TRAPACK downto 0;
 
 end ARCH32;

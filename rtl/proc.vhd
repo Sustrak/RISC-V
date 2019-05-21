@@ -7,6 +7,7 @@ use work.ARCH32.all;
 entity proc is
 	port (
 		i_boot            : in std_logic;
+        i_clk_50          : in std_logic;
 		i_clk_proc        : in std_logic;
 		-- MEMORY
 		i_rdata_mem       : in std_logic_vector(R_XLEN);
@@ -18,7 +19,7 @@ entity proc is
         o_proc_data_read  : out std_logic;
         o_int_ack         : out std_logic;
         i_int             : in std_logic;
-        i_mcause          : in std_logic_vector(R_XLEN)
+        i_int_mcause      : in std_logic_vector(R_XLEN)
 	);
 end proc;
 
@@ -42,12 +43,13 @@ architecture Structure of proc is
             i_reg_stall    : in std_logic;
             -- INTERRUPT
             i_mcause       : in std_logic_vector(R_XLEN);
-            o_int_enabled  : out std_logic;
+            i_mtval        : in std_logic_vector(R_XLEN);
+            o_trap_enabled : out std_logic;
             i_csr_op       : in std_logic_vector(R_CSR_OP);
             i_addr_csr     : in std_logic_vector(R_CSR);
             i_mret         : in std_logic;
-            i_int_ack      : in std_logic;
-            o_int_ack      : out std_logic;
+            i_trap_ack      : in std_logic;
+            o_trap_ack      : out std_logic;
 			-- BRANCH
 			i_pc_br        : in std_logic_vector(R_XLEN);
 			o_new_pc       : out std_logic_vector(R_XLEN);
@@ -68,6 +70,7 @@ architecture Structure of proc is
 	component control_unit is
 		port (
 			i_boot            : in std_logic;
+            i_clk_50          : in std_logic;
 			i_clk_proc        : in std_logic;
 			i_ins             : in std_logic_vector(R_INS);
 			-- ALU
@@ -101,12 +104,17 @@ architecture Structure of proc is
             o_proc_data_read  : out std_logic;
             -- STATES
             o_states          : out std_logic_vector(R_STATES);
-            -- INTERRUPTS
-            i_int             : in std_logic;
+            -- INTERRUPTS/EXCEPTIONS
+            i_trap_enabled    : in std_logic;
+            i_int_trap        : in std_logic;
+            i_exc_ack         : in std_logic;
+            o_exc_in_order    : out std_logic;
             o_csr_op          : out std_logic_vector(R_CSR_OP);
             o_addr_csr        : out std_logic_vector(R_CSR);
             o_mret            : out std_logic;
-            o_int_ack         : out std_logic
+            o_trap_ack        : out std_logic;
+            o_mcause          : out std_logic_vector(R_XLEN);
+            o_mtval           : out std_logic_vector(R_XLEN)
 		);
 	end component;
 
@@ -134,9 +142,15 @@ architecture Structure of proc is
     signal s_csr_op       : std_logic_vector(R_CSR_OP);
     signal s_addr_csr     : std_logic_vector(R_CSR);
     signal s_states       : std_logic_vector(R_STATES);
-    signal s_int_enabled  : std_logic;
-    signal s_int          : std_logic;
-    signal s_int_ack      : std_logic;
+    signal s_trap_enabled : std_logic;
+    signal s_int_trap     : std_logic;
+    signal s_trap_ack     : std_logic;
+    signal s_exc_mcause   : std_logic_vector(R_XLEN);
+    signal s_mtval        : std_logic_vector(R_XLEN);
+    signal s_trap_ack_to_controller : std_logic;
+    signal s_exc_in_order     : std_logic;
+    signal s_exc_ack      : std_logic;
+    signal s_mcause       : std_logic_vector(R_XLEN);
 begin
 	c_datapath : datapath
 	port map(
@@ -155,7 +169,8 @@ begin
 		o_new_pc       => s_new_pc,
 		o_tkbr         => s_tkbr,
         i_reg_stall    => s_reg_stall,
-        i_mcause       => i_mcause,
+        i_mcause       => s_mcause,
+        i_mtval        => s_mtval,
 		-- MEMORY
 		i_rdata_mem    => i_rdata_mem,
 		o_wdata_mem    => o_wdata_mem,
@@ -167,16 +182,17 @@ begin
 		i_mem_unsigned => s_mem_unsigned,
         -- INTERRPUTS
         i_csr_op       => s_csr_op,
-        o_int_enabled  => s_int_enabled,
+        o_trap_enabled => s_trap_enabled,
         i_addr_csr     => s_addr_csr,
         i_mret         => s_mret,
-        i_int_ack      => s_int_ack,
-        o_int_ack      => o_int_ack,
+        i_trap_ack     => s_trap_ack,
+        o_trap_ack     => s_trap_ack_to_controller,
         i_states       => s_states
 	);
 	c_cu : control_unit
 	port map(
 		i_boot            => i_boot,
+        i_clk_50          => i_clk_50,
 		i_clk_proc        => i_clk_proc,
 		i_ins             => i_rdata_mem,
 		o_alu_opcode      => s_alu_opcode,
@@ -205,14 +221,28 @@ begin
 		i_avalon_readvalid => i_avalon_readvalid,
         o_proc_data_read  => o_proc_data_read,
         o_states          => s_states,
-        -- INTERRUPTS
-        i_int              => s_int,
+        -- INTERRUPTS/EXCEPTIONS
+        i_trap_enabled     => s_trap_enabled,
+        i_int_trap         => s_int_trap,
+        i_exc_ack          => s_exc_ack,
+        o_exc_in_order     => s_exc_in_order,
         o_csr_op           => s_csr_op,
         o_addr_csr         => s_addr_csr,
         o_mret             => s_mret,
-        o_int_ack          => s_int_ack
+        o_trap_ack         => s_trap_ack,
+        o_mcause           => s_exc_mcause,
+        o_mtval            => s_mtval
 	);
 
-    s_int <= s_int_enabled and i_int;
-    
+    s_int_trap <= s_trap_enabled and i_int;
+
+    -- We prioritize exceptions over interrupts
+    o_int_ack <= s_trap_ack_to_controller when s_exc_in_order = '0' else
+                  '0';
+
+    s_exc_ack <= s_trap_ack_to_controller when s_exc_in_order = '1' else
+                 '0';
+
+    s_mcause <= s_exc_mcause when s_exc_in_order = '1' else
+                i_int_mcause;
 end Structure;
