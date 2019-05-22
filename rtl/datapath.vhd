@@ -44,7 +44,9 @@ entity datapath is
 		o_bhw          : out std_logic_vector(R_MEM_ACCS);
 		i_mem_unsigned : in std_logic;
         -- STATES
-        i_states       : in std_logic_vector(R_STATES)
+        i_states       : in std_logic_vector(R_STATES);
+        -- PRIVILEGES
+        o_priv_lvl     : out std_logic
 	);
 end datapath;
 
@@ -63,6 +65,7 @@ architecture Structure of datapath is
             i_mret     : in std_logic;
             o_port_a   : out std_logic_vector(R_XLEN);
             o_port_b   : out std_logic_vector(R_XLEN);
+            o_priv_lvl : out std_logic;
             -- INTERRUPTS
             i_mcause   : in std_logic_vector(R_XLEN);
             i_mtval    : in std_logic_vector(R_XLEN);
@@ -125,6 +128,7 @@ begin
         i_addr_d   => r_mem_wb(R_DPB_ADDRD),
         i_addr_a   => i_addr_a_reg,
         i_addr_b   => i_addr_b_reg,
+        o_priv_lvl => o_priv_lvl,
         i_addr_csr => r_mem_wb(R_DPB_ADDRCSR),
         i_csr_op   => r_mem_wb(R_DPB_CSROP),
         i_mret     => i_mret, --r_mem_wb(R_DPB_MRET),

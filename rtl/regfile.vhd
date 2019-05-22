@@ -18,6 +18,7 @@ entity regfile is
         i_mret     : in std_logic;
         o_port_a   : out std_logic_vector(R_XLEN);
         o_port_b   : out std_logic_vector(R_XLEN);
+        o_priv_lvl : out std_logic;
         -- INTERRUPTS
         i_mcause   : in std_logic_vector(R_XLEN);
         i_mtval    : in std_logic_vector(R_XLEN);
@@ -51,6 +52,7 @@ architecture Structure of regfile is
             i_addr_d   : in std_logic_vector(R_CSR);
             i_addr_a   : in std_logic_vector(R_CSR);
             o_port_a   : out std_logic_vector(R_XLEN);
+            o_priv_lvl : out std_logic;
             -- INTERRUPTS
             i_mcause   : in std_logic_vector(R_XLEN);
             i_mtval    : in std_logic_vector(R_XLEN);
@@ -91,6 +93,7 @@ begin
         i_addr_d   => i_addr_csr,
         i_addr_a   => i_addr_csr,
         o_port_a   => s_sys_port_a,
+        o_priv_lvl => o_priv_lvl,
         i_mcause   => i_mcause,
         i_mtval    => i_mtval,
         i_mret     => i_mret,

@@ -51,7 +51,9 @@ entity control_unit is
         o_mret            : out std_logic;
         o_trap_ack        : out std_logic;
         o_mcause          : out std_logic_vector(R_XLEN);
-        o_mtval           : out std_logic_vector(R_XLEN)
+        o_mtval           : out std_logic_vector(R_XLEN);
+        -- PRIVILEGES
+        i_priv_lvl        : in std_logic
 	);
 end control_unit;
 
@@ -83,7 +85,9 @@ architecture Structure of control_unit is
             o_trap_ack      : out std_logic;
             -- EXCEPTIONS
             o_illegal_ins  : out std_logic;
-            o_ecall        : out std_logic
+            o_ecall        : out std_logic;
+            -- PRIVILEGES
+            i_priv_lvl     : in std_logic
 		);
 	end component;
 
@@ -136,6 +140,7 @@ architecture Structure of control_unit is
             i_illegal_ins : in std_logic;
             i_load_addr_miss_align : in std_logic;
             i_store_addr_miss_align : in std_logic;
+            i_illegal_mem_access   : in std_logic;
             i_ecall  : in std_logic
         ); 
     end component;
@@ -150,6 +155,7 @@ architecture Structure of control_unit is
 	signal s_states       : std_logic_vector(R_STATES);
     signal s_trap         : std_logic;
     signal s_state_fetch  : std_logic;
+    signal s_ld_st        : std_logic_vector(R_MEM_ACCS);
     -- EXCEPTIONS
     signal s_exc_trap            : std_logic;
     signal s_ecall               : std_logic;
@@ -157,6 +163,7 @@ architecture Structure of control_unit is
     signal s_ins_addr_miss_align : std_logic;
     signal s_load_addr_miss_align : std_logic;
     signal s_store_add_miss_align : std_logic;
+    signal s_illegal_mem_access  : std_logic;
 
 begin
 	c_ins_dec : ins_decoder
@@ -183,7 +190,9 @@ begin
         o_trap_ack      => o_trap_ack,
         -- EXCEPTIONS
         o_illegal_ins  => s_illegal_ins,
-        o_ecall        => s_ecall
+        o_ecall        => s_ecall,
+        -- PRIVILEGES
+        i_priv_lvl     => i_priv_lvl
 	);
 	c_reg_if_id : reg_if_id
 	port map (
@@ -201,7 +210,7 @@ begin
 		i_pc              => s_pc,
 		i_addr_mem        => i_addr_mem,
 		o_addr_mem        => o_addr_mem,
-		i_ld_st           => i_ld_st,
+		i_ld_st           => s_ld_st,
 		i_bhw             => i_bhw,
 		o_ld_st_to_mc     => o_ld_st_to_mc,
 		o_bhw_to_mc       => o_bhw_to_mc,
@@ -232,6 +241,7 @@ begin
             i_illegal_ins          => s_illegal_ins, 
             i_load_addr_miss_align => s_load_addr_miss_align,
             i_store_addr_miss_align => s_store_add_miss_align,
+            i_illegal_mem_access   => s_illegal_mem_access,
             i_ecall                => s_ecall 
         ); 
 
@@ -253,11 +263,19 @@ begin
     s_store_add_miss_align <= '1' when s_states = MEM_STATE and o_ld_st_to_mc = ST_SDRAM and o_addr_mem(1 downto 0) /= "00" else
                               '0';
 
+    -- System memory protection
+    s_illegal_mem_access <= '1' when s_states = MEM_STATE and i_addr_mem < MEM_USR_CODE_INI and i_priv_lvl = U_PRIV and i_ld_st /= IDLE_SDRAM else
+                            '1' when s_states = FETCH_STATE and o_addr_mem < MEM_USR_CODE_INI and i_priv_lvl = U_PRIV else
+                            '0';
+
+    s_ld_st <= IDLE_SDRAM when s_illegal_mem_access = '1' else
+               i_ld_st;
+
 	-- PROGRAM COUNTER
 	process (s_states, i_boot, i_tkbr, i_clk_proc, s_ld_pc)
 	begin
 		if i_boot = '1' then
-			s_pc <= x"00000000";
+			s_pc <= RESET_VECTOR;
 		elsif rising_edge(i_clk_proc) then
 			if s_states = DECODE_STATE then
 				if s_ld_pc = '1' then

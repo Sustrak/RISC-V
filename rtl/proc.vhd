@@ -64,7 +64,9 @@ architecture Structure of proc is
 			o_bhw          : out std_logic_vector(R_MEM_ACCS);
 			i_mem_unsigned : in std_logic;
             -- STATES
-            i_states       : in std_logic_vector(R_STATES)
+            i_states       : in std_logic_vector(R_STATES);
+            -- PRIVILEGES
+            o_priv_lvl     : out std_logic
 		);
 	end component;
 	component control_unit is
@@ -114,7 +116,9 @@ architecture Structure of proc is
             o_mret            : out std_logic;
             o_trap_ack        : out std_logic;
             o_mcause          : out std_logic_vector(R_XLEN);
-            o_mtval           : out std_logic_vector(R_XLEN)
+            o_mtval           : out std_logic_vector(R_XLEN);
+            -- PRIVILEGES
+            i_priv_lvl        : in std_logic
 		);
 	end component;
 
@@ -151,6 +155,7 @@ architecture Structure of proc is
     signal s_exc_in_order     : std_logic;
     signal s_exc_ack      : std_logic;
     signal s_mcause       : std_logic_vector(R_XLEN);
+    signal s_priv_lvl     : std_logic;
 begin
 	c_datapath : datapath
 	port map(
@@ -187,7 +192,9 @@ begin
         i_mret         => s_mret,
         i_trap_ack     => s_trap_ack,
         o_trap_ack     => s_trap_ack_to_controller,
-        i_states       => s_states
+        i_states       => s_states,
+        -- PRIVILEGES
+        o_priv_lvl     => s_priv_lvl
 	);
 	c_cu : control_unit
 	port map(
@@ -231,7 +238,9 @@ begin
         o_mret             => s_mret,
         o_trap_ack         => s_trap_ack,
         o_mcause           => s_exc_mcause,
-        o_mtval            => s_mtval
+        o_mtval            => s_mtval,
+        -- PRIVILEGES
+        i_priv_lvl         => s_priv_lvl
 	);
 
     s_int_trap <= s_trap_enabled and i_int;

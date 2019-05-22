@@ -200,6 +200,10 @@ package ARCH32 is
     constant MCAUSE_LD_ADDR_MISS_ALIGN    : std_logic_vector := x"00000004";
     constant MCAUSE_ST_ADDR_MISS_ALIGN    : std_logic_vector := x"00000006";
     constant MCAUSE_ECALL                 : std_logic_vector := x"00000008";
+    constant MCAUSE_ILLEGAL_MEM           : std_logic_vector := x"00000010";
+    -- PRIVILEGE LEVELS
+    constant U_PRIV  : std_logic := '0';
+    constant M_PRIV  : std_logic := '1';
 
 	-- DATAPATH BUS
 	-- ---------------------------------------------------------------------------------------------------------
@@ -226,5 +230,49 @@ package ARCH32 is
     subtype  R_DPB_CSROP    is natural range R_DPB_ADDRCSR'high + 3 downto R_DPB_ADDRCSR'high + 1;
     constant R_DPB_TRAPACK   : integer := R_DPB_CSROP'high + 1;
 	subtype  R_DATAPATH_BUS is natural range R_DPB_TRAPACK downto 0;
+
+    -- MEMORY SDRAM MAPPING
+    -- *------------------------------------* 0x07FF FFFF
+    -- *                                    *
+    -- *                                    *
+    -- *                                    *
+    -- *                                    *
+    -- *                                    *
+    -- *                                    *
+    -- *             USER   DATA            *
+    -- *                                    *
+    -- *                                    *
+    -- *                                    *
+    -- *                                    *
+    -- *                                    * 0x0500 0000
+    -- *------------------------------------* 
+    -- *                                    * 0x04FF FFFF 
+    -- *             USER  CODE             *
+    -- *                                    * 0x0400 0000
+    -- *------------------------------------*
+    -- *                                    * 0x03FF FFFF
+    -- *                                    *
+    -- *                                    *
+    -- *                                    *
+    -- *                                    *
+    -- *                                    *
+    -- *           SYSTEM   DATA            *
+    -- *                                    *
+    -- *                                    *
+    -- *                                    *
+    -- *                                    *
+    -- *                                    * 0x0100 0000
+    -- *------------------------------------* 
+    -- *                                    * 0x00FF FFFF 
+    -- *           SYSTEM   CODE            *
+    -- *                                    * 0x0000 0000
+    -- *------------------------------------* 
+
+    constant MEM_USR_CODE_INI  : std_logic_vector := x"04000000";
+    constant MEM_USR_DATA_INI  : std_logic_vector := x"05000000";
+    constant MEM_SYS_CODE_INI  : std_logic_vector := x"00000000";
+    constant MEM_SYS_DATA_INI  : std_logic_vector := x"01000000";
+    constant RESET_VECTOR      : std_logic_vector := x"00000000";
+    constant INT_VECTOR        : std_logic_vector := x"00FE0000";
 
 end ARCH32;

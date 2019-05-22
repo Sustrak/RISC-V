@@ -21,6 +21,7 @@ entity exc_controller is
         i_illegal_ins : in std_logic;
         i_load_addr_miss_align : in std_logic;
         i_store_addr_miss_align : in std_logic;
+        i_illegal_mem_access   : in std_logic;
         i_ecall  : in std_logic
     ); 
 end exc_controller;
@@ -42,12 +43,14 @@ architecture Structure of exc_controller is
     signal s_illegal_ins : std_logic;
     signal s_load_addr_miss_align : std_logic;
     signal s_store_addr_miss_align : std_logic;
+    signal s_illegal_mem_access : std_logic;
     signal s_ecall : std_logic;
     -- EDGE CAPTURE
     signal s_ins_addr_miss_align_edge : std_logic;
     signal s_illegal_ins_edge : std_logic;
     signal s_load_addr_miss_align_edge : std_logic;
     signal s_store_addr_miss_align_edge : std_logic;
+    signal s_illegal_mem_access_edge : std_logic;
     signal s_ecall_edge : std_logic;
 
 begin
@@ -60,7 +63,7 @@ begin
         o_edge => s_ins_addr_miss_align_edge
     );
             
-    illegal_edge : edge_detector
+    illegal_ins_edge : edge_detector
     port map(
         i_clk => i_clk,
         i_signal => i_illegal_ins,
@@ -97,6 +100,14 @@ begin
         o_edge => s_ecall_edge 
     );
 
+    illegal_mem_edge : edge_detector
+    port map(
+        i_clk => i_clk,
+        i_signal => i_illegal_mem_access,
+        i_data => (others => '0'),
+        o_data => open,
+        o_edge => s_illegal_mem_access_edge 
+    );
 
     exceptions : process(i_clk, i_reset)
     begin
@@ -120,6 +131,9 @@ begin
             if s_ecall_edge = '1' then
                 s_ecall <= '1';
             end if;
+            if s_illegal_mem_access_edge = '1' then
+                s_illegal_mem_access <= '0';
+            end if;
 
             if i_exc_ack = '1' then
                 if s_ins_addr_miss_align = '1' then
@@ -137,6 +151,9 @@ begin
                 elsif s_ecall = '1' then
                     s_mcause <= MCAUSE_ECALL;
                     s_ecall <= '0';
+                elsif s_illegal_mem_access = '1' then
+                    s_mcause <= MCAUSE_ILLEGAL_MEM;
+                    s_illegal_mem_access <= '0';
                 end if;
             end if;
         end if;
@@ -145,7 +162,7 @@ begin
     o_mtval <= s_current_pc;
     o_mcause <= s_mcause;
 
-    o_exc_in_order <= s_ins_addr_miss_align or s_illegal_ins or s_load_addr_miss_align or s_store_addr_miss_align or s_ecall;
+    o_exc_in_order <= s_ins_addr_miss_align or s_illegal_ins or s_load_addr_miss_align or s_store_addr_miss_align or s_ecall or s_illegal_mem_access;
     o_exc_trap <= o_exc_in_order and i_trap_enabled;
 
 end Structure;

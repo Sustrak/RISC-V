@@ -13,6 +13,7 @@ entity sys_regfile is
         i_addr_d   : in std_logic_vector(R_CSR);
         i_addr_a   : in std_logic_vector(R_CSR);
         o_port_a   : out std_logic_vector(R_XLEN);
+        o_priv_lvl : out std_logic;
         -- INTERRUPTS
         i_mcause   : in std_logic_vector(R_XLEN);
         i_mtval    : in std_logic_vector(R_XLEN);
@@ -52,14 +53,16 @@ begin
                 end case;
             elsif i_sys_state = '1' then
                 s_mstatus(3) <= '0'; -- Deactivate interrupts
+                s_mstatus(11) <= M_PRIV; -- Enter mode system
                 s_mpec <= i_ret_pc;
             elsif i_mret = '1' then
                 s_mstatus(3) <= '1'; -- Activate interrupts
+                s_mstatus(11) <= U_PRIV; -- Exit mode system
             end if;
         end if;
         if i_reset = '1' then
-            s_mstatus <= x"00000008"; -- Interrputs enabled by default
-            s_mtvec <= x"00000500";   -- 0x500 base address for the RSI
+            s_mstatus <= x"00000800"; -- Interrputs dissabled on reset and mode system on
+            s_mtvec <= INT_VECTOR;   -- Base address for the RSI
         end if;
     end process;
 
@@ -76,5 +79,6 @@ begin
                 (others => '0');
 
     o_trap_enabled <= s_mstatus(3);
+    o_priv_lvl <= s_mstatus(11);
 
 end Structure;

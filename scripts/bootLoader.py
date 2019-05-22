@@ -19,9 +19,12 @@ except ImportError:
     colors = False
     print("If you want to see the output with colors please install the collorama package\n pip install colorama")
 
-TEXT_ADDR = "0x000000"
-RSI_ADDR = "0x500"
-DATA_ADDR = "0x00001000"
+USER_TEXT_ADDR = "0x4000000"
+USER_DATA_ADDR = "0x5000000"
+SYS_TEXT_ADDR = "0x0"
+SYS_DATA_ADDR = "0x1000000"
+RSI_ADDR = "0xFE0000"
+
 TEST_FOLDER = "../test/"
 
 
@@ -38,6 +41,14 @@ def generate_bin():
         for line in rsi_hex_file:
             x = line[6] + line[7] + line[4] + line[5] + line[2] + line[3] + line[0] + line[1]
             rsi_bin_file.write(binascii.unhexlify(x))
+            
+    if args.sys_code:
+        sys_hex_file = open(sys_hex, "r")
+        sys_bin_file = open(sys_bin, "w+b")
+        
+        for line in sys_hex_file:
+            x = line[6] + line[7] + line[4] + line[5] + line[2] + line[3] + line[0] + line[1]
+            sys_bin_file.write(binascii.unhexlify(x))
         
     if args.enable_int:
         # Enable switch interrupts
@@ -72,15 +83,17 @@ def generate_load_tcl(file_name):
     tcl_name = file_name + "_load.tcl"
     tcl_file = open(tcl_name, "w+")
     # Write the script
-    if "rsi" in args:
-        script = """set master [claim_service "master" [lindex [get_service_paths "master"] 0] ""]; 
-        master_write_from_file $master {0}/{1} {2};
-        master_write_from_file $master {0}/{3} {4}
-        """.format(os.getcwd().replace('\\', '/'), bin_name, TEXT_ADDR, rsi_bin, RSI_ADDR)
-    else:
-        script = """set master [claim_service "master" [lindex [get_service_paths "master"] 0] ""]; 
+    script = """set master [claim_service "master" [lindex [get_service_paths "master"] 0] ""]; 
         master_write_from_file $master {}/{} {};
-        """.format(os.getcwd().replace('\\', '/'), bin_name, TEXT_ADDR)
+        """.format(os.getcwd().replace('\\', '/'), bin_name, USER_TEXT_ADDR)
+        
+    if args.rsi:
+        script = script + "master_write_from_file $master {}/{} {};\n".format(os.getcwd().replace('\\', '/'), rsi_bin, RSI_ADDR)
+        
+    if args.sys_code:
+        script = script + "master_write_from_file $master {}/{} {};\n".format(os.getcwd().replace('\\', '/'), sys_bin, SYS_TEXT_ADDR)
+        
+        
     tcl_file.write(script)
     tcl_file.close()
     return tcl_name
@@ -92,7 +105,7 @@ def generate_tcl_mem_dump(file_name):
     tcl_file = open(tcl_name, "w+")
     # Write the script
     script = f"""set master [claim_service "master" [lindex [get_service_paths "master"] 0] ""];
-    puts [master_read_32 $master {DATA_ADDR} 100]"""
+    puts [master_read_32 $master {USER_DATA_ADDR} 100]"""
     tcl_file.write(script)
     tcl_file.close()
     return tcl_name
@@ -223,7 +236,9 @@ if __name__ == "__main__":
     parser.add_argument("--enable-int", action='store_true', default=False,
                         help="Adds store instructions to enable the interrupts on the devices")
     parser.add_argument("--rsi", type=str,
-                        help="Puts this code in the RSI section, 0x500 by default")
+                        help=f"Puts this code in the RSI section, {RSI_ADDR} by default")
+    parser.add_argument("--sys-code", type=str,
+                        help=f"Puts this code in the SYSTEM CODE section, {SYS_TEXT_ADDR} by default")
     args = parser.parse_args()
 
     verbose_print = print if args.verbose else lambda *a, **k: None
@@ -237,6 +252,12 @@ if __name__ == "__main__":
         rsi_hex = rsi_name + ".hex"
         rsi_bin = rsi_name + ".bin"
         created_files.append(rsi_bin)
+    
+    if args.sys_code:
+        sys_name = TEST_FOLDER + args.sys_code.split('.')[0]
+        sys_hex = sys_name + ".hex"
+        sys_bin = sys_name + ".bin"
+        created_files.append(sys_bin)
 
     execute_pipeline()
 
