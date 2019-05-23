@@ -210,7 +210,7 @@ begin
     rd_hold: process(i_clk_50, s_mm_readdatavalid_edge, i_proc_data_read, i_reset)
     begin
         if rising_edge(i_clk_50) and s_mm_readdatavalid_edge = '1' and s_expect_readdata = '1' then
-            if (s_mm_address >= MEM_SYS_CODE_INI and s_mm_address < MEM_SYS_DATA_INI) or (s_mm_address >= MEM_USR_CODE_INI and s_mm_address < MEM_USR_DATA_INI) then
+            if (i_addr >= MEM_SYS_CODE_INI and i_addr < MEM_SYS_DATA_INI) or (i_addr >= MEM_USR_CODE_INI and i_addr < MEM_USR_DATA_INI) then
                 if s_last_ins /= s_readdata then
                     s_reg_readdatavalid <= '1';
                     s_reg_readdata <= s_readdata;
@@ -219,7 +219,7 @@ begin
             else
                 s_reg_readdatavalid <= '1';
                 s_reg_readdata <= s_readdata;
-                    s_last_ins <= s_readdata;
+                    --s_last_ins <= s_readdata;
             end if;
         end if;
         if i_proc_data_read = '1' then
