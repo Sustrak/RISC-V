@@ -194,6 +194,30 @@
          type = "int";
       }
    }
+   element video_dual_clock_buffer_0
+   {
+      datum _sortIndex
+      {
+         value = "13";
+         type = "int";
+      }
+   }
+   element video_rgb_resampler_0
+   {
+      datum _sortIndex
+      {
+         value = "14";
+         type = "int";
+      }
+   }
+   element video_test_pattern_0
+   {
+      datum _sortIndex
+      {
+         value = "15";
+         type = "int";
+      }
+   }
 }
 ]]></parameter>
  <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
@@ -418,7 +442,7 @@
    kind="altera_up_avalon_video_dma_controller"
    version="18.0"
    enabled="1">
-  <parameter name="AUTO_CLK_CLOCK_RATE" value="25000000" />
+  <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone IV E" />
   <parameter name="addr_mode" value="X-Y" />
   <parameter name="back_start_address" value="0" />
@@ -445,6 +469,38 @@
   <parameter name="lcd_clk_en" value="false" />
   <parameter name="vga_clk_en" value="true" />
   <parameter name="video_in_clk_en" value="false" />
+ </module>
+ <module
+   name="video_dual_clock_buffer_0"
+   kind="altera_up_avalon_video_dual_clock_buffer"
+   version="18.0"
+   enabled="1">
+  <parameter name="AUTO_CLOCK_STREAM_IN_CLOCK_RATE" value="50000000" />
+  <parameter name="AUTO_CLOCK_STREAM_OUT_CLOCK_RATE" value="25000000" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone IV E" />
+  <parameter name="color_bits" value="10" />
+  <parameter name="color_planes" value="3" />
+ </module>
+ <module
+   name="video_rgb_resampler_0"
+   kind="altera_up_avalon_video_rgb_resampler"
+   version="18.0"
+   enabled="0">
+  <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone IV E" />
+  <parameter name="alpha" value="7" />
+  <parameter name="input_type" value="8-bit RGB" />
+  <parameter name="output_type" value="30-bit RGB" />
+ </module>
+ <module
+   name="video_test_pattern_0"
+   kind="altera_up_avalon_video_test_pattern"
+   version="18.0"
+   enabled="0">
+  <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone IV E" />
+  <parameter name="height" value="480" />
+  <parameter name="width" value="640" />
  </module>
  <connection
    kind="avalon"
@@ -564,8 +620,13 @@
  <connection
    kind="avalon_streaming"
    version="18.1"
-   start="vga_dma.avalon_pixel_source"
+   start="video_dual_clock_buffer_0.avalon_dc_buffer_source"
    end="vga.avalon_vga_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="18.1"
+   start="vga_dma.avalon_pixel_source"
+   end="video_dual_clock_buffer_0.avalon_dc_buffer_sink" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="sdram_pll.ref_clk" />
  <connection
    kind="clock"
@@ -594,14 +655,38 @@
    kind="clock"
    version="18.1"
    start="sdram_pll.sys_clk"
+   end="video_test_pattern_0.clk" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="sdram_pll.sys_clk"
+   end="video_rgb_resampler_0.clk" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="sdram_pll.sys_clk"
    end="sram_0.clk" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="sdram_pll.sys_clk"
+   end="vga_dma.clk" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="sdram_pll.sys_clk"
+   end="video_dual_clock_buffer_0.clock_stream_in" />
  <connection
    kind="clock"
    version="18.1"
    start="sdram_pll.sys_clk"
    end="vga_pll.ref_clk" />
  <connection kind="clock" version="18.1" start="vga_pll.vga_clk" end="vga.clk" />
- <connection kind="clock" version="18.1" start="vga_pll.vga_clk" end="vga_dma.clk" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="vga_pll.vga_clk"
+   end="video_dual_clock_buffer_0.clock_stream_out" />
  <connection
    kind="reset"
    version="18.1"
@@ -655,13 +740,33 @@
  <connection
    kind="reset"
    version="18.1"
-   start="vga_pll.reset_source"
-   end="vga_dma.reset" />
+   start="sdram_pll.reset_source"
+   end="video_test_pattern_0.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="sdram_pll.reset_source"
+   end="video_rgb_resampler_0.reset" />
  <connection
    kind="reset"
    version="18.1"
    start="sdram_pll.reset_source"
    end="sram_0.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="sdram_pll.reset_source"
+   end="vga_dma.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="sdram_pll.reset_source"
+   end="video_dual_clock_buffer_0.reset_stream_in" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="vga_pll.reset_source"
+   end="video_dual_clock_buffer_0.reset_stream_out" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />
