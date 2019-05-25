@@ -35,7 +35,25 @@ entity memory_controller is
         o_led_g           : out std_logic_vector(R_LED_G);
         o_hex              : out std_logic_vector(R_HEX);
         i_key             : in std_logic_vector(R_KEY);
-        i_switch          : in std_logic_vector(R_SWITCH)
+        i_switch          : in std_logic_vector(R_SWITCH);
+        -- VGA
+        o_vga_CLK          : out   std_logic;
+        o_vga_HS           : out   std_logic;
+        o_vga_VS           : out   std_logic;
+        o_vga_BLANK        : out   std_logic;
+        o_vga_SYNC         : out   std_logic;
+        o_vga_R            : out   std_logic_vector(7 downto 0);
+        o_vga_G            : out   std_logic_vector(7 downto 0);
+        o_vga_B            : out   std_logic_vector(7 downto 0);
+        -- SRAM
+        o_sram_DQ            : inout std_logic_vector(15 downto 0) := (others => 'X');
+        o_sram_ADDR          : out   std_logic_vector(19 downto 0);
+        o_sram_LB_N          : out   std_logic;
+        o_sram_UB_N          : out   std_logic;
+        o_sram_CE_N          : out   std_logic;
+        o_sram_OE_N          : out   std_logic;
+        o_sram_WE_N          : out   std_logic
+
 	);
 end memory_controller;
 
@@ -70,7 +88,22 @@ architecture Structure of memory_controller is
 			pp_switch_export          : in std_logic_vector(17 downto 0) := (others => 'X');
 			pp_key_export             : in std_logic_vector(3 downto 0) := (others => 'X');
             pp_switch_int_irq         : out std_logic;
-            pp_key_int_irq            : out std_logic
+            pp_key_int_irq            : out std_logic;
+            vga_CLK                   : out   std_logic;
+            vga_HS                    : out   std_logic;
+            vga_VS                    : out   std_logic;
+            vga_BLANK                 : out   std_logic;
+            vga_SYNC                  : out   std_logic;
+            vga_R                     : out   std_logic_vector(7 downto 0);
+            vga_G                     : out   std_logic_vector(7 downto 0);
+            vga_B                     : out   std_logic_vector(7 downto 0);
+            sram_DQ                   : inout std_logic_vector(15 downto 0) := (others => 'X');
+            sram_ADDR                 : out   std_logic_vector(19 downto 0);
+            sram_LB_N                 : out   std_logic;
+            sram_UB_N                 : out   std_logic;
+            sram_CE_N                 : out   std_logic;
+            sram_OE_N                 : out   std_logic;
+            sram_WE_N                 : out   std_logic
 		);
 	end component AvalonMM;
 
@@ -164,7 +197,22 @@ begin
             pp_switch_export          => i_switch,
             pp_key_export             => i_key,
             pp_switch_int_irq         => s_switch_int,
-            pp_key_int_irq            => s_key_int
+            pp_key_int_irq            => s_key_int,
+            vga_CLK                   => o_vga_CLK,
+            vga_HS                    => o_vga_HS, 
+            vga_VS                    => o_vga_VS,
+            vga_BLANK                 => o_vga_BLANK,
+            vga_SYNC                  => o_vga_SYNC,
+            vga_R                     => o_vga_R,
+            vga_G                     => o_vga_G,
+            vga_B                     => o_vga_B,
+            sram_DQ                   => o_sram_DQ,
+            sram_ADDR                 => o_sram_ADDR,
+            sram_LB_N                 => o_sram_LB_N,
+            sram_UB_N                 => o_sram_UB_N,
+            sram_CE_N                 => o_sram_CE_N,
+            sram_OE_N                 => o_sram_OE_N,
+            sram_WE_N                 => o_sram_WE_N
         );
 
     c_edge_detector0 : component edge_detector
@@ -219,7 +267,6 @@ begin
             else
                 s_reg_readdatavalid <= '1';
                 s_reg_readdata <= s_readdata;
-                    --s_last_ins <= s_readdata;
             end if;
         end if;
         if i_proc_data_read = '1' then

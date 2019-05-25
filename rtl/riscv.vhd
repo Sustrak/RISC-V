@@ -157,7 +157,23 @@ architecture Structure of riscv is
             o_led_g           : out std_logic_vector(R_LED_G);
             o_hex             : out std_logic_vector(R_HEX);
             i_key             : in std_logic_vector(R_KEY);
-            i_switch          : in std_logic_vector(R_SWITCH)
+            i_switch          : in std_logic_vector(R_SWITCH);
+            -- VGA
+            o_vga_CLK         : out   std_logic;
+            o_vga_HS          : out   std_logic;
+            o_vga_VS          : out   std_logic;
+            o_vga_BLANK       : out   std_logic;
+            o_vga_SYNC        : out   std_logic;
+            o_vga_R           : out   std_logic_vector(7 downto 0);
+            o_vga_G           : out   std_logic_vector(7 downto 0);
+            o_vga_B           : out   std_logic_vector(7 downto 0);
+            o_sram_DQ         : inout std_logic_vector(15 downto 0) := (others => 'X');
+            o_sram_ADDR       : out   std_logic_vector(19 downto 0);
+            o_sram_LB_N       : out   std_logic;
+            o_sram_UB_N       : out   std_logic;
+            o_sram_CE_N       : out   std_logic;
+            o_sram_OE_N       : out   std_logic;
+            o_sram_WE_N       : out   std_logic
 		);
 	end component;
     component system_pll is
@@ -232,7 +248,23 @@ begin
         o_led_g           => LEDG,
         o_hex             => s_hex_bus,
         i_key             => s_key,
-        i_switch          => SW(17 downto 1) & '0'
+        i_switch          => SW(17 downto 1) & '0',
+        -- VGA
+        o_vga_CLK         => VGA_CLK,
+        o_vga_HS          => VGA_HS,
+        o_vga_VS          => VGA_VS,
+        o_vga_BLANK       => VGA_BLANK_N,
+        o_vga_SYNC        => VGA_SYNC_N,
+        o_vga_R           => VGA_R,
+        o_vga_G           => VGA_G,
+        o_vga_B           => VGA_b,
+        o_sram_DQ         => SRAM_DQ,
+        o_sram_ADDR       =>  SRAM_ADDR,
+        o_sram_LB_N       =>  SRAM_LB_N,
+        o_sram_UB_N       =>  SRAM_UB_N,
+        o_sram_CE_N       =>  SRAM_CE_N,
+        o_sram_OE_N       =>  SRAM_OE_N, 
+        o_sram_WE_N       =>  SRAM_WE_N 
 	);
 
     c_system_pll : system_pll

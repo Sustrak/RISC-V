@@ -35,7 +35,22 @@ entity AvalonMM is
 		sdram_dqm                 : out   std_logic_vector(3 downto 0);                     --              .dqm
 		sdram_ras_n               : out   std_logic;                                        --              .ras_n
 		sdram_we_n                : out   std_logic;                                        --              .we_n
-		sdram_clk_clk             : out   std_logic                                         --     sdram_clk.clk
+		sdram_clk_clk             : out   std_logic;                                        --     sdram_clk.clk
+		sram_DQ                   : inout std_logic_vector(15 downto 0) := (others => '0'); --          sram.DQ
+		sram_ADDR                 : out   std_logic_vector(19 downto 0);                    --              .ADDR
+		sram_LB_N                 : out   std_logic;                                        --              .LB_N
+		sram_UB_N                 : out   std_logic;                                        --              .UB_N
+		sram_CE_N                 : out   std_logic;                                        --              .CE_N
+		sram_OE_N                 : out   std_logic;                                        --              .OE_N
+		sram_WE_N                 : out   std_logic;                                        --              .WE_N
+		vga_CLK                   : out   std_logic;                                        --           vga.CLK
+		vga_HS                    : out   std_logic;                                        --              .HS
+		vga_VS                    : out   std_logic;                                        --              .VS
+		vga_BLANK                 : out   std_logic;                                        --              .BLANK
+		vga_SYNC                  : out   std_logic;                                        --              .SYNC
+		vga_R                     : out   std_logic_vector(7 downto 0);                     --              .R
+		vga_G                     : out   std_logic_vector(7 downto 0);                     --              .G
+		vga_B                     : out   std_logic_vector(7 downto 0)                      --              .B
 	);
 end entity AvalonMM;
 
@@ -173,6 +188,27 @@ architecture rtl of AvalonMM is
 		);
 	end component AvalonMM_sdram_pll;
 
+	component AvalonMM_sram_0 is
+		port (
+			clk           : in    std_logic                     := 'X';             -- clk
+			reset         : in    std_logic                     := 'X';             -- reset
+			SRAM_DQ       : inout std_logic_vector(15 downto 0) := (others => 'X'); -- export
+			SRAM_ADDR     : out   std_logic_vector(19 downto 0);                    -- export
+			SRAM_LB_N     : out   std_logic;                                        -- export
+			SRAM_UB_N     : out   std_logic;                                        -- export
+			SRAM_CE_N     : out   std_logic;                                        -- export
+			SRAM_OE_N     : out   std_logic;                                        -- export
+			SRAM_WE_N     : out   std_logic;                                        -- export
+			address       : in    std_logic_vector(19 downto 0) := (others => 'X'); -- address
+			byteenable    : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- byteenable
+			read          : in    std_logic                     := 'X';             -- read
+			write         : in    std_logic                     := 'X';             -- write
+			writedata     : in    std_logic_vector(15 downto 0) := (others => 'X'); -- writedata
+			readdata      : out   std_logic_vector(15 downto 0);                    -- readdata
+			readdatavalid : out   std_logic                                         -- readdatavalid
+		);
+	end component AvalonMM_sram_0;
+
 	component AvalonMM_switch is
 		port (
 			clk        : in  std_logic                     := 'X';             -- clk
@@ -187,12 +223,67 @@ architecture rtl of AvalonMM is
 		);
 	end component AvalonMM_switch;
 
+	component AvalonMM_vga is
+		port (
+			clk           : in  std_logic                     := 'X';             -- clk
+			reset         : in  std_logic                     := 'X';             -- reset
+			data          : in  std_logic_vector(29 downto 0) := (others => 'X'); -- data
+			startofpacket : in  std_logic                     := 'X';             -- startofpacket
+			endofpacket   : in  std_logic                     := 'X';             -- endofpacket
+			valid         : in  std_logic                     := 'X';             -- valid
+			ready         : out std_logic;                                        -- ready
+			VGA_CLK       : out std_logic;                                        -- export
+			VGA_HS        : out std_logic;                                        -- export
+			VGA_VS        : out std_logic;                                        -- export
+			VGA_BLANK     : out std_logic;                                        -- export
+			VGA_SYNC      : out std_logic;                                        -- export
+			VGA_R         : out std_logic_vector(7 downto 0);                     -- export
+			VGA_G         : out std_logic_vector(7 downto 0);                     -- export
+			VGA_B         : out std_logic_vector(7 downto 0)                      -- export
+		);
+	end component AvalonMM_vga;
+
+	component AvalonMM_vga_dma is
+		port (
+			clk                  : in  std_logic                     := 'X';             -- clk
+			reset                : in  std_logic                     := 'X';             -- reset
+			master_address       : out std_logic_vector(31 downto 0);                    -- address
+			master_waitrequest   : in  std_logic                     := 'X';             -- waitrequest
+			master_arbiterlock   : out std_logic;                                        -- lock
+			master_read          : out std_logic;                                        -- read
+			master_readdata      : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			master_readdatavalid : in  std_logic                     := 'X';             -- readdatavalid
+			slave_address        : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- address
+			slave_byteenable     : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- byteenable
+			slave_read           : in  std_logic                     := 'X';             -- read
+			slave_write          : in  std_logic                     := 'X';             -- write
+			slave_writedata      : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
+			slave_readdata       : out std_logic_vector(31 downto 0);                    -- readdata
+			stream_ready         : in  std_logic                     := 'X';             -- ready
+			stream_data          : out std_logic_vector(29 downto 0);                    -- data
+			stream_startofpacket : out std_logic;                                        -- startofpacket
+			stream_endofpacket   : out std_logic;                                        -- endofpacket
+			stream_valid         : out std_logic                                         -- valid
+		);
+	end component AvalonMM_vga_dma;
+
+	component AvalonMM_vga_pll is
+		port (
+			ref_clk_clk        : in  std_logic := 'X'; -- clk
+			ref_reset_reset    : in  std_logic := 'X'; -- reset
+			vga_clk_clk        : out std_logic;        -- clk
+			reset_source_reset : out std_logic         -- reset
+		);
+	end component AvalonMM_vga_pll;
+
 	component AvalonMM_mm_interconnect_0 is
 		port (
 			sdram_pll_sys_clk_clk                              : in  std_logic                     := 'X';             -- clk
+			vga_pll_vga_clk_clk                                : in  std_logic                     := 'X';             -- clk
 			jtag_master_clk_reset_reset_bridge_in_reset_reset  : in  std_logic                     := 'X';             -- reset
 			mm_bridge_reset_reset_bridge_in_reset_reset        : in  std_logic                     := 'X';             -- reset
 			sdram_controller_reset_reset_bridge_in_reset_reset : in  std_logic                     := 'X';             -- reset
+			vga_dma_reset_reset_bridge_in_reset_reset          : in  std_logic                     := 'X';             -- reset
 			jtag_master_master_address                         : in  std_logic_vector(31 downto 0) := (others => 'X'); -- address
 			jtag_master_master_waitrequest                     : out std_logic;                                        -- waitrequest
 			jtag_master_master_byteenable                      : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- byteenable
@@ -211,6 +302,12 @@ architecture rtl of AvalonMM is
 			mm_bridge_m0_write                                 : in  std_logic                     := 'X';             -- write
 			mm_bridge_m0_writedata                             : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
 			mm_bridge_m0_debugaccess                           : in  std_logic                     := 'X';             -- debugaccess
+			vga_dma_avalon_dma_master_address                  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- address
+			vga_dma_avalon_dma_master_waitrequest              : out std_logic;                                        -- waitrequest
+			vga_dma_avalon_dma_master_read                     : in  std_logic                     := 'X';             -- read
+			vga_dma_avalon_dma_master_readdata                 : out std_logic_vector(31 downto 0);                    -- readdata
+			vga_dma_avalon_dma_master_readdatavalid            : out std_logic;                                        -- readdatavalid
+			vga_dma_avalon_dma_master_lock                     : in  std_logic                     := 'X';             -- lock
 			key_s1_address                                     : out std_logic_vector(1 downto 0);                     -- address
 			key_s1_write                                       : out std_logic;                                        -- write
 			key_s1_readdata                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
@@ -235,11 +332,24 @@ architecture rtl of AvalonMM is
 			sdram_controller_s1_readdatavalid                  : in  std_logic                     := 'X';             -- readdatavalid
 			sdram_controller_s1_waitrequest                    : in  std_logic                     := 'X';             -- waitrequest
 			sdram_controller_s1_chipselect                     : out std_logic;                                        -- chipselect
+			sram_0_avalon_sram_slave_address                   : out std_logic_vector(19 downto 0);                    -- address
+			sram_0_avalon_sram_slave_write                     : out std_logic;                                        -- write
+			sram_0_avalon_sram_slave_read                      : out std_logic;                                        -- read
+			sram_0_avalon_sram_slave_readdata                  : in  std_logic_vector(15 downto 0) := (others => 'X'); -- readdata
+			sram_0_avalon_sram_slave_writedata                 : out std_logic_vector(15 downto 0);                    -- writedata
+			sram_0_avalon_sram_slave_byteenable                : out std_logic_vector(1 downto 0);                     -- byteenable
+			sram_0_avalon_sram_slave_readdatavalid             : in  std_logic                     := 'X';             -- readdatavalid
 			switch_s1_address                                  : out std_logic_vector(1 downto 0);                     -- address
 			switch_s1_write                                    : out std_logic;                                        -- write
 			switch_s1_readdata                                 : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			switch_s1_writedata                                : out std_logic_vector(31 downto 0);                    -- writedata
-			switch_s1_chipselect                               : out std_logic                                         -- chipselect
+			switch_s1_chipselect                               : out std_logic;                                        -- chipselect
+			vga_dma_avalon_dma_control_slave_address           : out std_logic_vector(1 downto 0);                     -- address
+			vga_dma_avalon_dma_control_slave_write             : out std_logic;                                        -- write
+			vga_dma_avalon_dma_control_slave_read              : out std_logic;                                        -- read
+			vga_dma_avalon_dma_control_slave_readdata          : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			vga_dma_avalon_dma_control_slave_writedata         : out std_logic_vector(31 downto 0);                    -- writedata
+			vga_dma_avalon_dma_control_slave_byteenable        : out std_logic_vector(3 downto 0)                      -- byteenable
 		);
 	end component AvalonMM_mm_interconnect_0;
 
@@ -309,69 +419,96 @@ architecture rtl of AvalonMM is
 		);
 	end component altera_reset_controller;
 
-	signal sdram_pll_sys_clk_clk                                      : std_logic;                     -- sdram_pll:sys_clk_clk -> [jtag_master:clk_clk, key:clk, led_r:clk, leg_g:clk, mm_bridge:clk, mm_interconnect_0:sdram_pll_sys_clk_clk, rst_controller:clk, rst_controller_001:clk, sdram_controller:clk, switch:clk]
-	signal sdram_pll_reset_source_reset                               : std_logic;                     -- sdram_pll:reset_source_reset -> [jtag_master:clk_reset_reset, rst_controller:reset_in0]
-	signal mm_bridge_m0_waitrequest                                   : std_logic;                     -- mm_interconnect_0:mm_bridge_m0_waitrequest -> mm_bridge:m0_waitrequest
-	signal mm_bridge_m0_readdata                                      : std_logic_vector(31 downto 0); -- mm_interconnect_0:mm_bridge_m0_readdata -> mm_bridge:m0_readdata
-	signal mm_bridge_m0_debugaccess                                   : std_logic;                     -- mm_bridge:m0_debugaccess -> mm_interconnect_0:mm_bridge_m0_debugaccess
-	signal mm_bridge_m0_address                                       : std_logic_vector(27 downto 0); -- mm_bridge:m0_address -> mm_interconnect_0:mm_bridge_m0_address
-	signal mm_bridge_m0_read                                          : std_logic;                     -- mm_bridge:m0_read -> mm_interconnect_0:mm_bridge_m0_read
-	signal mm_bridge_m0_byteenable                                    : std_logic_vector(3 downto 0);  -- mm_bridge:m0_byteenable -> mm_interconnect_0:mm_bridge_m0_byteenable
-	signal mm_bridge_m0_readdatavalid                                 : std_logic;                     -- mm_interconnect_0:mm_bridge_m0_readdatavalid -> mm_bridge:m0_readdatavalid
-	signal mm_bridge_m0_writedata                                     : std_logic_vector(31 downto 0); -- mm_bridge:m0_writedata -> mm_interconnect_0:mm_bridge_m0_writedata
-	signal mm_bridge_m0_write                                         : std_logic;                     -- mm_bridge:m0_write -> mm_interconnect_0:mm_bridge_m0_write
-	signal mm_bridge_m0_burstcount                                    : std_logic_vector(0 downto 0);  -- mm_bridge:m0_burstcount -> mm_interconnect_0:mm_bridge_m0_burstcount
-	signal jtag_master_master_readdata                                : std_logic_vector(31 downto 0); -- mm_interconnect_0:jtag_master_master_readdata -> jtag_master:master_readdata
-	signal jtag_master_master_waitrequest                             : std_logic;                     -- mm_interconnect_0:jtag_master_master_waitrequest -> jtag_master:master_waitrequest
-	signal jtag_master_master_address                                 : std_logic_vector(31 downto 0); -- jtag_master:master_address -> mm_interconnect_0:jtag_master_master_address
-	signal jtag_master_master_read                                    : std_logic;                     -- jtag_master:master_read -> mm_interconnect_0:jtag_master_master_read
-	signal jtag_master_master_byteenable                              : std_logic_vector(3 downto 0);  -- jtag_master:master_byteenable -> mm_interconnect_0:jtag_master_master_byteenable
-	signal jtag_master_master_readdatavalid                           : std_logic;                     -- mm_interconnect_0:jtag_master_master_readdatavalid -> jtag_master:master_readdatavalid
-	signal jtag_master_master_write                                   : std_logic;                     -- jtag_master:master_write -> mm_interconnect_0:jtag_master_master_write
-	signal jtag_master_master_writedata                               : std_logic_vector(31 downto 0); -- jtag_master:master_writedata -> mm_interconnect_0:jtag_master_master_writedata
-	signal mm_interconnect_0_sdram_controller_s1_chipselect           : std_logic;                     -- mm_interconnect_0:sdram_controller_s1_chipselect -> sdram_controller:az_cs
-	signal mm_interconnect_0_sdram_controller_s1_readdata             : std_logic_vector(31 downto 0); -- sdram_controller:za_data -> mm_interconnect_0:sdram_controller_s1_readdata
-	signal mm_interconnect_0_sdram_controller_s1_waitrequest          : std_logic;                     -- sdram_controller:za_waitrequest -> mm_interconnect_0:sdram_controller_s1_waitrequest
-	signal mm_interconnect_0_sdram_controller_s1_address              : std_logic_vector(24 downto 0); -- mm_interconnect_0:sdram_controller_s1_address -> sdram_controller:az_addr
-	signal mm_interconnect_0_sdram_controller_s1_read                 : std_logic;                     -- mm_interconnect_0:sdram_controller_s1_read -> mm_interconnect_0_sdram_controller_s1_read:in
-	signal mm_interconnect_0_sdram_controller_s1_byteenable           : std_logic_vector(3 downto 0);  -- mm_interconnect_0:sdram_controller_s1_byteenable -> mm_interconnect_0_sdram_controller_s1_byteenable:in
-	signal mm_interconnect_0_sdram_controller_s1_readdatavalid        : std_logic;                     -- sdram_controller:za_valid -> mm_interconnect_0:sdram_controller_s1_readdatavalid
-	signal mm_interconnect_0_sdram_controller_s1_write                : std_logic;                     -- mm_interconnect_0:sdram_controller_s1_write -> mm_interconnect_0_sdram_controller_s1_write:in
-	signal mm_interconnect_0_sdram_controller_s1_writedata            : std_logic_vector(31 downto 0); -- mm_interconnect_0:sdram_controller_s1_writedata -> sdram_controller:az_data
-	signal mm_interconnect_0_leg_g_s1_chipselect                      : std_logic;                     -- mm_interconnect_0:leg_g_s1_chipselect -> leg_g:chipselect
-	signal mm_interconnect_0_leg_g_s1_readdata                        : std_logic_vector(31 downto 0); -- leg_g:readdata -> mm_interconnect_0:leg_g_s1_readdata
-	signal mm_interconnect_0_leg_g_s1_address                         : std_logic_vector(1 downto 0);  -- mm_interconnect_0:leg_g_s1_address -> leg_g:address
-	signal mm_interconnect_0_leg_g_s1_write                           : std_logic;                     -- mm_interconnect_0:leg_g_s1_write -> mm_interconnect_0_leg_g_s1_write:in
-	signal mm_interconnect_0_leg_g_s1_writedata                       : std_logic_vector(31 downto 0); -- mm_interconnect_0:leg_g_s1_writedata -> leg_g:writedata
-	signal mm_interconnect_0_switch_s1_chipselect                     : std_logic;                     -- mm_interconnect_0:switch_s1_chipselect -> switch:chipselect
-	signal mm_interconnect_0_switch_s1_readdata                       : std_logic_vector(31 downto 0); -- switch:readdata -> mm_interconnect_0:switch_s1_readdata
-	signal mm_interconnect_0_switch_s1_address                        : std_logic_vector(1 downto 0);  -- mm_interconnect_0:switch_s1_address -> switch:address
-	signal mm_interconnect_0_switch_s1_write                          : std_logic;                     -- mm_interconnect_0:switch_s1_write -> mm_interconnect_0_switch_s1_write:in
-	signal mm_interconnect_0_switch_s1_writedata                      : std_logic_vector(31 downto 0); -- mm_interconnect_0:switch_s1_writedata -> switch:writedata
-	signal mm_interconnect_0_key_s1_chipselect                        : std_logic;                     -- mm_interconnect_0:key_s1_chipselect -> key:chipselect
-	signal mm_interconnect_0_key_s1_readdata                          : std_logic_vector(31 downto 0); -- key:readdata -> mm_interconnect_0:key_s1_readdata
-	signal mm_interconnect_0_key_s1_address                           : std_logic_vector(1 downto 0);  -- mm_interconnect_0:key_s1_address -> key:address
-	signal mm_interconnect_0_key_s1_write                             : std_logic;                     -- mm_interconnect_0:key_s1_write -> mm_interconnect_0_key_s1_write:in
-	signal mm_interconnect_0_key_s1_writedata                         : std_logic_vector(31 downto 0); -- mm_interconnect_0:key_s1_writedata -> key:writedata
-	signal mm_interconnect_0_led_r_s1_chipselect                      : std_logic;                     -- mm_interconnect_0:led_r_s1_chipselect -> led_r:chipselect
-	signal mm_interconnect_0_led_r_s1_readdata                        : std_logic_vector(31 downto 0); -- led_r:readdata -> mm_interconnect_0:led_r_s1_readdata
-	signal mm_interconnect_0_led_r_s1_address                         : std_logic_vector(1 downto 0);  -- mm_interconnect_0:led_r_s1_address -> led_r:address
-	signal mm_interconnect_0_led_r_s1_write                           : std_logic;                     -- mm_interconnect_0:led_r_s1_write -> mm_interconnect_0_led_r_s1_write:in
-	signal mm_interconnect_0_led_r_s1_writedata                       : std_logic_vector(31 downto 0); -- mm_interconnect_0:led_r_s1_writedata -> led_r:writedata
-	signal rst_controller_reset_out_reset                             : std_logic;                     -- rst_controller:reset_out -> [mm_bridge:reset, mm_interconnect_0:jtag_master_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_0:mm_bridge_reset_reset_bridge_in_reset_reset, rst_controller_reset_out_reset:in]
-	signal rst_controller_001_reset_out_reset                         : std_logic;                     -- rst_controller_001:reset_out -> [mm_interconnect_0:sdram_controller_reset_reset_bridge_in_reset_reset, rst_controller_001_reset_out_reset:in]
-	signal jtag_master_master_reset_reset                             : std_logic;                     -- jtag_master:master_reset_reset -> rst_controller_001:reset_in0
-	signal rst_controller_002_reset_out_reset                         : std_logic;                     -- rst_controller_002:reset_out -> sdram_pll:ref_reset_reset
-	signal reset_reset_n_ports_inv                                    : std_logic;                     -- reset_reset_n:inv -> rst_controller_002:reset_in0
-	signal mm_interconnect_0_sdram_controller_s1_read_ports_inv       : std_logic;                     -- mm_interconnect_0_sdram_controller_s1_read:inv -> sdram_controller:az_rd_n
-	signal mm_interconnect_0_sdram_controller_s1_byteenable_ports_inv : std_logic_vector(3 downto 0);  -- mm_interconnect_0_sdram_controller_s1_byteenable:inv -> sdram_controller:az_be_n
-	signal mm_interconnect_0_sdram_controller_s1_write_ports_inv      : std_logic;                     -- mm_interconnect_0_sdram_controller_s1_write:inv -> sdram_controller:az_wr_n
-	signal mm_interconnect_0_leg_g_s1_write_ports_inv                 : std_logic;                     -- mm_interconnect_0_leg_g_s1_write:inv -> leg_g:write_n
-	signal mm_interconnect_0_switch_s1_write_ports_inv                : std_logic;                     -- mm_interconnect_0_switch_s1_write:inv -> switch:write_n
-	signal mm_interconnect_0_key_s1_write_ports_inv                   : std_logic;                     -- mm_interconnect_0_key_s1_write:inv -> key:write_n
-	signal mm_interconnect_0_led_r_s1_write_ports_inv                 : std_logic;                     -- mm_interconnect_0_led_r_s1_write:inv -> led_r:write_n
-	signal rst_controller_reset_out_reset_ports_inv                   : std_logic;                     -- rst_controller_reset_out_reset:inv -> [key:reset_n, led_r:reset_n, leg_g:reset_n, switch:reset_n]
-	signal rst_controller_001_reset_out_reset_ports_inv               : std_logic;                     -- rst_controller_001_reset_out_reset:inv -> sdram_controller:reset_n
+	signal vga_dma_avalon_pixel_source_valid                             : std_logic;                     -- vga_dma:stream_valid -> vga:valid
+	signal vga_dma_avalon_pixel_source_data                              : std_logic_vector(29 downto 0); -- vga_dma:stream_data -> vga:data
+	signal vga_dma_avalon_pixel_source_ready                             : std_logic;                     -- vga:ready -> vga_dma:stream_ready
+	signal vga_dma_avalon_pixel_source_startofpacket                     : std_logic;                     -- vga_dma:stream_startofpacket -> vga:startofpacket
+	signal vga_dma_avalon_pixel_source_endofpacket                       : std_logic;                     -- vga_dma:stream_endofpacket -> vga:endofpacket
+	signal sdram_pll_sys_clk_clk                                         : std_logic;                     -- sdram_pll:sys_clk_clk -> [jtag_master:clk_clk, key:clk, led_r:clk, leg_g:clk, mm_bridge:clk, mm_interconnect_0:sdram_pll_sys_clk_clk, rst_controller:clk, rst_controller_001:clk, sdram_controller:clk, sram_0:clk, switch:clk, vga_pll:ref_clk_clk]
+	signal vga_pll_vga_clk_clk                                           : std_logic;                     -- vga_pll:vga_clk_clk -> [mm_interconnect_0:vga_pll_vga_clk_clk, rst_controller_003:clk, vga:clk, vga_dma:clk]
+	signal sdram_pll_reset_source_reset                                  : std_logic;                     -- sdram_pll:reset_source_reset -> [jtag_master:clk_reset_reset, rst_controller:reset_in0]
+	signal vga_dma_avalon_dma_master_waitrequest                         : std_logic;                     -- mm_interconnect_0:vga_dma_avalon_dma_master_waitrequest -> vga_dma:master_waitrequest
+	signal vga_dma_avalon_dma_master_readdata                            : std_logic_vector(31 downto 0); -- mm_interconnect_0:vga_dma_avalon_dma_master_readdata -> vga_dma:master_readdata
+	signal vga_dma_avalon_dma_master_address                             : std_logic_vector(31 downto 0); -- vga_dma:master_address -> mm_interconnect_0:vga_dma_avalon_dma_master_address
+	signal vga_dma_avalon_dma_master_read                                : std_logic;                     -- vga_dma:master_read -> mm_interconnect_0:vga_dma_avalon_dma_master_read
+	signal vga_dma_avalon_dma_master_readdatavalid                       : std_logic;                     -- mm_interconnect_0:vga_dma_avalon_dma_master_readdatavalid -> vga_dma:master_readdatavalid
+	signal vga_dma_avalon_dma_master_lock                                : std_logic;                     -- vga_dma:master_arbiterlock -> mm_interconnect_0:vga_dma_avalon_dma_master_lock
+	signal mm_bridge_m0_waitrequest                                      : std_logic;                     -- mm_interconnect_0:mm_bridge_m0_waitrequest -> mm_bridge:m0_waitrequest
+	signal mm_bridge_m0_readdata                                         : std_logic_vector(31 downto 0); -- mm_interconnect_0:mm_bridge_m0_readdata -> mm_bridge:m0_readdata
+	signal mm_bridge_m0_debugaccess                                      : std_logic;                     -- mm_bridge:m0_debugaccess -> mm_interconnect_0:mm_bridge_m0_debugaccess
+	signal mm_bridge_m0_address                                          : std_logic_vector(27 downto 0); -- mm_bridge:m0_address -> mm_interconnect_0:mm_bridge_m0_address
+	signal mm_bridge_m0_read                                             : std_logic;                     -- mm_bridge:m0_read -> mm_interconnect_0:mm_bridge_m0_read
+	signal mm_bridge_m0_byteenable                                       : std_logic_vector(3 downto 0);  -- mm_bridge:m0_byteenable -> mm_interconnect_0:mm_bridge_m0_byteenable
+	signal mm_bridge_m0_readdatavalid                                    : std_logic;                     -- mm_interconnect_0:mm_bridge_m0_readdatavalid -> mm_bridge:m0_readdatavalid
+	signal mm_bridge_m0_writedata                                        : std_logic_vector(31 downto 0); -- mm_bridge:m0_writedata -> mm_interconnect_0:mm_bridge_m0_writedata
+	signal mm_bridge_m0_write                                            : std_logic;                     -- mm_bridge:m0_write -> mm_interconnect_0:mm_bridge_m0_write
+	signal mm_bridge_m0_burstcount                                       : std_logic_vector(0 downto 0);  -- mm_bridge:m0_burstcount -> mm_interconnect_0:mm_bridge_m0_burstcount
+	signal jtag_master_master_readdata                                   : std_logic_vector(31 downto 0); -- mm_interconnect_0:jtag_master_master_readdata -> jtag_master:master_readdata
+	signal jtag_master_master_waitrequest                                : std_logic;                     -- mm_interconnect_0:jtag_master_master_waitrequest -> jtag_master:master_waitrequest
+	signal jtag_master_master_address                                    : std_logic_vector(31 downto 0); -- jtag_master:master_address -> mm_interconnect_0:jtag_master_master_address
+	signal jtag_master_master_read                                       : std_logic;                     -- jtag_master:master_read -> mm_interconnect_0:jtag_master_master_read
+	signal jtag_master_master_byteenable                                 : std_logic_vector(3 downto 0);  -- jtag_master:master_byteenable -> mm_interconnect_0:jtag_master_master_byteenable
+	signal jtag_master_master_readdatavalid                              : std_logic;                     -- mm_interconnect_0:jtag_master_master_readdatavalid -> jtag_master:master_readdatavalid
+	signal jtag_master_master_write                                      : std_logic;                     -- jtag_master:master_write -> mm_interconnect_0:jtag_master_master_write
+	signal jtag_master_master_writedata                                  : std_logic_vector(31 downto 0); -- jtag_master:master_writedata -> mm_interconnect_0:jtag_master_master_writedata
+	signal mm_interconnect_0_sram_0_avalon_sram_slave_readdata           : std_logic_vector(15 downto 0); -- sram_0:readdata -> mm_interconnect_0:sram_0_avalon_sram_slave_readdata
+	signal mm_interconnect_0_sram_0_avalon_sram_slave_address            : std_logic_vector(19 downto 0); -- mm_interconnect_0:sram_0_avalon_sram_slave_address -> sram_0:address
+	signal mm_interconnect_0_sram_0_avalon_sram_slave_read               : std_logic;                     -- mm_interconnect_0:sram_0_avalon_sram_slave_read -> sram_0:read
+	signal mm_interconnect_0_sram_0_avalon_sram_slave_byteenable         : std_logic_vector(1 downto 0);  -- mm_interconnect_0:sram_0_avalon_sram_slave_byteenable -> sram_0:byteenable
+	signal mm_interconnect_0_sram_0_avalon_sram_slave_readdatavalid      : std_logic;                     -- sram_0:readdatavalid -> mm_interconnect_0:sram_0_avalon_sram_slave_readdatavalid
+	signal mm_interconnect_0_sram_0_avalon_sram_slave_write              : std_logic;                     -- mm_interconnect_0:sram_0_avalon_sram_slave_write -> sram_0:write
+	signal mm_interconnect_0_sram_0_avalon_sram_slave_writedata          : std_logic_vector(15 downto 0); -- mm_interconnect_0:sram_0_avalon_sram_slave_writedata -> sram_0:writedata
+	signal mm_interconnect_0_vga_dma_avalon_dma_control_slave_readdata   : std_logic_vector(31 downto 0); -- vga_dma:slave_readdata -> mm_interconnect_0:vga_dma_avalon_dma_control_slave_readdata
+	signal mm_interconnect_0_vga_dma_avalon_dma_control_slave_address    : std_logic_vector(1 downto 0);  -- mm_interconnect_0:vga_dma_avalon_dma_control_slave_address -> vga_dma:slave_address
+	signal mm_interconnect_0_vga_dma_avalon_dma_control_slave_read       : std_logic;                     -- mm_interconnect_0:vga_dma_avalon_dma_control_slave_read -> vga_dma:slave_read
+	signal mm_interconnect_0_vga_dma_avalon_dma_control_slave_byteenable : std_logic_vector(3 downto 0);  -- mm_interconnect_0:vga_dma_avalon_dma_control_slave_byteenable -> vga_dma:slave_byteenable
+	signal mm_interconnect_0_vga_dma_avalon_dma_control_slave_write      : std_logic;                     -- mm_interconnect_0:vga_dma_avalon_dma_control_slave_write -> vga_dma:slave_write
+	signal mm_interconnect_0_vga_dma_avalon_dma_control_slave_writedata  : std_logic_vector(31 downto 0); -- mm_interconnect_0:vga_dma_avalon_dma_control_slave_writedata -> vga_dma:slave_writedata
+	signal mm_interconnect_0_sdram_controller_s1_chipselect              : std_logic;                     -- mm_interconnect_0:sdram_controller_s1_chipselect -> sdram_controller:az_cs
+	signal mm_interconnect_0_sdram_controller_s1_readdata                : std_logic_vector(31 downto 0); -- sdram_controller:za_data -> mm_interconnect_0:sdram_controller_s1_readdata
+	signal mm_interconnect_0_sdram_controller_s1_waitrequest             : std_logic;                     -- sdram_controller:za_waitrequest -> mm_interconnect_0:sdram_controller_s1_waitrequest
+	signal mm_interconnect_0_sdram_controller_s1_address                 : std_logic_vector(24 downto 0); -- mm_interconnect_0:sdram_controller_s1_address -> sdram_controller:az_addr
+	signal mm_interconnect_0_sdram_controller_s1_read                    : std_logic;                     -- mm_interconnect_0:sdram_controller_s1_read -> mm_interconnect_0_sdram_controller_s1_read:in
+	signal mm_interconnect_0_sdram_controller_s1_byteenable              : std_logic_vector(3 downto 0);  -- mm_interconnect_0:sdram_controller_s1_byteenable -> mm_interconnect_0_sdram_controller_s1_byteenable:in
+	signal mm_interconnect_0_sdram_controller_s1_readdatavalid           : std_logic;                     -- sdram_controller:za_valid -> mm_interconnect_0:sdram_controller_s1_readdatavalid
+	signal mm_interconnect_0_sdram_controller_s1_write                   : std_logic;                     -- mm_interconnect_0:sdram_controller_s1_write -> mm_interconnect_0_sdram_controller_s1_write:in
+	signal mm_interconnect_0_sdram_controller_s1_writedata               : std_logic_vector(31 downto 0); -- mm_interconnect_0:sdram_controller_s1_writedata -> sdram_controller:az_data
+	signal mm_interconnect_0_leg_g_s1_chipselect                         : std_logic;                     -- mm_interconnect_0:leg_g_s1_chipselect -> leg_g:chipselect
+	signal mm_interconnect_0_leg_g_s1_readdata                           : std_logic_vector(31 downto 0); -- leg_g:readdata -> mm_interconnect_0:leg_g_s1_readdata
+	signal mm_interconnect_0_leg_g_s1_address                            : std_logic_vector(1 downto 0);  -- mm_interconnect_0:leg_g_s1_address -> leg_g:address
+	signal mm_interconnect_0_leg_g_s1_write                              : std_logic;                     -- mm_interconnect_0:leg_g_s1_write -> mm_interconnect_0_leg_g_s1_write:in
+	signal mm_interconnect_0_leg_g_s1_writedata                          : std_logic_vector(31 downto 0); -- mm_interconnect_0:leg_g_s1_writedata -> leg_g:writedata
+	signal mm_interconnect_0_switch_s1_chipselect                        : std_logic;                     -- mm_interconnect_0:switch_s1_chipselect -> switch:chipselect
+	signal mm_interconnect_0_switch_s1_readdata                          : std_logic_vector(31 downto 0); -- switch:readdata -> mm_interconnect_0:switch_s1_readdata
+	signal mm_interconnect_0_switch_s1_address                           : std_logic_vector(1 downto 0);  -- mm_interconnect_0:switch_s1_address -> switch:address
+	signal mm_interconnect_0_switch_s1_write                             : std_logic;                     -- mm_interconnect_0:switch_s1_write -> mm_interconnect_0_switch_s1_write:in
+	signal mm_interconnect_0_switch_s1_writedata                         : std_logic_vector(31 downto 0); -- mm_interconnect_0:switch_s1_writedata -> switch:writedata
+	signal mm_interconnect_0_key_s1_chipselect                           : std_logic;                     -- mm_interconnect_0:key_s1_chipselect -> key:chipselect
+	signal mm_interconnect_0_key_s1_readdata                             : std_logic_vector(31 downto 0); -- key:readdata -> mm_interconnect_0:key_s1_readdata
+	signal mm_interconnect_0_key_s1_address                              : std_logic_vector(1 downto 0);  -- mm_interconnect_0:key_s1_address -> key:address
+	signal mm_interconnect_0_key_s1_write                                : std_logic;                     -- mm_interconnect_0:key_s1_write -> mm_interconnect_0_key_s1_write:in
+	signal mm_interconnect_0_key_s1_writedata                            : std_logic_vector(31 downto 0); -- mm_interconnect_0:key_s1_writedata -> key:writedata
+	signal mm_interconnect_0_led_r_s1_chipselect                         : std_logic;                     -- mm_interconnect_0:led_r_s1_chipselect -> led_r:chipselect
+	signal mm_interconnect_0_led_r_s1_readdata                           : std_logic_vector(31 downto 0); -- led_r:readdata -> mm_interconnect_0:led_r_s1_readdata
+	signal mm_interconnect_0_led_r_s1_address                            : std_logic_vector(1 downto 0);  -- mm_interconnect_0:led_r_s1_address -> led_r:address
+	signal mm_interconnect_0_led_r_s1_write                              : std_logic;                     -- mm_interconnect_0:led_r_s1_write -> mm_interconnect_0_led_r_s1_write:in
+	signal mm_interconnect_0_led_r_s1_writedata                          : std_logic_vector(31 downto 0); -- mm_interconnect_0:led_r_s1_writedata -> led_r:writedata
+	signal rst_controller_reset_out_reset                                : std_logic;                     -- rst_controller:reset_out -> [mm_bridge:reset, mm_interconnect_0:jtag_master_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_0:mm_bridge_reset_reset_bridge_in_reset_reset, rst_controller_reset_out_reset:in, sram_0:reset, vga_pll:ref_reset_reset]
+	signal rst_controller_001_reset_out_reset                            : std_logic;                     -- rst_controller_001:reset_out -> [mm_interconnect_0:sdram_controller_reset_reset_bridge_in_reset_reset, rst_controller_001_reset_out_reset:in]
+	signal jtag_master_master_reset_reset                                : std_logic;                     -- jtag_master:master_reset_reset -> rst_controller_001:reset_in0
+	signal rst_controller_002_reset_out_reset                            : std_logic;                     -- rst_controller_002:reset_out -> sdram_pll:ref_reset_reset
+	signal rst_controller_003_reset_out_reset                            : std_logic;                     -- rst_controller_003:reset_out -> [mm_interconnect_0:vga_dma_reset_reset_bridge_in_reset_reset, vga:reset, vga_dma:reset]
+	signal vga_pll_reset_source_reset                                    : std_logic;                     -- vga_pll:reset_source_reset -> rst_controller_003:reset_in0
+	signal reset_reset_n_ports_inv                                       : std_logic;                     -- reset_reset_n:inv -> rst_controller_002:reset_in0
+	signal mm_interconnect_0_sdram_controller_s1_read_ports_inv          : std_logic;                     -- mm_interconnect_0_sdram_controller_s1_read:inv -> sdram_controller:az_rd_n
+	signal mm_interconnect_0_sdram_controller_s1_byteenable_ports_inv    : std_logic_vector(3 downto 0);  -- mm_interconnect_0_sdram_controller_s1_byteenable:inv -> sdram_controller:az_be_n
+	signal mm_interconnect_0_sdram_controller_s1_write_ports_inv         : std_logic;                     -- mm_interconnect_0_sdram_controller_s1_write:inv -> sdram_controller:az_wr_n
+	signal mm_interconnect_0_leg_g_s1_write_ports_inv                    : std_logic;                     -- mm_interconnect_0_leg_g_s1_write:inv -> leg_g:write_n
+	signal mm_interconnect_0_switch_s1_write_ports_inv                   : std_logic;                     -- mm_interconnect_0_switch_s1_write:inv -> switch:write_n
+	signal mm_interconnect_0_key_s1_write_ports_inv                      : std_logic;                     -- mm_interconnect_0_key_s1_write:inv -> key:write_n
+	signal mm_interconnect_0_led_r_s1_write_ports_inv                    : std_logic;                     -- mm_interconnect_0_led_r_s1_write:inv -> led_r:write_n
+	signal rst_controller_reset_out_reset_ports_inv                      : std_logic;                     -- rst_controller_reset_out_reset:inv -> [key:reset_n, led_r:reset_n, leg_g:reset_n, switch:reset_n]
+	signal rst_controller_001_reset_out_reset_ports_inv                  : std_logic;                     -- rst_controller_001_reset_out_reset:inv -> sdram_controller:reset_n
 
 begin
 
@@ -501,6 +638,26 @@ begin
 			reset_source_reset => sdram_pll_reset_source_reset        -- reset_source.reset
 		);
 
+	sram_0 : component AvalonMM_sram_0
+		port map (
+			clk           => sdram_pll_sys_clk_clk,                                    --                clk.clk
+			reset         => rst_controller_reset_out_reset,                           --              reset.reset
+			SRAM_DQ       => sram_DQ,                                                  -- external_interface.export
+			SRAM_ADDR     => sram_ADDR,                                                --                   .export
+			SRAM_LB_N     => sram_LB_N,                                                --                   .export
+			SRAM_UB_N     => sram_UB_N,                                                --                   .export
+			SRAM_CE_N     => sram_CE_N,                                                --                   .export
+			SRAM_OE_N     => sram_OE_N,                                                --                   .export
+			SRAM_WE_N     => sram_WE_N,                                                --                   .export
+			address       => mm_interconnect_0_sram_0_avalon_sram_slave_address,       --  avalon_sram_slave.address
+			byteenable    => mm_interconnect_0_sram_0_avalon_sram_slave_byteenable,    --                   .byteenable
+			read          => mm_interconnect_0_sram_0_avalon_sram_slave_read,          --                   .read
+			write         => mm_interconnect_0_sram_0_avalon_sram_slave_write,         --                   .write
+			writedata     => mm_interconnect_0_sram_0_avalon_sram_slave_writedata,     --                   .writedata
+			readdata      => mm_interconnect_0_sram_0_avalon_sram_slave_readdata,      --                   .readdata
+			readdatavalid => mm_interconnect_0_sram_0_avalon_sram_slave_readdatavalid  --                   .readdatavalid
+		);
+
 	switch : component AvalonMM_switch
 		port map (
 			clk        => sdram_pll_sys_clk_clk,                       --                 clk.clk
@@ -514,59 +671,130 @@ begin
 			irq        => pp_switch_int_irq                            --                 irq.irq
 		);
 
+	vga : component AvalonMM_vga
+		port map (
+			clk           => vga_pll_vga_clk_clk,                       --                clk.clk
+			reset         => rst_controller_003_reset_out_reset,        --              reset.reset
+			data          => vga_dma_avalon_pixel_source_data,          --    avalon_vga_sink.data
+			startofpacket => vga_dma_avalon_pixel_source_startofpacket, --                   .startofpacket
+			endofpacket   => vga_dma_avalon_pixel_source_endofpacket,   --                   .endofpacket
+			valid         => vga_dma_avalon_pixel_source_valid,         --                   .valid
+			ready         => vga_dma_avalon_pixel_source_ready,         --                   .ready
+			VGA_CLK       => vga_CLK,                                   -- external_interface.export
+			VGA_HS        => vga_HS,                                    --                   .export
+			VGA_VS        => vga_VS,                                    --                   .export
+			VGA_BLANK     => vga_BLANK,                                 --                   .export
+			VGA_SYNC      => vga_SYNC,                                  --                   .export
+			VGA_R         => vga_R,                                     --                   .export
+			VGA_G         => vga_G,                                     --                   .export
+			VGA_B         => vga_B                                      --                   .export
+		);
+
+	vga_dma : component AvalonMM_vga_dma
+		port map (
+			clk                  => vga_pll_vga_clk_clk,                                           --                      clk.clk
+			reset                => rst_controller_003_reset_out_reset,                            --                    reset.reset
+			master_address       => vga_dma_avalon_dma_master_address,                             --        avalon_dma_master.address
+			master_waitrequest   => vga_dma_avalon_dma_master_waitrequest,                         --                         .waitrequest
+			master_arbiterlock   => vga_dma_avalon_dma_master_lock,                                --                         .lock
+			master_read          => vga_dma_avalon_dma_master_read,                                --                         .read
+			master_readdata      => vga_dma_avalon_dma_master_readdata,                            --                         .readdata
+			master_readdatavalid => vga_dma_avalon_dma_master_readdatavalid,                       --                         .readdatavalid
+			slave_address        => mm_interconnect_0_vga_dma_avalon_dma_control_slave_address,    -- avalon_dma_control_slave.address
+			slave_byteenable     => mm_interconnect_0_vga_dma_avalon_dma_control_slave_byteenable, --                         .byteenable
+			slave_read           => mm_interconnect_0_vga_dma_avalon_dma_control_slave_read,       --                         .read
+			slave_write          => mm_interconnect_0_vga_dma_avalon_dma_control_slave_write,      --                         .write
+			slave_writedata      => mm_interconnect_0_vga_dma_avalon_dma_control_slave_writedata,  --                         .writedata
+			slave_readdata       => mm_interconnect_0_vga_dma_avalon_dma_control_slave_readdata,   --                         .readdata
+			stream_ready         => vga_dma_avalon_pixel_source_ready,                             --      avalon_pixel_source.ready
+			stream_data          => vga_dma_avalon_pixel_source_data,                              --                         .data
+			stream_startofpacket => vga_dma_avalon_pixel_source_startofpacket,                     --                         .startofpacket
+			stream_endofpacket   => vga_dma_avalon_pixel_source_endofpacket,                       --                         .endofpacket
+			stream_valid         => vga_dma_avalon_pixel_source_valid                              --                         .valid
+		);
+
+	vga_pll : component AvalonMM_vga_pll
+		port map (
+			ref_clk_clk        => sdram_pll_sys_clk_clk,          --      ref_clk.clk
+			ref_reset_reset    => rst_controller_reset_out_reset, --    ref_reset.reset
+			vga_clk_clk        => vga_pll_vga_clk_clk,            --      vga_clk.clk
+			reset_source_reset => vga_pll_reset_source_reset      -- reset_source.reset
+		);
+
 	mm_interconnect_0 : component AvalonMM_mm_interconnect_0
 		port map (
-			sdram_pll_sys_clk_clk                              => sdram_pll_sys_clk_clk,                               --                            sdram_pll_sys_clk.clk
-			jtag_master_clk_reset_reset_bridge_in_reset_reset  => rst_controller_reset_out_reset,                      --  jtag_master_clk_reset_reset_bridge_in_reset.reset
-			mm_bridge_reset_reset_bridge_in_reset_reset        => rst_controller_reset_out_reset,                      --        mm_bridge_reset_reset_bridge_in_reset.reset
-			sdram_controller_reset_reset_bridge_in_reset_reset => rst_controller_001_reset_out_reset,                  -- sdram_controller_reset_reset_bridge_in_reset.reset
-			jtag_master_master_address                         => jtag_master_master_address,                          --                           jtag_master_master.address
-			jtag_master_master_waitrequest                     => jtag_master_master_waitrequest,                      --                                             .waitrequest
-			jtag_master_master_byteenable                      => jtag_master_master_byteenable,                       --                                             .byteenable
-			jtag_master_master_read                            => jtag_master_master_read,                             --                                             .read
-			jtag_master_master_readdata                        => jtag_master_master_readdata,                         --                                             .readdata
-			jtag_master_master_readdatavalid                   => jtag_master_master_readdatavalid,                    --                                             .readdatavalid
-			jtag_master_master_write                           => jtag_master_master_write,                            --                                             .write
-			jtag_master_master_writedata                       => jtag_master_master_writedata,                        --                                             .writedata
-			mm_bridge_m0_address                               => mm_bridge_m0_address,                                --                                 mm_bridge_m0.address
-			mm_bridge_m0_waitrequest                           => mm_bridge_m0_waitrequest,                            --                                             .waitrequest
-			mm_bridge_m0_burstcount                            => mm_bridge_m0_burstcount,                             --                                             .burstcount
-			mm_bridge_m0_byteenable                            => mm_bridge_m0_byteenable,                             --                                             .byteenable
-			mm_bridge_m0_read                                  => mm_bridge_m0_read,                                   --                                             .read
-			mm_bridge_m0_readdata                              => mm_bridge_m0_readdata,                               --                                             .readdata
-			mm_bridge_m0_readdatavalid                         => mm_bridge_m0_readdatavalid,                          --                                             .readdatavalid
-			mm_bridge_m0_write                                 => mm_bridge_m0_write,                                  --                                             .write
-			mm_bridge_m0_writedata                             => mm_bridge_m0_writedata,                              --                                             .writedata
-			mm_bridge_m0_debugaccess                           => mm_bridge_m0_debugaccess,                            --                                             .debugaccess
-			key_s1_address                                     => mm_interconnect_0_key_s1_address,                    --                                       key_s1.address
-			key_s1_write                                       => mm_interconnect_0_key_s1_write,                      --                                             .write
-			key_s1_readdata                                    => mm_interconnect_0_key_s1_readdata,                   --                                             .readdata
-			key_s1_writedata                                   => mm_interconnect_0_key_s1_writedata,                  --                                             .writedata
-			key_s1_chipselect                                  => mm_interconnect_0_key_s1_chipselect,                 --                                             .chipselect
-			led_r_s1_address                                   => mm_interconnect_0_led_r_s1_address,                  --                                     led_r_s1.address
-			led_r_s1_write                                     => mm_interconnect_0_led_r_s1_write,                    --                                             .write
-			led_r_s1_readdata                                  => mm_interconnect_0_led_r_s1_readdata,                 --                                             .readdata
-			led_r_s1_writedata                                 => mm_interconnect_0_led_r_s1_writedata,                --                                             .writedata
-			led_r_s1_chipselect                                => mm_interconnect_0_led_r_s1_chipselect,               --                                             .chipselect
-			leg_g_s1_address                                   => mm_interconnect_0_leg_g_s1_address,                  --                                     leg_g_s1.address
-			leg_g_s1_write                                     => mm_interconnect_0_leg_g_s1_write,                    --                                             .write
-			leg_g_s1_readdata                                  => mm_interconnect_0_leg_g_s1_readdata,                 --                                             .readdata
-			leg_g_s1_writedata                                 => mm_interconnect_0_leg_g_s1_writedata,                --                                             .writedata
-			leg_g_s1_chipselect                                => mm_interconnect_0_leg_g_s1_chipselect,               --                                             .chipselect
-			sdram_controller_s1_address                        => mm_interconnect_0_sdram_controller_s1_address,       --                          sdram_controller_s1.address
-			sdram_controller_s1_write                          => mm_interconnect_0_sdram_controller_s1_write,         --                                             .write
-			sdram_controller_s1_read                           => mm_interconnect_0_sdram_controller_s1_read,          --                                             .read
-			sdram_controller_s1_readdata                       => mm_interconnect_0_sdram_controller_s1_readdata,      --                                             .readdata
-			sdram_controller_s1_writedata                      => mm_interconnect_0_sdram_controller_s1_writedata,     --                                             .writedata
-			sdram_controller_s1_byteenable                     => mm_interconnect_0_sdram_controller_s1_byteenable,    --                                             .byteenable
-			sdram_controller_s1_readdatavalid                  => mm_interconnect_0_sdram_controller_s1_readdatavalid, --                                             .readdatavalid
-			sdram_controller_s1_waitrequest                    => mm_interconnect_0_sdram_controller_s1_waitrequest,   --                                             .waitrequest
-			sdram_controller_s1_chipselect                     => mm_interconnect_0_sdram_controller_s1_chipselect,    --                                             .chipselect
-			switch_s1_address                                  => mm_interconnect_0_switch_s1_address,                 --                                    switch_s1.address
-			switch_s1_write                                    => mm_interconnect_0_switch_s1_write,                   --                                             .write
-			switch_s1_readdata                                 => mm_interconnect_0_switch_s1_readdata,                --                                             .readdata
-			switch_s1_writedata                                => mm_interconnect_0_switch_s1_writedata,               --                                             .writedata
-			switch_s1_chipselect                               => mm_interconnect_0_switch_s1_chipselect               --                                             .chipselect
+			sdram_pll_sys_clk_clk                              => sdram_pll_sys_clk_clk,                                         --                            sdram_pll_sys_clk.clk
+			vga_pll_vga_clk_clk                                => vga_pll_vga_clk_clk,                                           --                              vga_pll_vga_clk.clk
+			jtag_master_clk_reset_reset_bridge_in_reset_reset  => rst_controller_reset_out_reset,                                --  jtag_master_clk_reset_reset_bridge_in_reset.reset
+			mm_bridge_reset_reset_bridge_in_reset_reset        => rst_controller_reset_out_reset,                                --        mm_bridge_reset_reset_bridge_in_reset.reset
+			sdram_controller_reset_reset_bridge_in_reset_reset => rst_controller_001_reset_out_reset,                            -- sdram_controller_reset_reset_bridge_in_reset.reset
+			vga_dma_reset_reset_bridge_in_reset_reset          => rst_controller_003_reset_out_reset,                            --          vga_dma_reset_reset_bridge_in_reset.reset
+			jtag_master_master_address                         => jtag_master_master_address,                                    --                           jtag_master_master.address
+			jtag_master_master_waitrequest                     => jtag_master_master_waitrequest,                                --                                             .waitrequest
+			jtag_master_master_byteenable                      => jtag_master_master_byteenable,                                 --                                             .byteenable
+			jtag_master_master_read                            => jtag_master_master_read,                                       --                                             .read
+			jtag_master_master_readdata                        => jtag_master_master_readdata,                                   --                                             .readdata
+			jtag_master_master_readdatavalid                   => jtag_master_master_readdatavalid,                              --                                             .readdatavalid
+			jtag_master_master_write                           => jtag_master_master_write,                                      --                                             .write
+			jtag_master_master_writedata                       => jtag_master_master_writedata,                                  --                                             .writedata
+			mm_bridge_m0_address                               => mm_bridge_m0_address,                                          --                                 mm_bridge_m0.address
+			mm_bridge_m0_waitrequest                           => mm_bridge_m0_waitrequest,                                      --                                             .waitrequest
+			mm_bridge_m0_burstcount                            => mm_bridge_m0_burstcount,                                       --                                             .burstcount
+			mm_bridge_m0_byteenable                            => mm_bridge_m0_byteenable,                                       --                                             .byteenable
+			mm_bridge_m0_read                                  => mm_bridge_m0_read,                                             --                                             .read
+			mm_bridge_m0_readdata                              => mm_bridge_m0_readdata,                                         --                                             .readdata
+			mm_bridge_m0_readdatavalid                         => mm_bridge_m0_readdatavalid,                                    --                                             .readdatavalid
+			mm_bridge_m0_write                                 => mm_bridge_m0_write,                                            --                                             .write
+			mm_bridge_m0_writedata                             => mm_bridge_m0_writedata,                                        --                                             .writedata
+			mm_bridge_m0_debugaccess                           => mm_bridge_m0_debugaccess,                                      --                                             .debugaccess
+			vga_dma_avalon_dma_master_address                  => vga_dma_avalon_dma_master_address,                             --                    vga_dma_avalon_dma_master.address
+			vga_dma_avalon_dma_master_waitrequest              => vga_dma_avalon_dma_master_waitrequest,                         --                                             .waitrequest
+			vga_dma_avalon_dma_master_read                     => vga_dma_avalon_dma_master_read,                                --                                             .read
+			vga_dma_avalon_dma_master_readdata                 => vga_dma_avalon_dma_master_readdata,                            --                                             .readdata
+			vga_dma_avalon_dma_master_readdatavalid            => vga_dma_avalon_dma_master_readdatavalid,                       --                                             .readdatavalid
+			vga_dma_avalon_dma_master_lock                     => vga_dma_avalon_dma_master_lock,                                --                                             .lock
+			key_s1_address                                     => mm_interconnect_0_key_s1_address,                              --                                       key_s1.address
+			key_s1_write                                       => mm_interconnect_0_key_s1_write,                                --                                             .write
+			key_s1_readdata                                    => mm_interconnect_0_key_s1_readdata,                             --                                             .readdata
+			key_s1_writedata                                   => mm_interconnect_0_key_s1_writedata,                            --                                             .writedata
+			key_s1_chipselect                                  => mm_interconnect_0_key_s1_chipselect,                           --                                             .chipselect
+			led_r_s1_address                                   => mm_interconnect_0_led_r_s1_address,                            --                                     led_r_s1.address
+			led_r_s1_write                                     => mm_interconnect_0_led_r_s1_write,                              --                                             .write
+			led_r_s1_readdata                                  => mm_interconnect_0_led_r_s1_readdata,                           --                                             .readdata
+			led_r_s1_writedata                                 => mm_interconnect_0_led_r_s1_writedata,                          --                                             .writedata
+			led_r_s1_chipselect                                => mm_interconnect_0_led_r_s1_chipselect,                         --                                             .chipselect
+			leg_g_s1_address                                   => mm_interconnect_0_leg_g_s1_address,                            --                                     leg_g_s1.address
+			leg_g_s1_write                                     => mm_interconnect_0_leg_g_s1_write,                              --                                             .write
+			leg_g_s1_readdata                                  => mm_interconnect_0_leg_g_s1_readdata,                           --                                             .readdata
+			leg_g_s1_writedata                                 => mm_interconnect_0_leg_g_s1_writedata,                          --                                             .writedata
+			leg_g_s1_chipselect                                => mm_interconnect_0_leg_g_s1_chipselect,                         --                                             .chipselect
+			sdram_controller_s1_address                        => mm_interconnect_0_sdram_controller_s1_address,                 --                          sdram_controller_s1.address
+			sdram_controller_s1_write                          => mm_interconnect_0_sdram_controller_s1_write,                   --                                             .write
+			sdram_controller_s1_read                           => mm_interconnect_0_sdram_controller_s1_read,                    --                                             .read
+			sdram_controller_s1_readdata                       => mm_interconnect_0_sdram_controller_s1_readdata,                --                                             .readdata
+			sdram_controller_s1_writedata                      => mm_interconnect_0_sdram_controller_s1_writedata,               --                                             .writedata
+			sdram_controller_s1_byteenable                     => mm_interconnect_0_sdram_controller_s1_byteenable,              --                                             .byteenable
+			sdram_controller_s1_readdatavalid                  => mm_interconnect_0_sdram_controller_s1_readdatavalid,           --                                             .readdatavalid
+			sdram_controller_s1_waitrequest                    => mm_interconnect_0_sdram_controller_s1_waitrequest,             --                                             .waitrequest
+			sdram_controller_s1_chipselect                     => mm_interconnect_0_sdram_controller_s1_chipselect,              --                                             .chipselect
+			sram_0_avalon_sram_slave_address                   => mm_interconnect_0_sram_0_avalon_sram_slave_address,            --                     sram_0_avalon_sram_slave.address
+			sram_0_avalon_sram_slave_write                     => mm_interconnect_0_sram_0_avalon_sram_slave_write,              --                                             .write
+			sram_0_avalon_sram_slave_read                      => mm_interconnect_0_sram_0_avalon_sram_slave_read,               --                                             .read
+			sram_0_avalon_sram_slave_readdata                  => mm_interconnect_0_sram_0_avalon_sram_slave_readdata,           --                                             .readdata
+			sram_0_avalon_sram_slave_writedata                 => mm_interconnect_0_sram_0_avalon_sram_slave_writedata,          --                                             .writedata
+			sram_0_avalon_sram_slave_byteenable                => mm_interconnect_0_sram_0_avalon_sram_slave_byteenable,         --                                             .byteenable
+			sram_0_avalon_sram_slave_readdatavalid             => mm_interconnect_0_sram_0_avalon_sram_slave_readdatavalid,      --                                             .readdatavalid
+			switch_s1_address                                  => mm_interconnect_0_switch_s1_address,                           --                                    switch_s1.address
+			switch_s1_write                                    => mm_interconnect_0_switch_s1_write,                             --                                             .write
+			switch_s1_readdata                                 => mm_interconnect_0_switch_s1_readdata,                          --                                             .readdata
+			switch_s1_writedata                                => mm_interconnect_0_switch_s1_writedata,                         --                                             .writedata
+			switch_s1_chipselect                               => mm_interconnect_0_switch_s1_chipselect,                        --                                             .chipselect
+			vga_dma_avalon_dma_control_slave_address           => mm_interconnect_0_vga_dma_avalon_dma_control_slave_address,    --             vga_dma_avalon_dma_control_slave.address
+			vga_dma_avalon_dma_control_slave_write             => mm_interconnect_0_vga_dma_avalon_dma_control_slave_write,      --                                             .write
+			vga_dma_avalon_dma_control_slave_read              => mm_interconnect_0_vga_dma_avalon_dma_control_slave_read,       --                                             .read
+			vga_dma_avalon_dma_control_slave_readdata          => mm_interconnect_0_vga_dma_avalon_dma_control_slave_readdata,   --                                             .readdata
+			vga_dma_avalon_dma_control_slave_writedata         => mm_interconnect_0_vga_dma_avalon_dma_control_slave_writedata,  --                                             .writedata
+			vga_dma_avalon_dma_control_slave_byteenable        => mm_interconnect_0_vga_dma_avalon_dma_control_slave_byteenable  --                                             .byteenable
 		);
 
 	rst_controller : component altera_reset_controller
@@ -730,6 +958,71 @@ begin
 			reset_in0      => reset_reset_n_ports_inv,            -- reset_in0.reset
 			clk            => clk_clk,                            --       clk.clk
 			reset_out      => rst_controller_002_reset_out_reset, -- reset_out.reset
+			reset_req      => open,                               -- (terminated)
+			reset_req_in0  => '0',                                -- (terminated)
+			reset_in1      => '0',                                -- (terminated)
+			reset_req_in1  => '0',                                -- (terminated)
+			reset_in2      => '0',                                -- (terminated)
+			reset_req_in2  => '0',                                -- (terminated)
+			reset_in3      => '0',                                -- (terminated)
+			reset_req_in3  => '0',                                -- (terminated)
+			reset_in4      => '0',                                -- (terminated)
+			reset_req_in4  => '0',                                -- (terminated)
+			reset_in5      => '0',                                -- (terminated)
+			reset_req_in5  => '0',                                -- (terminated)
+			reset_in6      => '0',                                -- (terminated)
+			reset_req_in6  => '0',                                -- (terminated)
+			reset_in7      => '0',                                -- (terminated)
+			reset_req_in7  => '0',                                -- (terminated)
+			reset_in8      => '0',                                -- (terminated)
+			reset_req_in8  => '0',                                -- (terminated)
+			reset_in9      => '0',                                -- (terminated)
+			reset_req_in9  => '0',                                -- (terminated)
+			reset_in10     => '0',                                -- (terminated)
+			reset_req_in10 => '0',                                -- (terminated)
+			reset_in11     => '0',                                -- (terminated)
+			reset_req_in11 => '0',                                -- (terminated)
+			reset_in12     => '0',                                -- (terminated)
+			reset_req_in12 => '0',                                -- (terminated)
+			reset_in13     => '0',                                -- (terminated)
+			reset_req_in13 => '0',                                -- (terminated)
+			reset_in14     => '0',                                -- (terminated)
+			reset_req_in14 => '0',                                -- (terminated)
+			reset_in15     => '0',                                -- (terminated)
+			reset_req_in15 => '0'                                 -- (terminated)
+		);
+
+	rst_controller_003 : component altera_reset_controller
+		generic map (
+			NUM_RESET_INPUTS          => 1,
+			OUTPUT_RESET_SYNC_EDGES   => "deassert",
+			SYNC_DEPTH                => 2,
+			RESET_REQUEST_PRESENT     => 0,
+			RESET_REQ_WAIT_TIME       => 1,
+			MIN_RST_ASSERTION_TIME    => 3,
+			RESET_REQ_EARLY_DSRT_TIME => 1,
+			USE_RESET_REQUEST_IN0     => 0,
+			USE_RESET_REQUEST_IN1     => 0,
+			USE_RESET_REQUEST_IN2     => 0,
+			USE_RESET_REQUEST_IN3     => 0,
+			USE_RESET_REQUEST_IN4     => 0,
+			USE_RESET_REQUEST_IN5     => 0,
+			USE_RESET_REQUEST_IN6     => 0,
+			USE_RESET_REQUEST_IN7     => 0,
+			USE_RESET_REQUEST_IN8     => 0,
+			USE_RESET_REQUEST_IN9     => 0,
+			USE_RESET_REQUEST_IN10    => 0,
+			USE_RESET_REQUEST_IN11    => 0,
+			USE_RESET_REQUEST_IN12    => 0,
+			USE_RESET_REQUEST_IN13    => 0,
+			USE_RESET_REQUEST_IN14    => 0,
+			USE_RESET_REQUEST_IN15    => 0,
+			ADAPT_RESET_REQUEST       => 0
+		)
+		port map (
+			reset_in0      => vga_pll_reset_source_reset,         -- reset_in0.reset
+			clk            => vga_pll_vga_clk_clk,                --       clk.clk
+			reset_out      => rst_controller_003_reset_out_reset, -- reset_out.reset
 			reset_req      => open,                               -- (terminated)
 			reset_req_in0  => '0',                                -- (terminated)
 			reset_in1      => '0',                                -- (terminated)
