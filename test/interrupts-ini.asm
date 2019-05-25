@@ -1,0 +1,5 @@
+li t0, 0x808
+csrrw t0, 0x300, t0
+li t0, 0x4000000
+csrrw t0, 0x341, t0
+mret

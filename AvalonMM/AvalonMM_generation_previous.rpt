@@ -1,0 +1,130 @@
+Info: Starting: Create HDL design files for synthesis
+Info: qsys-generate C:\Users\Panoramix\Documents\RISCV\AvalonMM.qsys --synthesis=VHDL --output-directory=C:\Users\Panoramix\Documents\RISCV\AvalonMM\synthesis --family="Cyclone IV E" --part=EP4CE115F29C7
+Progress: Loading RISCV/AvalonMM.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 18.1]
+Progress: Parameterizing module clk_0
+Progress: Adding jtag_master [altera_jtag_avalon_master 18.1]
+Progress: Parameterizing module jtag_master
+Progress: Adding key [altera_avalon_pio 18.1]
+Progress: Parameterizing module key
+Progress: Adding led_r [altera_avalon_pio 18.1]
+Progress: Parameterizing module led_r
+Progress: Adding leg_g [altera_avalon_pio 18.1]
+Progress: Parameterizing module leg_g
+Progress: Adding mm_bridge [altera_avalon_mm_bridge 18.1]
+Progress: Parameterizing module mm_bridge
+Progress: Adding sdram_controller [altera_avalon_new_sdram_controller 18.1]
+Progress: Parameterizing module sdram_controller
+Progress: Adding sdram_pll [altera_up_avalon_sys_sdram_pll 18.0]
+Progress: Parameterizing module sdram_pll
+Progress: Adding sram_0 [altera_up_avalon_sram 18.0]
+Progress: Parameterizing module sram_0
+Progress: Adding switch [altera_avalon_pio 18.1]
+Progress: Parameterizing module switch
+Progress: Adding vga [altera_up_avalon_video_vga_controller 18.0]
+Progress: Parameterizing module vga
+Progress: Adding vga_dma [altera_up_avalon_video_dma_controller 18.0]
+Progress: Parameterizing module vga_dma
+Progress: Adding vga_pll [altera_up_avalon_video_pll 18.0]
+Progress: Parameterizing module vga_pll
+Progress: Adding video_dual_clock_buffer_0 [altera_up_avalon_video_dual_clock_buffer 18.0]
+Progress: Parameterizing module video_dual_clock_buffer_0
+Progress: Adding video_rgb_resampler_0 [altera_up_avalon_video_rgb_resampler 18.0]
+Progress: Parameterizing module video_rgb_resampler_0
+Progress: Adding video_test_pattern_0 [altera_up_avalon_video_test_pattern 18.0]
+Progress: Parameterizing module video_test_pattern_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: AvalonMM.key: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: AvalonMM.sdram_controller: SDRAM Controller will only be supported in Quartus Prime Standard Edition in the future release.
+Info: AvalonMM.sdram_pll: Refclk Freq: 50.0
+Info: AvalonMM.switch: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: AvalonMM.vga: Video Output Stream: Format: 640 x 480 with Color: 10 (bits) x 3 (planes) converted to 8 (bits) per color plane
+Info: AvalonMM.video_rgb_resampler_0: RGB Resampling: 8 (bits) x 3 (planes) -> 10 (bits) x 3 (planes)
+Warning: AvalonMM.video_rgb_resampler_0: video_rgb_resampler_0.avalon_rgb_slave must be connected to an Avalon-MM master
+Warning: AvalonMM.: You have exported the interface mm_bridge.s0 but not its associated clock interface.  Export the driver of mm_bridge.clk
+Warning: AvalonMM.: You have exported the interface mm_bridge.s0 but not its associated reset interface.  Export the driver(s) of mm_bridge.reset
+Info: AvalonMM: Generating AvalonMM "AvalonMM" for QUARTUS_SYNTH
+Info: jtag_master: "AvalonMM" instantiated altera_jtag_avalon_master "jtag_master"
+Info: key: Starting RTL generation for module 'AvalonMM_key'
+Info: key:   Generation command is [exec D:/intelfpga/18.1/quartus/bin64/perl/bin/perl.exe -I D:/intelfpga/18.1/quartus/bin64/perl/lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin/europa -I D:/intelfpga/18.1/quartus/sopc_builder/bin/perl_lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/common -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=AvalonMM_key --dir=C:/Users/PANORA~1/AppData/Local/Temp/alt8041_37215923536884436.dir/0002_key_gen/ --quartus_dir=D:/intelfpga/18.1/quartus --verilog --config=C:/Users/PANORA~1/AppData/Local/Temp/alt8041_37215923536884436.dir/0002_key_gen//AvalonMM_key_component_configuration.pl  --do_build_sim=0  ]
+Info: key: Done RTL generation for module 'AvalonMM_key'
+Info: key: "AvalonMM" instantiated altera_avalon_pio "key"
+Info: led_r: Starting RTL generation for module 'AvalonMM_led_r'
+Info: led_r:   Generation command is [exec D:/intelfpga/18.1/quartus/bin64/perl/bin/perl.exe -I D:/intelfpga/18.1/quartus/bin64/perl/lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin/europa -I D:/intelfpga/18.1/quartus/sopc_builder/bin/perl_lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/common -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=AvalonMM_led_r --dir=C:/Users/PANORA~1/AppData/Local/Temp/alt8041_37215923536884436.dir/0003_led_r_gen/ --quartus_dir=D:/intelfpga/18.1/quartus --verilog --config=C:/Users/PANORA~1/AppData/Local/Temp/alt8041_37215923536884436.dir/0003_led_r_gen//AvalonMM_led_r_component_configuration.pl  --do_build_sim=0  ]
+Info: led_r: Done RTL generation for module 'AvalonMM_led_r'
+Info: led_r: "AvalonMM" instantiated altera_avalon_pio "led_r"
+Info: leg_g: Starting RTL generation for module 'AvalonMM_leg_g'
+Info: leg_g:   Generation command is [exec D:/intelfpga/18.1/quartus/bin64/perl/bin/perl.exe -I D:/intelfpga/18.1/quartus/bin64/perl/lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin/europa -I D:/intelfpga/18.1/quartus/sopc_builder/bin/perl_lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/common -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=AvalonMM_leg_g --dir=C:/Users/PANORA~1/AppData/Local/Temp/alt8041_37215923536884436.dir/0004_leg_g_gen/ --quartus_dir=D:/intelfpga/18.1/quartus --verilog --config=C:/Users/PANORA~1/AppData/Local/Temp/alt8041_37215923536884436.dir/0004_leg_g_gen//AvalonMM_leg_g_component_configuration.pl  --do_build_sim=0  ]
+Info: leg_g: Done RTL generation for module 'AvalonMM_leg_g'
+Info: leg_g: "AvalonMM" instantiated altera_avalon_pio "leg_g"
+Info: mm_bridge: "AvalonMM" instantiated altera_avalon_mm_bridge "mm_bridge"
+Info: sdram_controller: Starting RTL generation for module 'AvalonMM_sdram_controller'
+Info: sdram_controller:   Generation command is [exec D:/intelfpga/18.1/quartus/bin64/perl/bin/perl.exe -I D:/intelfpga/18.1/quartus/bin64/perl/lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin/europa -I D:/intelfpga/18.1/quartus/sopc_builder/bin/perl_lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/common -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_new_sdram_controller -- D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_new_sdram_controller/generate_rtl.pl --name=AvalonMM_sdram_controller --dir=C:/Users/PANORA~1/AppData/Local/Temp/alt8041_37215923536884436.dir/0006_sdram_controller_gen/ --quartus_dir=D:/intelfpga/18.1/quartus --verilog --config=C:/Users/PANORA~1/AppData/Local/Temp/alt8041_37215923536884436.dir/0006_sdram_controller_gen//AvalonMM_sdram_controller_component_configuration.pl  --do_build_sim=0  ]
+Info: sdram_controller: Done RTL generation for module 'AvalonMM_sdram_controller'
+Info: sdram_controller: "AvalonMM" instantiated altera_avalon_new_sdram_controller "sdram_controller"
+Info: sdram_pll: "AvalonMM" instantiated altera_up_avalon_sys_sdram_pll "sdram_pll"
+Info: sram_0: Starting Generation of the SRAM Controller
+Info: sram_0: "AvalonMM" instantiated altera_up_avalon_sram "sram_0"
+Info: switch: Starting RTL generation for module 'AvalonMM_switch'
+Info: switch:   Generation command is [exec D:/intelfpga/18.1/quartus/bin64/perl/bin/perl.exe -I D:/intelfpga/18.1/quartus/bin64/perl/lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin/europa -I D:/intelfpga/18.1/quartus/sopc_builder/bin/perl_lib -I D:/intelfpga/18.1/quartus/sopc_builder/bin -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/common -I D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- D:/intelfpga/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=AvalonMM_switch --dir=C:/Users/PANORA~1/AppData/Local/Temp/alt8041_37215923536884436.dir/0008_switch_gen/ --quartus_dir=D:/intelfpga/18.1/quartus --verilog --config=C:/Users/PANORA~1/AppData/Local/Temp/alt8041_37215923536884436.dir/0008_switch_gen//AvalonMM_switch_component_configuration.pl  --do_build_sim=0  ]
+Info: switch: Done RTL generation for module 'AvalonMM_switch'
+Info: switch: "AvalonMM" instantiated altera_avalon_pio "switch"
+Info: vga: Starting Generation of VGA Controller
+Info: vga: "AvalonMM" instantiated altera_up_avalon_video_vga_controller "vga"
+Info: vga_pll: "AvalonMM" instantiated altera_up_avalon_video_pll "vga_pll"
+Info: video_dual_clock_buffer_0: Starting Generation of the Dual Clock Buffer
+Info: video_dual_clock_buffer_0: "AvalonMM" instantiated altera_up_avalon_video_dual_clock_buffer "video_dual_clock_buffer_0"
+Info: video_rgb_resampler_0: Starting Generation of Video RGB Resampler
+Info: video_rgb_resampler_0: "AvalonMM" instantiated altera_up_avalon_video_rgb_resampler "video_rgb_resampler_0"
+Info: video_test_pattern_0: Starting Generation of Test Pattern Generator
+Info: video_test_pattern_0: "AvalonMM" instantiated altera_up_avalon_video_test_pattern "video_test_pattern_0"
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_002: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_003: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_004: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_005: Inserting error_adapter: error_adapter_0
+Info: mm_interconnect_0: "AvalonMM" instantiated altera_mm_interconnect "mm_interconnect_0"
+Info: rst_controller: "AvalonMM" instantiated altera_reset_controller "rst_controller"
+Info: jtag_phy_embedded_in_jtag_master: "jtag_master" instantiated altera_jtag_dc_streaming "jtag_phy_embedded_in_jtag_master"
+Info: timing_adt: "jtag_master" instantiated timing_adapter "timing_adt"
+Info: fifo: "jtag_master" instantiated altera_avalon_sc_fifo "fifo"
+Info: b2p: "jtag_master" instantiated altera_avalon_st_bytes_to_packets "b2p"
+Info: p2b: "jtag_master" instantiated altera_avalon_st_packets_to_bytes "p2b"
+Info: transacto: "jtag_master" instantiated altera_avalon_packets_to_master "transacto"
+Info: b2p_adapter: "jtag_master" instantiated channel_adapter "b2p_adapter"
+Info: p2b_adapter: "jtag_master" instantiated channel_adapter "p2b_adapter"
+Info: sys_pll: "sdram_pll" instantiated altera_up_altpll "sys_pll"
+Info: reset_from_locked: "sdram_pll" instantiated altera_up_avalon_reset_from_locked_signal "reset_from_locked"
+Info: mm_bridge_m0_translator: "mm_interconnect_0" instantiated altera_merlin_master_translator "mm_bridge_m0_translator"
+Info: sram_0_avalon_sram_slave_translator: "mm_interconnect_0" instantiated altera_merlin_slave_translator "sram_0_avalon_sram_slave_translator"
+Info: mm_bridge_m0_agent: "mm_interconnect_0" instantiated altera_merlin_master_agent "mm_bridge_m0_agent"
+Info: sram_0_avalon_sram_slave_agent: "mm_interconnect_0" instantiated altera_merlin_slave_agent "sram_0_avalon_sram_slave_agent"
+Info: router: "mm_interconnect_0" instantiated altera_merlin_router "router"
+Info: router_002: "mm_interconnect_0" instantiated altera_merlin_router "router_002"
+Info: router_003: "mm_interconnect_0" instantiated altera_merlin_router "router_003"
+Info: mm_bridge_m0_limiter: "mm_interconnect_0" instantiated altera_merlin_traffic_limiter "mm_bridge_m0_limiter"
+Info: Reusing file C:/Users/Panoramix/Documents/RISCV/AvalonMM/synthesis/submodules/altera_avalon_sc_fifo.v
+Info: Reusing file C:/Users/Panoramix/Documents/RISCV/AvalonMM/synthesis/submodules/altera_avalon_st_pipeline_base.v
+Info: sram_0_avalon_sram_slave_burst_adapter: "mm_interconnect_0" instantiated altera_merlin_burst_adapter "sram_0_avalon_sram_slave_burst_adapter"
+Info: Reusing file C:/Users/Panoramix/Documents/RISCV/AvalonMM/synthesis/submodules/altera_avalon_st_pipeline_stage.sv
+Info: Reusing file C:/Users/Panoramix/Documents/RISCV/AvalonMM/synthesis/submodules/altera_avalon_st_pipeline_base.v
+Info: cmd_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: cmd_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: rsp_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: rsp_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: Reusing file C:/Users/Panoramix/Documents/RISCV/AvalonMM/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: sram_0_avalon_sram_slave_rsp_width_adapter: "mm_interconnect_0" instantiated altera_merlin_width_adapter "sram_0_avalon_sram_slave_rsp_width_adapter"
+Info: Reusing file C:/Users/Panoramix/Documents/RISCV/AvalonMM/synthesis/submodules/altera_merlin_address_alignment.sv
+Info: Reusing file C:/Users/Panoramix/Documents/RISCV/AvalonMM/synthesis/submodules/altera_merlin_burst_uncompressor.sv
+Info: avalon_st_adapter: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter"
+Info: avalon_st_adapter_001: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter_001"
+Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
+Info: error_adapter_0: "avalon_st_adapter_001" instantiated error_adapter "error_adapter_0"
+Info: AvalonMM: Done "AvalonMM" with 45 modules, 68 files
+Info: qsys-generate succeeded.
+Info: Finished: Create HDL design files for synthesis
