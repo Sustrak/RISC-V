@@ -157,6 +157,14 @@ begin
                 end if;
             end if;
         end if;
+        if i_reset = '1' then
+            s_ins_addr_miss_align <= '0';
+            s_illegal_ins <= '0';
+            s_load_addr_miss_align <= '0';
+            s_store_addr_miss_align <= '0';
+            s_illegal_mem_access <= '0';
+            s_ecall <= '0';
+        end if;
     end process;
 
     o_mtval <= s_current_pc;
