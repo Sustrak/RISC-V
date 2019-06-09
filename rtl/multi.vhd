@@ -97,6 +97,7 @@ begin
 	o_ld_st_to_mc <= LD_SDRAM when state = FETCH else
 		i_ld_st when state = MEM else
 		IDLE_SDRAM;
+
 	o_bhw_to_mc <= W_ACCESS when state = FETCH else
 		i_bhw;
 

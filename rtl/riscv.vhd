@@ -158,6 +158,8 @@ architecture Structure of riscv is
             o_hex             : out std_logic_vector(R_HEX);
             i_key             : in std_logic_vector(R_KEY);
             i_switch          : in std_logic_vector(R_SWITCH);
+            io_ps2_CLK        : inout std_logic;
+            io_ps2_DAT        : inout std_logic;
             -- VGA
             o_vga_CLK         : out   std_logic;
             o_vga_HS          : out   std_logic;
@@ -249,6 +251,8 @@ begin
         o_hex             => s_hex_bus,
         i_key             => s_key,
         i_switch          => SW(17 downto 1) & '0',
+        io_ps2_CLK        => PS2_CLK,
+        io_ps2_DAT        => PS2_DAT,
         -- VGA
         o_vga_CLK         => VGA_CLK,
         o_vga_HS          => VGA_HS,

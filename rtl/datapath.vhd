@@ -79,8 +79,7 @@ architecture Structure of datapath is
 			i_adata    : in std_logic_vector(R_XLEN);
 			i_bdata    : in std_logic_vector(R_XLEN);
 			i_opcode   : in std_logic_vector(R_OP_CODE);
-			o_wdata    : out std_logic_vector(R_XLEN);
-			o_overflow : out std_logic
+			o_wdata    : out std_logic_vector(R_XLEN)
 		);
 	end component;
 	component sign_extensor is
@@ -146,7 +145,6 @@ begin
 		i_bdata    => s_bdata,
 		i_opcode   => r_id_ex(R_DPB_OPCODE),
 		o_wdata    => s_wdata,
-		o_overflow => s_overflow
 	);
 	c_sign_extensor : sign_extensor
 	port map(

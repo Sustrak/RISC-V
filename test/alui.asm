@@ -1,4 +1,3 @@
-.text
 li a0, 0x10010000
 # ADDI
 addi t0, zero, 0xAB

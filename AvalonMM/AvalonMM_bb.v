@@ -15,8 +15,13 @@ module AvalonMM (
 	pp_key_int_irq,
 	pp_led_g_export,
 	pp_led_r_export,
+	pp_sev_seg03_export,
+	pp_sev_seg47_export,
 	pp_switch_export,
 	pp_switch_int_irq,
+	ps2_CLK,
+	ps2_DAT,
+	ps2_int_irq,
 	reset_reset_n,
 	sdram_addr,
 	sdram_ba,
@@ -59,8 +64,13 @@ module AvalonMM (
 	output		pp_key_int_irq;
 	output	[8:0]	pp_led_g_export;
 	output	[17:0]	pp_led_r_export;
+	output	[31:0]	pp_sev_seg03_export;
+	output	[31:0]	pp_sev_seg47_export;
 	input	[17:0]	pp_switch_export;
 	output		pp_switch_int_irq;
+	inout		ps2_CLK;
+	inout		ps2_DAT;
+	output		ps2_int_irq;
 	input		reset_reset_n;
 	output	[12:0]	sdram_addr;
 	output	[1:0]	sdram_ba;

@@ -49,4 +49,4 @@ b LABEL10
 LABEL9:
 li t0 2
 LABEL10:
-sw t0 16(a0)
+sw t0 24(a0)

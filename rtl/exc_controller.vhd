@@ -90,7 +90,6 @@ begin
         o_edge => s_store_addr_miss_align_edge 
     );
 
-
     ecall_edge : edge_detector
     port map(
         i_clk => i_clk,
