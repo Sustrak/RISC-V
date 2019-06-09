@@ -34,6 +34,7 @@ def generate_bin():
     verbose_print(f"HexFile: {hex_name} open")
     bin_file = open(bin_name, "w+b")
     verbose_print(f"BinFile: {bin_file} created")
+    
     if args.rsi:
         rsi_hex_file = open(rsi_hex, "r")
         rsi_bin_file = open(rsi_bin, "w+b")
@@ -42,6 +43,9 @@ def generate_bin():
             x = line[6] + line[7] + line[4] + line[5] + line[2] + line[3] + line[0] + line[1]
             rsi_bin_file.write(binascii.unhexlify(x))
             
+        rsi_hex_file.close()
+        rsi_bin_file.close()
+            
     if args.sys_code:
         sys_hex_file = open(sys_hex, "r")
         sys_bin_file = open(sys_bin, "w+b")
@@ -49,6 +53,9 @@ def generate_bin():
         for line in sys_hex_file:
             x = line[6] + line[7] + line[4] + line[5] + line[2] + line[3] + line[0] + line[1]
             sys_bin_file.write(binascii.unhexlify(x))
+        
+        sys_hex_file.close()
+        sys_bin_file.close()
         
     if args.enable_int:
         # Enable switch interrupts
@@ -74,8 +81,7 @@ def generate_bin():
     # Close files
     hex_file.close()
     bin_file.close()
-    rsi_hex_file.close()
-    rsi_bin_file.close()
+    
 
 
 def generate_load_tcl(file_name):
