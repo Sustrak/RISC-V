@@ -68,6 +68,15 @@ package ARCH32 is
     constant ALU_PASS_B : std_logic_vector := "010101";
     constant ALU_PASS_A : std_logic_vector := "010110";
     constant ALU_MRET   : std_logic_vector := "010111";
+    constant ALU_MUL    : std_logic_vector := "011000";
+    constant ALU_MULH   : std_logic_vector := "011001";
+    constant ALU_MULHSU : std_logic_vector := "011010";
+    constant ALU_MULHU  : std_logic_vector := "011011";
+    constant ALU_DIV    : std_logic_vector := "011100";
+    constant ALU_DIVU   : std_logic_vector := "011101";
+    constant ALU_REM    : std_logic_vector := "011110";
+    constant ALU_REMU   : std_logic_vector := "011111";
+
 	-- INS OP CODE
 	constant LUI       : std_logic_vector := "0110111";
 	constant AUIPC     : std_logic_vector := "0010111";
@@ -116,6 +125,14 @@ package ARCH32 is
 	constant F3_CSRRWI : std_logic_vector := "101";
 	constant F3_CSRRSI : std_logic_vector := "110";
 	constant F3_CSRRCI : std_logic_vector := "111";
+    constant F3_MUL    : std_logic_vector := "000";
+    constant F3_MULH   : std_logic_vector := "001";
+    constant F3_MULHSU : std_logic_vector := "010";
+    constant F3_MULHU  : std_logic_vector := "011"; 
+    constant F3_DIV    : std_logic_vector := "100";
+    constant F3_DIVU   : std_logic_vector := "101";
+    constant F3_REM    : std_logic_vector := "110";
+    constant F3_REMU   : std_logic_vector := "111";
 
 	-- FUNCT7 CODES
 	constant F7_SLLI   : std_logic_vector := "0000000";
@@ -131,6 +148,7 @@ package ARCH32 is
 	constant F7_SRA    : std_logic_vector := "0100000";
 	constant F7_OR     : std_logic_vector := "0000000";
 	constant F7_AND    : std_logic_vector := "0000000";
+    constant F7_MEXT   : std_logic_vector := "0000001";
 
     -- PRIVILEGED INSTRUCTIONS (I-TYPE) CODES
     constant PRIV_MRET : std_logic_vector := "001100000010"; 
@@ -195,12 +213,13 @@ package ARCH32 is
     constant MCAUSE_NO_INT                : std_logic_vector := x"FFFFFFFF";
     constant MCAUSE_SW                    : std_logic_vector := x"8000000C";
     constant MCAUSE_KEY                   : std_logic_vector := x"8000000D";
+    constant MCAUSE_PS2                   : std_logic_vector := x"8000000E";
     constant MCAUSE_INS_ADDR_MISS_ALIGN   : std_logic_vector := x"00000000";
     constant MCAUSE_ILLEGAL_INS           : std_logic_vector := x"00000002";
     constant MCAUSE_LD_ADDR_MISS_ALIGN    : std_logic_vector := x"00000004";
     constant MCAUSE_ST_ADDR_MISS_ALIGN    : std_logic_vector := x"00000006";
     constant MCAUSE_ECALL                 : std_logic_vector := x"00000008";
-    constant MCAUSE_ILLEGAL_MEM           : std_logic_vector := x"00000010";
+    constant MCAUSE_ILLEGAL_MEM           : std_logic_vector := x"00000018";
     -- PRIVILEGE LEVELS
     constant U_PRIV  : std_logic := '0';
     constant M_PRIV  : std_logic := '1';

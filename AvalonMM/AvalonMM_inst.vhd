@@ -15,8 +15,13 @@
 			pp_key_int_irq            : out   std_logic;                                        -- irq
 			pp_led_g_export           : out   std_logic_vector(8 downto 0);                     -- export
 			pp_led_r_export           : out   std_logic_vector(17 downto 0);                    -- export
+			pp_sev_seg03_export       : out   std_logic_vector(31 downto 0);                    -- export
+			pp_sev_seg47_export       : out   std_logic_vector(31 downto 0);                    -- export
 			pp_switch_export          : in    std_logic_vector(17 downto 0) := (others => 'X'); -- export
 			pp_switch_int_irq         : out   std_logic;                                        -- irq
+			ps2_CLK                   : inout std_logic                     := 'X';             -- CLK
+			ps2_DAT                   : inout std_logic                     := 'X';             -- DAT
+			ps2_int_irq               : out   std_logic;                                        -- irq
 			reset_reset_n             : in    std_logic                     := 'X';             -- reset_n
 			sdram_addr                : out   std_logic_vector(12 downto 0);                    -- addr
 			sdram_ba                  : out   std_logic_vector(1 downto 0);                     -- ba
@@ -63,8 +68,13 @@
 			pp_key_int_irq            => CONNECTED_TO_pp_key_int_irq,            --    pp_key_int.irq
 			pp_led_g_export           => CONNECTED_TO_pp_led_g_export,           --      pp_led_g.export
 			pp_led_r_export           => CONNECTED_TO_pp_led_r_export,           --      pp_led_r.export
+			pp_sev_seg03_export       => CONNECTED_TO_pp_sev_seg03_export,       --  pp_sev_seg03.export
+			pp_sev_seg47_export       => CONNECTED_TO_pp_sev_seg47_export,       --  pp_sev_seg47.export
 			pp_switch_export          => CONNECTED_TO_pp_switch_export,          --     pp_switch.export
 			pp_switch_int_irq         => CONNECTED_TO_pp_switch_int_irq,         -- pp_switch_int.irq
+			ps2_CLK                   => CONNECTED_TO_ps2_CLK,                   --           ps2.CLK
+			ps2_DAT                   => CONNECTED_TO_ps2_DAT,                   --              .DAT
+			ps2_int_irq               => CONNECTED_TO_ps2_int_irq,               --       ps2_int.irq
 			reset_reset_n             => CONNECTED_TO_reset_reset_n,             --         reset.reset_n
 			sdram_addr                => CONNECTED_TO_sdram_addr,                --         sdram.addr
 			sdram_ba                  => CONNECTED_TO_sdram_ba,                  --              .ba

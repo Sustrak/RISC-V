@@ -42,12 +42,8 @@ begin
                         s_mstatus <= i_port_d;
                     when CSR_MTVEC =>
                         s_mtvec <= i_port_d;
-                    -- when CSR_MTVAL =>
-                    --     s_mtval <= i_port_d;
                     when CSR_MPEC =>
                         s_mpec <= i_port_d;
-                    -- when CSR_MCAUSE =>
-                    --     s_mcause <= i_port_d;
                     when others =>
                         null;
                 end case;

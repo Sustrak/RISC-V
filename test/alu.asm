@@ -1,4 +1,3 @@
-.text
 li a0, 0x10010000
 # ADD
 li t0, 120
@@ -40,4 +39,3 @@ sll t2, t1, t4		# 5 << 1
 sw t2, 40(a0)
 sll t2, t1, t3		# 5 << -1
 sw t2, 44(a0)
-slli t2, t1, 32

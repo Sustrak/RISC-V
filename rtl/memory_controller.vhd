@@ -33,9 +33,11 @@ entity memory_controller is
         -- IO
         o_led_r           : out std_logic_vector(R_LED_R);
         o_led_g           : out std_logic_vector(R_LED_G);
-        o_hex              : out std_logic_vector(R_HEX);
+        o_hex             : out std_logic_vector(R_HEX);
         i_key             : in std_logic_vector(R_KEY);
         i_switch          : in std_logic_vector(R_SWITCH);
+        io_ps2_CLK        : inout std_logic;
+        io_ps2_DAT        : inout std_logic;
         -- VGA
         o_vga_CLK          : out   std_logic;
         o_vga_HS           : out   std_logic;
@@ -89,6 +91,11 @@ architecture Structure of memory_controller is
 			pp_key_export             : in std_logic_vector(3 downto 0) := (others => 'X');
             pp_switch_int_irq         : out std_logic;
             pp_key_int_irq            : out std_logic;
+            pp_sev_seg03_export       : out   std_logic_vector(31 downto 0);
+            pp_sev_seg47_export       : out   std_logic_vector(31 downto 0);
+            ps2_CLK                   : inout std_logic                     := 'X';
+            ps2_DAT                   : inout std_logic                     := 'X';
+            ps2_int_irq               : out   std_logic;
             vga_CLK                   : out   std_logic;
             vga_HS                    : out   std_logic;
             vga_VS                    : out   std_logic;
@@ -124,6 +131,7 @@ architecture Structure of memory_controller is
             i_int_ack : in std_logic;
             i_int_sw  : in std_logic;
             i_int_key : in std_logic;
+            i_int_ps2 : in std_logic;
             o_int     : out std_logic;
             o_mcause  : out std_logic_vector(R_XLEN)
         );
@@ -147,8 +155,8 @@ architecture Structure of memory_controller is
     signal s_mm_read_edge     : std_logic;
     signal s_mm_readdatavalid_edge : std_logic;
     signal s_readdata : std_logic_vector(R_XLEN);
-    
-
+    signal s_sev_seg03        : std_logic_vector(R_XLEN);
+    signal s_sev_seg47        : std_logic_vector(R_XLEN);
     
 
     -- Unexpected readdatavalids from SDRAM
@@ -164,6 +172,7 @@ architecture Structure of memory_controller is
     -- INTERRUPTS
     signal s_switch_int       : std_logic;
     signal s_key_int          : std_logic;
+    signal s_ps2_int          : std_logic;
 
 
 begin
@@ -198,6 +207,11 @@ begin
             pp_key_export             => i_key,
             pp_switch_int_irq         => s_switch_int,
             pp_key_int_irq            => s_key_int,
+            pp_sev_seg03_export       => s_sev_seg03,
+            pp_sev_seg47_export       => s_sev_seg47,
+            ps2_CLK                   => io_ps2_CLK,
+            ps2_DAT                   => io_ps2_DAT,
+            ps2_int_irq               => s_ps2_int,
             vga_CLK                   => o_vga_CLK,
             vga_HS                    => o_vga_HS, 
             vga_VS                    => o_vga_VS,
@@ -307,6 +321,8 @@ begin
 		end if;
 	end process;
 
+    o_hex <= s_sev_seg47(27 downto 0) & s_sev_seg03(27 downto 0); 
+
     c_int_controller : int_controller
         port map (
             i_clk => i_clk_50,
@@ -314,6 +330,7 @@ begin
             i_int_ack => i_int_ack,
             i_int_sw  => s_switch_int,
             i_int_key => s_key_int,
+            i_int_ps2 => s_ps2_int,
             o_int     => o_int,
             o_mcause  => o_mcause
         );

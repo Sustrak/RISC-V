@@ -14,8 +14,13 @@
 		.pp_key_int_irq            (<connected-to-pp_key_int_irq>),            //    pp_key_int.irq
 		.pp_led_g_export           (<connected-to-pp_led_g_export>),           //      pp_led_g.export
 		.pp_led_r_export           (<connected-to-pp_led_r_export>),           //      pp_led_r.export
+		.pp_sev_seg03_export       (<connected-to-pp_sev_seg03_export>),       //  pp_sev_seg03.export
+		.pp_sev_seg47_export       (<connected-to-pp_sev_seg47_export>),       //  pp_sev_seg47.export
 		.pp_switch_export          (<connected-to-pp_switch_export>),          //     pp_switch.export
 		.pp_switch_int_irq         (<connected-to-pp_switch_int_irq>),         // pp_switch_int.irq
+		.ps2_CLK                   (<connected-to-ps2_CLK>),                   //           ps2.CLK
+		.ps2_DAT                   (<connected-to-ps2_DAT>),                   //              .DAT
+		.ps2_int_irq               (<connected-to-ps2_int_irq>),               //       ps2_int.irq
 		.reset_reset_n             (<connected-to-reset_reset_n>),             //         reset.reset_n
 		.sdram_addr                (<connected-to-sdram_addr>),                //         sdram.addr
 		.sdram_ba                  (<connected-to-sdram_ba>),                  //              .ba

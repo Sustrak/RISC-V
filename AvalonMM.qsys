@@ -29,7 +29,7 @@
    {
       datum _sortIndex
       {
-         value = "7";
+         value = "6";
          type = "int";
       }
    }
@@ -42,7 +42,7 @@
       }
       datum baseAddress
       {
-         value = "134217760";
+         value = "136314896";
          type = "String";
       }
    }
@@ -63,7 +63,7 @@
       }
       datum baseAddress
       {
-         value = "134217776";
+         value = "136314928";
          type = "String";
       }
    }
@@ -71,7 +71,7 @@
    {
       datum _sortIndex
       {
-         value = "6";
+         value = "7";
          type = "int";
       }
    }
@@ -84,7 +84,7 @@
       }
       datum baseAddress
       {
-         value = "134217744";
+         value = "136314912";
          type = "String";
       }
    }
@@ -94,6 +94,27 @@
       {
          value = "3";
          type = "int";
+      }
+   }
+   element ps2
+   {
+      datum _sortIndex
+      {
+         value = "11";
+         type = "int";
+      }
+   }
+   element ps2.avalon_ps2_slave
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "136314976";
+         type = "String";
       }
    }
    element sdram_controller
@@ -125,19 +146,66 @@
          type = "int";
       }
    }
+   element sev_seg03
+   {
+      datum _sortIndex
+      {
+         value = "9";
+         type = "int";
+      }
+   }
+   element sev_seg03.s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "136314944";
+         type = "String";
+      }
+   }
+   element sev_seg47
+   {
+      datum _sortIndex
+      {
+         value = "10";
+         type = "int";
+      }
+   }
+   element sev_seg47.s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "136314960";
+         type = "String";
+      }
+   }
    element sram_0
    {
       datum _sortIndex
       {
-         value = "12";
+         value = "15";
          type = "int";
       }
    }
    element sram_0.avalon_sram_slave
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
-         value = "136314880";
+         value = "134217728";
          type = "String";
       }
    }
@@ -158,7 +226,7 @@
       }
       datum baseAddress
       {
-         value = "134217728";
+         value = "136314880";
          type = "String";
       }
    }
@@ -166,7 +234,7 @@
    {
       datum _sortIndex
       {
-         value = "10";
+         value = "13";
          type = "int";
       }
    }
@@ -174,15 +242,20 @@
    {
       datum _sortIndex
       {
-         value = "11";
+         value = "14";
          type = "int";
       }
    }
    element vga_dma.avalon_dma_control_slave
    {
+      datum _lockedAddress
+      {
+         value = "0";
+         type = "boolean";
+      }
       datum baseAddress
       {
-         value = "134217792";
+         value = "136314992";
          type = "String";
       }
    }
@@ -190,7 +263,7 @@
    {
       datum _sortIndex
       {
-         value = "9";
+         value = "12";
          type = "int";
       }
    }
@@ -198,23 +271,7 @@
    {
       datum _sortIndex
       {
-         value = "13";
-         type = "int";
-      }
-   }
-   element video_rgb_resampler_0
-   {
-      datum _sortIndex
-      {
-         value = "14";
-         type = "int";
-      }
-   }
-   element video_test_pattern_0
-   {
-      datum _sortIndex
-      {
-         value = "15";
+         value = "16";
          type = "int";
       }
    }
@@ -258,11 +315,23 @@
    type="conduit"
    dir="end" />
  <interface
+   name="pp_sev_seg03"
+   internal="sev_seg03.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="pp_sev_seg47"
+   internal="sev_seg47.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
    name="pp_switch"
    internal="switch.external_connection"
    type="conduit"
    dir="end" />
  <interface name="pp_switch_int" internal="switch.irq" type="interrupt" dir="end" />
+ <interface name="ps2" internal="ps2.external_interface" type="conduit" dir="end" />
+ <interface name="ps2_int" internal="ps2.interrupt" type="interrupt" dir="end" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
  <interface
    name="sdram"
@@ -360,6 +429,11 @@
   <parameter name="USE_AUTO_ADDRESS_WIDTH" value="1" />
   <parameter name="USE_RESPONSE" value="0" />
  </module>
+ <module name="ps2" kind="altera_up_avalon_ps2" version="18.0" enabled="1">
+  <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone IV E" />
+  <parameter name="avalon_bus_type" value="Memory Mapped" />
+ </module>
  <module
    name="sdram_controller"
    kind="altera_avalon_new_sdram_controller"
@@ -404,6 +478,34 @@
   <parameter name="gui_outclk" value="50.0" />
   <parameter name="gui_refclk" value="50.0" />
   <parameter name="other_boards" value="None" />
+ </module>
+ <module name="sev_seg03" kind="altera_avalon_pio" version="18.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="32" />
+ </module>
+ <module name="sev_seg47" kind="altera_avalon_pio" version="18.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="32" />
  </module>
  <module name="sram_0" kind="altera_up_avalon_sram" version="18.0" enabled="1">
   <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
@@ -481,34 +583,13 @@
   <parameter name="color_bits" value="10" />
   <parameter name="color_planes" value="3" />
  </module>
- <module
-   name="video_rgb_resampler_0"
-   kind="altera_up_avalon_video_rgb_resampler"
-   version="18.0"
-   enabled="0">
-  <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone IV E" />
-  <parameter name="alpha" value="7" />
-  <parameter name="input_type" value="8-bit RGB" />
-  <parameter name="output_type" value="30-bit RGB" />
- </module>
- <module
-   name="video_test_pattern_0"
-   kind="altera_up_avalon_video_test_pattern"
-   version="18.0"
-   enabled="0">
-  <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone IV E" />
-  <parameter name="height" value="480" />
-  <parameter name="width" value="640" />
- </module>
  <connection
    kind="avalon"
    version="18.1"
    start="vga_dma.avalon_dma_master"
    end="sram_0.avalon_sram_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x08200000" />
+  <parameter name="baseAddress" value="0x08000000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -517,7 +598,16 @@
    start="mm_bridge.m0"
    end="vga_dma.avalon_dma_control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x08000040" />
+  <parameter name="baseAddress" value="0x08200070" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="mm_bridge.m0"
+   end="ps2.avalon_ps2_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x08200060" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -526,7 +616,7 @@
    start="mm_bridge.m0"
    end="sram_0.avalon_sram_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x08200000" />
+  <parameter name="baseAddress" value="0x08000000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -540,22 +630,32 @@
  </connection>
  <connection kind="avalon" version="18.1" start="mm_bridge.m0" end="leg_g.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x08000010" />
+  <parameter name="baseAddress" value="0x08200020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="avalon" version="18.1" start="mm_bridge.m0" end="switch.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x08000000" />
+  <parameter name="baseAddress" value="0x08200000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="avalon" version="18.1" start="mm_bridge.m0" end="key.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x08000020" />
+  <parameter name="baseAddress" value="0x08200010" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="avalon" version="18.1" start="mm_bridge.m0" end="led_r.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x08000030" />
+  <parameter name="baseAddress" value="0x08200030" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection kind="avalon" version="18.1" start="mm_bridge.m0" end="sev_seg03.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x08200040" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection kind="avalon" version="18.1" start="mm_bridge.m0" end="sev_seg47.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x08200050" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -564,7 +664,16 @@
    start="jtag_master.master"
    end="vga_dma.avalon_dma_control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x08000040" />
+  <parameter name="baseAddress" value="0x08200070" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="jtag_master.master"
+   end="ps2.avalon_ps2_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x08200060" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -573,7 +682,7 @@
    start="jtag_master.master"
    end="sram_0.avalon_sram_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x08200000" />
+  <parameter name="baseAddress" value="0x08000000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -591,7 +700,7 @@
    start="jtag_master.master"
    end="leg_g.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x08000010" />
+  <parameter name="baseAddress" value="0x08200020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -600,12 +709,12 @@
    start="jtag_master.master"
    end="switch.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x08000000" />
+  <parameter name="baseAddress" value="0x08200000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection kind="avalon" version="18.1" start="jtag_master.master" end="key.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x08000020" />
+  <parameter name="baseAddress" value="0x08200010" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -614,7 +723,25 @@
    start="jtag_master.master"
    end="led_r.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x08000030" />
+  <parameter name="baseAddress" value="0x08200030" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="jtag_master.master"
+   end="sev_seg03.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x08200040" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="jtag_master.master"
+   end="sev_seg47.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x08200050" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -655,22 +782,23 @@
    kind="clock"
    version="18.1"
    start="sdram_pll.sys_clk"
-   end="video_test_pattern_0.clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="sdram_pll.sys_clk"
-   end="video_rgb_resampler_0.clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="sdram_pll.sys_clk"
    end="sram_0.clk" />
  <connection
    kind="clock"
    version="18.1"
    start="sdram_pll.sys_clk"
    end="vga_dma.clk" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="sdram_pll.sys_clk"
+   end="sev_seg03.clk" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="sdram_pll.sys_clk"
+   end="sev_seg47.clk" />
+ <connection kind="clock" version="18.1" start="sdram_pll.sys_clk" end="ps2.clk" />
  <connection
    kind="clock"
    version="18.1"
@@ -741,22 +869,27 @@
    kind="reset"
    version="18.1"
    start="sdram_pll.reset_source"
-   end="video_test_pattern_0.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="sdram_pll.reset_source"
-   end="video_rgb_resampler_0.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="sdram_pll.reset_source"
    end="sram_0.reset" />
  <connection
    kind="reset"
    version="18.1"
    start="sdram_pll.reset_source"
    end="vga_dma.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="sdram_pll.reset_source"
+   end="sev_seg03.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="sdram_pll.reset_source"
+   end="sev_seg47.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="sdram_pll.reset_source"
+   end="ps2.reset" />
  <connection
    kind="reset"
    version="18.1"

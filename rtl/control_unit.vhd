@@ -272,7 +272,7 @@ begin
                i_ld_st;
 
 	-- PROGRAM COUNTER
-	process (s_states, i_boot, i_tkbr, i_clk_proc, s_ld_pc)
+	process (i_boot, i_clk_proc)
 	begin
 		if i_boot = '1' then
 			s_pc <= RESET_VECTOR;
