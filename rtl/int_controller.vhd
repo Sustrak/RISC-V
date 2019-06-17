@@ -98,8 +98,10 @@ begin
 			s_mcause  <= MCAUSE_NO_INT;
 		end if;
 	end process;
-
+	
+	-- This register is mapped to the sys_regfile
 	o_mcause <= s_mcause;
+	
 	o_int    <= s_int_sw or s_int_key or s_int_ps2;
 
 end Structure;

@@ -16,9 +16,9 @@ entity ins_decoder is
 		o_addr_b_reg   : out std_logic_vector(R_REGS);
 		o_wr_reg       : out std_logic;
 		-- CONTROL
-		o_rb_imm       : out std_logic; -- Selects the value of RB or the IMMEDIATE as input of the ALU
-		o_ra_pc        : out std_logic; -- Selects the value of RA or the PC as input of the ALU
-		o_alu_mem_pc   : out std_logic_vector(R_REG_DATA); -- Selects which value has to be written to the registers
+		o_rb_imm       : out std_logic;
+		o_ra_pc        : out std_logic;
+		o_alu_mem_pc   : out std_logic_vector(R_REG_DATA);
 		o_ld_pc        : out std_logic;
 		-- MEMORY
 		o_ld_st        : out std_logic_vector(R_MEM_LDST);
@@ -49,35 +49,35 @@ begin
 
 	o_alu_opcode <= ALU_LUI when s_op = LUI else
 		ALU_AUIPC when s_op = AUIPC else
-		ALU_ADD when s_op = LOAD or s_op = STORE or (s_op = ARITHI and s_funct3 = F3_ADDI) or (s_op = ARITH and s_funct3 = F3_ADD and s_funct7 = F7_ADD) else
-		ALU_SUB when (s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_SUB and s_funct7 = F7_SUB else
-		ALU_SLL when (s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_SLL and s_funct7 = F7_SLL else
-		ALU_SLT when (s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_SLT and s_funct7 = F7_SLT else
-		ALU_SLTU when (s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_SLTU and s_funct7 = F7_SLTU else
-		ALU_XOR when (s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_XOR and s_funct7 = F7_XOR else
-		ALU_SRL when (s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_SRL and s_funct7 = F7_SRL else
-		ALU_SRA when (s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_SRA and s_funct7 = F7_SRA else
-		ALU_OR when (s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_OR and s_funct7 = F7_OR else
-		ALU_AND when (s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_AND and s_funct7 = F7_AND else
-		ALU_MUL when s_op = ARITH and s_funct3 = F3_MUL and s_funct7 = F7_MEXT else
-		ALU_MULH when s_op = ARITH and s_funct3 = F3_MULH and s_funct7 = F7_MEXT else
+		ALU_ADD    when s_op = LOAD or s_op = STORE or (s_op = ARITHI and s_funct3 = F3_ADDI) or (s_op = ARITH and s_funct3 = F3_ADD and s_funct7 = F7_ADD) else
+		ALU_SUB    when (s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_SUB and s_funct7 = F7_SUB else
+		ALU_SLL    when (s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_SLL and s_funct7 = F7_SLL else
+		ALU_SLT    when (s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_SLT and s_funct7 = F7_SLT else
+		ALU_SLTU   when (s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_SLTU and s_funct7 = F7_SLTU else
+		ALU_XOR    when (s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_XOR and s_funct7 = F7_XOR else
+		ALU_SRL    when (s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_SRL and s_funct7 = F7_SRL else
+		ALU_SRA    when (s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_SRA and s_funct7 = F7_SRA else
+		ALU_OR     when (s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_OR and s_funct7 = F7_OR else
+		ALU_AND    when (s_op = ARITH or s_op = ARITHI) and s_funct3 = F3_AND and s_funct7 = F7_AND else
+		ALU_MUL    when s_op = ARITH and s_funct3 = F3_MUL and s_funct7 = F7_MEXT else
+		ALU_MULH   when s_op = ARITH and s_funct3 = F3_MULH and s_funct7 = F7_MEXT else
 		ALU_MULHSU when s_op = ARITH and s_funct3 = F3_MULHSU and s_funct7 = F7_MEXT else
-		ALU_MULHU when s_op = ARITH and s_funct3 = F3_MULHU and s_funct7 = F7_MEXT else
-		ALU_DIV when s_op = ARITH and s_funct3 = F3_DIV and s_funct7 = F7_MEXT else
-		ALU_DIVU when s_op = ARITH and s_funct3 = F3_DIVU and s_funct7 = F7_MEXT else
-		ALU_REM when s_op = ARITH and s_funct3 = F3_REM and s_funct7 = F7_MEXT else
-		ALU_REMU when s_op = ARITH and s_funct3 = F3_REMU and s_funct7 = F7_MEXT else
-		ALU_JAL when s_op = JAL else
-		ALU_JALR when s_op = JARL else
-		ALU_BEQ when s_op = BRANCH and s_funct3 = F3_BEQ else
-		ALU_BGE when s_op = BRANCH and s_funct3 = F3_BGE else
-		ALU_BGEU when s_op = BRANCH and s_funct3 = F3_BGEU else
-		ALU_BLT when s_op = BRANCH and s_funct3 = F3_BLT else
-		ALU_BLTU when s_op = BRANCH and s_funct3 = F3_BLTU else
-		ALU_BNE when s_op = BRANCH and s_funct3 = F3_BNE else
+		ALU_MULHU  when s_op = ARITH and s_funct3 = F3_MULHU and s_funct7 = F7_MEXT else
+		ALU_DIV    when s_op = ARITH and s_funct3 = F3_DIV and s_funct7 = F7_MEXT else
+		ALU_DIVU   when s_op = ARITH and s_funct3 = F3_DIVU and s_funct7 = F7_MEXT else
+		ALU_REM    when s_op = ARITH and s_funct3 = F3_REM and s_funct7 = F7_MEXT else
+		ALU_REMU   when s_op = ARITH and s_funct3 = F3_REMU and s_funct7 = F7_MEXT else
+		ALU_JAL    when s_op = JAL else
+		ALU_JALR   when s_op = JARL else
+		ALU_BEQ    when s_op = BRANCH and s_funct3 = F3_BEQ else
+		ALU_BGE    when s_op = BRANCH and s_funct3 = F3_BGE else
+		ALU_BGEU   when s_op = BRANCH and s_funct3 = F3_BGEU else
+		ALU_BLT    when s_op = BRANCH and s_funct3 = F3_BLT else
+		ALU_BLTU   when s_op = BRANCH and s_funct3 = F3_BLTU else
+		ALU_BNE    when s_op = BRANCH and s_funct3 = F3_BNE else
 		ALU_PASS_B when s_op = SYSTEM and (s_funct3 = F3_CSRRWI or s_funct3 = F3_CSRRSI or s_funct3 = F3_CSRRCI) else
 		ALU_PASS_A when s_op = SYSTEM and (s_funct3 = F3_CSRRW or s_funct3 = F3_CSRRS or s_funct3 = F3_CSRRC) else
-		ALU_MRET when s_op = SYSTEM and i_ins(R_INSI_IMM) = PRIV_MRET else
+		ALU_MRET   when s_op = SYSTEM and i_ins(R_INSI_IMM) = PRIV_MRET else
 		(others => '0');
 
 	o_wr_reg <= '1' when s_op = LUI or s_op = AUIPC or s_op = JAL or s_op = JARL or s_op = LOAD or s_op = ARITHI or s_op = ARITH or (s_op = SYSTEM and (s_funct3 = F3_CSRRW or s_funct3 = F3_CSRRWI)) else

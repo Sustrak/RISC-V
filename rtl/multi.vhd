@@ -34,15 +34,6 @@ architecture Structure of multi is
 	signal s_proc_data_read : std_logic;
 	signal rebotes          : std_logic_vector(15 downto 0);
 begin
-
-	process (i_boot)
-	begin
-		if rising_edge(i_boot) then
-			rebotes <= std_logic_vector(unsigned(rebotes) + 1);
-		end if;
-	end process;
-	o_rebotes <= rebotes;
-
 	process (i_clk_proc, i_boot, i_avalon_readvalid)
 	begin
 		if i_boot = '1' then
@@ -101,11 +92,11 @@ begin
 		i_addr_mem;
 
 	o_states <= FETCH_STATE when state = FETCH else
-		DECODE_STATE when state = ID else
-		EXEC_STATE when state = EX else
-		MEM_STATE when state = MEM else
-		WB_STATE when state = WB else
-		SYS_STATE when state = SYS else
+		DECODE_STATE when state = ID  else
+		EXEC_STATE   when state = EX  else
+		MEM_STATE    when state = MEM else
+		WB_STATE     when state = WB  else
+		SYS_STATE    when state = SYS else
 		INI_STATE;
 
 end Structure;

@@ -45,6 +45,7 @@ architecture Structure of exc_controller is
 	signal s_store_addr_miss_align      : std_logic;
 	signal s_illegal_mem_access         : std_logic;
 	signal s_ecall                      : std_logic;
+	
 	-- EDGE CAPTURE
 	signal s_ins_addr_miss_align_edge   : std_logic;
 	signal s_illegal_ins_edge           : std_logic;
@@ -165,7 +166,8 @@ begin
 			s_ecall                 <= '0';
 		end if;
 	end process;
-
+	
+	-- Both registers are mapped in the sys_regfile
 	o_mtval        <= s_current_pc;
 	o_mcause       <= s_mcause;
 

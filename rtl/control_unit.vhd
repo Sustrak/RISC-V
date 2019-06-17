@@ -100,6 +100,7 @@ architecture Structure of control_unit is
 			o_pc       : out std_logic_vector(R_XLEN)
 		);
 	end component;
+	
 	component multi is
 		port (
 			i_boot             : in std_logic;
@@ -279,14 +280,14 @@ begin
 		elsif rising_edge(i_clk_proc) then
 			if s_states = DECODE_STATE then
 				if s_ld_pc = '1' then
-					s_pc <= std_logic_vector(unsigned(s_pc) + 4);
+					s_pc <= std_logic_vector(unsigned(s_pc) + 4); -- Default behaivour
 				end if;
 			elsif s_states = WB_STATE then
 				if i_tkbr = '1' then
-					s_pc <= i_new_pc;
+					s_pc <= i_new_pc; -- A jump/branch has been executed
 				end if;
 			elsif s_states = SYS_STATE then
-				s_pc <= i_new_pc;
+				s_pc <= i_new_pc; -- An interruption/Exception has ocurred
 			end if;
 		end if;
 	end process;

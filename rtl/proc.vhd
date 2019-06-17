@@ -69,6 +69,7 @@ architecture Structure of proc is
 			o_priv_lvl     : out std_logic
 		);
 	end component;
+	
 	component control_unit is
 		port (
 			i_boot             : in std_logic;
@@ -196,6 +197,7 @@ begin
 		-- PRIVILEGES
 		o_priv_lvl     => s_priv_lvl
 	);
+	
 	c_cu : control_unit
 	port map(
 		i_boot             => i_boot,

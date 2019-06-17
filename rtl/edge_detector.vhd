@@ -4,6 +4,9 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.ARCH32.all;
 
+-- To detect a rising edge on a signal that it is not a clock, we will use this entity instead of the rising_edge(...)
+-- procedure so it doesn't generate false clocks on the timing analyzer
+
 entity edge_detector is
 	port (
 		i_clk    : in std_logic;

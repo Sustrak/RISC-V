@@ -51,51 +51,6 @@ entity riscv is
 		VGA_R         : out std_logic_vector(7 downto 0);
 		VGA_SYNC_N    : out std_logic;
 		VGA_VS        : out std_logic;
-		-- LCD
-		LCD_BLON      : out std_logic;
-		LCD_DATA      : inout std_logic_vector(7 downto 0);
-		LCD_EN        : out std_logic;
-		LCD_ON        : out std_logic;
-		LCD_RS        : out std_logic;
-		LCD_RW        : out std_logic;
-		-- RS232
-		UART_CTS      : out std_logic;
-		UART_RTS      : in std_logic;
-		UART_RXD      : in std_logic;
-		UART_TXD      : out std_logic;
-		-- EEPROM
-		EEP_I2C_SCLK  : out std_logic;
-		EEP_I2C_SDAT  : inout std_logic;
-		-- Ethernet 0
-		ENET0_GTX_CLK : out std_logic;
-		ENET0_INT_N   : in std_logic;
-		ENET0_LINK100 : in std_logic;
-		ENET0_MDC     : out std_logic;
-		ENET0_MDIO    : inout std_logic;
-		ENET0_RST_N   : out std_logic;
-		ENET0_RX_CLK  : in std_logic;
-		ENET0_RX_COL  : in std_logic;
-		ENET0_RX_CRS  : in std_logic;
-		ENET0_RX_DATA : in std_logic_vector(3 downto 0);
-		ENET0_RX_DV   : in std_logic;
-		ENET0_RX_ER   : in std_logic;
-		ENET0_TX_CLK  : in std_logic;
-		ENET0_TX_DATA : out std_logic_vector(3 downto 0);
-		ENET0_TX_EN   : out std_logic;
-		ENET0_TX_ER   : out std_logic;
-		ENETCLK_25    : in std_logic;
-		-- USB
-		OTG_ADDR      : out std_logic_vector(1 downto 0);
-		OTG_CS_N      : out std_logic;
-		OTG_DACK_N    : out std_logic_vector(1 downto 0);
-		OTG_DATA      : inout std_logic_vector(15 downto 0);
-		OTG_DREQ      : in std_logic_vector(1 downto 0);
-		OTG_FSPEED    : inout std_logic;
-		OTG_INT       : in std_logic_vector(1 downto 0);
-		OTG_LSPEED    : inout std_logic;
-		OTG_RD_N      : out std_logic;
-		OTG_RST_N     : out std_logic;
-		OTG_WE_N      : out std_logic;
 		-- SRAM
 		SRAM_ADDR     : out std_logic_vector(19 downto 0);
 		SRAM_CE_N     : out std_logic;
@@ -126,6 +81,7 @@ architecture Structure of riscv is
 			o_int_ack          : out std_logic
 		);
 	end component;
+	
 	component memory_controller is
 		port (
 			-- SDRAM
@@ -178,6 +134,7 @@ architecture Structure of riscv is
 			o_sram_WE_N        : out std_logic
 		);
 	end component;
+	
 	component system_pll is
 		port (
 			inclk0 : in std_logic;
@@ -274,7 +231,7 @@ begin
 	c_system_pll : system_pll
 	port map(
 		inclk0 => CLOCK_50,
-		c0     => s_clock_100,
+		c0     => s_clock_100, -- Clock only used to debug with SignalTap
 		c1     => s_clk_p
 	);
 

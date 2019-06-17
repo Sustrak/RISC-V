@@ -108,9 +108,6 @@ begin
 	s_usr_port_d <= i_port_d when i_csr_op = CSRNOP else
 		s_sys_port_a;
 
-	--s_sys_port_d <= s_usr_port_a when i_csr_op = CSRRW or i_csr_op = CSRRS or i_csr_op = CSRRC else
-	--                i_port_d;
-
 	o_port_a <= s_sys_port_a when i_mret = '1' or s_sys_state = '1' else
 		s_usr_port_a;
 

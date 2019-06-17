@@ -74,6 +74,7 @@ architecture Structure of datapath is
 			i_ret_pc       : in std_logic_vector(R_XLEN)
 		);
 	end component;
+	
 	component alu
 		port (
 			i_adata  : in std_logic_vector(R_XLEN);
@@ -82,6 +83,7 @@ architecture Structure of datapath is
 			o_wdata  : out std_logic_vector(R_XLEN)
 		);
 	end component;
+	
 	component sign_extensor is
 		port (
 			i_data     : in std_logic_vector(R_XLEN);
@@ -90,6 +92,7 @@ architecture Structure of datapath is
 			o_data     : out std_logic_vector(R_XLEN)
 		);
 	end component;
+	
 	component take_branch is
 		port (
 			i_adata  : in std_logic_vector(R_XLEN);
@@ -98,6 +101,7 @@ architecture Structure of datapath is
 			o_tkbr   : out std_logic
 		);
 	end component;
+	
 	-- SIGNALS
 	signal s_wdata         : std_logic_vector(R_XLEN);
 	signal s_wr            : std_logic;
@@ -130,7 +134,7 @@ begin
 		o_priv_lvl     => o_priv_lvl,
 		i_addr_csr     => r_mem_wb(R_DPB_ADDRCSR),
 		i_csr_op       => r_mem_wb(R_DPB_CSROP),
-		i_mret         => i_mret, --r_mem_wb(R_DPB_MRET),
+		i_mret         => i_mret,
 		i_mcause       => i_mcause,
 		i_mtval        => i_mtval,
 		o_trap_enabled => o_trap_enabled,
