@@ -23,7 +23,7 @@ begin
 		(i_adata /= i_bdata and i_opcode = ALU_BNE) or
 		i_opcode = ALU_JAL or
 		i_opcode = ALU_JALR or
-        i_opcode = ALU_MRET else
+		i_opcode = ALU_MRET else
 		'0';
 
 end Structure;

@@ -8,7 +8,7 @@ entity datapath is
 	port (
 		-- REGFILE
 		i_clk_proc     : in std_logic;
-        i_reset        : in std_logic;
+		i_reset        : in std_logic;
 		i_wr_reg       : in std_logic;
 		i_addr_d_reg   : in std_logic_vector(R_REGS);
 		i_addr_a_reg   : in std_logic_vector(R_REGS);
@@ -20,16 +20,16 @@ entity datapath is
 		i_rb_imm       : in std_logic;
 		i_ra_pc        : in std_logic;
 		i_alu_mem_pc   : in std_logic_vector(R_REG_DATA);
-        i_reg_stall    : in std_logic;
-        -- INTERRUPT
-        i_mcause       : in std_logic_vector(R_XLEN);
-        i_mtval        : in std_logic_vector(R_XLEN);
-        o_trap_enabled  : out std_logic;
-        i_csr_op       : in std_logic_vector(R_CSR_OP);
-        i_addr_csr     : in std_logic_vector(R_CSR);
-        i_mret         : in std_logic;
-        i_trap_ack      : in std_logic;
-        o_trap_ack      : out std_logic;
+		i_reg_stall    : in std_logic;
+		-- INTERRUPT
+		i_mcause       : in std_logic_vector(R_XLEN);
+		i_mtval        : in std_logic_vector(R_XLEN);
+		o_trap_enabled : out std_logic;
+		i_csr_op       : in std_logic_vector(R_CSR_OP);
+		i_addr_csr     : in std_logic_vector(R_CSR);
+		i_mret         : in std_logic;
+		i_trap_ack     : in std_logic;
+		o_trap_ack     : out std_logic;
 		-- BRANCH
 		i_pc_br        : in std_logic_vector(R_XLEN);
 		o_new_pc       : out std_logic_vector(R_XLEN);
@@ -43,43 +43,43 @@ entity datapath is
 		o_ld_st        : out std_logic_vector(R_MEM_LDST);
 		o_bhw          : out std_logic_vector(R_MEM_ACCS);
 		i_mem_unsigned : in std_logic;
-        -- STATES
-        i_states       : in std_logic_vector(R_STATES);
-        -- PRIVILEGES
-        o_priv_lvl     : out std_logic
+		-- STATES
+		i_states       : in std_logic_vector(R_STATES);
+		-- PRIVILEGES
+		o_priv_lvl     : out std_logic
 	);
 end datapath;
 
 architecture Structure of datapath is
 	component regfile
-        port (
-            i_clk_proc : in std_logic;
-            i_reset    : in std_logic;
-            i_wr       : in std_logic;
-            i_port_d   : in std_logic_vector(R_XLEN);
-            i_addr_d   : in std_logic_vector(R_REGS);
-            i_addr_a   : in std_logic_vector(R_REGS);
-            i_addr_b   : in std_logic_vector(R_REGS);
-            i_addr_csr : in std_logic_vector(R_CSR);
-            i_csr_op   : in std_logic_vector(R_CSR_OP);
-            i_mret     : in std_logic;
-            o_port_a   : out std_logic_vector(R_XLEN);
-            o_port_b   : out std_logic_vector(R_XLEN);
-            o_priv_lvl : out std_logic;
-            -- INTERRUPTS
-            i_mcause   : in std_logic_vector(R_XLEN);
-            i_mtval    : in std_logic_vector(R_XLEN);
-            o_trap_enabled : out std_logic;
-            i_states    : in std_logic_vector(R_STATES);
-            i_ret_pc   : in std_logic_vector(R_XLEN)
-        );
+		port (
+			i_clk_proc     : in std_logic;
+			i_reset        : in std_logic;
+			i_wr           : in std_logic;
+			i_port_d       : in std_logic_vector(R_XLEN);
+			i_addr_d       : in std_logic_vector(R_REGS);
+			i_addr_a       : in std_logic_vector(R_REGS);
+			i_addr_b       : in std_logic_vector(R_REGS);
+			i_addr_csr     : in std_logic_vector(R_CSR);
+			i_csr_op       : in std_logic_vector(R_CSR_OP);
+			i_mret         : in std_logic;
+			o_port_a       : out std_logic_vector(R_XLEN);
+			o_port_b       : out std_logic_vector(R_XLEN);
+			o_priv_lvl     : out std_logic;
+			-- INTERRUPTS
+			i_mcause       : in std_logic_vector(R_XLEN);
+			i_mtval        : in std_logic_vector(R_XLEN);
+			o_trap_enabled : out std_logic;
+			i_states       : in std_logic_vector(R_STATES);
+			i_ret_pc       : in std_logic_vector(R_XLEN)
+		);
 	end component;
 	component alu
 		port (
-			i_adata    : in std_logic_vector(R_XLEN);
-			i_bdata    : in std_logic_vector(R_XLEN);
-			i_opcode   : in std_logic_vector(R_OP_CODE);
-			o_wdata    : out std_logic_vector(R_XLEN)
+			i_adata  : in std_logic_vector(R_XLEN);
+			i_bdata  : in std_logic_vector(R_XLEN);
+			i_opcode : in std_logic_vector(R_OP_CODE);
+			o_wdata  : out std_logic_vector(R_XLEN)
 		);
 	end component;
 	component sign_extensor is
@@ -120,31 +120,31 @@ architecture Structure of datapath is
 begin
 	c_reg_file : regfile
 	port map(
-        i_clk_proc => i_clk_proc,
-        i_reset    => i_reset,
-        i_wr       => s_wr,
-        i_port_d   => s_port_d,
-        i_addr_d   => r_mem_wb(R_DPB_ADDRD),
-        i_addr_a   => i_addr_a_reg,
-        i_addr_b   => i_addr_b_reg,
-        o_priv_lvl => o_priv_lvl,
-        i_addr_csr => r_mem_wb(R_DPB_ADDRCSR),
-        i_csr_op   => r_mem_wb(R_DPB_CSROP),
-        i_mret     => i_mret, --r_mem_wb(R_DPB_MRET),
-        i_mcause   => i_mcause,
-        i_mtval    => i_mtval,
-        o_trap_enabled => o_trap_enabled,
-        o_port_a   => s_port_a,
-        o_port_b   => s_port_b,
-        i_states   => i_states,
-        i_ret_pc   => s_int_ret_pc
+		i_clk_proc     => i_clk_proc,
+		i_reset        => i_reset,
+		i_wr           => s_wr,
+		i_port_d       => s_port_d,
+		i_addr_d       => r_mem_wb(R_DPB_ADDRD),
+		i_addr_a       => i_addr_a_reg,
+		i_addr_b       => i_addr_b_reg,
+		o_priv_lvl     => o_priv_lvl,
+		i_addr_csr     => r_mem_wb(R_DPB_ADDRCSR),
+		i_csr_op       => r_mem_wb(R_DPB_CSROP),
+		i_mret         => i_mret, --r_mem_wb(R_DPB_MRET),
+		i_mcause       => i_mcause,
+		i_mtval        => i_mtval,
+		o_trap_enabled => o_trap_enabled,
+		o_port_a       => s_port_a,
+		o_port_b       => s_port_b,
+		i_states       => i_states,
+		i_ret_pc       => s_int_ret_pc
 	);
 	c_alu : alu
 	port map(
-		i_adata    => s_adata,
-		i_bdata    => s_bdata,
-		i_opcode   => r_id_ex(R_DPB_OPCODE),
-		o_wdata    => s_wdata,
+		i_adata  => s_adata,
+		i_bdata  => s_bdata,
+		i_opcode => r_id_ex(R_DPB_OPCODE),
+		o_wdata  => s_wdata
 	);
 	c_sign_extensor : sign_extensor
 	port map(
@@ -168,8 +168,8 @@ begin
 	s_adata <= r_id_ex(R_DPB_PC) when r_id_ex(R_DPB_RAPC) = ALU_PC else
 		r_id_ex(R_DPB_DATAA);
 
-    s_port_d    <=  s_rdata_mem_ws when r_mem_wb(R_DPB_ALUMEMPC) = MEM_DATA else
-                    r_mem_wb(R_DPB_DATAW);
+	s_port_d <= s_rdata_mem_ws when r_mem_wb(R_DPB_ALUMEMPC) = MEM_DATA else
+		r_mem_wb(R_DPB_DATAW);
 
 	o_addr_mem  <= r_ex_mem(R_DPB_DATAW);
 	o_wdata_mem <= r_ex_mem(R_DPB_DATAB);
@@ -178,20 +178,20 @@ begin
 
 	s_wdata_wb  <= r_ex_mem(R_DPB_DATAW) when r_ex_mem(R_DPB_ALUMEMPC) = ALU_DATA else
 		std_logic_vector(unsigned(r_ex_mem(R_DPB_PC)) + 4) when r_ex_mem(R_DPB_ALUMEMPC) = PC_DATA else -- Save PC+4 when JAL or JALR
-        (others => '0');
+		(others => '0');
 
-    o_new_pc <= s_port_a when i_states = SYS_STATE else
-                r_mem_wb(R_DPB_NEWPC);
+	o_new_pc <= s_port_a when i_states = SYS_STATE else
+		r_mem_wb(R_DPB_NEWPC);
 
-	o_tkbr   <= r_mem_wb(R_DPB_TKBR);
+	o_tkbr <= r_mem_wb(R_DPB_TKBR);
 
-    s_wr     <= r_mem_wb(R_DPB_WRREG) when i_states = WB_STATE else
-                '0'; 
+	s_wr   <= r_mem_wb(R_DPB_WRREG) when i_states = WB_STATE else
+		'0';
 
-    s_int_ret_pc <= r_wb_sys(R_DPB_NEWPC) when r_wb_sys(R_DPB_TKBR) = '1' else
-                    i_pc_br;
+	s_int_ret_pc <= r_wb_sys(R_DPB_NEWPC) when r_wb_sys(R_DPB_TKBR) = '1' else
+		i_pc_br;
 
-    o_trap_ack <= r_mem_wb(R_DPB_TRAPACK);
+	o_trap_ack <= r_mem_wb(R_DPB_TRAPACK);
 
 	process (i_clk_proc)
 	begin
@@ -210,14 +210,14 @@ begin
 			r_id_ex(R_DPB_DATAA)    <= s_port_a;
 			r_id_ex(R_DPB_DATAB)    <= s_port_b;
 			r_id_ex(R_DPB_PC)       <= i_pc_br;
-            r_id_ex(R_DPB_ADDRCSR)  <= i_addr_csr;
-            r_id_ex(R_DPB_CSROP)    <= i_csr_op;
-            r_id_ex(R_DPB_MRET)     <= i_mret;
-            r_id_ex(R_DPB_TRAPACK)   <= i_trap_ack;
+			r_id_ex(R_DPB_ADDRCSR)  <= i_addr_csr;
+			r_id_ex(R_DPB_CSROP)    <= i_csr_op;
+			r_id_ex(R_DPB_MRET)     <= i_mret;
+			r_id_ex(R_DPB_TRAPACK)  <= i_trap_ack;
 			-- PASS THE SIGNAL TO THE OTHER REGISTERS
 			r_ex_mem                <= r_id_ex(R_DATAPATH_BUS'high downto R_DPB_MRET) & s_wdata & s_tkbr & r_id_ex(R_DPB_NEWPC'low - 2 downto R_DPB_DATAW'high + 1) & s_wdata & r_id_ex(R_DPB_DATAW'low - 1 downto 0);
 			r_mem_wb                <= r_ex_mem(R_DATAPATH_BUS'high downto R_DPB_DATAW'high + 1) & s_wdata_wb & r_ex_mem(R_DPB_DATAW'low - 1 downto 0);
-            r_wb_sys                <= r_mem_wb;
+			r_wb_sys                <= r_mem_wb;
 		end if;
 	end process;
 end Structure;

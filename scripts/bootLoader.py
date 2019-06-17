@@ -69,6 +69,12 @@ def generate_bin():
         bin_file.write(binascii.unhexlify("13058502"))
         bin_file.write(binascii.unhexlify("9302f000"))
         bin_file.write(binascii.unhexlify("23205500"))
+        # Enable PS2 interrupts
+        bin_file.write(binascii.unhexlify("37052008"))
+        bin_file.write(binascii.unhexlify("13050506"))
+        bin_file.write(binascii.unhexlify("93021000"))
+        bin_file.write(binascii.unhexlify("23205500"))
+
         
     for line in hex_file:
         x = line[6] + line[7] + line[4] + line[5] + line[2] + line[3] + line[0] + line[1]
